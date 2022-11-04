@@ -1,7 +1,5 @@
-name: 'SAE_S2_2022'
-
 services:
-  
+
   symfony:
     container_name: sae-php
     build:
@@ -46,8 +44,9 @@ services:
     networks:
       - sae
 
-
-
 networks:
   sae:
     driver: bridge
+
+
+

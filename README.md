@@ -67,7 +67,7 @@ Le serveur web est configuré pour qu'un projet symfony soit hébergé dans le r
 La ligne de commande symfony (plus d'infos : https://symfony.com/download) est incluse dans le container `sae-php`
 
 Initialiser le projet revient donc à faire un :  
-`rm -Rf public/* && docker exec -it sae-php symfony new --full --version=6.1 --no-git /var/www/html`  
+`rm -Rf symfony/* && docker exec -it sae-php symfony new --full --version=6.1 --no-git /var/www/html`  
 On utilise `--full` pour avoir une appli web complète, et `--no-git` parce que nous allons nous occuper par ailleurs
 de la problématique de versionning.  
 Le `rm -Rf` est là pour être sûr qu'il n'y a rien dans le répertoire symfony avant d'exécuter la commande.  
