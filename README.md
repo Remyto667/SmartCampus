@@ -19,68 +19,65 @@ De manière optionnelle, mais fortement recommandée :
   elle vous permettra de ne pas taper votre mot de passe en permanence.
 - PHPStorm  
   _Votre email étudiant vous permet de bénéficier d'une licence complète de 12 mois pour tous les produits JetBrains_  
-  ...Mais vous pouvez bien sûr utiliser l'IDE de votre choix.:wq
+  ...Mais vous pouvez bien sûr utiliser l'IDE de votre choix.
 
-Démarrage rapide
-----------------
+Démarrage
+---------
 
-UN.E SEUL.E des développeuses/développeurs de votre équipe va **fork** le présent dépôt, pour en créer un nouveau, 
+### 1. Forker le modèle de stack
+
+**UN.E SEUL.E** des développeuses/développeurs de votre équipe va **fork** le présent dépôt, pour en créer un nouveau, 
 dans le groupe correspondant à votre équipe :  
-_Par exemple pour l'équipe 3 du groupe de TP X1, le groupe est : `SAE34-BUT-2022/x1/eq3`_
+_Par exemple pour l'équipe 3 du groupe de TP X1, le groupe est :_ `SAE34-BUT-2022/x1/eq3`
+
 ![img_fork.png](img_fork.png)
 
-> Remarque : il n'est pas nécessaire de conserver le lien avec le modèle de stack, vous pouvez donc aller dans  
+> **Remarque** : il n'est pas nécessaire de conserver le lien avec le modèle de stack, vous pouvez donc aller dans  
 > Settings > General > Advanced (dans Gitlab) pour supprimer le "Fork relationship" de votre projet
 
-Une fois ce fork réalisé, vous pouvez cloner ce nouveau dépôt sur les postes de travail de chacun des membres de l'équipe, et démarrer la stack :
+### 2. Cloner et démarrer la stack
 
-Dans un terminal :  
+Une fois ce fork réalisé, vous pouvez cloner ce nouveau dépôt sur les postes de travail de chacun des membres de 
+l'équipe et démarrer la stack.
+
+> ⚠️ **Si vous êtes sous Linux**  
+> Avant de démarrer la stack, il faut renseigner votre l'id et le group_id de votre user dans un fichier `.env` à la racine du dépôt.  
+> Copiez le modèle `.env.dist` vers `.env` et remplacez si nécessaire les valeurs d'exemple (1000).  
+> _(vous pouvez obtenir l'id de votre user (et de son groupe) en lançant la commande `id -u ${USER}` dans un terminal)_
+
+Démarrer la stack :  
 `docker compose up --build -d`
 
 Une fois les conteneurs démarrés, vous pouvez vérifier que php fonctionne :  
 `docker exec -it sae-php php -v`
 
-Utiliser la base de données
------------------------------
-
-**Pour utiliser la base de données depuis le conteneur php :**  
-_Adresse du serveur_ : `bdd` (c'est le nom du service dans le fichier `docker-compose.yml`)  
-_Port_ : 3306 (le port MySQL par défaut)
-
-**Pour utiliser la bdd avec un client MySQL _hors docker_** (par exemple celui de PHPStorm) :  
-_Adresse du serveur_ : `localhost`  
-_Port_ : 9978
-
-Mot de passe root : `sae`.  
-Par ailleurs, un utilisateur "standard" nommé `sae` a les droits d'accès sur une base de données nommée `sae`
-avec le mot de passe `sae`
-
-Le serveur web
---------------
-
-Les fichiers du répertoire `/symfony/public` sont servis sur le port 9979 (par le conteneur sae-web) 
-
-Démarrer le projet Symfony
---------------------------
+### 3. Initialiser le projet Symfony
 
 Le serveur web est configuré pour qu'un projet symfony soit hébergé dans le répertoire `/symfony`  
 La ligne de commande symfony (plus d'infos : https://symfony.com/download) est incluse dans le conteneur `sae-php`
 
-Initialiser le projet revient donc à faire un :  
+Installer Symfony avec :  
 `rm -Rf symfony/.gitignore && docker exec -it sae-php symfony new --full --version=6.1 --no-git /var/www/html`  
-On utilise `--full` pour avoir une appli web complète, et `--no-git` parce que nous allons nous occuper par ailleurs
+
+> ℹ️ **Précisions**
+> - On utilise `--full` pour avoir une appli web complète, et `--no-git` parce que nous allons nous occuper par ailleurs
 de la problématique de versionning.  
-Le `rm` est là pour être sûr qu'il n'y a rien dans le répertoire symfony avant d'exécuter la commande.  
-Le `/var/www/html` comme dernier argument de l'appel est le nom du répertoire dans lequel on veut créer notre projet _dans le conteneur_. Il **DOIT** s'appeler `/var/www/html`.
+> - Le `rm` est là pour être sûr qu'il n'y a rien dans le répertoire symfony avant d'exécuter la commande.  
+> - Le `/var/www/html` comme dernier argument de l'appel est le nom du répertoire dans lequel on veut créer notre projet _dans le conteneur_. Il **DOIT** s'appeler `/var/www/html`.
 
-Une fois cette commande exécutée, votre symfony est opérationnel : http://localhost:9979 🎉
+Une fois cette commande exécutée, votre symfony est opérationnel :  
+http://localhost:9979 🎉
 
-> Pour éviter les ambiguïtés, vous pouvez faire un peu de ménage dans les fichiers du répertoire symfony :   
-> les fichiers `symfony/docker-compose.yml` et `symfony/docker-compose.override.yml` peuvent être supprimés.
+ℹ️ Pour éviter les ambiguïtés, vous pouvez faire un peu de ménage dans les fichiers du répertoire symfony : 
+les fichiers suivants peuvent être supprimés :
+- `symfony/docker-compose.yml`
+- `symfony/docker-compose.override.yml`
 
-**Attention** : le .gitignore livré avec Symfony (`symfony/.gitignore`) est prévu pour une installation de Symfony
+
+> ⚠️ **Attention** : 
+> le .gitignore livré avec Symfony (`symfony/.gitignore`) est prévu pour une installation de Symfony
 à la racine du dépôt, ce qui n'est pas notre cas.  
-Prenez le temps de modifier les règles présentes dans ce fichier, **avant de faire votre premier commit** :
+> Prenez le temps de modifier les règles présentes dans ce fichier, **avant de faire votre premier commit** :
 - ...
 - [- /.env.local -]
 - [+ .env.local +]
@@ -101,7 +98,33 @@ Prenez le temps de modifier les règles présentes dans ce fichier, **avant de f
 - [- /phpunit.xml -]
 - [+ phpunit.xml +]
 
+### 4. Partager le projet
+
 ... maintenant il est temps de `commit` et `push` pour partager avec les autres membres de l'équipe !
+
+_Normalement, tous les membres de votre équipe sont déjà dans le groupe, si ça n'est pas le cas, 
+rapprochez vous d'un enseignant._
+
+Utiliser la base de données
+-----------------------------
+
+**Pour utiliser la base de données depuis le conteneur php :**  
+_Adresse du serveur_ : `bdd` (c'est le nom du service dans le fichier `docker-compose.yml`)  
+_Port_ : 3306 (le port MySQL par défaut)
+
+**Pour utiliser la bdd avec un client MySQL _hors docker_** (par exemple celui de PHPStorm) :  
+_Adresse du serveur_ : `localhost`  
+_Port_ : 9978
+
+Mot de passe root : `sae`.  
+Par ailleurs, un utilisateur "standard" nommé `sae` a les droits d'accès sur une base de données nommée `sae`
+avec le mot de passe `sae`
+
+Le serveur web
+--------------
+
+Les fichiers du répertoire `/symfony/public` sont servis par NginX sur le port 9979 (par le conteneur sae-web)
+
 
 Composition de la stack
 -----------------------
