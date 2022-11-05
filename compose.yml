@@ -5,10 +5,16 @@ services:
     build:
       context: .
       dockerfile: ./build/symfony/Dockerfile
+      args:
+        USER_ID: ${USER_ID:-0}
+        GROUP_ID: ${GROUP_ID:-0}
     volumes:
       - ./symfony:/var/www/html
     depends_on:
       - bdd
+    security_opt:
+      - seccomp:unconfined
+      # https://docs.docker.com/engine/security/seccomp/
     networks:
       - sae
 
@@ -36,7 +42,7 @@ services:
       context: .
       dockerfile: ./build/nginx/Dockerfile
     volumes:
-      - ./symfony/public:/var/www/html
+      - ./symfony:/var/www/html
     depends_on:
       - symfony
     ports:
