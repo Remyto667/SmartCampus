@@ -16,4 +16,4 @@ RUN if [ ${USER_ID:-0} -ne 0 ] && [ ${GROUP_ID:-0} -ne 0 ]; then \
         /run/php \
 ;fi
 
-USER www-data
+USER ${USER_ID:-0}
