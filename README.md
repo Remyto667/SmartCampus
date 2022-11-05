@@ -37,13 +37,13 @@ Une fois ce fork réalisé, vous pouvez cloner ce nouveau dépôt sur les postes
 Dans un terminal :  
 `docker compose up --build -d`
 
-Une fois les containers démarrés, vous pouvez vérifier que php fonctionne :  
+Une fois les conteneurs démarrés, vous pouvez vérifier que php fonctionne :  
 `docker exec -it sae-php php -v`
 
 Utiliser la base de données
 -----------------------------
 
-**Pour utiliser la base de données depuis le container php :**  
+**Pour utiliser la base de données depuis le conteneur php :**  
 _Adresse du serveur_ : `bdd` (c'est le nom du service dans le fichier `docker-compose.yml`)  
 _Port_ : 3306 (le port MySQL par défaut)
 
@@ -58,27 +58,55 @@ avec le mot de passe `sae`
 Le serveur web
 --------------
 
-Les fichiers du répertoire `/symfony/public` sont servis sur le port 9979  
+Les fichiers du répertoire `/symfony/public` sont servis sur le port 9979 (par le conteneur sae-web) 
 
-Démarrer un projet Symfony
+Démarrer le projet Symfony
 --------------------------
 
 Le serveur web est configuré pour qu'un projet symfony soit hébergé dans le répertoire `/symfony`  
-La ligne de commande symfony (plus d'infos : https://symfony.com/download) est incluse dans le container `sae-php`
+La ligne de commande symfony (plus d'infos : https://symfony.com/download) est incluse dans le conteneur `sae-php`
 
 Initialiser le projet revient donc à faire un :  
-`rm -Rf symfony/* && docker exec -it sae-php symfony new --full --version=6.1 --no-git /var/www/html`  
+`rm -Rf symfony/.gitignore && docker exec -it sae-php symfony new --full --version=6.1 --no-git /var/www/html`  
 On utilise `--full` pour avoir une appli web complète, et `--no-git` parce que nous allons nous occuper par ailleurs
 de la problématique de versionning.  
-Le `rm -Rf` est là pour être sûr qu'il n'y a rien dans le répertoire symfony avant d'exécuter la commande.  
-Le `/var/www/html` comme dernier argument de l'appel est le nom du répertoire dans lequel on veut créer notre projet. Il _DOIT_ s'appeler `/var/www/html`.
+Le `rm` est là pour être sûr qu'il n'y a rien dans le répertoire symfony avant d'exécuter la commande.  
+Le `/var/www/html` comme dernier argument de l'appel est le nom du répertoire dans lequel on veut créer notre projet _dans le conteneur_. Il **DOIT** s'appeler `/var/www/html`.
 
 Une fois cette commande exécutée, votre symfony est opérationnel : http://localhost:9979 🎉
+
+> Pour éviter les ambiguïtés, vous pouvez faire un peu de ménage dans les fichiers du répertoire symfony :   
+> les fichiers `symfony/docker-compose.yml` et `symfony/docker-compose.override.yml` peuvent être supprimés.
+
+**Attention** : le .gitignore livré avec Symfony (`symfony/.gitignore`) est prévu pour une installation de Symfony
+à la racine du dépôt, ce qui n'est pas notre cas.  
+Prenez le temps de modifier les règles présentes dans ce fichier, **avant de faire votre premier commit** :
+- ...
+- [- /.env.local -]
+- [+ .env.local +]
+- [- /.env.local.php -]
+- [+ .env.local.php +]
+- [- /.env.*.local -]
+- [+ .env.*.local +]
+- [- /config/secrets/prod/prod.decrypt.private.php -]
+- [+ config/secrets/prod/prod.decrypt.private.php +]
+- [- /public/bundles/ -]
+- [+ public/bundles/ +]
+- ...
+- [- /var/ -]
+- [+ var/ +]
+- [- /vendor/ -]
+- [+ vendor/ +]
+- ...
+- [- /phpunit.xml -]
+- [+ phpunit.xml +]
+
+... maintenant il est temps de `commit` et `push` pour partager avec les autres membres de l'équipe !
 
 Composition de la stack
 -----------------------
 
-La stack comporte 3 containers :
-- PHP (8.1.10, avec XDebug)
-- NginX (2.4.54)
+La stack comporte 3 conteneurs :
+- PHP (8.1.10)
+- NginX (1.20.1)
 - MariaDB (10.9.2)
