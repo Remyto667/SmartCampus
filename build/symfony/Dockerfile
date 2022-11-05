@@ -13,10 +13,7 @@ RUN if [ ${USER_ID:-0} -ne 0 ] && [ ${GROUP_ID:-0} -ne 0 ]; then \
     chown --changes --silent --no-dereference --recursive \
           --from=33:33 ${USER_ID}:${GROUP_ID} \
         /home/www-data \
-        /.composer \
-        /var/run/php-fpm \
-        /var/lib/php/sessions \
+        /run/php \
 ;fi
 
-RUN echo ${USER_ID:-0}
 USER www-data
