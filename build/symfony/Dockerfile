@@ -28,3 +28,4 @@ RUN if [ ${USER_ID:-0} -ne 0 ] && [ ${GROUP_ID:-0} -ne 0 ]; then \
 # donné que sous MacOS, root==utilisateur courant, ça se passe bien.
 # Sous Linux, on a défini USER_ID sur l'utilisateur courant via le .env, donc ça se passe bien aussi.
 USER ${USER_ID:-0}
+WORKDIR /var/www/html
