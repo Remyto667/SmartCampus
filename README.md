@@ -54,16 +54,15 @@ Une fois les conteneurs démarrés, vous pouvez vérifier que php fonctionne :
 ### 3. Initialiser le projet Symfony
 
 Le serveur web est configuré pour qu'un projet symfony soit hébergé dans le répertoire `/symfony`  
-La ligne de commande symfony (plus d'infos : https://symfony.com/download) est incluse dans le conteneur `sae-php`
 
 Installer Symfony avec :  
-`rm -Rf symfony/.gitignore && docker exec -it sae-php symfony new --full --version=6.1 --no-git /var/www/html`  
+`docker exec -it sae-php /bin/sh -c "/usr/bin/composer create-project symfony/website-skeleton /var/www/html 5.4.* --no-interaction --verbose"`  
 
 > ℹ️ **Précisions**
-> - On utilise `--full` pour avoir une appli web complète, et `--no-git` parce que nous allons nous occuper par ailleurs
-de la problématique de versionning.  
+> - On utilise `website-skeleton` pour avoir une appli web complète.  
+> - On utilise un Symfony en version 5.4 pour des soucis de compatibilité avec les enseignements qui seront dispensés au semestre 4.  
 > - Le `rm` est là pour être sûr qu'il n'y a rien dans le répertoire symfony avant d'exécuter la commande.  
-> - Le `/var/www/html` comme dernier argument de l'appel est le nom du répertoire dans lequel on veut créer notre projet _dans le conteneur_. Il **DOIT** s'appeler `/var/www/html`.
+> - Le chemin `/var/www/html` est le nom du répertoire dans lequel on veut créer notre projet _dans le conteneur_. Il **DOIT** s'appeler `/var/www/html`.
 
 Une fois cette commande exécutée, votre symfony est opérationnel :  
 http://localhost:9979 🎉
@@ -72,7 +71,6 @@ http://localhost:9979 🎉
 les fichiers suivants peuvent être supprimés :
 - `symfony/docker-compose.yml`
 - `symfony/docker-compose.override.yml`
-
 
 > ⚠️ **Attention** : 
 > le .gitignore livré avec Symfony (`symfony/.gitignore`) est prévu pour une installation de Symfony
@@ -103,7 +101,7 @@ les fichiers suivants peuvent être supprimés :
 ... maintenant il est temps de `commit` et `push` pour partager avec les autres membres de l'équipe !
 
 _Normalement, tous les membres de votre équipe sont déjà dans le groupe, si ça n'est pas le cas, 
-rapprochez vous d'un enseignant._
+rapprochez vous du "tonton" concerné._
 
 Utiliser la base de données
 -----------------------------
