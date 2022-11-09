@@ -123,7 +123,7 @@ Le serveur web
 
 docker compose up --build -d
 
-docker exec -it sae-php /bin/sh  -----> dans le fichier symfony
+docker exec -it sae-php bash  -----> dans le fichier symfony
 dans le bash composer update
 
 Les fichiers du répertoire `/symfony/public` sont servis par NginX sur le port 9979 (par le conteneur sae-web)
