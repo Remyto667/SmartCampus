@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Room;
+use App\Form\RoomType;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -15,4 +19,55 @@ class AdminController extends AbstractController
             'controller_name' => 'AdminController',
         ]);
     }
+
+    #[Route('/admin/database', name: 'database')]
+    public function database(): Response
+    {
+        return $this->render('admin/database.html.twig', [
+            'controller_name' => 'AdminController',
+        ]);
+    }
+
+    #[Route('/admin/database/lister_salles', name: 'listerSalles')]
+    public function lister_salles(): Response
+    {
+        return $this->render('admin/lister_salles.html.twig', [
+            'controller_name' => 'AdminController',
+        ]);
+    }
+
+    #[Route('/admin/database/lister_systemes', name: 'listerSystemes')]
+    public function lister_systemes(): Response
+    {
+        return $this->render('admin/lister_systemes.html.twig', [
+            'controller_name' => 'AdminController',
+        ]);
+    }
+
+    #[Route('/admin/database/lister_capteurs', name: 'listerCapteurs')]
+    public function lister_capteurs(): Response
+    {
+        return $this->render('admin/lister_capteurs.html.twig', [
+            'controller_name' => 'AdminController',
+        ]);
+    }
+
+    #[Route('/admin/database/lister_salles/formulaire_ajout', name: 'app_salle_formulaire')]
+    public function lister_salles_formulaireAjout(Request $request, ManagerRegistry $doctrine): Response
+    {
+        $room = new Room();
+        $entityManager = $doctrine->getManager();
+        $form = $this->createForm(RoomType::class, $room);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+            $entityManager->persist($room);
+            $entityManager->flush();
+        }
+
+        return $this->render('admin/formulaire_salles_ajout.html.twig', [
+            'form' =>$form->createView()
+        ]);
+    }
 }
+
