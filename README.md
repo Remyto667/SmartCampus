@@ -56,7 +56,7 @@ Une fois les conteneurs démarrés, vous pouvez vérifier que php fonctionne :
 Le serveur web est configuré pour qu'un projet symfony soit hébergé dans le répertoire `/symfony`  
 
 Installer Symfony avec :  
-`rm -Rf symfony/.gitignore && docker exec -it sae-php /bin/sh -c "/usr/bin/composer create-project symfony/website-skeleton /var/www/html 5.4.* --no-interaction --verbose"`  
+`docker exec -it sae-php /bin/sh -c "/usr/bin/composer create-project symfony/website-skeleton /var/www/html 5.4.* --no-interaction --verbose"`  
 
 > ℹ️ **Précisions**
 > - On utilise `website-skeleton` pour avoir une appli web complète.  
