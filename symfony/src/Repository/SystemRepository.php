@@ -39,6 +39,18 @@ class SystemRepository extends ServiceEntityRepository
         }
     }
 
+    public function listAll()
+    {
+        //création du queryBuilder paramétré avec l'alias de l'entité system
+        $queryBuilder=$this->createQueryBuilder('system');
+        //récupération de la query à partir du queryBuilder
+        $query=$queryBuilder->getQuery();
+        //récupération du résultat à partir de la query
+        $results =$query->getResult();
+        //on retourne les résultats
+        return $results;
+    }
+
 //    /**
 //     * @return System[] Returns an array of System objects
 //     */

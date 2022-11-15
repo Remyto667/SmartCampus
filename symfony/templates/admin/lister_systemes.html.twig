@@ -6,15 +6,41 @@
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .table .thead-light th {
+        color: #495057;
+        background-color: #e9ecef;
+        border-color: #dee2e6;
+    }
+    .table td, .table th {
+        padding: 0.75rem;
+        vertical-align: top;
+        border-top: 1px solid #dee2e6;
+    }
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <!-- include bar de menu qui devrait être dans un .html -->
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/html/src/Controller/AdminController.php'|file_link(0) }}">src/Controller/AdminController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/html/templates/admin/index.html.twig'|file_link(0) }}">templates/admin/index.html.twig</a></code></li>
-    </ul>
+    <h1> Inventaire des Systèmes d'acquisition </h1>
+
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nom du système</th>
+            <th scope="col">Salle</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for system in systems %}
+            <tr>
+                <th {{ system.id }} </th>
+                <td> {{ system.name }}</td>
+                <td> salle </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
 </div>
 {% endblock %}
