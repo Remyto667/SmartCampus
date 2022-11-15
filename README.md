@@ -118,6 +118,9 @@ rapprochez vous du "tonton" concerné._
  7)  bin/console doctrine:migrations:migrate (dans le bash symphony)
 
 
+git push -u origin nom_branche 
+git checkout -b = créer branche
+
 ### 6. Utiliser la base de données
 -----------------------------
 
