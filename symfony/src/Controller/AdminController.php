@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Room;
+use App\Entity\System;
 use App\Form\RoomType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,10 +38,14 @@ class AdminController extends AbstractController
     }
 
     #[Route('/admin/database/lister_systemes', name: 'listerSystemes')]
-    public function lister_systemes(): Response
+    public function lister_systemes(ManagerRegistry $doctrine): Response
     {
+        $entityManager = $doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\System');
+        $systems = $repository->findAll();
+
         return $this->render('admin/lister_systemes.html.twig', [
-            'controller_name' => 'AdminController',
+            'systems'=>$systems,
         ]);
     }
 
