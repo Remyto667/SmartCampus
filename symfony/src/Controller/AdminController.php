@@ -29,10 +29,15 @@ class AdminController extends AbstractController
     }
 
     #[Route('/admin/database/lister_salles', name: 'listerSalles')]
-    public function lister_salles(): Response
+    public function lister_salles(managerRegistry $doctrine): Response
     {
+        $entityManager = $doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\Room');
+        $rooms = $repository->findAll();
+
+
         return $this->render('admin/lister_salles.html.twig', [
-            'controller_name' => 'AdminController',
+            'rooms' => $rooms,
         ]);
     }
 
@@ -50,6 +55,7 @@ class AdminController extends AbstractController
         return $this->render('admin/lister_capteurs.html.twig', [
             'controller_name' => 'AdminController',
         ]);
+
     }
 
     #[Route('/admin/database/lister_salles/formulaire_ajout', name: 'app_salle_formulaire')]
