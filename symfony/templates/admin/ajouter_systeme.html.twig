@@ -49,7 +49,10 @@
 
         <h1> Ajouter un Système d'acquisition </h1>
 
+        {{ form_start(form) }}
+        {{ form_rest(form) }}
 
-
+        {{ form_end(form) }}
+        <button class="btn btn-primary" type="submit">Enregistrer le Système d'Acquisition</button>
     </div>
 {% endblock %}

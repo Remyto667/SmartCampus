@@ -78,12 +78,9 @@ class AdminController extends AbstractController
     }
 
     #[Route('/admin/database/ajouter_systeme', name: 'ajouterSystemes')]
-    public function add_system(?System $system, Request $request, EntityManagerInterface $entityManager): Response
+    public function add_system(Request $request, EntityManagerInterface $entityManager): Response
     {
-        if(!$system)
-        {
-            $system = new System();
-        }
+        $system = new System();
 
         $form = $this->createForm(SystemType::class, $system);
         $form->handleRequest($request);
@@ -91,7 +88,7 @@ class AdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()){
             $entityManager->persist($system);
             $entityManager->flush();
-            return $this->redirect($this->generateUrl('listerSystemes',['id' => $system->getId()]));
+            //return $this->redirect($this->generateUrl('listerSystemes',['id' => $system->getId()]));
         }
 
         return $this->render('admin/ajouter_systeme.html.twig', [
