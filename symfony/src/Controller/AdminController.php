@@ -57,6 +57,14 @@ class AdminController extends AbstractController
         ]);
     }
 
+    #[Route('/admin/database/ajouter_capteur', name: 'ajouterCapteur')]
+    public function ajouter_capteur(): Response
+    {
+        return $this->render('admin/ajouter_capteur.html.twig', [
+            'controller_name' => 'AdminController',
+        ]);
+    }
+
     #[Route('/admin/database/lister_salles/formulaire_ajout', name: 'app_salle_formulaire')]
     public function lister_salles_formulaireAjout(Request $request, ManagerRegistry $doctrine): Response
     {
