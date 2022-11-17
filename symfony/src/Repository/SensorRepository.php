@@ -44,7 +44,7 @@ class SensorRepository extends ServiceEntityRepository
         $conn = $this->getEntityManager()->getConnection();
 
         $sql = '
-            SELECT s.name, s.type, s.state, y.id FROM sensor s, system y
+            SELECT s.id as Sid, s.name, s.type, s.state, y.id FROM sensor s, system y
             WHERE s.systems_id =y.id
             ';
         $stmt = $conn->prepare($sql);
