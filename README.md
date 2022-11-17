@@ -7,15 +7,17 @@ Stack de développement PHP SAE 2022
 
  1) Lancer docker,
  2) git clone https://forge.iut-larochelle.fr/SAE34-BUT-2022/x1/eq1/stack-sae-2022
- 3) docker compose up --build -d
- 4) docker exec -it sae-php bash  -----> cd dans le fichier symfony
- 5) dans le bash ---> composer update
- 6) http://localhost:9979 🎉
- 7)  bin/console doctrine:migrations:migrate (dans le bash symphony)
+ 3) cd stack-sae-2022 ----> cd build
+ 4) docker compose up --build -d
+ 5) docker exec -it sae-php bash 
+ 6) dans le bash ---> composer update
+ 7) http://localhost:9979 🎉
+ 8) bin/console doctrine:migrations:migrate (dans le bash symphony)
 
 
-git push -u origin nom_branche 
-git checkout -b = créer branche
+Push dans sa branche : git push -u origin nom_branche
+
+créer branche : git checkout -b 
 
 ### 6. Utiliser la base de données
 -----------------------------
