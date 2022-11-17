@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\All;
 
 class AdminController extends AbstractController
 {
@@ -52,9 +53,21 @@ class AdminController extends AbstractController
     }
 
     #[Route('/admin/database/lister_capteurs', name: 'listerCapteurs')]
-    public function lister_capteurs(): Response
+    public function lister_capteurs(ManagerRegistry $doctrine): Response
     {
+        $entityManager = $doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\Sensor');
+        $allSensor= $repository->findAll();
         return $this->render('admin/lister_capteurs.html.twig', [
+            'controller_name' => 'Liste des Capteurs',
+            'allSensor' => $allSensor,
+        ]);
+    }
+
+    #[Route('/admin/database/ajouter_capteur', name: 'ajouterCapteur')]
+    public function ajouter_capteur(): Response
+    {
+        return $this->render('admin/ajouter_capteur.html.twig', [
             'controller_name' => 'AdminController',
         ]);
     }
