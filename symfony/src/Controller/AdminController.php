@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Room;
+use App\Entity\Sensor;
 use App\Entity\System;
 use App\Form\RoomType;
 use App\Form\SystemType;
@@ -57,10 +58,11 @@ class AdminController extends AbstractController
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Sensor');
-        $allSensor= $repository->findAll();
+        //$allSensor= $repository->findAll();
+        $test = $doctrine->getRepository(Sensor::class)->test();
         return $this->render('admin/lister_capteurs.html.twig', [
             'controller_name' => 'Liste des Capteurs',
-            'allSensor' => $allSensor,
+            'allSensor' => $test,
         ]);
     }
 

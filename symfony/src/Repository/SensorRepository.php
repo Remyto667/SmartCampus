@@ -39,6 +39,21 @@ class SensorRepository extends ServiceEntityRepository
         }
     }
 
+    public function test(): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            SELECT s.name, s.type, s.state, y.id FROM sensor s, system y
+            WHERE s.systems_id =y.id
+            ';
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $resultSet->fetchAllAssociative();
+    }
+
 //    /**
 //     * @return Sensor[] Returns an array of Sensor objects
 //     */
