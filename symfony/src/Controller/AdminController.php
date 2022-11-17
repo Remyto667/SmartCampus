@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Room;
 use App\Entity\System;
 use App\Form\RoomType;
+use App\Form\SystemType;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -72,6 +74,25 @@ class AdminController extends AbstractController
 
         return $this->render('admin/formulaire_salles_ajout.html.twig', [
             'form' =>$form->createView()
+        ]);
+    }
+
+    #[Route('/admin/database/ajouter_systeme', name: 'ajouterSystemes')]
+    public function add_system(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $system = new System();
+
+        $form = $this->createForm(SystemType::class, $system);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $entityManager->persist($system);
+            $entityManager->flush();
+            //return $this->redirect($this->generateUrl('listerSystemes',['id' => $system->getId()]));
+        }
+
+        return $this->render('admin/ajouter_systeme.html.twig', [
+            'form'=>$form->createView(),
         ]);
     }
 }
