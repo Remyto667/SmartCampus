@@ -13,6 +13,7 @@ Stack de développement PHP SAE 2022
  6) dans le bash ---> composer update
  7) http://localhost:9979 🎉
  8) bin/console doctrine:migrations:migrate (dans le bash symphony)
+ 9) bin/console doctrine:fixtures:load
 
 
 Push dans sa branche : git push -u origin nom_branche
