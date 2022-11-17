@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Room;
 use App\Entity\Sensor;
+use App\Entity\System;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
