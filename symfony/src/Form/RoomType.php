@@ -13,7 +13,6 @@ class RoomType extends AbstractType
     {
         $builder
             ->add('Name')
-            ->add('System')
         ;
     }
 

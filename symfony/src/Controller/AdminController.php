@@ -107,7 +107,7 @@ class AdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()){
             $entityManager->persist($system);
             $entityManager->flush();
-            //return $this->redirect($this->generateUrl('listerSystemes',['id' => $system->getId()]));
+            return $this->redirect($this->generateUrl('listerSystemes',[]));
         }
 
         return $this->render('admin/ajouter_systeme.html.twig', [
