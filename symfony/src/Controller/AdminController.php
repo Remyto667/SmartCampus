@@ -32,8 +32,12 @@ class AdminController extends AbstractController
     }
 
     #[Route('/admin/database/lister_salles', name: 'listerSalles')]
-    public function lister_salles(): Response
+    public function lister_salles(ManagerRegistry $doctrine): Response
     {
+        $entityManager = $doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\Room');
+        $rooms = $repository->findAll();
+
         return $this->render('admin/lister_salles.html.twig', [
             'controller_name' => 'AdminController',
         ]);
