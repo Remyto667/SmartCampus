@@ -32,4 +32,24 @@ class Room
 
         return $this;
     }
+    public function addRoom(Room $room): self
+    {
+        if (!$this->room->contains($room)) {
+            $this->room->add($room);
+            $room->setRooms($this);
+        }
+
+        return $this;
+    }
+    public function removeRoom(Room $room): self
+    {
+        if ($this->room->removeElement($room)) {
+            // set the owning side to null (unless already changed)
+            if ($room->getRooms() === $this) {
+                $room->setRooms(null);
+            }
+        }
+
+        return $this;
+    }
 }

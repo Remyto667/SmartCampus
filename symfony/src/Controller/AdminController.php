@@ -40,7 +40,7 @@ class AdminController extends AbstractController
         $rooms = $repository->findAll();
 
         return $this->render('admin/lister_salles.html.twig', [
-            'controller_name' => 'AdminController',
+            'rooms' => $rooms,
         ]);
     }
 

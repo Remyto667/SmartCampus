@@ -8,30 +8,24 @@
         .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
         /* BOUTONS */
         .styled {
-            border: 0;
-            line-height: 2.5;
-            padding: 0 20px;
-            font-size: 1rem;
-            text-align: center;
             color: #fff;
-            text-shadow: 1px 1px 1px #000;
-            border-radius: 10px;
-            background-color: rgba(220, 0, 0, 1);
-            background-image: linear-gradient(to top left,
-            rgba(0, 0, 0, .2),
-            rgba(0, 0, 0, .2) 30%,
-            rgba(0, 0, 0, 0));
-            box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .6),
-            inset -2px -2px 3px rgba(0, 0, 0, .6);
-        }
+            background-color: #007bff;
+            border-color: #007bff;
 
-        .styled:hover {
-            background-color: rgba(255, 0, 0, 1);
-        }
-
-        .styled:active {
-            box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
-            inset 2px 2px 3px rgba(0, 0, 0, .6);
+            display: inline-block;
+            font-weight: 400;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
         }
 
     </style>
@@ -44,12 +38,12 @@
             {% for room in rooms %}
                 <li>Salle :{{ room.id }}</li>
                 <li>Nom :{{ room.name }}</li>
-                <li>System :{{ room.system }}</li>
+                <!--<li>System :{{ room.system }}</li>-->
             {% endfor %}
         </ul>
         <br><br><br>
         <!-- Ajouter Salle -->
-        <button class="favorite styled" type="button">Add Room</button>
+        <a href="formulaire_salles_ajout.html.twig"><button class="favorite styled" type="button">Add Room</button></a>
         <br>
         <!-- Supprimer Salle -->
         <button class="favorite styled" type="button">Remove Room</button>
