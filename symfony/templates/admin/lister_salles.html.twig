@@ -1,20 +1,60 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AdminController!{% endblock %}
+{% block title %}Liste des capteurs{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+        /* BOUTONS */
+        .styled {
+            border: 0;
+            line-height: 2.5;
+            padding: 0 20px;
+            font-size: 1rem;
+            text-align: center;
+            color: #fff;
+            text-shadow: 1px 1px 1px #000;
+            border-radius: 10px;
+            background-color: rgba(220, 0, 0, 1);
+            background-image: linear-gradient(to top left,
+            rgba(0, 0, 0, .2),
+            rgba(0, 0, 0, .2) 30%,
+            rgba(0, 0, 0, 0));
+            box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .6),
+            inset -2px -2px 3px rgba(0, 0, 0, .6);
+        }
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        .styled:hover {
+            background-color: rgba(255, 0, 0, 1);
+        }
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/html/src/Controller/AdminController.php'|file_link(0) }}">src/Controller/AdminController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/html/templates/admin/index.html.twig'|file_link(0) }}">templates/admin/index.html.twig</a></code></li>
-    </ul>
-</div>
+        .styled:active {
+            box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
+            inset 2px 2px 3px rgba(0, 0, 0, .6);
+        }
+
+    </style>
+
+    <div class="example-wrapper">
+        <h1>Inventaire des Salles</h1>
+
+        <!-- Lister Salles -->
+        <ul>
+            {% for room in rooms %}
+                <li>Salle :{{ room.id }}</li>
+                <li>Nom :{{ room.name }}</li>
+                <li>System :{{ room.system }}</li>
+            {% endfor %}
+        </ul>
+        <br><br><br>
+        <!-- Ajouter Salle -->
+        <button class="favorite styled" type="button">Add Room</button>
+        <br>
+        <!-- Supprimer Salle -->
+        <button class="favorite styled" type="button">Remove Room</button>
+
+
+
+    </div>
 {% endblock %}
