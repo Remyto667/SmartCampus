@@ -10,6 +10,11 @@
         z-index: 600;
     }
 
+    .logo{
+
+
+    }
+
 </style>
 
 <nav
@@ -17,7 +22,7 @@
         class="collapse d-lg-block sidebar collapse bg-white"
 >
     <div class="position-sticky">
-
+        <img class="rounded mx-auto d-block" src="{{ asset('img/logo.png') }}">
         <div class="list-group list-group-flush mx-3 mt-4">
 
 
@@ -44,7 +49,7 @@
                 <span>Systemes</span></a
             >
             <a
-                    href="#"
+                    href="/admin/database/lister_capteurs"
                     class="list-group-item list-group-item-action py-2 ripple"
             ><i class="fas fa-chart-line fa-fw me-3"></i
             ><span>Capteurs</span></a
