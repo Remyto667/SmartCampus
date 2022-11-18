@@ -6,16 +6,16 @@
         left: 0;
         padding: 0px 0 0; /* Height of navbar */
         box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
-        width: 240px;
+        width: 200px; /* 240px default */
         z-index: 600;
     }
 
-    .logo{
-
-
-    }
-
 </style>
+
+<!--
+Pour faire des espaces ???
+ <i class="fas fa-chart-bar fa-fw me-3"></i>
+ -->
 
 <nav
         id="sidebarMenu"
@@ -25,47 +25,61 @@
         <img class="rounded mx-auto d-block" src="{{ asset('img/logo.png') }}">
         <div class="list-group list-group-flush mx-3 mt-4">
 
-
+            <!-- Dashboard -->
             <a
                     href="/admin"
                     class="list-group-item list-group-item-action py-2 ripple"
                     aria-current="true"
             >
-                <i class="fas fa-tachometer-alt fa-fw me-3"></i
-                ><span>dashboard</span>
+                <i class="fas fa-chart-bar fa-fw me-3"></i>
+                <img class="rounded mx-auto d-block" src="{{ asset('img/dashboard_logo.png') }}">
+                <i class="fas fa-chart-bar fa-fw me-3"></i>
             </a>
+            <!-- Classroom -->
             <a
                     href="admin/database/lister_salles"
                     class="list-group-item list-group-item-action py-2 ripple"
             >
-                <i class="fas fa-chart-area fa-fw me-3"></i
-                ><span>Salles</span>
-
+                <i class="fas fa-chart-bar fa-fw me-3"></i>
+                <img class="rounded mx-auto d-block" src="{{ asset('img/classroom_logo.png') }}">
+                <i class="fas fa-chart-bar fa-fw me-3"></i>
             </a>
+            <!-- SA -->
             <a
                     href="/admin/database/lister_systemes"
                     class="list-group-item list-group-item-action py-2 ripple"
-            ><i class="fas fa-lock fa-fw me-3"></i>
-                <span>Systemes</span></a
             >
+                <i class="fas fa-chart-bar fa-fw me-3"></i>
+                <img class="rounded mx-auto d-block" src="{{ asset('img/SA_logo.png') }}">
+                <i class="fas fa-chart-bar fa-fw me-3"></i>
+            </a>
+            <!-- Sensor -->
             <a
                     href="/admin/database/lister_capteurs"
                     class="list-group-item list-group-item-action py-2 ripple"
-            ><i class="fas fa-chart-line fa-fw me-3"></i
-            ><span>Capteurs</span></a
             >
-            <a
-                    href="#"
-                    class="list-group-item list-group-item-action py-2 ripple"
-            >
-                <i class="fas fa-chart-pie fa-fw me-3"></i><span>Notification</span>
+                <i class="fas fa-chart-bar fa-fw me-3"></i>
+                <img class="rounded mx-auto d-block" src="{{ asset('img/sensor_logo.png') }}">
+                <i class="fas fa-chart-bar fa-fw me-3"></i>
             </a>
+            <!-- notification -->
             <a
                     href="#"
                     class="list-group-item list-group-item-action py-2 ripple"
-            ><i class="fas fa-chart-bar fa-fw me-3"></i>
-                <span>Deconnexion</span></a
             >
+                <i class="fas fa-chart-bar fa-fw me-3"></i>
+                <img class="rounded mx-auto d-block" src="{{ asset('img/notification_logo.png') }}">
+                <i class="fas fa-chart-bar fa-fw me-3"></i>
+            </a>
+            <!-- logout -->
+            <a
+                    href="#"
+                    class="list-group-item list-group-item-action py-2 ripple"
+            >
+                <i class="fas fa-chart-bar fa-fw me-3"></i>
+                <img class="rounded mx-auto d-block" src="{{ asset('img/logout_logo.png') }}">
+                <i class="fas fa-chart-bar fa-fw me-3"></i>
+            </a>
 
         </div>
     </div>
