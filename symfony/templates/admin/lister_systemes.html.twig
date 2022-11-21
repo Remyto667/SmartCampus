@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'basewithnavbar.html.twig' %}
 
 {% block title %}Hello AdminController!{% endblock %}
 
@@ -45,7 +45,6 @@
 </style>
 
 <div class="example-wrapper">
-    <!-- include bar de menu qui devrait être dans un .html -->
 
     <h1> Inventaire des Systèmes d'acquisition </h1>
 
@@ -55,20 +54,22 @@
             <th scope="col">Id</th>
             <th scope="col">Nom du système</th>
             <th scope="col">Salle</th>
+            <th scope="col">Options</th>
         </tr>
         </thead>
         <tbody>
         {% for system in systems %}
             <tr>
-                <th {{ system.id }} </th>
+                <td> {{ system.id }} </td>
                 <td> {{ system.name }}</td>
                 <td> {{ system.room.name }} </td>
+                <td> <a class="btn btn-primary" href="/admin/database/modifier_systeme/{{ system.id }}" role="button">modifier</a> <a class="btn btn-primary" href="/admin/database/modifier_systeme/{{ system.id }}" role="button">supprimer</a> </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a class="btn btn-primary" href="/admin/database/ajouter_systeme" role="button">Link</a>
+    <a class="btn btn-primary" href="/admin/database/ajouter_systeme" role="button">Ajouter un Systeme</a>
 
 </div>
 {% endblock %}
