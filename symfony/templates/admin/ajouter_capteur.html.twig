@@ -48,5 +48,11 @@
         <!-- include bar de menu qui devrait être dans un .html -->
 
         <h1> Ajouter un Capteur </h1>
+
+        {{ form_start(form) }}
+        {{ form_rest(form) }}
+        <button class="btn btn-primary" type="submit">Enregistrer le Capteur</button>
+
+        {{ form_end(form) }}
     </div>
 {% endblock %}
