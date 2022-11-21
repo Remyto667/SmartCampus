@@ -146,5 +146,24 @@ class AdminController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/admin/database/modifier_capteur/{id?}', name: 'modifierCapteurs')]
+    public function update_capteur(Request $request, ?int $id, ManagerRegistry $doctrine): Response{
+        $entityManager =$doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\Sensor');
+        $sensor = $repository->find($id);
+        $form = $this->createForm(SensorType::class, $sensor);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $entityManager->persist($sensor);
+            $entityManager->flush();
+            return $this->redirect($this->generateUrl('listerCapteurs', []));
+        }
+
+        return $this->render('admin/ajouter_capteur.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 }
 
