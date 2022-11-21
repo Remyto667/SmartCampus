@@ -61,9 +61,10 @@
         <tbody>
         {% for system in systems %}
             <tr>
-                <th {{ system.id }} </th>
+                <td> {{ system.id }} </td>
                 <td> {{ system.name }}</td>
                 <td> {{ system.room.name }} </td>
+                <td> <a class="btn btn-primary" href="/admin/database/modifier_systeme/{{ system.id }}" role="button">modifier</a> </td>
             </tr>
         {% endfor %}
         </tbody>
