@@ -50,6 +50,19 @@
         caption-side: bottom;
         border-collapse: collapse;
     }
+    .img {
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        background-position: 0 0;
+        width:35px;
+        height:35px;
+    }
+    .update {
+        background-image: url({{ asset('img/crayon_blanc.png') }});
+    }
+    .delete {
+        background-image: url({{ asset('img/poubelle.png') }});
+    }
 </style>
 
 <script language="JavaScript">
@@ -89,8 +102,8 @@
                 <td>{{ sensor.type  }}</td>
                 <td>{{ sensor.state  }}</td>
                 <td>{{ sensor.id  }}</td>
-                <td> <a class="btn btn-primary" href="/admin/database/modifier_capteur/{{ sensor.Sid }}" role="button">modifier</a>
-                    <input class="btn btn-primary" type="button" value="Supprimer" name="test" onclick="openPopup({{ sensor.Sid }})"/></td>
+                <td> <a class="btn btn-primary img update favorite" href="/admin/database/modifier_capteur/{{ sensor.Sid }}" role="button"></a>
+                    <input class="btn btn-primary img delete favorite" type="button" name="test" onclick="openPopup({{ sensor.Sid }})"/></td>
             </tr>
         {% endfor %}
         </tbody>
