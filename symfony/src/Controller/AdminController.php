@@ -170,6 +170,9 @@ class AdminController extends AbstractController
     public function supprimer_capteur(Request $request, ?int $id, ManagerRegistry $doctrine): Response{
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Sensor');
+        $sensor = $repository->find($id);
+        $entityManager->remove($sensor);
+        $entityManager->flush();
         $list = $doctrine->getRepository(Sensor::class)->listOfAllSensor();
         return $this->render('admin/lister_capteurs.html.twig', [
             'controller_name' => 'Liste des Capteurs',
