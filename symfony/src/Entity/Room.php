@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\RoomRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: RoomRepository::class)]
 class Room
@@ -14,6 +15,13 @@ class Room
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotNull]
+    #[Assert\Length(
+        min: 1,
+        max: 4,
+        minMessage: 'Your room must be at least 1 characters long',
+        maxMessage: 'Your room cannot be longer than 4 characters',
+    )]
     private ?string $name = null;
 
     public function getId(): ?int
