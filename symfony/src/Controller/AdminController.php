@@ -114,5 +114,27 @@ class AdminController extends AbstractController
             'form'=>$form->createView(),
         ]);
     }
+
+    #[Route('/admin/database/modifier_systeme/{id?}', name: 'modifierSystemes')]
+    public function update_system(Request $request, ?int $id, ManagerRegistry $doctrine): Response
+    {
+        $entityManager = $doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\System');
+        $system = $repository->find($id);
+
+        $form = $this->createForm(SystemType::class, $system);
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($system);
+            $entityManager->flush();
+            return $this->redirect($this->generateUrl('listerSystemes', []));
+        }
+
+        return $this->render('admin/ajouter_systeme.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 }
 

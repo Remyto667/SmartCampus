@@ -55,6 +55,7 @@
             <th scope="col">Id</th>
             <th scope="col">Nom du système</th>
             <th scope="col">Salle</th>
+            <th scope="col">Options</th>
         </tr>
         </thead>
         <tbody>
@@ -63,13 +64,13 @@
                 <td> {{ system.id }} </td>
                 <td> {{ system.name }}</td>
                 <td> {{ system.room.name }} </td>
-                <td> <a class="btn btn-primary" href="/admin/database/modifier_systeme/{{ system.id }}" role="button">modifier</a> </td>
+                <td> <a class="btn btn-primary" href="/admin/database/modifier_systeme/{{ system.id }}" role="button">modifier</a> <a class="btn btn-primary" href="/admin/database/modifier_systeme/{{ system.id }}" role="button">supprimer</a> </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a class="btn btn-primary" href="/admin/database/ajouter_systeme" role="button">Link</a>
+    <a class="btn btn-primary" href="/admin/database/ajouter_systeme" role="button">Ajouter un Systeme</a>
 
 </div>
 {% endblock %}
