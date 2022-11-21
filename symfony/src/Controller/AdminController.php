@@ -89,8 +89,8 @@ class AdminController extends AbstractController
 
     }
 
-    #[Route('/admin/database/lister_salles/formulaire_ajout', name: 'app_salle_formulaire')]
-    public function lister_salles_formulaireAjout(Request $request, ManagerRegistry $doctrine): Response
+    #[Route('/admin/database/ajouter_salle', name: 'ajouter_salle')]
+    public function ajouter_Salle(Request $request, ManagerRegistry $doctrine): Response
     {
         $room = new Room();
         $entityManager = $doctrine->getManager();
@@ -100,9 +100,10 @@ class AdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()){
             $entityManager->persist($room);
             $entityManager->flush();
+            return $this->redirect($this->generateUrl('listerSalles',[]));
         }
 
-        return $this->render('admin/formulaire_salles_ajout.html.twig', [
+        return $this->render('admin/ajouter_salle.html.twig', [
             'form' =>$form->createView()
         ]);
     }
