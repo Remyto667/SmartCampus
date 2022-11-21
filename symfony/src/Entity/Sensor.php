@@ -14,19 +14,20 @@ class Sensor
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Name = null;
+    private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Type = null;
+    private ?string $type = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $Value = null;
+    private ?int $value = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $State = null;
+    private ?string $state = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?System $System = null;
+    #[ORM\ManyToOne(inversedBy: 'sensors')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?System $systems = null;
 
     public function getId(): ?int
     {
@@ -35,60 +36,60 @@ class Sensor
 
     public function getName(): ?string
     {
-        return $this->Name;
+        return $this->name;
     }
 
-    public function setName(string $Name): self
+    public function setName(string $name): self
     {
-        $this->Name = $Name;
+        $this->name = $name;
 
         return $this;
     }
 
     public function getType(): ?string
     {
-        return $this->Type;
+        return $this->type;
     }
 
-    public function setType(string $Type): self
+    public function setType(string $type): self
     {
-        $this->Type = $Type;
+        $this->type = $type;
 
         return $this;
     }
 
     public function getValue(): ?int
     {
-        return $this->Value;
+        return $this->value;
     }
 
-    public function setValue(?int $Value): self
+    public function setValue(?int $value): self
     {
-        $this->Value = $Value;
+        $this->value = $value;
 
         return $this;
     }
 
     public function getState(): ?string
     {
-        return $this->State;
+        return $this->state;
     }
 
-    public function setState(string $State): self
+    public function setState(string $state): self
     {
-        $this->State = $State;
+        $this->state = $state;
 
         return $this;
     }
 
-    public function getSystem(): ?System
+    public function getSystems(): ?System
     {
-        return $this->System;
+        return $this->systems;
     }
 
-    public function setSystem(?System $System): self
+    public function setSystems(?System $systems): self
     {
-        $this->System = $System;
+        $this->systems = $systems;
 
         return $this;
     }

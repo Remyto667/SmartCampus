@@ -14,11 +14,7 @@ class Room
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Name = null;
-
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?System $System = null;
+    private ?string $name = null;
 
     public function getId(): ?int
     {
@@ -27,24 +23,32 @@ class Room
 
     public function getName(): ?string
     {
-        return $this->Name;
+        return $this->name;
     }
 
-    public function setName(string $Name): self
+    public function setName(string $name): self
     {
-        $this->Name = $Name;
+        $this->name = $name;
 
         return $this;
     }
-
-    public function getSystem(): ?System
+    public function addRoom(Room $room): self
     {
-        return $this->System;
+        if (!$this->room->contains($room)) {
+            $this->room->add($room);
+            $room->setRooms($this);
+        }
+
+        return $this;
     }
-
-    public function setSystem(System $System): self
+    public function removeRoom(Room $room): self
     {
-        $this->System = $System;
+        if ($this->room->removeElement($room)) {
+            // set the owning side to null (unless already changed)
+            if ($room->getRooms() === $this) {
+                $room->setRooms(null);
+            }
+        }
 
         return $this;
     }
