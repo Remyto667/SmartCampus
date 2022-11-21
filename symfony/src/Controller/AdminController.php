@@ -166,5 +166,13 @@ class AdminController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/admin/database/supprimer_capteur', name: 'supprimerCapteur')]
+    public function supprimer_capteur(Request $request, ?int $id, ManagerRegistry $doctrine): Response{
+        $entityManager =$doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\Sensor');
+        $sensor = $repository->find($id);
+        return 0;
+    }
 }
 
