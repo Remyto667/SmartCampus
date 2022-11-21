@@ -46,8 +46,8 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/database/lister_systemes', name: 'listerSystemes')]
-    public function lister_systemes(ManagerRegistry $doctrine): Response
+    #[Route('/admin/database/lister_systemes/{ok?1}', name: 'listerSystemes')]
+    public function lister_systemes(ManagerRegistry $doctrine, ?int $ok): Response
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\System');
@@ -58,6 +58,7 @@ class AdminController extends AbstractController
         return $this->render('admin/lister_systemes.html.twig', [
             'systems'=>$systems,
             'nbsensor'=>$nbSensor,
+            'ok' => $ok,
         ]);
     }
 
@@ -186,8 +187,7 @@ class AdminController extends AbstractController
         $repository = $entityManager->getRepository('App\Entity\System');
         $system = $repository->find($id);
 
-        $entityManager->remove($system, true);
-        return $this->redirect($this->generateUrl('listerSystemes', []));
+        return $this->redirect($this->generateUrl('listerSystemes', ['ok' => $repository->remove($system, true)]));
     }
 }
 

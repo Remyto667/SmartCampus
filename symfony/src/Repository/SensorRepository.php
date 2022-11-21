@@ -57,12 +57,11 @@ class SensorRepository extends ServiceEntityRepository
     {
         $conn = $this->getEntityManager()->getConnection();
 
-        $sql =
-            'SELECT sys.id, COUNT(sen.id) as nb
-        FROM sensor sen, system sys
-        WHERE sen.systems_id = sys.id
-        GROUP BY sen.systems_id
-        ';
+        $sql = 'SELECT  c.id, COUNT(m.id) as nb
+                FROM    system c
+                        LEFT JOIN sensor m
+                        ON m.systems_id = c.id
+                GROUP BY c.id';
 
         $stmt = $conn->prepare($sql);
         $resultSet = $stmt->executeQuery();
