@@ -60,7 +60,9 @@
     <script>
         function openPopup(id)
         {
-            var dialog = confirm("Supprimer le systeme ?");
+            var dialog = confirm("Supprimer le systeme ? \n " +
+                                "Ceci ne le supprimera que s'il n'a aucun capteur" +
+                                "sinon vous pouvez annuler et changer les capteurs de système d'abord");
             if (dialog) { document.location.href="/admin/database/supprimer_systeme/"+id;
             }
             else {

@@ -173,11 +173,18 @@ class AdminController extends AbstractController
         $sensor = $repository->find($id);
         $entityManager->remove($sensor);
         $entityManager->flush();
-        $list = $doctrine->getRepository(Sensor::class)->listOfAllSensor();
-        return $this->render('admin/lister_capteurs.html.twig', [
-            'controller_name' => 'Liste des Capteurs',
-            'allSensor' => $list,
-        ]);
+        return $this->redirect($this->generateUrl('listerCapteurs', []));
+
+
+    }
+    #[Route('/admin/database/supprimer_systeme/{id?}', name: 'supprimerSysteme')]
+    public function supprimer_systeme(Request $request, ?int $id, ManagerRegistry $doctrine): Response{
+        $entityManager = $doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\System');
+        $system = $repository->find($id);
+
+        $entityManager->remove($system, true);
+        return $this->redirect($this->generateUrl('listerSystemes', []));
     }
 }
 
