@@ -86,6 +86,7 @@ class AdminController extends AbstractController
         return $this->render('admin/ajouter_capteur.html.twig', [
             'form' =>$form->createView(),
         ]);
+
     }
 
     #[Route('/admin/database/lister_salles/formulaire_ajout', name: 'app_salle_formulaire')]
