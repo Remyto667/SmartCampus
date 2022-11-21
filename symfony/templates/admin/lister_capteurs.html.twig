@@ -50,7 +50,33 @@
         caption-side: bottom;
         border-collapse: collapse;
     }
+    .img {
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        background-position: 0 0;
+        width:35px;
+        height:35px;
+    }
+    .update {
+        background-image: url({{ asset('img/crayon_blanc.png') }});
+    }
+    .delete {
+        background-image: url({{ asset('img/poubelle.png') }});
+    }
 </style>
+
+<script language="JavaScript">
+    function openPopup(id)
+        {
+            var dialog = confirm("Supprimer le capteur ?");
+            if (dialog) { document.location.href="/admin/database/supprimer_capteur/"+id;
+        }
+    else {
+                document.location.href="/admin/database/lister_capteurs";
+    }
+        }
+
+</script>
 
 
 <div class="example-wrapper">
@@ -76,11 +102,13 @@
                 <td>{{ sensor.type  }}</td>
                 <td>{{ sensor.state  }}</td>
                 <td>{{ sensor.id  }}</td>
-                <td> <a class="btn btn-primary" href="/admin/database/modifier_capteur/{{ sensor.Sid }}" role="button">modifier</a> <a class="btn btn-primary" href="/admin/database/supprimer_capteur/{{ sensor.Sid }}" role="button">supprimer</a> </td>
+                <td> <a class="btn btn-primary img update favorite" href="/admin/database/modifier_capteur/{{ sensor.Sid }}" role="button"></a>
+                    <input class="btn btn-primary img delete favorite" type="button" name="test" onclick="openPopup({{ sensor.Sid }})"/></td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+
 
     <a class="btn btn-primary" href="/admin/database/ajouter_capteur" role="button">Ajouter un Capteur</a>
 </div>
