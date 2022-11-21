@@ -146,5 +146,18 @@ class AdminController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/admin/database/supprimer_systeme/{id?}', name: 'supprimerSystemes')]
+    public function delete_system(Request $request, ?int $id, ManagerRegistry $doctrine): Response
+    {
+        $entityManager = $doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\System');
+        $system = $repository->find($id);
+        $repository->remove($system, true);
+
+
+        return $this->redirect($this->generateUrl('listerSystemes', []));
+
+    }
 }
 
