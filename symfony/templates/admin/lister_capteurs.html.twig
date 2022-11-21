@@ -52,6 +52,19 @@
     }
 </style>
 
+<script language="JavaScript">
+    function openPopup(id)
+        {
+            var dialog = confirm("Supprimer le capteur ?");
+            if (dialog) { document.location.href="/admin/database/supprimer_capteur/"+id;
+        }
+    else {
+                document.location.href="/admin/database/lister_capteurs";
+    }
+        }
+
+</script>
+
 
 <div class="example-wrapper">
     <h1>{{ controller_name }}✅</h1>
@@ -76,34 +89,13 @@
                 <td>{{ sensor.type  }}</td>
                 <td>{{ sensor.state  }}</td>
                 <td>{{ sensor.id  }}</td>
-                <td> <a class="btn btn-primary" href="/admin/database/modifier_capteur/{{ sensor.Sid }}" role="button">modifier</a> <a class="btn btn-primary" href="/admin/database/supprimer_capteur/{{ sensor.Sid }}" role="button">supprimer</a> </td>
+                <td> <a class="btn btn-primary" href="/admin/database/modifier_capteur/{{ sensor.Sid }}" role="button">modifier</a>
+                    <input class="btn btn-primary" type="button" value="Supprimer" name="test" onclick="openPopup({{ sensor.Sid }})"/></td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-        Launch static backdrop modal
-    </button>
 
-    <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title">Modal title</h1>
-
-                </div>
-                <div class="modal-body">
-                    <p>test</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary">Close</button>
-                    <button type="button" class="btn btn-primary">Understood</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <a class="btn btn-primary" href="/admin/database/ajouter_capteur" role="button">Ajouter un Capteur</a>
 </div>

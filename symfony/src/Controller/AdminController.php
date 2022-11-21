@@ -63,11 +63,10 @@ class AdminController extends AbstractController
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Sensor');
-        //$allSensor= $repository->findAll();
-        $test = $doctrine->getRepository(Sensor::class)->test();
+        $list = $doctrine->getRepository(Sensor::class)->listOfAllSensor();
         return $this->render('admin/lister_capteurs.html.twig', [
             'controller_name' => 'Liste des Capteurs',
-            'allSensor' => $test,
+            'allSensor' => $list,
         ]);
     }
 
@@ -167,12 +166,15 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/database/supprimer_capteur', name: 'supprimerCapteur')]
+    #[Route('/admin/database/supprimer_capteur/{id?}', name: 'supprimerCapteur')]
     public function supprimer_capteur(Request $request, ?int $id, ManagerRegistry $doctrine): Response{
-        $entityManager =$doctrine->getManager();
+        $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Sensor');
-        $sensor = $repository->find($id);
-        return 0;
+        $list = $doctrine->getRepository(Sensor::class)->listOfAllSensor();
+        return $this->render('admin/lister_capteurs.html.twig', [
+            'controller_name' => 'Liste des Capteurs',
+            'allSensor' => $list,
+        ]);
     }
 }
 
