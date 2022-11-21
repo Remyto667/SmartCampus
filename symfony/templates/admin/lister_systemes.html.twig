@@ -1,6 +1,6 @@
 {% extends 'basewithnavbar.html.twig' %}
 
-{% block title %}Hello AdminController!{% endblock %}
+{% block title %}Inventaire des Systemes d'Aquisition{% endblock %}
 
 {% block body %}
 <style>
@@ -42,6 +42,21 @@
         border-radius: 0.25rem;
         transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     }
+
+
+    .img {
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        background-position: 0 0;
+        width:50px;
+        height:50px;
+    }
+    .update {
+        background-image: url({{ asset('img/crayon_blanc.png') }});
+    }
+    .delete {
+        background-image: url({{ asset('img/poubelle.png') }});
+    }
 </style>
 
 <div class="example-wrapper">
@@ -63,7 +78,10 @@
                 <td> {{ system.id }} </td>
                 <td> {{ system.name }}</td>
                 <td> {{ system.room.name }} </td>
-                <td> <a class="btn btn-primary" href="/admin/database/modifier_systeme/{{ system.id }}" role="button">modifier</a> <a class="btn btn-primary" href="/admin/database/modifier_systeme/{{ system.id }}" role="button">supprimer</a> </td>
+                <td>
+                    <a class="btn btn-primary img update" href="/admin/database/modifier_systeme/{{ system.id }}" role="button" ><a/>
+                    <a class="btn btn-primary img delete" href="/admin/database/supprimer_systeme/{{ system.id }}" role="button"></a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
