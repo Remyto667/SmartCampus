@@ -57,6 +57,17 @@
         background-image: url({{ asset('img/poubelle.png') }});
     }
 </style>
+    <script>
+        function openPopup(id)
+        {
+            var dialog = confirm("Supprimer le systeme ?");
+            if (dialog) { document.location.href="/admin/database/supprimer_systeme/"+id;
+            }
+            else {
+                document.location.href="/admin/database/lister_systemes";
+            }
+        }
+    </script>
 
 <div class="example-wrapper">
 
@@ -79,7 +90,7 @@
                 <td> {{ system.room.name }} </td>
                 <td>
                     <a class="btn btn-primary img update favorite" href="/admin/database/modifier_systeme/{{ system.id }}" role="button" ><a/>
-                    <a class="btn btn-primary img delete favorite" href="/admin/database/supprimer_systeme/{{ system.id }}" role="button"></a>
+                        <input class="btn btn-primary img delete favorite" type=button onclick="openPopup({{ system.id }})">
                 </td>
             </tr>
         {% endfor %}
