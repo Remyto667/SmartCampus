@@ -42,11 +42,20 @@
         border-radius: 0.25rem;
         transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     }
-    .style1 {
-        background-image: url({{ asset('img/crayon_blanc.png') }});
+
+
+    .img {
         background-repeat: no-repeat;
         background-size: 100% 100%;
         background-position: 0 0;
+        width:50px;
+        height:50px;
+    }
+    .update {
+        background-image: url({{ asset('img/crayon_blanc.png') }});
+    }
+    .delete {
+        background-image: url({{ asset('img/poubelle.png') }});
     }
 </style>
 
@@ -70,11 +79,9 @@
                 <td> {{ system.name }}</td>
                 <td> {{ system.room.name }} </td>
                 <td>
-                    <a class="btn btn-primary list-group-item list-group-item-action py-2 ripple style1" href="/admin/database/modifier_systeme/{{ system.id }}"
-                    aria-current="true" role="button" >
-                    //<img class="rounded mx-auto d-block" src="{{ asset('img/crayon_blanc.png') }}"> <a/>
-
-                    <a class="btn btn-primary" href="/admin/database/supprimer_systeme/{{ system.id }}" role="button">supprimer</a> </td>
+                    <a class="btn btn-primary img update" href="/admin/database/modifier_systeme/{{ system.id }}" role="button" ><a/>
+                    <a class="btn btn-primary img delete" href="/admin/database/supprimer_systeme/{{ system.id }}" role="button"></a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
