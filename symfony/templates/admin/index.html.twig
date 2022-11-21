@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'basewithnavbar.html.twig' %}
 
 {% block title %}Hello AdminController!{% endblock %}
 
@@ -19,7 +19,7 @@
 
     body{
         background-image: url("img/main_wallpaper.jpg");
-        width: 100%;
+        background-size: cover;
     }
 
     .information{
@@ -27,10 +27,6 @@
 
     }
 </style>
-
-<!-- include menu -->
-    {% include 'admin/navbar.html' %}
-
     <!-- main UX -->
     <img class="rounded mx-auto d-block logo" src="{{ asset('img/logo_main.png') }}">
 

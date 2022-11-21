@@ -6,6 +6,7 @@ use App\Entity\Room;
 use App\Entity\Sensor;
 use App\Entity\System;
 use App\Form\RoomType;
+use App\Form\SensorType;
 use App\Form\SystemType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -71,11 +72,21 @@ class AdminController extends AbstractController
     }
 
     #[Route('/admin/database/ajouter_capteur', name: 'ajouterCapteur')]
-    public function ajouter_capteur(): Response
+    public function ajouter_capteur(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $sensor = new Sensor();
+        $form = $this->createForm(SensorType::class, $sensor);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $entityManager->persist($sensor);
+            $entityManager->flush();
+            return $this->redirect($this->generateUrl('listerCapteurs',[]));
+
+        }
         return $this->render('admin/ajouter_capteur.html.twig', [
-            'controller_name' => 'AdminController',
+            'form' =>$form->createView(),
         ]);
+
     }
 
     #[Route('/admin/database/lister_salles/formulaire_ajout', name: 'app_salle_formulaire')]
@@ -112,6 +123,47 @@ class AdminController extends AbstractController
 
         return $this->render('admin/ajouter_systeme.html.twig', [
             'form'=>$form->createView(),
+        ]);
+    }
+
+    #[Route('/admin/database/modifier_systeme/{id?}', name: 'modifierSystemes')]
+    public function update_system(Request $request, ?int $id, ManagerRegistry $doctrine): Response
+    {
+        $entityManager = $doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\System');
+        $system = $repository->find($id);
+
+        $form = $this->createForm(SystemType::class, $system);
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($system);
+            $entityManager->flush();
+            return $this->redirect($this->generateUrl('listerSystemes', []));
+        }
+
+        return $this->render('admin/ajouter_systeme.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/admin/database/modifier_capteur/{id?}', name: 'modifierCapteurs')]
+    public function update_capteur(Request $request, ?int $id, ManagerRegistry $doctrine): Response{
+        $entityManager =$doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\Sensor');
+        $sensor = $repository->find($id);
+        $form = $this->createForm(SensorType::class, $sensor);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $entityManager->persist($sensor);
+            $entityManager->flush();
+            return $this->redirect($this->generateUrl('listerCapteurs', []));
+        }
+
+        return $this->render('admin/ajouter_capteur.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 }

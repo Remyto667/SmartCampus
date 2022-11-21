@@ -72,21 +72,21 @@ class AppFixtures extends Fixture
 
         $sensor1=new Sensor();
         $sensor1->setName("sensor1");
-        $sensor1->setState("functional");
+        $sensor1->setState("fonctionnel");
         $sensor1->setSystems($system1);
         $sensor1->setType("temperature");
         $manager->persist($sensor1);
 
         $sensor2=new Sensor();
         $sensor2->setName("sensor2");
-        $sensor2->setState("functional");
+        $sensor2->setState("fonctionnel");
         $sensor2->setSystems($system1);
-        $sensor2->setType("humidity");
+        $sensor2->setType("humidite");
         $manager->persist($sensor2);
 
         $sensor3=new Sensor();
         $sensor3->setName("sensor3");
-        $sensor3->setState("functional");
+        $sensor3->setState("fonctionnel");
         $sensor3->setSystems($system1);
         $sensor3->setType("CO2");
         $manager->persist($sensor3);
@@ -95,21 +95,21 @@ class AppFixtures extends Fixture
 
         $sensor4=new Sensor();
         $sensor4->setName("sensor4");
-        $sensor4->setState("functional");
+        $sensor4->setState("fonctionnel");
         $sensor4->setSystems($system2);
         $sensor4->setType("temperature");
         $manager->persist($sensor4);
 
         $sensor5=new Sensor();
         $sensor5->setName("sensor5");
-        $sensor5->setState("functional");
+        $sensor5->setState("fonctionnel");
         $sensor5->setSystems($system2);
-        $sensor5->setType("humidity");
+        $sensor5->setType("humidite");
         $manager->persist($sensor5);
 
         $sensor6=new Sensor();
         $sensor6->setName("sensor6");
-        $sensor6->setState("functional");
+        $sensor6->setState("fonctionnel");
         $sensor6->setSystems($system2);
         $sensor6->setType("CO2");
         $manager->persist($sensor6);
@@ -118,21 +118,21 @@ class AppFixtures extends Fixture
 
         $sensor7=new Sensor();
         $sensor7->setName("sensor7");
-        $sensor7->setState("functional");
+        $sensor7->setState("fonctionnel");
         $sensor7->setSystems($system3);
         $sensor7->setType("temperature");
         $manager->persist($sensor7);
 
         $sensor8=new Sensor();
         $sensor8->setName("sensor8");
-        $sensor8->setState("functional");
+        $sensor8->setState("fonctionnel");
         $sensor8->setSystems($system3);
-        $sensor8->setType("humidity");
+        $sensor8->setType("humidite");
         $manager->persist($sensor8);
 
         $sensor9=new Sensor();
         $sensor9->setName("sensor9");
-        $sensor9->setState("functional");
+        $sensor9->setState("fonctionnel");
         $sensor9->setSystems($system3);
         $sensor9->setType("CO2");
         $manager->persist($sensor9);
@@ -141,21 +141,21 @@ class AppFixtures extends Fixture
 
         $sensor10=new Sensor();
         $sensor10->setName("sensor10");
-        $sensor10->setState("functional");
+        $sensor10->setState("fonctionnel");
         $sensor10->setSystems($system4);
         $sensor10->setType("temperature");
         $manager->persist($sensor10);
 
         $sensor11=new Sensor();
         $sensor11->setName("sensor11");
-        $sensor11->setState("functional");
+        $sensor11->setState("fonctionnel");
         $sensor11->setSystems($system4);
-        $sensor11->setType("humidity");
+        $sensor11->setType("humidite");
         $manager->persist($sensor11);
 
         $sensor12=new Sensor();
         $sensor12->setName("sensor12");
-        $sensor12->setState("functional");
+        $sensor12->setState("fonctionnel");
         $sensor12->setSystems($system4);
         $sensor12->setType("CO2");
         $manager->persist($sensor12);
@@ -164,21 +164,21 @@ class AppFixtures extends Fixture
 
         $sensor13=new Sensor();
         $sensor13->setName("sensor13");
-        $sensor13->setState("functional");
+        $sensor13->setState("fonctionnel");
         $sensor13->setSystems($system5);
         $sensor13->setType("temperature");
         $manager->persist($sensor13);
 
         $sensor14=new Sensor();
         $sensor14->setName("sensor14");
-        $sensor14->setState("functional");
+        $sensor14->setState("fonctionnel");
         $sensor14->setSystems($system5);
-        $sensor14->setType("humidity");
+        $sensor14->setType("humidite    ");
         $manager->persist($sensor14);
 
         $sensor15=new Sensor();
         $sensor15->setName("sensor15");
-        $sensor15->setState("functional");
+        $sensor15->setState("fonctionnel");
         $sensor15->setSystems($system5);
         $sensor15->setType("CO2");
         $manager->persist($sensor15);
