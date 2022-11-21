@@ -1,5 +1,5 @@
 {% extends 'basewithnavbar.html.twig' %}
-{% block title %}Liste des capteurs{% endblock %}
+{% block title %}Liste des salles{% endblock %}
 
 {% block body %}
     <style>
@@ -39,6 +39,16 @@
             vertical-align: top;
             border-top: 1px solid #dee2e6;
         }
+        .img {
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-position: 0 0;
+            width:35px;
+            height:35px;
+        }
+        .delete {
+            background-image: url({{ asset('img/poubelle.png') }});
+        }
 
     </style>
 
@@ -52,7 +62,7 @@
             <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Nom</th>
-                <th scope="col">modif</th> <!-- mettre crayon -->
+                <th scope="col">Supprimer</th>
             </tr>
             </thead>
             <tbody>
@@ -60,15 +70,16 @@
                 <tr>
                     <td> {{ room.id }} </td>
                     <td> {{ room.name }} </td>
-                    <!-- Supprimer Salle -->
-                    <td><button class="favorite styled" type="button">Supprimer</button></td>
+                    <!-- Supprimer Salle : faire requete pour suppr de la BD -->
+                    <!--<td><button class="styled" type="button">Supprimer</button></td>-->
+                    <td><a class="btn btn-primary img delete favorite" href="/admin/database/supprimer_salle/{{ room.id }}" role="button"></a></td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
         <br><br>
         <!-- Ajouter Salle -->
-        <a href="formulaire_salles_ajout.html.twig"><button class="favorite styled" type="button">Ajouter une salle</button></a>
-        <!-- ce qui marche: http://localhost:9979/admin/database/lister_salles/formulaire_ajout -->
+        <a class="btn btn-primary" href="/admin/database/ajouter_salle" role="button">Ajouter une salle</a>
+        <!--<a href="/admin/database/ajouter_salle"><button class="favorite styled" type="button">Ajouter une salle</button></a>-->
     </div>
 {% endblock %}
