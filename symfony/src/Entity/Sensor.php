@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\SensorRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SensorRepository::class)]
 class Sensor
@@ -15,6 +16,7 @@ class Sensor
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
+    #[Assert\NotNull]
 
     #[ORM\Column(length: 255)]
     private ?string $type = null;
@@ -24,6 +26,7 @@ class Sensor
 
     #[ORM\Column(length: 255)]
     private ?string $state = null;
+
 
     #[ORM\ManyToOne(inversedBy: 'sensors')]
     #[ORM\JoinColumn(nullable: false)]

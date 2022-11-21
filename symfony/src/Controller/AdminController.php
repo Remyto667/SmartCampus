@@ -86,6 +86,7 @@ class AdminController extends AbstractController
         return $this->render('admin/ajouter_capteur.html.twig', [
             'form' =>$form->createView(),
         ]);
+
     }
 
     #[Route('/admin/database/lister_salles/formulaire_ajout', name: 'app_salle_formulaire')]
@@ -147,17 +148,23 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/database/supprimer_systeme/{id?}', name: 'supprimerSystemes')]
-    public function delete_system(Request $request, ?int $id, ManagerRegistry $doctrine): Response
-    {
-        $entityManager = $doctrine->getManager();
-        $repository = $entityManager->getRepository('App\Entity\System');
-        $system = $repository->find($id);
-        $repository->remove($system, true);
+    #[Route('/admin/database/modifier_capteur/{id?}', name: 'modifierCapteurs')]
+    public function update_capteur(Request $request, ?int $id, ManagerRegistry $doctrine): Response{
+        $entityManager =$doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\Sensor');
+        $sensor = $repository->find($id);
+        $form = $this->createForm(SensorType::class, $sensor);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()){
+            $entityManager->persist($sensor);
+            $entityManager->flush();
+            return $this->redirect($this->generateUrl('listerCapteurs', []));
+        }
 
-        return $this->redirect($this->generateUrl('listerSystemes', []));
-
+        return $this->render('admin/ajouter_capteur.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }
 

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\SystemRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SystemRepository::class)]
@@ -16,6 +17,13 @@ class System
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotNull]
+    #[Assert\Length(
+        min: 1,
+        max: 7,
+        minMessage: 'Your system must be at least 1 characters long',
+        maxMessage: 'Your system cannot be longer than 7 characters',
+    )]
     private ?string $name = null;
 
     #[ORM\ManyToOne]
