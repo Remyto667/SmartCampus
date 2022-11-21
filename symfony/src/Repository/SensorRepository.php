@@ -39,7 +39,7 @@ class SensorRepository extends ServiceEntityRepository
         }
     }
 
-    public function test(): array
+    public function listOfAllSensor(): array
     {
         $conn = $this->getEntityManager()->getConnection();
 

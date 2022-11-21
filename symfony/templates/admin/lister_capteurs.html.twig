@@ -52,6 +52,19 @@
     }
 </style>
 
+<script language="JavaScript">
+    function openPopup(id)
+        {
+            var dialog = confirm("Supprimer le capteur ?");
+            if (dialog) { document.location.href="/admin/database/supprimer_capteur/"+id;
+        }
+    else {
+                document.location.href="/admin/database/lister_capteurs";
+    }
+        }
+
+</script>
+
 
 <div class="example-wrapper">
     <h1>{{ controller_name }}✅</h1>
@@ -76,11 +89,13 @@
                 <td>{{ sensor.type  }}</td>
                 <td>{{ sensor.state  }}</td>
                 <td>{{ sensor.id  }}</td>
-                <td> <a class="btn btn-primary" href="/admin/database/modifier_capteur/{{ sensor.Sid }}" role="button">modifier</a> <a class="btn btn-primary" href="/admin/database/supprimer_capteur/{{ sensor.Sid }}" role="button">supprimer</a> </td>
+                <td> <a class="btn btn-primary" href="/admin/database/modifier_capteur/{{ sensor.Sid }}" role="button">modifier</a>
+                    <input class="btn btn-primary" type="button" value="Supprimer" name="test" onclick="openPopup({{ sensor.Sid }})"/></td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+
 
     <a class="btn btn-primary" href="/admin/database/ajouter_capteur" role="button">Ajouter un Capteur</a>
 </div>
