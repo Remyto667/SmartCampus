@@ -81,6 +81,7 @@
             <th scope="col">Id</th>
             <th scope="col">Nom du système</th>
             <th scope="col">Salle</th>
+            <th scope="col">Nombre de capteurs</th>
             <th scope="col">Options</th>
         </tr>
         </thead>
@@ -90,6 +91,12 @@
                 <td> {{ system.id }} </td>
                 <td> {{ system.name }}</td>
                 <td> {{ system.room.name }} </td>
+
+                {% for key,value in nbsensor %}
+                    {% if value.id == system.id %}
+                   <td> {{ value.nb }}</td>
+                {% endif %}
+                {% endfor %}
                 <td>
                     <a class="btn btn-primary img update favorite" href="/admin/database/modifier_systeme/{{ system.id }}" role="button" ><a/>
                         <input class="btn btn-primary img delete favorite" type=button onclick="openPopup({{ system.id }})">

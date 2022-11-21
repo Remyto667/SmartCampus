@@ -52,9 +52,12 @@ class AdminController extends AbstractController
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\System');
         $systems = $repository->findAll();
+        $repository2 = $entityManager->getRepository('App\Entity\Sensor');
+        $nbSensor = $repository2->countSensorOfSystem();
 
         return $this->render('admin/lister_systemes.html.twig', [
             'systems'=>$systems,
+            'nbsensor'=>$nbSensor,
         ]);
     }
 

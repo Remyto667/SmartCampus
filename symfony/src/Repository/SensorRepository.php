@@ -53,7 +53,21 @@ class SensorRepository extends ServiceEntityRepository
         // returns an array of arrays (i.e. a raw data set)
         return $resultSet->fetchAllAssociative();
     }
+    public function countSensorOfSystem(): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
 
+        $sql =
+            'SELECT sys.id, COUNT(sen.id) as nb
+        FROM sensor sen, system sys
+        WHERE sen.systems_id = sys.id
+        GROUP BY sen.systems_id
+        ';
+
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+        return $resultSet->fetchAllAssociative();
+    }
 //    /**
 //     * @return Sensor[] Returns an array of Sensor objects
 //     */
