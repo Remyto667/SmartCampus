@@ -1,5 +1,4 @@
-{% extends 'base.html.twig' %}
-
+{% extends 'basewithnavbar.html.twig' %}
 {% block title %}Liste des capteurs{% endblock %}
 
 {% block body %}
@@ -34,17 +33,29 @@
         <h1>Inventaire des Salles</h1>
 
         <!-- Lister Salles -->
-        <ul>
+
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Id du système</th>
+                <th scope="col">Nom</th>
+            </tr>
+            </thead>
+            <tbody>
             {% for room in rooms %}
-                <li>Salle :{{ room.id }}</li>
-                <li>Nom :{{ room.name }}</li>
-                <!--<li>System :{{ room.system }}</li>-->
+                <tr>
+                    <th {{ system.id }} </th>
+                    <td> {{ system.system_id }}</td>
+                    <td> {{ room.name }} </td>
+                </tr>
             {% endfor %}
-        </ul>
+            </tbody>
+        </table>
         <br><br><br>
         <!-- Ajouter Salle -->
         <a href="formulaire_salles_ajout.html.twig"><button class="favorite styled" type="button">Add Room</button></a>
-        <br>
+        <br><br>
         <!-- Supprimer Salle -->
         <button class="favorite styled" type="button">Remove Room</button>
 
