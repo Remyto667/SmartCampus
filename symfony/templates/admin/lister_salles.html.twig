@@ -3,7 +3,7 @@
 
 {% block body %}
     <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper { margin: 1em auto; max-width: 400px; width: 95%; font: 18px/1.5 sans-serif; }
         .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
         /* BOUTONS */
         .styled {
@@ -38,28 +38,24 @@
             <thead class="thead-light">
             <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Id du système</th>
                 <th scope="col">Nom</th>
+                <th scope="col">modif</th> <!-- mettre crayon -->
             </tr>
             </thead>
             <tbody>
             {% for room in rooms %}
                 <tr>
-                    <th {{ system.id }} </th>
-                    <td> {{ system.system_id }}</td>
+                    <td> {{ room.id }} </td>
                     <td> {{ room.name }} </td>
+                    <!-- Supprimer Salle -->
+                    <td><button class="favorite styled" type="button">Supprimer</button></td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
-        <br><br><br>
-        <!-- Ajouter Salle -->
-        <a href="formulaire_salles_ajout.html.twig"><button class="favorite styled" type="button">Add Room</button></a>
         <br><br>
-        <!-- Supprimer Salle -->
-        <button class="favorite styled" type="button">Remove Room</button>
-
-
-
+        <!-- Ajouter Salle -->
+        <a href="formulaire_salles_ajout.html.twig"><button class="favorite styled" type="button">Ajouter une salle</button></a>
+        <!-- ce qui marche: http://localhost:9979/admin/database/lister_salles/formulaire_ajout -->
     </div>
 {% endblock %}
