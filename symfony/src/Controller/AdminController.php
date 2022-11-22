@@ -158,6 +158,28 @@ class AdminController extends AbstractController
         ]);
     }
 
+    #[Route('/admin/database/modifier_salle/{id?}', name: 'modifierSalles')]
+    public function update_room(Request $request, ?int $id, ManagerRegistry $doctrine): Response
+    {
+        $entityManager = $doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\Room');
+        $room = $repository->find($id);
+
+        $form = $this->createForm(RoomType::class, $room);
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($room);
+            $entityManager->flush();
+            return $this->redirectToRoute('listerSalles');
+        }
+
+        return $this->render('admin/ajouter_salle.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
     #[Route('/admin/database/modifier_capteur/{id?}', name: 'modifierCapteurs')]
     public function update_capteur(Request $request, ?int $id, ManagerRegistry $doctrine): Response{
         $entityManager =$doctrine->getManager();

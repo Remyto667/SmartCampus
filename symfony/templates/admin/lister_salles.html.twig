@@ -66,15 +66,14 @@
         function openPopup(id)
         {
             var dialog = confirm("Supprimer la salle ? \n" +
-                "Ceci ne la supprimera que s'il n'y a aucun système dans la salle" +
+                "Ceci ne la supprimera que s'il n'y a aucun système dans la salle \n" +
                 "Sinon annulez et changez les systemes de salle d'abord");
             if (dialog) {
+                document.location.href="/admin/database/supprimer_salle/"+id;
                 if({{ ok }} == 0)
                 {
                     erreur();
                 }
-                document.location.href="/admin/database/supprimer_salle/"+id;
-
             }
             else {
                 document.location.href="/admin/database/lister_salles";
@@ -104,7 +103,7 @@
                     <td> {{ room.name }} </td>
                     <!-- Supprimer Salle : faire requete pour suppr de la BD -->
                     <!--<td><button class="styled" type="button">Supprimer</button></td>-->
-                    <td><a class="btn btn-primary img update favorite" href="/admin/database/supprimer_salle/{{ room.id }}" role="button"></a></td>
+                    <td><a class="btn btn-primary img update favorite" href="/admin/database/modifier_salle/{{ room.id }}" role="button"></a></td>
                     <td><input class="btn btn-primary img delete favorite" type=button onclick="openPopup({{ room.id }})"></td>
                 </tr>
             {% endfor %}
