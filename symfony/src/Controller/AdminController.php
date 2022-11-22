@@ -34,8 +34,8 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/database/lister_salles', name: 'listerSalles')]
-    public function lister_salles(ManagerRegistry $doctrine): Response
+    #[Route('/admin/database/lister_salles/{ok?1}', name: 'listerSalles')]
+    public function lister_salles(ManagerRegistry $doctrine, ?int $ok): Response
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
@@ -43,6 +43,7 @@ class AdminController extends AbstractController
 
         return $this->render('admin/lister_salles.html.twig', [
             'rooms' => $rooms,
+            'ok' => $ok,
         ]);
     }
 
@@ -189,6 +190,15 @@ class AdminController extends AbstractController
         $system = $repository->find($id);
 
         return $this->redirect($this->generateUrl('listerSystemes', ['ok' => $repository->remove($system, true)]));
+    }
+
+    #[Route('/admin/database/supprimer_salle/{id?}', name: 'supprimerSalle')]
+    public function supprimer_salle(Request $request, ?int $id, ManagerRegistry $doctrine): Response{
+        $entityManager = $doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\Room');
+        $room = $repository->find($id);
+
+        return $this->redirect($this->generateUrl('listerSalles', ['ok' => $repository->remove($room, true)]));
     }
 }
 
