@@ -3,7 +3,7 @@
 
 {% block body %}
     <style>
-        .example-wrapper { margin: 1em auto; max-width: 400px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper { margin: 1em auto; max-width: 500px; width: 95%; font: 18px/1.5 sans-serif; }
         .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
         /* BOUTONS */
         .styled {
@@ -45,6 +45,9 @@
             background-position: 0 0;
             width:35px;
             height:35px;
+        }
+        .update {
+            background-image: url({{ asset('img/crayon_blanc.png') }});
         }
         .delete {
             background-image: url({{ asset('img/poubelle.png') }});
@@ -90,6 +93,7 @@
             <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Nom</th>
+                <th scope="col">Modifier</th>
                 <th scope="col">Supprimer</th>
             </tr>
             </thead>
@@ -100,6 +104,7 @@
                     <td> {{ room.name }} </td>
                     <!-- Supprimer Salle : faire requete pour suppr de la BD -->
                     <!--<td><button class="styled" type="button">Supprimer</button></td>-->
+                    <td><a class="btn btn-primary img update favorite" href="/admin/database/supprimer_salle/{{ room.id }}" role="button"></a></td>
                     <td><a class="btn btn-primary img delete favorite" href="/admin/database/supprimer_salle/{{ room.id }}" role="button"></a></td>
                     <td><input class="btn btn-primary img delete favorite" type=button onclick="openPopup({{ room.id }})"></td>
                 </tr>
