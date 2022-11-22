@@ -20,9 +20,9 @@ class System
     #[Assert\NotNull]
     #[Assert\Length(
         min: 1,
-        max: 7,
+        max: 20,
         minMessage: 'Your system must be at least 1 characters long',
-        maxMessage: 'Your system cannot be longer than 7 characters',
+        maxMessage: 'Your system cannot be longer than 20 characters',
     )]
     private ?string $name = null;
 
