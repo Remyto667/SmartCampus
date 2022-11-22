@@ -90,7 +90,7 @@ class AdminController extends AbstractController
     }
 
     #[Route('/admin/database/ajouter_salle', name: 'ajouter_salle')]
-    public function ajouter_Salle(Request $request, ManagerRegistry $doctrine): Response
+    public function ajouter_salle(Request $request, ManagerRegistry $doctrine): Response
     {
         $room = new Room();
         $entityManager = $doctrine->getManager();
