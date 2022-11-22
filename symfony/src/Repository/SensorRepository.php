@@ -39,13 +39,14 @@ class SensorRepository extends ServiceEntityRepository
         }
     }
 
-    public function test(): array
+    public function listOfAllSensor(): array
     {
         $conn = $this->getEntityManager()->getConnection();
 
         $sql = '
-            SELECT s.id as Sid, s.name, s.type, s.state, y.id FROM sensor s, system y
+            SELECT s.id as Sid, s.name, s.type, s.state, y.id, r.name as Rname FROM sensor s, system y, room r
             WHERE s.systems_id =y.id
+            and y.room_id = r.id
             ';
         $stmt = $conn->prepare($sql);
         $resultSet = $stmt->executeQuery();
@@ -53,7 +54,20 @@ class SensorRepository extends ServiceEntityRepository
         // returns an array of arrays (i.e. a raw data set)
         return $resultSet->fetchAllAssociative();
     }
+    public function countSensorOfSystem(): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
 
+        $sql = 'SELECT  c.id, COUNT(m.id) as nb
+                FROM    system c
+                        LEFT JOIN sensor m
+                        ON m.systems_id = c.id
+                GROUP BY c.id';
+
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+        return $resultSet->fetchAllAssociative();
+    }
 //    /**
 //     * @return Sensor[] Returns an array of Sensor objects
 //     */

@@ -30,13 +30,32 @@ class RoomRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Room $entity, bool $flush = false): void
+    public function remove(Room $entity, bool $flush = false)
     {
-        $this->getEntityManager()->remove($entity);
+        $conn = $this->getEntityManager()->getConnection();
 
-        if ($flush) {
-            $this->getEntityManager()->flush();
+        $sql = 'SELECT r.id
+            FROM room r
+            WHERE r.id not in ( SELECT sys.room_id
+                                FROM system sys
+                                GROUP BY sys.room_id)';
+
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+        $result = $resultSet->fetchAllAssociative();
+        $ok = 0;
+        foreach($result as $row)
+        {
+            if($entity->getId() == $row['id']) {
+                $this->getEntityManager()->remove($entity);
+                if ($flush) {
+                    $this->getEntityManager()->flush();
+                }
+                $ok = 1;
+            }
         }
+        return $ok;
+
     }
 
 //    /**

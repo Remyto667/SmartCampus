@@ -3,90 +3,121 @@
 {% block title %}Inventaire des Systemes d'Aquisition{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    .table .thead-light th {
-        color: #495057;
-        background-color: #e9ecef;
-        border-color: #dee2e6;
-    }
-    .table td, .table th {
-        padding: 0.75rem;
-        vertical-align: top;
-        border-top: 1px solid #dee2e6;
-    }
-    .btn:not(:disabled):not(.disabled) {
-        cursor: pointer;
-    }
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+        .table .thead-light th {
+            color: #495057;
+            background-color: #e9ecef;
+            border-color: #dee2e6;
+        }
+        .table td, .table th {
+            padding: 0.75rem;
+            vertical-align: top;
+            border-top: 1px solid #dee2e6;
+        }
+        .btn:not(:disabled):not(.disabled) {
+            cursor: pointer;
+        }
 
-    .btn-primary {
-        color: #fff;
-        background-color: #007bff;
-        border-color: #007bff;
-    }
-    .btn {
-        display: inline-block;
-        font-weight: 400;
-        text-align: center;
-        white-space: nowrap;
-        vertical-align: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        padding: 0.375rem 0.75rem;
-        font-size: 1rem;
-        line-height: 1.5;
-        border-radius: 0.25rem;
-        transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-    }
+        .btn-primary {
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn {
+            display: inline-block;
+            font-weight: 400;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
 
 
-    .img {
-        background-repeat: no-repeat;
-        background-size: 100% 100%;
-        background-position: 0 0;
-        width:35px;
-        height:35px;
-    }
-    .update {
-        background-image: url({{ asset('img/crayon_blanc.png') }});
-    }
-    .delete {
-        background-image: url({{ asset('img/poubelle.png') }});
-    }
-</style>
+        .img {
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-position: 0 0;
+            width:35px;
+            height:35px;
+        }
+        .update {
+            background-image: url({{ asset('img/crayon_blanc.png') }});
+        }
+        .delete {
+            background-image: url({{ asset('img/poubelle.png') }});
+        }
+    </style>
+    <script>
+        function erreur()
+        {
+            alert("Il y a des capteurs dans ce système ! " +
+                "\n" +
+                "Supprimez les ou changer les de système avant de supprimer le système.");
+        }
 
-<div class="example-wrapper">
+        function openPopup(id)
+        {
+            var dialog = confirm("Supprimer le systeme ? \n" +
+                "Ceci ne le supprimera que s'il n'a aucun capteur" +
+                "Sinon annulez et changez les capteurs de système d'abord");
+            if (dialog) {
+                document.location.href="/admin/database/supprimer_systeme/"+id;
+                if({{ ok }} == 0)
+                {
+                    erreur();
+                }
+            }
+            else {
+                document.location.href="/admin/database/lister_systemes";
 
-    <h1> Inventaire des Systèmes d'acquisition </h1>
+            }
+        }
+    </script>
 
-    <table class="table">
-        <thead class="thead-light">
-        <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Nom du système</th>
-            <th scope="col">Salle</th>
-            <th scope="col">Options</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for system in systems %}
+    <div class="example-wrapper">
+
+        <h1> Inventaire des Systèmes d'acquisition </h1>
+
+        <table class="table">
+            <thead class="thead-light">
             <tr>
-                <td> {{ system.id }} </td>
-                <td> {{ system.name }}</td>
-                <td> {{ system.room.name }} </td>
-                <td>
-                    <a class="btn btn-primary img update favorite" href="/admin/database/modifier_systeme/{{ system.id }}" role="button" ><a/>
-                    <a class="btn btn-primary img delete favorite" href="/admin/database/supprimer_systeme/{{ system.id }}" role="button"></a>
-                </td>
+                <th scope="col">Id</th>
+                <th scope="col">Nom du système</th>
+                <th scope="col">Salle</th>
+                <th scope="col">Nombre de capteurs</th>
+                <th scope="col">Options</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for system in systems %}
+                <tr>
+                    <td> {{ system.id }} </td>
+                    <td> {{ system.name }}</td>
+                    <td> {{ system.room.name }} </td>
 
-    <a class="btn btn-primary favorite" href="/admin/database/ajouter_systeme" role="button">Ajouter un Systeme</a>
+                    {% for key,value in nbsensor %}
+                        {% if value.id == system.id %}
+                            <td> {{ value.nb }}</td>
+                        {% endif %}
+                    {% endfor %}
+                    <td>
+                        <a class="btn btn-primary img update favorite" href="/admin/database/modifier_systeme/{{ system.id }}" role="button" > </a> <input class="btn btn-primary img delete favorite" type=button onclick="openPopup({{ system.id }})"> </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
-</div>
+        <a class="btn btn-primary favorite" href="/admin/database/ajouter_systeme" role="button">Ajouter un Systeme</a>
+
+    </div>
 {% endblock %}

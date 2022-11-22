@@ -34,8 +34,8 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/database/lister_salles', name: 'listerSalles')]
-    public function lister_salles(ManagerRegistry $doctrine): Response
+    #[Route('/admin/database/lister_salles/{ok?1}', name: 'listerSalles')]
+    public function lister_salles(ManagerRegistry $doctrine, ?int $ok): Response
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
@@ -43,18 +43,23 @@ class AdminController extends AbstractController
 
         return $this->render('admin/lister_salles.html.twig', [
             'rooms' => $rooms,
+            'ok' => $ok,
         ]);
     }
 
-    #[Route('/admin/database/lister_systemes', name: 'listerSystemes')]
-    public function lister_systemes(ManagerRegistry $doctrine): Response
+    #[Route('/admin/database/lister_systemes/{ok?1}', name: 'listerSystemes')]
+    public function lister_systemes(ManagerRegistry $doctrine, ?int $ok): Response
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\System');
         $systems = $repository->findAll();
+        $repository2 = $entityManager->getRepository('App\Entity\Sensor');
+        $nbSensor = $repository2->countSensorOfSystem();
 
         return $this->render('admin/lister_systemes.html.twig', [
             'systems'=>$systems,
+            'nbsensor'=>$nbSensor,
+            'ok' => $ok,
         ]);
     }
 
@@ -63,11 +68,10 @@ class AdminController extends AbstractController
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Sensor');
-        //$allSensor= $repository->findAll();
-        $test = $doctrine->getRepository(Sensor::class)->test();
+        $list = $doctrine->getRepository(Sensor::class)->listOfAllSensor();
         return $this->render('admin/lister_capteurs.html.twig', [
             'controller_name' => 'Liste des Capteurs',
-            'allSensor' => $test,
+            'allSensor' => $list,
         ]);
     }
 
@@ -166,6 +170,35 @@ class AdminController extends AbstractController
         return $this->render('admin/ajouter_capteur.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    #[Route('/admin/database/supprimer_capteur/{id?}', name: 'supprimerCapteur')]
+    public function supprimer_capteur(Request $request, ?int $id, ManagerRegistry $doctrine): Response{
+        $entityManager = $doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\Sensor');
+        $sensor = $repository->find($id);
+        $entityManager->remove($sensor);
+        $entityManager->flush();
+        return $this->redirect($this->generateUrl('listerCapteurs', []));
+
+
+    }
+    #[Route('/admin/database/supprimer_systeme/{id?}', name: 'supprimerSysteme')]
+    public function supprimer_systeme(Request $request, ?int $id, ManagerRegistry $doctrine): Response{
+        $entityManager = $doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\System');
+        $system = $repository->find($id);
+
+        return $this->redirect($this->generateUrl('listerSystemes', ['ok' => $repository->remove($system, true)]));
+    }
+
+    #[Route('/admin/database/supprimer_salle/{id?}', name: 'supprimerSalle')]
+    public function supprimer_salle(Request $request, ?int $id, ManagerRegistry $doctrine): Response{
+        $entityManager = $doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\Room');
+        $room = $repository->find($id);
+
+        return $this->redirect($this->generateUrl('listerSalles', ['ok' => $repository->remove($room, true)]));
     }
 }
 
