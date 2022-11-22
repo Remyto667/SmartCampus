@@ -18,8 +18,13 @@ use Symfony\Component\Validator\Constraints\All;
 
 class AdminController extends AbstractController
 {
-    #[Route('/admin', name: 'app_admin')]
+    #[Route('/', name: 'menu')]
     public function index(): Response
+    {
+        return $this->redirectToRoute('app_admin');
+    }
+    #[Route('/admin', name: 'app_admin')]
+    public function admin(): Response
     {
         return $this->render('admin/index.html.twig', [
             'controller_name' => 'AdminController',
