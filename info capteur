@@ -1,0 +1,5 @@
+chaque broche va en face de la broche qui lui correspond  et faut les mettre pas dans le + et -:
+vcc = 5V
+GND = GND
+le reste va ou on veut mais on utilisera donc ce numéro de broche pour récupérer des informations en le configurant dans le programme
+l'esp 32 peut se mettre n'importe ou
