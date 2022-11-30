@@ -114,5 +114,20 @@
         <!-- Ajouter Salle -->
         <a class="btn btn-primary" href="/admin/database/ajouter_salle" role="button">Ajouter une salle</a>
         <!--<a href="/admin/database/ajouter_salle"><button class="favorite styled" type="button">Ajouter une salle</button></a>-->
+
+        <!-------------------- TESTS JSON ---------------------->
+
+        <?php
+        // chemin d'accès à votre fichier JSON
+        $file = 'donneesCapteurs.json';
+        // mettre le contenu du fichier dans une variable
+        $data = file_get_contents($file);
+        // décoder le flux JSON
+        $obj = json_decode($data);
+        // accéder à l'élément approprié
+        echo $obj[0]->nameRoom;
+        ?>
+        <!------------------------------------------------------>
+
     </div>
 {% endblock %}
