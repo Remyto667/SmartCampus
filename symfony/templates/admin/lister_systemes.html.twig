@@ -72,14 +72,14 @@
                 "Ceci ne le supprimera que s'il n'a aucun capteur" +
                 "Sinon annulez et changez les capteurs de système d'abord");
             if (dialog) {
-                document.location.href="/admin/database/supprimer_systeme/"+id;
+                document.location.href="/admin/inventaire/supprimer_systeme/"+id;
                 if({{ ok }} == 0)
                 {
                     erreur();
                 }
             }
             else {
-                document.location.href="/admin/database/lister_systemes";
+                document.location.href="/admin/inventaire/lister_systemes";
 
             }
         }
@@ -112,13 +112,13 @@
                         {% endif %}
                     {% endfor %}
                     <td>
-                        <a class="btn btn-primary img update favorite" href="/admin/database/modifier_systeme/{{ system.id }}" role="button" > </a> <input class="btn btn-primary img delete favorite" type=button onclick="openPopup({{ system.id }})"> </td>
+                        <a class="btn btn-primary img update favorite" href="/admin/inventaire/modifier_systeme/{{ system.id }}" role="button" > </a> <input class="btn btn-primary img delete favorite" type=button onclick="openPopup({{ system.id }})"> </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
 
-        <a class="btn btn-primary favorite" href="/admin/database/ajouter_systeme" role="button">Ajouter un Systeme</a>
+        <a class="btn btn-primary favorite" href="/admin/inventaire/ajouter_systeme" role="button">Ajouter un Systeme</a>
 
     </div>
 {% endblock %}
