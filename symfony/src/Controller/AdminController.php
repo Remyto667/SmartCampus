@@ -216,6 +216,9 @@ class AdminController extends AbstractController
         $repository = $entityManager->getRepository('App\Entity\System');
         $system = $repository->find($id);
 
+
+        $entityManager->flush();
+
         return $this->redirect($this->generateUrl('listerSystemes', ['ok' => $repository->remove($system, true)]));
     }
 

@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Sensor;
+use App\Entity\System;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -54,6 +55,7 @@ class SensorRepository extends ServiceEntityRepository
         // returns an array of arrays (i.e. a raw data set)
         return $resultSet->fetchAllAssociative();
     }
+
     public function countSensorOfSystem(): array
     {
         $conn = $this->getEntityManager()->getConnection();
@@ -68,6 +70,20 @@ class SensorRepository extends ServiceEntityRepository
         $resultSet = $stmt->executeQuery();
         return $resultSet->fetchAllAssociative();
     }
+
+    public function sensorOfSystem(System $system): array
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->where('p.price > :price')
+            ->setParameter('price', $system);
+            //faut changer ca
+        $query=$qb->getQuery();
+        return $query->execute();
+    }
+
+}
+
+
 //    /**
 //     * @return Sensor[] Returns an array of Sensor objects
 //     */
@@ -92,4 +108,3 @@ class SensorRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
-}

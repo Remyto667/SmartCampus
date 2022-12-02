@@ -32,34 +32,12 @@ class SystemRepository extends ServiceEntityRepository
 
     public function remove(System $entity, bool $flush = false)
     {
-        //$query = $this->getEntityManager()->createQuery(
-
-         //   );
-
-        //$result = $query->getArrayResult();
-
-        $conn = $this->getEntityManager()->getConnection();
-
-        $sql = 'SELECT sys.id
-            FROM system sys
-            WHERE sys.id not in ( SELECT sen.systems_id
-                                FROM sensor sen
-                                GROUP BY sen.systems_id)';
-
-        $stmt = $conn->prepare($sql);
-        $resultSet = $stmt->executeQuery();
-        $result = $resultSet->fetchAllAssociative();
-        $ok = 0;
-        foreach($result as $row)
-        {
-            if($entity->getId() == $row['id']) {
-                $this->getEntityManager()->remove($entity);
-                if ($flush) {
-                    $this->getEntityManager()->flush();
-                }
-                $ok = 1;
-            }
+        $this->getEntityManager()->remove($entity);
+        if ($flush) {
+            $this->getEntityManager()->flush();
         }
+        $ok=1;
+
         return $ok;
 
     }
@@ -90,4 +68,26 @@ class SystemRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+/*
+ * $sql = 'SELECT sys.id
+            FROM system sys
+            WHERE sys.id not in ( SELECT sen.systems_id
+                                FROM sensor sen
+                                GROUP BY sen.systems_id)';
+
+
+
+
+        foreach($result as $row)
+        {
+            if($entity->getId() == $row['id']) {
+                $this->getEntityManager()->remove($entity);
+                if ($flush) {
+                    $this->getEntityManager()->flush();
+                }
+                $ok = 1;
+            }
+        }
+ */
 }
