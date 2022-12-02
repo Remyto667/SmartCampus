@@ -26,6 +26,7 @@ final class Version20221116084827 extends AbstractMigration
         $this->addSql('CREATE TABLE messenger_messages (id BIGINT AUTO_INCREMENT NOT NULL, body LONGTEXT NOT NULL, headers LONGTEXT NOT NULL, queue_name VARCHAR(190) NOT NULL, created_at DATETIME NOT NULL, available_at DATETIME NOT NULL, delivered_at DATETIME DEFAULT NULL, INDEX IDX_75EA56E0FB7336F0 (queue_name), INDEX IDX_75EA56E0E3BD61CE (available_at), INDEX IDX_75EA56E016BA31DB (delivered_at), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE sensor ADD CONSTRAINT FK_BC8617B0411D7F6D FOREIGN KEY (systems_id) REFERENCES system (id)');
         $this->addSql('ALTER TABLE system ADD CONSTRAINT FK_C94D118B54177093 FOREIGN KEY (room_id) REFERENCES room (id)');
+        $this->addSql('ALTER TABLE system ADD tag INT NOT NULL');
     }
 
     public function down(Schema $schema): void
@@ -37,5 +38,6 @@ final class Version20221116084827 extends AbstractMigration
         $this->addSql('DROP TABLE sensor');
         $this->addSql('DROP TABLE system');
         $this->addSql('DROP TABLE messenger_messages');
+        $this->addSql('ALTER TABLE system DROP tag');
     }
 }
