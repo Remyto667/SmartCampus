@@ -227,5 +227,11 @@ class AdminController extends AbstractController
 
         return $this->redirect($this->generateUrl('listerSalles', ['ok' => $repository->remove($room, true)]));
     }
+
+    public function adminDashboard(): Response
+    {
+
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
+    }
 }
 
