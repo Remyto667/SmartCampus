@@ -8,7 +8,7 @@
         margin-top: 10px;
     }
     .text_main{
-        margin-top: 170px;
+        margin-top:     70px;
         font-size: 110px;
 
     }
@@ -16,7 +16,9 @@
         margin-top: 30px;
         font-size: 60px;
     }
-
+    .container{
+        margin-top: 100px;
+    }
     body{
         background-image: url("img/main_wallpaper.jpg");
         background-size: cover;
@@ -37,10 +39,11 @@
         border-width: 0;
     }
 
+
 </style>
     <!-- main UX -->
+    </br>
     <img class="rounded mx-auto d-block logo" src="{{ asset('img/logo_main.png') }}">
-
     <p class="text-light text-center align-middle text_main"><strong>La solution de demain</strong> </p>
     <p class="text-light text-center align-middle text_second"><strong>Smart campus</strong></p>
 <!--
@@ -54,14 +57,17 @@
     </div>
 -->
 
-    <div class="col text-center form-group row">
-        <div class="col-md-8">
-            <a class="btn btn-white btn-lg" href="/admin/connexion" role="button">connexion superviseur</a>
-        </div>
-        <div class="col-md-1">
-            <a class="btn btn-white btn-lg" href="/salle/connexion" role="button">connexion salle</a>
+    <div class="container">
+        <div class="col text-center form-group row">
+            <div class="col">
+                <a class="btn btn-white btn-lg" href="/admin/connexion" role="button" style="width:300px">connexion superviseur</a>
+            </div>
+            <div class="col-4">
+
+            </div>
+            <div class="col">
+                <a class="btn btn-white btn-lg" href="/salle/connexion" role="button" style="width:300px">connexion salle</a>
+            </div>
         </div>
     </div>
-
-
 {% endblock %}
