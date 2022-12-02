@@ -34,6 +34,10 @@ class AppFixtures extends Fixture
         $room5->setName("D002");
         $manager->persist($room5);
 
+        $room6=new Room();
+        $room6->setName("Stock");
+        $manager->persist($room6);
+
 //Les systemes
 
         $system1=new System();
@@ -188,6 +192,21 @@ class AppFixtures extends Fixture
         $sensor15->setSystems($system5);
         $sensor15->setType("CO2");
         $manager->persist($sensor15);
+        //    --------- System 6--------------------------------------
+
+        $sensor16=new Sensor();
+        $sensor16->setName("sensor16");
+        $sensor16->setState("fonctionnel");
+        $sensor16->setSystems($system6);
+        $sensor16->setType("temperature");
+        $manager->persist($sensor16);
+
+        $sensor17=new Sensor();
+        $sensor17->setName("sensor17");
+        $sensor17->setState("fonctionnel");
+        $sensor17->setSystems($system6);
+        $sensor17->setType("CO2");
+        $manager->persist($sensor17);
 
         $manager->flush();
     }
