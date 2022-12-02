@@ -23,7 +23,7 @@ class AdminController extends AbstractController
     {
         return $this->redirectToRoute('app_admin');
     }
-    #[Route('/admin', name: 'app_admin')]
+    #[Route('/accueil', name: 'app_admin')]
     public function admin(): Response
     {
         return $this->render('admin/index.html.twig', [
