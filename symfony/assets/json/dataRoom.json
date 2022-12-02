@@ -21,7 +21,7 @@
   "valueSensor" : ".0",
   "stateSensor" : "fonctionne",
   "nameSystem" : "ESP-003",
-  "tag" : 3,
+  "tag" : 3
 }, {
   "nameRoom": "D207",
   "nameSensor" : "hum2",

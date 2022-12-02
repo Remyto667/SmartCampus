@@ -1,0 +1,37 @@
+{% extends 'basewithnavbar.html.twig' %}
+
+{% block title %}Data Room{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+
+    <div class="example-wrapper">
+        <h1>Donnees de notre salle ! ✅</h1>
+        <br>
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">Salle</th>
+                <th scope="col">Capteur</th>
+                <th scope="col">TypeCapteur</th>
+                <th scope="col">Valeur</th>
+                <th scope="col">Etat</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in obj %}
+                <tr>
+                    <td>{{ i.nameRoom }}</td>
+                    <td>{{ i.nameSensor }}</td>
+                    <td>{{ i.typeSensor }}</td>
+                    <td>{{ i.valueSensor }}</td>
+                    <td>{{ i.stateSensor }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

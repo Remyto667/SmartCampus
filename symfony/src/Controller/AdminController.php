@@ -227,5 +227,22 @@ class AdminController extends AbstractController
 
         return $this->redirect($this->generateUrl('listerSalles', ['ok' => $repository->remove($room, true)]));
     }
+
+    #[Route('/admin/database/donnees_salle', name: 'donneesSalle')]
+    public function donnees_salle(Request $request, ?int $id, ManagerRegistry $doctrine): Response{
+        $entityManager = $doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\Room');
+        //$room = $repository->find($id);
+
+        //return $this->redirect($this->generateUrl('listerSalles', ['ok' => $repository->remove($room, true)]));
+
+        $file = '../assets/json/dataRoom.json'; // chemin d'accès à votre fichier JSON
+        $data = file_get_contents($file); // mettre le contenu du fichier dans une variable
+        $obj = json_decode($data); // décoder le flux JSON
+
+        //var_dump($obj);
+        return $this->render('admin/donnees_salle.html.twig', [
+            'obj' => $obj //[0]["nameRoom"]
+        ]);    }
 }
 
