@@ -1,33 +1,25 @@
 [{
-  "nameRoom": "D207",
-  "nameSensor" : "temp1",
-  "typeSensor" : "temp",
-  "valueSensor" : "22.0",
-  "stateSensor" : "fonctionne",
-  "nameSystem" : "ESP-003",
+  "id": "51",
+  "nom" : "temp",
+  "valeur" : "19.2",
+  "dateCapture" : "2022-11-28 08:00:00",
+  "localisation" : "D207",
+  "description" : "",
   "tag" : 3
 }, {
-  "nameRoom": "D207",
-  "nameSensor" : "hum1",
-  "typeSensor" : "hum",
-  "valueSensor" : "55.0",
-  "stateSensor" : "fonctionne",
-  "nameSystem" : "ESP-003",
+  "id": "52",
+  "nom" : "hum",
+  "valeur" : "49.2",
+  "dateCapture" : "2022-11-28 08:00:00",
+  "localisation" : "D207",
+  "description" : "",
   "tag" : 3
 }, {
-  "nameRoom": "D207",
-  "nameSensor" : "co21",
-  "typeSensor" : "co2",
-  "valueSensor" : ".0",
-  "stateSensor" : "fonctionne",
-  "nameSystem" : "ESP-003",
-  "tag" : 3
-}, {
-  "nameRoom": "D207",
-  "nameSensor" : "hum2",
-  "typeSensor" : "hum",
-  "valueSensor" : "0.0",
-  "stateSensor" : "en panne",
-  "nameSystem" : "ESP-003",
+  "id": "53",
+  "nom" : "co2",
+  "valeur" : "800",
+  "dateCapture" : "2022-11-28 08:00:00",
+  "localisation" : "D207",
+  "description" : "",
   "tag" : 3
 }]

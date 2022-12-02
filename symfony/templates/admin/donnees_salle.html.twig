@@ -9,29 +9,25 @@
     </style>
 
     <div class="example-wrapper">
-        <h1>Donnees de notre salle ! ✅</h1>
-        <br>
+
+        <h1 style="text-align: center;">{{ room }}</h1>
+
         <table class="table">
             <thead class="thead-light">
-            <tr>
-                <th scope="col">Salle</th>
-                <th scope="col">Capteur</th>
-                <th scope="col">TypeCapteur</th>
-                <th scope="col">Valeur</th>
-                <th scope="col">Etat</th>
-            </tr>
+                <tr>
+                    <th>Température</th>
+                    <th>Humidité</th>
+                    <th>CO2</th>
+                </tr>
             </thead>
             <tbody>
-            {% for i in obj %}
                 <tr>
-                    <td>{{ i.nameRoom }}</td>
-                    <td>{{ i.nameSensor }}</td>
-                    <td>{{ i.typeSensor }}</td>
-                    <td>{{ i.valueSensor }}</td>
-                    <td>{{ i.stateSensor }}</td>
+                    <td>{{ temp }} °C</td>
+                    <td>{{ hum }} %</td>
+                    <td>{{ co2 }} PPM</td>
                 </tr>
-            {% endfor %}
             </tbody>
         </table>
+
     </div>
 {% endblock %}

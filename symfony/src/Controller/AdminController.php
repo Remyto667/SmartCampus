@@ -241,8 +241,13 @@ class AdminController extends AbstractController
         $obj = json_decode($data); // décoder le flux JSON
 
         //var_dump($obj);
+
         return $this->render('admin/donnees_salle.html.twig', [
-            'obj' => $obj //[0]["nameRoom"]
+            'obj' => $obj,
+            'room' => $obj[0]->{"localisation"},
+            'temp' => $obj[0]->{"valeur"},
+            'hum' => $obj[1]->{"valeur"},
+            'co2' => $obj[2]->{"valeur"},
         ]);    }
 }
 
