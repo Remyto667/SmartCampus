@@ -19,7 +19,7 @@ class RoomController extends AbstractController
     #[Route('/salle/connexion', name: 'connexion_salle')]
     public function connexion_salle(): Response
     {
-        return $this->render('salle/connexion.html.twig', [
+        return $this->render('salle/profil.html.twig', [
             'controller_name' => 'CONNEXION SALLE',
         ]);
 

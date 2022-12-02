@@ -21,9 +21,9 @@ class AdminController extends AbstractController
     #[Route('/', name: 'menu')]
     public function index(): Response
     {
-        return $this->redirectToRoute('app_admin');
+        return $this->redirectToRoute('app_accueil');
     }
-    #[Route('/accueil', name: 'app_admin')]
+    #[Route('/accueil', name: 'app_accueil')]
     public function admin(): Response
     {
         return $this->render('admin/index.html.twig', [
@@ -31,10 +31,10 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/connexion', name: 'connexion_admin')]
+    #[Route('/admin/profil', name: 'profil_admin')]
     public function connexion_admin(): Response
     {
-        return $this->render('admin/connexion.html.twig', [
+        return $this->render('admin/profil.html.twig', [
             'controller_name' => 'CONNEXION',
         ]);
 
