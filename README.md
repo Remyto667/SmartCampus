@@ -15,7 +15,7 @@ Stack de développement PHP SAE 2022
  8) bin/console doctrine:migrations:migrate (dans le bash symphony)
  9) bin/console doctrine:fixtures:load
 
-
+Enlever son mot de passe de la salle D204 : git config --global --unset core.excludesfile
 Push dans sa branche : git push -u origin nom_branche
 
 créer branche : git checkout -b 
