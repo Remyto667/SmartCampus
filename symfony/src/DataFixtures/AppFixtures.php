@@ -39,31 +39,37 @@ class AppFixtures extends Fixture
         $system1=new System();
         $system1->setName("system1");
         $system1->setRoom($room1);
+        $system1->setTag(1);
         $manager->persist($system1);
 
         $system2=new System();
         $system2->setName("system2");
         $system2->setRoom($room2);
+        $system2->setTag(2);
         $manager->persist($system2);
 
         $system3=new System();
         $system3->setName("system3");
         $system3->setRoom($room3);
+        $system3->setTag(3);
         $manager->persist($system3);
 
         $system4=new System();
         $system4->setName("system4");
         $system4->setRoom($room4);
+        $system4->setTag(4);
         $manager->persist($system4);
 
         $system5=new System();
         $system5->setName("system5");
         $system5->setRoom($room5);
+        $system5->setTag(5);
         $manager->persist($system5);
 
         $system6=new System();
         $system6->setName("system6");
         $system6->setRoom($room1);
+        $system6->setTag(1);
         $manager->persist($system6);
 
 // Les capteurs
