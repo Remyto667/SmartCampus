@@ -31,6 +31,15 @@ class AdminController extends AbstractController
         ]);
     }
 
+    #[Route('/admin/connexion', name: 'connexion_admin')]
+    public function connexion_admin(): Response
+    {
+        return $this->render('admin/connexion.html.twig', [
+            'controller_name' => 'CONNEXION',
+        ]);
+
+    }
+
     #[Route('/admin/inventaire', name: 'inventaire')]
     public function inventaire(): Response
     {

@@ -1,4 +1,4 @@
-{% extends 'basewithnavbar.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}Accueil{% endblock %}
 
@@ -26,6 +26,17 @@
         margin-top: 80px;
 
     }
+
+    .btn-white {
+        color: #000;
+        background-color: #FFFFFF;
+        border-color: #FFFFFF;
+        text-align: inherit;
+        text-align: -webkit-match-parent;
+        border-style: solid;
+        border-width: 0;
+    }
+
 </style>
     <!-- main UX -->
     <img class="rounded mx-auto d-block logo" src="{{ asset('img/logo_main.png') }}">
@@ -42,4 +53,15 @@
         </div>
     </div>
 -->
+
+    <div class="col text-center form-group row">
+        <div class="col-md-8">
+            <a class="btn btn-white btn-lg" href="/admin/connexion" role="button">connexion superviseur</a>
+        </div>
+        <div class="col-md-1">
+            <a class="btn btn-white btn-lg" href="/salle/connexion" role="button">connexion salle</a>
+        </div>
+    </div>
+
+
 {% endblock %}
