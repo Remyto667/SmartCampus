@@ -150,17 +150,17 @@ void setup()
   Rtc.Begin();
   RtcDateTime compiled = RtcDateTime(__DATE__, __TIME__);
   Rtc.SetDateTime(compiled);
-  xTaskCreate(vTask1_Time, "timeTask", 10000, NULL, 10, &vTask1_TimeHandle);
+  xTaskCreate(vTask1_Time, "timeTask", 10000, NULL, 1, &vTask1_TimeHandle);
 
   dht.setup(dhtPin, DHTesp::DHT22);
-	xTaskCreate(vTask2_Temp, "tempTask ", 10000, NULL, 9, &vTask2_TempHandle);
+	xTaskCreate(vTask2_Temp, "tempTask ", 2048, NULL, 1, &vTask2_TempHandle);
 
   while (sgp_probe() != STATUS_OK) {
          Serial.println("SGP failed");
          while(1);}
-  xTaskCreate(vTask3_CO2, "CO2Task", 10000, NULL, 8, &vTask3_CO2Handle);
+  xTaskCreate(vTask3_CO2, "CO2Task", 8196, NULL, 1, &vTask3_CO2Handle);
 
-  xTaskCreate(vTask4_Display, "DisplayTask", 10000, NULL, 7, NULL);
+  xTaskCreate(vTask4_Display, "DisplayTask", 8196, NULL, 1, NULL);
 }
 
 void loop () 
