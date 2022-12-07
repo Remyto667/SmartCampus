@@ -54,6 +54,7 @@ class SensorRepository extends ServiceEntityRepository
         // returns an array of arrays (i.e. a raw data set)
         return $resultSet->fetchAllAssociative();
     }
+
     public function countSensorOfSystem(): array
     {
         $conn = $this->getEntityManager()->getConnection();
@@ -68,6 +69,10 @@ class SensorRepository extends ServiceEntityRepository
         $resultSet = $stmt->executeQuery();
         return $resultSet->fetchAllAssociative();
     }
+
+}
+
+
 //    /**
 //     * @return Sensor[] Returns an array of Sensor objects
 //     */
@@ -92,4 +97,3 @@ class SensorRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
-}

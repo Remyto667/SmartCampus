@@ -1,27 +1,36 @@
-Stack de développement PHP SAE 2022
+Projet Smart Campus - SAE 2022
 ===================================
 ##########################################################################################
+## Description
+Un site web reliée à ades capteurs de C02, de température et d'humidité. Sur laquelle les utilisateurs pourront consulter les données
+et recevoir les indications de ce qu'il faut faire selon ces données.
+Les superviseurs eux pourront gérer les salles et les capteurs et suivre l'évolution et les comportements depuis l'application
+Le but étant de réduire la consommation de l'université pour réduire l'impacte carbone et améliorer le confort
 
-### 5. Que faire pour démarrer le projet.
------------------------------
+##########################################################################################
+## 1.Démarrer le projet.
+
 
  1) Lancer docker,
  2) git clone https://forge.iut-larochelle.fr/SAE34-BUT-2022/x1/eq1/stack-sae-2022
- 3) cd stack-sae-2022 ----> cd build
+ 3) cd stack-sae-2022
  4) docker compose up --build -d
- 5) docker exec -it sae-php bash 
- 6) dans le bash ---> composer update
+ 5) docker exec -it sae-php bash (ou lancer le terminal sur docker)
+ 6) composer update
  7) http://localhost:9979 🎉
- 8) bin/console doctrine:migrations:migrate (dans le bash symphony)
- 9) bin/console doctrine:fixtures:load
+ 9) bin/console doctrine:migrations:migrate
+ 10) bin/console doctrine:fixtures:load
 
-
+Enlever son mot de passe de la salle D204 : git config --global --unset core.excludesfile
 Push dans sa branche : git push -u origin nom_branche
+
+Enlever son cable à partir du docker compose update D204
 
 créer branche : git checkout -b 
 
-### 6. Utiliser la base de données
------------------------------
+
+
+## 2. Utiliser la base de données
 
 **Pour utiliser la base de données depuis le conteneur php :**  
 _Adresse du serveur_ : `bdd` (c'est le nom du service dans le fichier `docker-compose.yml`)  
@@ -35,15 +44,28 @@ Mot de passe root : `sae`.
 Par ailleurs, un utilisateur "standard" nommé `sae` a les droits d'accès sur une base de données nommée `sae`
 avec le mot de passe `sae`
 
-Le serveur web
---------------
+## 3. Wiki d'unification de devellopement
 
-Les fichiers du répertoire `/symfony/public` sont servis par NginX sur le port 9979 (par le conteneur sae-web)
+## **Le superviseur**
 
-Composition de la stack
------------------------
+## Le code
 
-La stack comporte 3 conteneurs :
-- PHP (8.1.10)
-- NginX (1.20.1)
-- MariaDB (10.9.2)
+les dossiers sont en anglais
+
+les variables sont en anglais
+## Le gitlab
+
+les branches sont en anglais et décrit la fonction développé dedans
+
+les commits sont faits dans n'importe quelles langues tant qu'il peut se faire comprendre par tout le monde et tout le temps
+
+## Le Kanban
+
+
+les us sont en français et décrit en français
+
+
+## **L'utilisateur**
+
+
+Tout ce que vois l'utilisateur sont en français comme les menus, les tableaux ou les routes

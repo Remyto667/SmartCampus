@@ -21,9 +21,9 @@ class AdminController extends AbstractController
     #[Route('/', name: 'menu')]
     public function index(): Response
     {
-        return $this->redirectToRoute('app_admin');
+        return $this->redirectToRoute('app_accueil');
     }
-    #[Route('/admin', name: 'app_admin')]
+    #[Route('/accueil', name: 'app_accueil')]
     public function admin(): Response
     {
         return $this->render('admin/index.html.twig', [
@@ -31,15 +31,24 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/database', name: 'database')]
-    public function database(): Response
+    #[Route('/admin/profil', name: 'profil_admin')]
+    public function connexion_admin(): Response
     {
-        return $this->render('admin/database.html.twig', [
+        return $this->render('admin/profil.html.twig', [
+            'controller_name' => 'CONNEXION',
+        ]);
+
+    }
+
+    #[Route('/admin/inventaire', name: 'inventaire')]
+    public function inventaire(): Response
+    {
+        return $this->render('admin/inventaire.html.twig', [
             'controller_name' => 'AdminController',
         ]);
     }
 
-    #[Route('/admin/database/lister_salles/{ok?1}', name: 'listerSalles')]
+    #[Route('/admin/inventaire/lister_salles/{ok?1}', name: 'listerSalles')]
     public function lister_salles(ManagerRegistry $doctrine, ?int $ok): Response
     {
         $entityManager = $doctrine->getManager();
@@ -52,8 +61,8 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/database/lister_systemes/{ok?1}', name: 'listerSystemes')]
-    public function lister_systemes(ManagerRegistry $doctrine, ?int $ok): Response
+    #[Route('/admin/inventaire/lister_systemes', name: 'listerSystemes')]
+    public function lister_systemes(ManagerRegistry $doctrine): Response
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\System');
@@ -64,11 +73,10 @@ class AdminController extends AbstractController
         return $this->render('admin/lister_systemes.html.twig', [
             'systems'=>$systems,
             'nbsensor'=>$nbSensor,
-            'ok' => $ok,
         ]);
     }
 
-    #[Route('/admin/database/lister_capteurs', name: 'listerCapteurs')]
+    #[Route('/admin/inventaire/lister_capteurs', name: 'listerCapteurs')]
     public function lister_capteurs(ManagerRegistry $doctrine): Response
     {
         $entityManager = $doctrine->getManager();
@@ -80,7 +88,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/database/ajouter_capteur', name: 'ajouterCapteur')]
+    #[Route('/admin/inventaire/ajouter_capteur', name: 'ajouterCapteur')]
     public function ajouter_capteur(Request $request, EntityManagerInterface $entityManager): Response
     {
         $sensor = new Sensor();
@@ -98,7 +106,7 @@ class AdminController extends AbstractController
 
     }
 
-    #[Route('/admin/database/ajouter_salle', name: 'ajouter_salle')]
+    #[Route('/admin/inventaire/ajouter_salle', name: 'ajouter_salle')]
     public function ajouter_salle(Request $request, ManagerRegistry $doctrine): Response
     {
         $room = new Room();
@@ -117,7 +125,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/database/ajouter_systeme', name: 'ajouterSystemes')]
+    #[Route('/admin/inventaire/ajouter_systeme', name: 'ajouterSystemes')]
     public function add_system(Request $request, EntityManagerInterface $entityManager): Response
     {
         $system = new System();
@@ -136,7 +144,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/database/modifier_systeme/{id?}', name: 'modifierSystemes')]
+    #[Route('/admin/inventaire/modifier_systeme/{id?}', name: 'modifierSystemes')]
     public function update_system(Request $request, ?int $id, ManagerRegistry $doctrine): Response
     {
         $entityManager = $doctrine->getManager();
@@ -158,7 +166,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/database/modifier_salle/{id?}', name: 'modifierSalles')]
+    #[Route('/admin/inventaire/modifier_salle/{id?}', name: 'modifierSalles')]
     public function update_room(Request $request, ?int $id, ManagerRegistry $doctrine): Response
     {
         $entityManager = $doctrine->getManager();
@@ -180,7 +188,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/database/modifier_capteur/{id?}', name: 'modifierCapteurs')]
+    #[Route('/admin/inventaire/modifier_capteur/{id?}', name: 'modifierCapteurs')]
     public function update_capteur(Request $request, ?int $id, ManagerRegistry $doctrine): Response{
         $entityManager =$doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Sensor');
@@ -199,7 +207,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/database/supprimer_capteur/{id?}', name: 'supprimerCapteur')]
+    #[Route('/admin/inventaire/supprimer_capteur/{id?}', name: 'supprimerCapteur')]
     public function supprimer_capteur(Request $request, ?int $id, ManagerRegistry $doctrine): Response{
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Sensor');
@@ -210,16 +218,18 @@ class AdminController extends AbstractController
 
 
     }
-    #[Route('/admin/database/supprimer_systeme/{id?}', name: 'supprimerSysteme')]
+    #[Route('/admin/inventaire/supprimer_systeme/{id?}', name: 'supprimerSysteme')]
     public function supprimer_systeme(Request $request, ?int $id, ManagerRegistry $doctrine): Response{
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\System');
         $system = $repository->find($id);
+        $entityManager->remove($system);
+        $entityManager->flush();
 
-        return $this->redirect($this->generateUrl('listerSystemes', ['ok' => $repository->remove($system, true)]));
+        return $this->redirect($this->generateUrl('listerSystemes'));
     }
 
-    #[Route('/admin/database/supprimer_salle/{id?}', name: 'supprimerSalle')]
+    #[Route('/admin/inventaire/supprimer_salle/{id?}', name: 'supprimerSalle')]
     public function supprimer_salle(Request $request, ?int $id, ManagerRegistry $doctrine): Response{
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');

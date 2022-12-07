@@ -33,6 +33,9 @@ class System
     #[ORM\OneToMany(mappedBy: 'systems', targetEntity: Sensor::class)]
     private Collection $sensors;
 
+    #[ORM\Column]
+    private ?int $tag = null;
+
     public function __construct()
     {
         $this->sensors = new ArrayCollection();
@@ -93,6 +96,18 @@ class System
                 $sensor->setSystems(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTag(): ?int
+    {
+        return $this->tag;
+    }
+
+    public function setTag(int $tag): self
+    {
+        $this->tag = $tag;
 
         return $this;
     }

@@ -5,15 +5,28 @@ namespace App\DataFixtures;
 use App\Entity\Room;
 use App\Entity\Sensor;
 use App\Entity\System;
+use App\Entity\User;
+use App\Repository\UserRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+
+
 
 class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
+// Admin
+        $admin = new User();
+        $hash='$2y$13$nsVjukfaWtKD7JXsy1AUS.Ye0xn.9Ofet/7Db9ucxHQsc6CmxTkuq';
+        $admin->setPassword($hash);
+        $admin->setUsername("admin");
+        $admin->SetRoles(array('ROLE_ADMIN'));
+        $manager->persist($admin);
 
-        // Les salles
+
+// Les salles
         $room1=new Room();
         $room1->setName("D207");
         $manager->persist($room1);
@@ -34,36 +47,46 @@ class AppFixtures extends Fixture
         $room5->setName("D002");
         $manager->persist($room5);
 
+        $room6=new Room();
+        $room6->setName("Stock");
+        $manager->persist($room6);
+
 //Les systemes
 
         $system1=new System();
         $system1->setName("system1");
         $system1->setRoom($room1);
+        $system1->setTag(1);
         $manager->persist($system1);
 
         $system2=new System();
         $system2->setName("system2");
         $system2->setRoom($room2);
+        $system2->setTag(2);
         $manager->persist($system2);
 
         $system3=new System();
         $system3->setName("system3");
         $system3->setRoom($room3);
+        $system3->setTag(3);
         $manager->persist($system3);
 
         $system4=new System();
         $system4->setName("system4");
         $system4->setRoom($room4);
+        $system4->setTag(4);
         $manager->persist($system4);
 
         $system5=new System();
         $system5->setName("system5");
         $system5->setRoom($room5);
+        $system5->setTag(5);
         $manager->persist($system5);
 
         $system6=new System();
         $system6->setName("system6");
         $system6->setRoom($room1);
+        $system6->setTag(1);
         $manager->persist($system6);
 
 // Les capteurs
@@ -182,6 +205,21 @@ class AppFixtures extends Fixture
         $sensor15->setSystems($system5);
         $sensor15->setType("CO2");
         $manager->persist($sensor15);
+        //    --------- System 6--------------------------------------
+
+        $sensor16=new Sensor();
+        $sensor16->setName("sensor16");
+        $sensor16->setState("fonctionnel");
+        $sensor16->setSystems($system6);
+        $sensor16->setType("temperature");
+        $manager->persist($sensor16);
+
+        $sensor17=new Sensor();
+        $sensor17->setName("sensor17");
+        $sensor17->setState("fonctionnel");
+        $sensor17->setSystems($system6);
+        $sensor17->setType("CO2");
+        $manager->persist($sensor17);
 
         $manager->flush();
     }
