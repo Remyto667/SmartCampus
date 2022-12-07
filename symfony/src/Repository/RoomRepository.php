@@ -58,6 +58,15 @@ class RoomRepository extends ServiceEntityRepository
 
     }
 
+    public function findRoomByName($value): ?Room
+    {
+         $qd=$this->createQueryBuilder('r')
+            ->where('r.name = :val')
+            ->setParameter('val', $value);
+
+        return $qd->getQuery()->getOneOrNullResult();
+    }
+
 //    /**
 //     * @return Room[] Returns an array of Room objects
 //     */
