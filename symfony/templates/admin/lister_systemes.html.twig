@@ -59,13 +59,6 @@
         }
     </style>
     <script>
-        function erreur()
-        {
-            alert("Il y a des capteurs dans ce système ! " +
-                "\n" +
-                "Supprimez les ou changer les de système avant de supprimer le système.");
-        }
-
         function openPopup(id)
         {
             var dialog = confirm("Supprimer le systeme ? \n" +
@@ -73,10 +66,10 @@
                 "Sinon annulez et changez les capteurs de système d'abord");
             if (dialog) {
                 document.location.href="/admin/inventaire/supprimer_systeme/"+id;
+
             }
             else {
                 document.location.href="/admin/inventaire/lister_systemes";
-
             }
         }
     </script>

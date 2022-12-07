@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Sensor;
-use App\Entity\System;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -69,16 +68,6 @@ class SensorRepository extends ServiceEntityRepository
         $stmt = $conn->prepare($sql);
         $resultSet = $stmt->executeQuery();
         return $resultSet->fetchAllAssociative();
-    }
-
-    public function sensorOfSystem(System $system): array
-    {
-        $qb = $this->createQueryBuilder('p')
-            ->where('p.price > :price')
-            ->setParameter('price', $system);
-            //faut changer ca
-        $query=$qb->getQuery();
-        return $query->execute();
     }
 
 }
