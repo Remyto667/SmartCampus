@@ -60,7 +60,7 @@ class RoomRepository extends ServiceEntityRepository
 
     public function findRoomByName($value): ?Room
     {
-         $qd=$this->createQueryBuilder('r')
+        $qd=$this->createQueryBuilder('r')
             ->where('r.name = :val')
             ->setParameter('val', $value);
 

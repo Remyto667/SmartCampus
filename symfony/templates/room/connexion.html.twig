@@ -1,20 +1,47 @@
-{% extends 'base.html.twig' %}
+{% extends 'basewithnavbar.html.twig' %}
 
-{% block title %}Hello RoomController!{% endblock %}
+{% block title %}Ajout d'une salle{% endblock %}
 
 {% block body %}
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+
+    /* BOUTONS */
+    .styled {
+        color: #fff;
+        background-color: #007bff;
+        border-color: #007bff;
+        text-decoration: none;
+
+        display: inline-block;
+        font-weight: 400;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        border-radius: 0.25rem;
+        transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Choisir une salle !</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/html/src/Controller/RoomController.php'|file_link(0) }}">src/Controller/RoomController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/html/templates/room/index.html.twig'|file_link(0) }}">templates/room/index.html.twig</a></code></li>
-    </ul>
+    {{ form_start(form) }}
+    {{ form_rest(form) }}
+    <br>
+    <button class="btn btn-primary" type="submit">Enregistrer</button>
+    {{ form_end(form) }}
+    <br>
+    <a class="btn btn-primary" href="/accueil" role="button">Retour</a>
+
 </div>
 {% endblock %}
