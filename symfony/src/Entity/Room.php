@@ -18,9 +18,9 @@ class Room
     #[Assert\NotNull]
     #[Assert\Length(
         min: 1,
-        max: 4,
+        max: 5,
         minMessage: 'Your room must be at least 1 characters long',
-        maxMessage: 'Your room cannot be longer than 4 characters',
+        maxMessage: 'Your room cannot be longer than 5 characters',
     )]
     private ?string $name = null;
 
