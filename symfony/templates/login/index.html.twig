@@ -1,15 +1,18 @@
-{% extends 'base.html.twig' %}
+{% extends 'basewithnavbar.html.twig' %}
 
-{% block title %}Hello LoginController!{% endblock %}
+{% block title %}Connexion{% endblock %}
 
 {% block body %}
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+
+    label {
+        display: inline-block;
+    }
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello! ✅</h1>
 
 
     {% if error %}
@@ -17,20 +20,34 @@
     {% endif %}
 
 
+    <section class="vh-100">
+        <div class="container py-5 h-100">
+            <div class="row d-flex align-items-center justify-content-center h-100">
+                <div class="col-md-8 col-lg-7 col-xl-6">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+                         class="img-fluid" alt="Phone image">
+                </div>
+                <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+                    <form action=" {{path('app_login') }}" method="post">
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="username">Identifiant</label>
+                            <input type="text" id="username" class="form-control form-control-lg" name="_username" value="{{ last_username }}"/>
 
-    <form action="{{ path('app_login') }}" method="post">
+                        </div>
 
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}">
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="pswd">Password</label>
+                            <input type="password" id="pswd" class="form-control form-control-lg" name="_password"/>
+                        </div>
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }} ">
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="_password">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Se Connecter</button>
 
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-        <button type="submit">login</button>
-    </form>
-
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}
 
 
