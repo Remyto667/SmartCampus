@@ -238,7 +238,7 @@ class AdminController extends AbstractController
         return $this->redirect($this->generateUrl('listerSalles', ['ok' => $repository->remove($room, true)]));
     }
 
-    #[Route('/admin/database/donnees_salle', name: 'donneesSalle')]
+    #[Route('/salle/donnees_salle', name: 'donneesSalle')]
     public function donnees_salle(Request $request, ?int $id, ManagerRegistry $doctrine): Response{
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
