@@ -18,13 +18,17 @@ Le but étant de réduire la consommation de l'université pour réduire l'impac
  5) docker exec -it sae-php bash (ou lancer le terminal sur docker)
  6) composer update
  7) http://localhost:9979 🎉
- 8) bin/console doctrine:migrations:migrate
- 9) bin/console doctrine:fixtures:load
+ 9) bin/console doctrine:migrations:migrate
+ 10) bin/console doctrine:fixtures:load
 
 Enlever son mot de passe de la salle D204 : git config --global --unset core.excludesfile
 Push dans sa branche : git push -u origin nom_branche
 
+Enlever son cable à partir du docker compose update D204
+
 créer branche : git checkout -b 
+
+
 
 ## 2. Utiliser la base de données
 

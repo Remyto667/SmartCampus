@@ -11,16 +11,20 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+
+
 class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
 // Admin
-        $user = new User();
+        $admin = new User();
         $hash='$2y$13$nsVjukfaWtKD7JXsy1AUS.Ye0xn.9Ofet/7Db9ucxHQsc6CmxTkuq';
-        $user->setPassword($hash);
-        $user->setUsername("admin");
-        $manager->persist($user);
+        $admin->setPassword($hash);
+        $admin->setUsername("admin");
+        $admin->SetRoles(array('ROLE_ADMIN'));
+        $manager->persist($admin);
+
 
 // Les salles
         $room1=new Room();
