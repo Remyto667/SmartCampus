@@ -269,10 +269,10 @@ class AdminController extends AbstractController
 
         return $this->render('admin/donnees_salle.html.twig', [
             'obj' => $obj,
-            'room' => $obj[0]->{"localisation"},
-            'temp' => $obj[0]->{"valeur"},
-            'hum' => $obj[1]->{"valeur"},
-            'co2' => $obj[2]->{"valeur"},
+            'room' => $obj[0]->localisation,
+            'temp' => $obj[0]->valeur,
+            'hum' => $obj[1]->valeur,
+            'co2' => $obj[2]->valeur,
         ]);    }
 }
 

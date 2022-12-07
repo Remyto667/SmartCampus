@@ -47,16 +47,23 @@ class RoomController extends AbstractController
         $repository = $entityManager->getRepository('App\Entity\Room');
         $room = $repository->findRoomByName($name);
 
-        $json = "../assets/json/".$room->getName().".json";
-        $file = file_get_contents($json);
-        $obj = json_decode($file);
+        $jsonT = "../assets/json/".$room->getName()."-temp.json";
+        $jsonH = "../assets/json/".$room->getName()."-hum.json";
+        $jsonC = "../assets/json/".$room->getName()."-co2.json";
+        $fileT = file_get_contents($jsonT);
+        $fileH = file_get_contents($jsonH);
+        $fileC = file_get_contents($jsonC);
+        $objT = json_decode($fileT);
+        $objH = json_decode($fileH);
+        $objC = json_decode($fileC);
 
         return $this->render('room/donnees_salle.html.twig', [
-            'obj' => $obj,
-            'room' => $obj[0]->{"localisation"},
-            'temp' => $obj[0]->{"valeur"},
-            'hum' => $obj[1]->{"valeur"},
-            'co2' => $obj[2]->{"valeur"},
+            //'obj' => $obj,
+            'room' => $room->getName(),
+            //'roomm' => $obj->localisation,
+            'temp' => $objT[0]->valeur,
+            'hum' => $objH[0]->valeur,
+            'co2' => $objC[0]->valeur,
         ]);    }
 
 }
