@@ -1,7 +1,7 @@
 [{
   "id": "51",
   "nom" : "temp",
-  "valeur" : "48",
+  "valeur" : "20",
   "dateCapture" : "2022-11-28 08:00:00",
   "localisation" : "D207",
   "description" : "",
@@ -9,7 +9,7 @@
 }, {
   "id": "52",
   "nom" : "hum",
-  "valeur" : "80",
+  "valeur" : "50",
   "dateCapture" : "2022-11-28 08:00:00",
   "localisation" : "D207",
   "description" : "",
@@ -17,7 +17,7 @@
 }, {
   "id": "53",
   "nom" : "co2",
-  "valeur" : "800",
+  "valeur" : "900",
   "dateCapture" : "2022-11-28 08:00:00",
   "localisation" : "D207",
   "description" : "",

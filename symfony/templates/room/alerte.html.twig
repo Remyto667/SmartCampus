@@ -4,17 +4,27 @@
 
 {% block body %}
 <style>
-    .main { text-align: center; margin: 1em auto; max-width: 1200px; width: 95%; font: 18px/1.5 sans-serif;}
+    .main {top:0;right:0; text-align: center; margin: 1em auto; max-width: 1200px; width: 95%; font: 18px/1.5 sans-serif;border: 1px solid black;}
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .main2{
+        top:0;
+        left:0;
+        width:100%;
+        border: 1px solid black;
+        text-align: center;
+    }
 
-    .alerte_main{font-size: 150px; color: red;}
+    .alerte_main{font-size: 150px; color: red;background-color: #B51b1b;}
     .secondary_text{font-size: 100px; color: red;}
     .advice{font-size: 75px; color: black;}
+    .btn{margin-top: 15px; background-color: black;color: white;}
     body{
         background-color: orange;
     }
 </style>
-    <div class="main">
+<div class="main2">
+
+
 
         <div class="alerte_main">
             ALERTE
@@ -28,7 +38,7 @@
                 {{ temp }} °C
             </div>
             <div class="advice">
-                Conseil
+                il faut aérer la piece, Ouvrez les portes et fenêtres, utilisez des ventilateur
             </div>
         {% endif %}
         {% if id == 1 and temp < 16 %}
@@ -39,22 +49,50 @@
                 {{ temp }} °C
             </div>
             <div class="advice">
-                Conseil
+                Allumez les radiateurs, fermez les portes et les fenêtres
+            </div>
+        {% endif %}
+
+    <div class="main">
+        {% if id == 2 and hum > 59 %}
+            <div class="secondary_text">
+                humidité trop haute
+            </div>
+            <div class="secondary_text">
+                {{ hum }} %
+            </div>
+            <div class="advice">
+                il faut aérer la piece, Ouvrez les portes et fenêtres, utilisez des ventilateur ou utilisez un déshumidificateur d'air
+            </div>
+        {% endif %}
+        {% if id == 2 and hum < 41%}
+            <div class="secondary_text">
+                humidité trop basse
+            </div>
+            <div class="secondary_text">
+                {{ hum }} %
+            </div>
+            <div class="advice">
+                Vous pouvez ouvrir la fenêtre ou utilisez un humidificateur d'air
+            </div>
+        {% endif %}
+        {% if id == 3 and co2 >799%}
+            <div class="secondary_text">
+                CO2 trop haut !
+            </div>
+            <div class="secondary_text">
+                {{ co2 }} ppm
+            </div>
+            <div class="advice">
+                il faut aérer la piece, Ouvrez les portes et fenêtres, utilisez des ventilateur
             </div>
         {% endif %}
 
 
-        {% if id == 2 %}
-            <a class="btn btn-lg" href="/salle/alerte/1" role="button" style="width:300px">hum</a>
-        {% endif %}
-        {% if id == 3 %}
-            <a class="btn btn-lg" href="/salle/alerte/1" role="button" style="width:300px">co2</a>
-        {% endif %}
 
-
-        <a class="btn btn-lg" href="history.go(-1)" role="button" style="width:300px">Afficher les indications</a>
+        <a class="btn btn-lg" role="button" href="javascript:history.go(-1)">Retour</a>
     </div>
 
-
+</div>
 
 {% endblock %}
