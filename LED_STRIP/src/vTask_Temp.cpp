@@ -1,8 +1,6 @@
 #include "GlobalValue.h"
 
-DHTesp dht;
-/** Pin number for DHT11 data pin */
-int dhtPin = 16;
+
 
 bool printTemperature(const TempAndHumidity& tempVal) {
 	
