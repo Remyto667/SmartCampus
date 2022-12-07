@@ -1,14 +1,26 @@
-{% extends 'basewithnavbar.html.twig' %}
+    {% extends 'basewithnavbar.html.twig' %}
 
 {% block title %}Data Room{% endblock %}
 
 {% block body %}
     <style>
-        .example-wrapper { text-align: center; margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper { text-align: center; margin: 1em auto; max-width: 1200px; width: 95%; font: 18px/1.5 sans-serif;}
         .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
         
         .container {margin: 50px; display: flex; flex-wrap: wrap; justify-content: space-between;}
         .bordure {padding: 20px; font-size: 30px; border: 1px solid black;}
+
+        {% if temp > 24 or temp < 16%}
+            .Temp {padding: 20px; font-size: 30px; border: 1px solid red; background-color: red;}
+        {% endif %}
+        {% if hum > 59 or hum < 41%}
+        .Hum {padding: 20px; font-size: 30px; border: 1px solid red; background-color: red;}
+        {% endif %}
+        {% if co2 > 800 %}
+        .C02 {padding: 20px; font-size: 30px; border: 1px solid red; background-color: red;}
+        {% endif %}
+
+        .btn{margin-top: 15px; background-color: red}
     
     </style>
 
@@ -20,20 +32,28 @@
 
             <div class="box">
                 <h5>Température</h5>
-                <div class="bordure">{{ temp }} °C</div>
+                <div class="Temp bordure">{{ temp }} °C</div>
+                {% if temp > 24 or temp < 16%}
+                    <a class="btn btn-lg" href="/salle/alerte/1 " role="button" style="width:300px">Afficher les indications</a>
+                {% endif %}
             </div>
 
             <div class="box">
                 <h5>Humidité</h5>
-                <div class="bordure">{{ hum }} %</div>
+                <div class="Hum bordure">{{ hum }} %</div>
+                {% if hum > 59 or hum < 41%}
+                    <a class="btn btn-lg" href="/salle/alerte/2" role="button" style="width:300px">Afficher les indications</a>
+                {% endif %}
             </div>
 
             <div class="box">
                 <h5>CO2</h5>
-                <div class="bordure">{{ co2 }} PPM</div>
+                <div class="C02 bordure">{{ co2 }} PPM</div>
+                {% if co2 > 800 %}
+                    <a class="btn btn-lg" href="/salle/alerte/3" role="button" style="width:300px">Afficher les indications</a>
+                {% endif %}
             </div>
             
         </div>
-        
     </div>
 {% endblock %}
