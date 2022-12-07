@@ -1,0 +1,14 @@
+#include<Arduino.h>
+#include <Wire.h> // must be included here so that Arduino library object file references work
+#include <RtcDS3231.h>
+#include "DHTesp.h" // Click here to get the library: http://librarymanager/All#DHTesp
+#include <Ticker.h>
+#include "sensirion_common.h"
+#include "sgp30.h"          // Only needed for Arduino 1.6.5 and earlier
+#include "SSD1306Wire.h"        // legacy: #include "SSD1306.h"
+#define countof(a) (sizeof(a) / sizeof(a[0]))
+
+RtcDateTime globalDateTime;
+TempAndHumidity globalTemp;
+u16 global_tvoc_ppb, global_co2_eq_ppm;
+char globalDatestring[20];

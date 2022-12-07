@@ -5,15 +5,28 @@ namespace App\DataFixtures;
 use App\Entity\Room;
 use App\Entity\Sensor;
 use App\Entity\System;
+use App\Entity\User;
+use App\Repository\UserRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+
+
 
 class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
+// Admin
+        $admin = new User();
+        $hash='$2y$13$nsVjukfaWtKD7JXsy1AUS.Ye0xn.9Ofet/7Db9ucxHQsc6CmxTkuq';
+        $admin->setPassword($hash);
+        $admin->setUsername("admin");
+        $admin->SetRoles(array('ROLE_ADMIN'));
+        $manager->persist($admin);
 
-        // Les salles
+
+// Les salles
         $room1=new Room();
         $room1->setName("D207");
         $manager->persist($room1);
