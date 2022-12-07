@@ -27,6 +27,8 @@ final class Version20221116084827 extends AbstractMigration
         $this->addSql('ALTER TABLE sensor ADD CONSTRAINT FK_BC8617B0411D7F6D FOREIGN KEY (systems_id) REFERENCES system (id)');
         $this->addSql('ALTER TABLE system ADD CONSTRAINT FK_C94D118B54177093 FOREIGN KEY (room_id) REFERENCES room (id)');
         $this->addSql('ALTER TABLE system ADD tag INT NOT NULL');
+        $this->addSql('ALTER TABLE sensor DROP FOREIGN KEY FK_BC8617B0411D7F6D');
+        $this->addSql('ALTER TABLE sensor ADD CONSTRAINT FK_BC8617B0411D7F6D411D7F6D FOREIGN KEY (systems_id) REFERENCES system (id) ON DELETE CASCADE');
         $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, username VARCHAR(180) NOT NULL, roles LONGTEXT NOT NULL COMMENT \'(DC2Type:json)\', password VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_8D93D649F85E0677 (username), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
     }
 
@@ -40,6 +42,8 @@ final class Version20221116084827 extends AbstractMigration
         $this->addSql('DROP TABLE system');
         $this->addSql('DROP TABLE messenger_messages');
         $this->addSql('ALTER TABLE system DROP tag');
+        $this->addSql('ALTER TABLE sensor DROP FOREIGN KEY FK_BC8617B0411D7F6D411D7F6D');
+        $this->addSql('ALTER TABLE sensor ADD CONSTRAINT FK_BC8617B0411D7F6D FOREIGN KEY (systems_id) REFERENCES system (id)');
         $this->addSql('DROP TABLE user');
     }
 }
