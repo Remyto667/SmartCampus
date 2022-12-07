@@ -59,28 +59,17 @@
         }
     </style>
     <script>
-        function erreur()
-        {
-            alert("Il y a des capteurs dans ce système ! " +
-                "\n" +
-                "Supprimez les ou changer les de système avant de supprimer le système.");
-        }
-
         function openPopup(id)
         {
             var dialog = confirm("Supprimer le systeme ? \n" +
-                "Ceci ne le supprimera que s'il n'a aucun capteur" +
+                "Ceci supprimera tous les capteurs de ce système \n" +
                 "Sinon annulez et changez les capteurs de système d'abord");
             if (dialog) {
                 document.location.href="/admin/inventaire/supprimer_systeme/"+id;
-                if({{ ok }} == 0)
-                {
-                    erreur();
-                }
+
             }
             else {
                 document.location.href="/admin/inventaire/lister_systemes";
-
             }
         }
     </script>

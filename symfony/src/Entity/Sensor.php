@@ -30,6 +30,7 @@ class Sensor
 
     #[ORM\ManyToOne(inversedBy: 'sensors')]
     #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(onDelete: "CASCADE")]
     private ?System $systems = null;
 
     public function getId(): ?int
