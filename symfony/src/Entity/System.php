@@ -21,9 +21,10 @@ class System
     #[Assert\Length(
         min: 1,
         max: 20,
-        minMessage: 'Your system must be at least 1 characters long',
-        maxMessage: 'Your system cannot be longer than 20 characters',
+        minMessage: 'Votre système doit faire 1 caractère minimum',
+        maxMessage: 'Votre système ne doit pas dépasser 20 caractère',
     )]
+    #[Assert\Unique]
     private ?string $name = null;
 
     #[ORM\ManyToOne]
