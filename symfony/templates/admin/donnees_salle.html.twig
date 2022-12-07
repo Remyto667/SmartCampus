@@ -4,30 +4,36 @@
 
 {% block body %}
     <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper { text-align: center; margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
         .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+        
+        .container {margin: 50px; display: flex; flex-wrap: wrap; justify-content: space-between;}
+        .bordure {padding: 20px; font-size: 30px; border: 1px solid black;}
+    
     </style>
 
     <div class="example-wrapper">
+        <br>
+        <h1 style="margin-left: 70px;">{{ room }}</h1>
+        <br>
+        <div class="container">
 
-        <h1 style="text-align: center;">{{ room }}</h1>
+            <div class="box">
+                <h5>Température</h5>
+                <div class="bordure">{{ temp }} °C</div>
+            </div>
 
-        <table class="table">
-            <thead class="thead-light">
-                <tr>
-                    <th>Température</th>
-                    <th>Humidité</th>
-                    <th>CO2</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{ temp }} °C</td>
-                    <td>{{ hum }} %</td>
-                    <td>{{ co2 }} PPM</td>
-                </tr>
-            </tbody>
-        </table>
+            <div class="box">
+                <h5>Humidité</h5>
+                <div class="bordure">{{ hum }} %</div>
+            </div>
 
+            <div class="box">
+                <h5>CO2</h5>
+                <div class="bordure">{{ co2 }} PPM</div>
+            </div>
+            
+        </div>
+        
     </div>
 {% endblock %}

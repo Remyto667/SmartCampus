@@ -236,9 +236,53 @@ class AdminController extends AbstractController
 
         //return $this->redirect($this->generateUrl('listerSalles', ['ok' => $repository->remove($room, true)]));
 
-        $file = '../assets/json/dataRoom.json'; // chemin d'accès à votre fichier JSON
-        $data = file_get_contents($file); // mettre le contenu du fichier dans une variable
-        $obj = json_decode($data); // décoder le flux JSON
+        $json = '../assets/json/dataRoom.json'; // chemin d'accès à votre fichier JSON
+        $file = file_get_contents($json); // mettre le contenu du fichier dans une variable
+        $obj = json_decode($file); // décoder le flux JSON
+
+        /*for ($i=0;$i<sizeof($obj);$i++)
+        {
+            $nom = $obj[i]->{"nom"}
+            switch($nom)
+            {
+                case "temp":
+                    return $this->render('admin/donnees_salle.html.twig', ['temp' => $obj[i]->{"valeur"};]);
+                    break;
+                
+                case "hum":
+                    return $this->render('admin/donnees_salle.html.twig', ['hum' => $obj[i]->{"valeur"};]);
+                    break;
+                
+                case "co2":
+                    return $this->render('admin/donnees_salle.html.twig', ['co2' => $obj[i]->{"valeur"};]);
+                    break;
+            }
+        }*/
+
+
+        /*for ($i=0;$i<sizeof($obj);$i++)
+        {
+            $nom = $obj[i]->{"nom"}
+
+                if($nom == "temp")
+                {
+                    return $this->render('admin/donnees_salle.html.twig', ['temp' => $obj[i]->{"valeur"};]);
+                }
+
+                if($nom == "hum")
+                {
+                    return $this->render('admin/donnees_salle.html.twig', ['hum' => $obj[i]->{"valeur"};]);
+                }
+
+                if($nom == "co2")
+                {
+                    return $this->render('admin/donnees_salle.html.twig', ['co2' => $obj[i]->{"valeur"};]);
+                }
+                
+            }
+        }*/
+
+
 
         //var_dump($obj);
 
