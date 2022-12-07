@@ -1,22 +1,26 @@
-<!DOCTYPE html>
-<html>
+{% extends 'basewithnavbar.html.twig' %}
 
-
-<body>
 {% block body %}
 
+    <style>
+        .btn {
+            bottom: 20;
 
-    <div class="col text-center form-group row">
-        <div class="col-md-8">
-            <a class="btn btn-white btn-lg" href="/logout" role="button">connexion superviseur</a>
-        </div>
-        <div class="col-md-1">
-            <a class="btn btn-white btn-lg" href="/salle/" role="button">connexion salle</a>
-        </div>
+        }
+        .gg{ text-align: center; margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+
+    </style>
+
+
+    <img class="rounded mx-auto d-block" src="{{ asset('img/profil.png') }}">
+
+    <div class="col text-center form-group row gg">
+
+            <a class="btn btn-white btn-lg" href="/logout" role="button">Déconnexion</a>
+
     </div>
 
 
 
 {% endblock %}
-</body>
-</html>
+
