@@ -4,19 +4,32 @@
 
     <style>
         .btn {
-            bottom: 20;
 
         }
-        .gg{ text-align: center; margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .gg{ text-align: center; margin: 1em auto; width: 15%; font: 18px/1.5 sans-serif; border:solid red; color: red}
+        .img{
+            margin-top: 8em;
+        }
+        .bottom{
+            display: flex;
+            justify-content: end;
+            align-items:end;
+        }
+        .text{
+            text-align: center; margin: 1em auto; font: 28px/1.5 sans-serif;
+        }
 
     </style>
 
 
-    <img class="rounded mx-auto d-block" src="{{ asset('img/profil.png') }}">
+    <img class="rounded mx-auto d-block img" src="{{ asset('img/profil.png') }}">
 
-    <div class="col text-center form-group row gg">
+    <p class=" text"> ADMIN </p>
 
-            <a class="btn btn-white btn-lg" href="/logout" role="button">Déconnexion</a>
+
+    <div class="bottom col text-center bot form-group row gg">
+
+            <a class="btn btn-red btn-lg " href="/logout" role="button">Déconnexion</a>
 
     </div>
 
