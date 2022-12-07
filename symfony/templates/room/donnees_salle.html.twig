@@ -8,27 +8,32 @@
         .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
         
         .container {margin: 50px; display: flex; flex-wrap: wrap; justify-content: space-between;}
-        .bordure {padding: 20px; font-size: 30px; border: 1px solid black;}
-    
+        .bordure {padding: 50px; font-size: 35px; border: 0.5px solid grey; border-radius: 8px; box-shadow: 5px 5px 5px grey;}
+        .box {border: 0.5px solid grey; border-radius: 8px; box-shadow: 5px 5px 5px grey;}
+        .titre {margin-left: 70px; font-size: 50px; text-shadow: 2px 2px grey;}
+
     </style>
 
     <div class="example-wrapper">
         <br>
-        <h1 style="margin-left: 70px;">{{ room }}</h1>
+        <h1 class="titre">{{ room }}</h1>
         <br>
         <div class="container">
 
             <div class="box">
+                <br>
                 <h5>Température</h5>
                 <div class="bordure">{{ temp }} °C</div>
             </div>
 
             <div class="box">
+                <br>
                 <h5>Humidité</h5>
                 <div class="bordure">{{ hum }} %</div>
             </div>
 
             <div class="box">
+                <br>
                 <h5>CO2</h5>
                 <div class="bordure">{{ co2 }} PPM</div>
             </div>
