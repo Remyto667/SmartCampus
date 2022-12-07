@@ -67,7 +67,6 @@ class RoomRepository extends ServiceEntityRepository
         return $qd->getQuery()->getOneOrNullResult();
     }
 
-
 //    /**
 //     * @return Room[] Returns an array of Room objects
 //     */
