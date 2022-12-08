@@ -1,7 +1,24 @@
-#include "GlobalValue.h"
+#include "vTask_CO2.h"
 
-void vTask3_CO2( void*pvParameters)
+u16 global_tvoc_ppb, global_co2_eq_ppm;
+
+bool co2_initialized=false;
+
+void init_CO2()
 {
+    while (sgp_probe() != STATUS_OK) {
+         Serial.println("SGP failed");
+         while(1);}
+
+  co2_initialized = true;
+}
+
+void vTask_CO2( void*pvParameters)
+{
+  if(co2_initialized == false)
+  {
+    init_CO2();
+  }
   UBaseType_t uxPriority;
   uxPriority= uxTaskPriorityGet( NULL);
   for(;;)

@@ -1,6 +1,17 @@
-#include "GlobalValue.h"
+#include "vTask_Temp.h"
 
+TempAndHumidity globalTemp;
+DHTesp dht;
+/** Pin number for DHT11 data pin */
+int dhtPin = 16;
+bool temp_initialized=false;
 
+void init_temp()
+{
+  dht.setup(dhtPin, DHTesp::DHT22);
+
+  temp_initialized = true;
+}
 
 bool printTemperature(const TempAndHumidity& tempVal) {
 	
@@ -9,8 +20,12 @@ bool printTemperature(const TempAndHumidity& tempVal) {
   return true;
 }
 
-void vTask2_Temp( void*pvParameters)
+void vTask_Temp( void*pvParameters)
 {
+  if(temp_initialized == false)
+  {
+    init_temp();
+  }
   UBaseType_t uxPriority;
   uxPriority= uxTaskPriorityGet( NULL);
   for(;;)

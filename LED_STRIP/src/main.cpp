@@ -4,14 +4,11 @@
 #include "vTask_Temp.h"
 
 
-
-void triggerGetTemp();
-
 /** Task handle for the light value read task */
-TaskHandle_t vTask1_TimeHandle = NULL;
-TaskHandle_t vTask2_TempHandle = NULL;
-TaskHandle_t vTask3_CO2Handle = NULL;
-TaskHandle_t vTask4_DisplayHandle = NULL; 
+TaskHandle_t vTask_TimeHandle = NULL;
+TaskHandle_t vTask_TempHandle = NULL;
+TaskHandle_t vTask_CO2Handle = NULL;
+TaskHandle_t vTask_DisplayHandle = NULL; 
 
 
 void setup()
@@ -20,25 +17,13 @@ void setup()
   while(!Serial);
   Serial.println("Start");
 
-  display.init();
+  xTaskCreate(vTask_Time, "timeTask", 10000, NULL, 1, &vTask_TimeHandle);
 
-  display.flipScreenVertically();
-  display.setFont(ArialMT_Plain_10);
+	xTaskCreate(vTask_Temp, "tempTask ", 2048, NULL, 1, &vTask_TempHandle);
 
-  Rtc.Begin();
-  RtcDateTime compiled = RtcDateTime(__DATE__, __TIME__);
-  Rtc.SetDateTime(compiled);
-  xTaskCreate(vTask1_Time, "timeTask", 10000, NULL, 1, &vTask1_TimeHandle);
+  xTaskCreate(vTask_CO2, "CO2Task", 8196, NULL, 1, &vTask_CO2Handle);
 
-  dht.setup(dhtPin, DHTesp::DHT22);
-	xTaskCreate(vTask2_Temp, "tempTask ", 2048, NULL, 1, &vTask2_TempHandle);
-
-  while (sgp_probe() != STATUS_OK) {
-         Serial.println("SGP failed");
-         while(1);}
-  xTaskCreate(vTask3_CO2, "CO2Task", 8196, NULL, 1, &vTask3_CO2Handle);
-
-  xTaskCreate(vTask4_Display, "DisplayTask", 8196, NULL, 1, NULL);
+  xTaskCreate(vTask_Display, "DisplayTask", 8196, NULL, 1, &vTask_DisplayHandle);
 }
 
 void loop () 
