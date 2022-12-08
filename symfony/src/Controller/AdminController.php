@@ -271,7 +271,7 @@ class AdminController extends AbstractController
         $objH = json_decode($fileH);
         $objC = json_decode($fileC);
 
-        return $this->render('salle/donnees_salle.html.twig', [
+        return $this->render('admin/donnees_salle_admin.html.twig', [
             //'obj' => $obj,
             'room' => $room->getName(),
             //'roomm' => $obj->localisation,
