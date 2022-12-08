@@ -278,6 +278,9 @@ class AdminController extends AbstractController
             'temp' => $objT[0]->valeur,
             'hum' => $objH[0]->valeur,
             'co2' => $objC[0]->valeur,
+            'dateT'=> $objT[0]->dateCapture,
+            'dateH'=> $objH[0]->dateCapture,
+            'dateC'=> $objC[0]->dateCapture,
         ]);    }
 }
 

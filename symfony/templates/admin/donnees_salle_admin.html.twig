@@ -22,21 +22,25 @@
                 <br>
                 <h5>Température</h5>
                 <div class="bordure">{{ temp }} °C</div>
+                <div class="bordure">Date de relevé : {{ dateT }}</div>
             </div>
 
             <div class="box">
                 <br>
                 <h5>Humidité</h5>
                 <div class="bordure">{{ hum }} %</div>
+                <div class="bordure">Date de relevé : {{ dateH }}</div>
             </div>
 
             <div class="box">
                 <br>
                 <h5>CO2</h5>
                 <div class="bordure">{{ co2 }} PPM</div>
+                <div class="bordure">Date de relevé : {{ dateC }}</div>
             </div>
 
         </div>
+
         <a class="btn btn-primary" href="/admin/inventaire/lister_salles" role="button">Retour</a>
         
     </div>
