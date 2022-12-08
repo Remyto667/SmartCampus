@@ -36,8 +36,11 @@ class RoomController extends AbstractController
 
     }
 
-    #[Route('/salle/{room?}', name: 'donneesSalle')]
-    public function donnees_salle(Request $request, ?Room $room, ManagerRegistry $doctrine): Response{
+
+
+    #[Route('/salle/{name?}', name: 'donneesSalle')]
+    public function donnees_salle(Request $request, ?string $name, ManagerRegistry $doctrine): Response{
+
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
 
@@ -54,7 +57,6 @@ class RoomController extends AbstractController
         return $this->render('salle/donnees_salle.html.twig', [
             //'obj' => $obj,
             'room' => $room->getName(),
-            //'roomm' => $obj->localisation,
             'temp' => $objT[0]->valeur,
             'hum' => $objH[0]->valeur,
             'co2' => $objC[0]->valeur,
