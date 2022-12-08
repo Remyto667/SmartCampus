@@ -14,26 +14,30 @@
 
     <div class="example-wrapper">
         <br>
-        <h1 style="margin-left: 70px;">{{ room }}</h1>
+        <h1 class="titre">{{ room }}</h1>
         <br>
         <div class="container">
 
             <div class="box">
+                <br>
                 <h5>Température</h5>
                 <div class="bordure">{{ temp }} °C</div>
             </div>
 
             <div class="box">
+                <br>
                 <h5>Humidité</h5>
                 <div class="bordure">{{ hum }} %</div>
             </div>
 
             <div class="box">
+                <br>
                 <h5>CO2</h5>
                 <div class="bordure">{{ co2 }} PPM</div>
             </div>
-            
+
         </div>
+        <a class="btn btn-primary" href="/salle/connexion" role="button">Retour</a>
         
     </div>
 {% endblock %}

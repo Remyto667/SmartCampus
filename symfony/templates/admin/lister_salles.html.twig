@@ -101,7 +101,7 @@
             {% for room in rooms %}
                 <tr>
                     <td> {{ room.id }} </td>
-                    <td> {{ room.name }} </td>
+                    <td><a class="btn btn-primary" href="/admin/inventaire/donnees_salle_admin/{{ room.id }}" role="button">{{ room.name }}</a></td>
                     <!-- Supprimer Salle : faire requete pour suppr de la BD -->
                     <!--<td><button class="styled" type="button">Supprimer</button></td>-->
                     <td><a class="btn btn-primary img update favorite" href="/admin/inventaire/modifier_salle/{{ room.id }}" role="button"></a></td>
