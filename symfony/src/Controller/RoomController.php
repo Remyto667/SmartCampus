@@ -23,14 +23,14 @@ class RoomController extends AbstractController
         ]);
     }
 
-    #[Route('/salle/connexion', name: 'connexion_salle')]
+    #[Route('/salle/selection', name: 'selection')]
     public function connexion_salle(Request $request, ManagerRegistry $doctrine): Response
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
 
-        return $this->render('salle/connexion.html.twig', [
+        return $this->render('salle/selection.html.twig', [
             'allRoom' => $allRoom,
         ]);
 

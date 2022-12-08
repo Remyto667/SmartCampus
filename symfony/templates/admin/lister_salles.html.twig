@@ -95,17 +95,26 @@
                 <th scope="col">Nom</th>
                 <th scope="col">Modifier</th>
                 <th scope="col">Supprimer</th>
+                <th scope="col">Voir les Données</th>
             </tr>
             </thead>
             <tbody>
             {% for room in rooms %}
                 <tr>
                     <td> {{ room.id }} </td>
-                    <td> {{ room.name }} </td>
+                    <td>{{ room.name }}</td>
                     <!-- Supprimer Salle : faire requete pour suppr de la BD -->
                     <!--<td><button class="styled" type="button">Supprimer</button></td>-->
                     <td><a class="btn btn-primary img update favorite" href="/admin/inventaire/modifier_salle/{{ room.id }}" role="button"></a></td>
                     <td><input class="btn btn-primary img delete favorite" type=button onclick="openPopup({{ room.id }})"></td>
+                    <td>
+                        {% if room.isIsStock() != 1 %}
+                            <a class="btn btn-primary" href="/admin/inventaire/donnees_salle_admin/{{ room.id }}" role="button">{{ room.name }}</a>
+                        {% else %}
+                            {{ room.name }}
+                        {% endif %}
+
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>
