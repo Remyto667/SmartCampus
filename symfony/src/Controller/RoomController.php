@@ -38,8 +38,8 @@ class RoomController extends AbstractController
 
 
 
-    #[Route('/salle/{name?}', name: 'donneesSalle')]
-    public function donnees_salle(Request $request, ?string $name, ManagerRegistry $doctrine): Response{
+    #[Route('/salle/{room?}', name: 'donneesSalle')]
+    public function donnees_salle(Request $request, ?Room $room, ManagerRegistry $doctrine): Response{
 
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
