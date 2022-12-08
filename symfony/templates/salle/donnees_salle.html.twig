@@ -1,0 +1,66 @@
+{% extends 'basewithnavbar.html.twig' %}
+
+{% block title %}Data Room{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper { text-align: center; margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+        
+        .container {margin: 50px; display: flex; flex-wrap: wrap; justify-content: space-between;}
+        .bordure {padding: 50px; font-size: 35px; border: 0.5px solid grey; border-radius: 8px; box-shadow: 5px 5px 5px grey;}
+        .box {border: 0.5px solid grey; border-radius: 8px; box-shadow: 5px 5px 5px grey;}
+        .titre {margin-left: 70px; font-size: 50px; text-shadow: 2px 2px grey;}
+
+        {% if temp > 24 or temp < 16%}
+            .Temp {padding: 20px; font-size: 30px; border: 1px solid black; background-color: #B51b1b;}
+        {% endif %}
+        {% if hum > 59 or hum < 41%}
+        .Hum {padding: 20px; font-size: 30px; border: 1px solid black; background-color: #B51b1b;}
+        {% endif %}
+        {% if co2 > 800 %}
+        .C02 {padding: 20px; font-size: 30px; border: 1px solid black; background-color: #B51b1b;}
+        {% endif %}
+
+        .btn{margin-top: 15px; background-color: #B51b1b}
+    </style>
+
+    <div class="example-wrapper">
+        <br>
+        <h1 class="titre">{{ room }}</h1>
+        <h1 style="margin-left: 70px;">{{ room }}</h1>
+        <br>
+        <div class="container">
+
+            <div class="box">
+                <br>
+                <h5>Température</h5>
+                <div class="Temp bordure">{{ temp }} °C</div>
+                {% if temp > 24 or temp < 16%}
+                    <a class="btn btn-lg" href="/salle/alerte/1 " role="button" style="width:300px">Afficher les indications</a>
+                {% endif %}
+            </div>
+
+            <div class="box">
+                <br>
+                <h5>Humidité</h5>
+                <div class="Hum bordure">{{ hum }} %</div>
+                {% if hum > 59 or hum < 41%}
+                    <a class="btn btn-lg" href="/salle/alerte/2" role="button" style="width:300px">Afficher les indications</a>
+                {% endif %}
+            </div>
+
+            <div class="box">
+                <br>
+                <h5>CO2</h5>
+                <div class="C02 bordure">{{ co2 }} PPM</div>
+                {% if co2 > 800 %}
+                    <a class="btn btn-lg" href="/salle/alerte/3" role="button" >Afficher les indications</a>
+                {% endif %}
+            </div>
+            
+        </div>
+        <a class="btn btn-primary" href="/salle/selection" role="button">Retour</a>
+        
+    </div>
+{% endblock %}

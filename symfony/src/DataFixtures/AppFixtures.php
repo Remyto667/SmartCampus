@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use phpDocumentor\Reflection\Types\True_;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 
@@ -49,6 +50,7 @@ class AppFixtures extends Fixture
 
         $room6=new Room();
         $room6->setName("Stock");
+        $room6->setIsStock(true);
         $manager->persist($room6);
 
 //Les systemes

@@ -34,13 +34,11 @@
 
 <div class="example-wrapper">
     <h1>Choisir une salle !</h1>
-
-    {{ form_start(form) }}
-    {{ form_rest(form) }}
-    <br>
-    <button class="btn btn-primary" type="submit">Enregistrer</button>
-    {{ form_end(form) }}
-    <br>
+    {% for room in allRoom %}
+        {% if room.isIsStock() != 1 %}
+            <a class="btn btn-primary img update favorite" href="/salle/{{ room.id }}" role="button">{{ room.name }}</a>
+        {% endif %}
+    {% endfor %}
     <a class="btn btn-primary" href="/accueil" role="button">Retour</a>
 
 </div>
