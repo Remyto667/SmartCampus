@@ -4,22 +4,24 @@
 
 {% block body %}
 <style>
-    .main {top:0;right:0; text-align: center; margin: 1em auto; max-width: 1200px; width: 95%; font: 18px/1.5 sans-serif;border: 1px solid black;}
+    .main {top:0;right:0; text-align: center; margin: 1em auto; max-width: 1200px; width: 95%; font: 18px/1.5 sans-serif;}
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
     .main2{
         top:0;
         left:0;
         width:100%;
-        border: 1px solid black;
         text-align: center;
     }
-
-    .alerte_main{font-size: 150px; color: red;background-color: #B51b1b;}
-    .secondary_text{font-size: 100px; color: red;}
-    .advice{font-size: 75px; color: black;}
-    .btn{margin-top: 15px; background-color: black;color: white;}
+    .advice{font-size: 60px; color: black;}
+    .alerte_main{font-size: 100px; color: white;background-color: #B51b1b;}
+    .secondary_text{font-size: 75px; color: #B51b1b;}
+    .advicetext{font-size: 50px; color: black;padding: 15px;border: 1px solid black;}
+    .btn{margin-top: 35px; background-color: black;color: white;}
     body{
-        background-color: orange;
+        background-color: white;
+    }
+    ul{
+        list-style-type: none;
     }
 </style>
 <div class="main2">
@@ -38,7 +40,14 @@
                 {{ temp }} °C
             </div>
             <div class="advice">
-                il faut aérer la piece, Ouvrez les portes et fenêtres, utilisez des ventilateur
+                conseils :
+            </div>
+            <div class="advicetext">
+                <ul>
+                    <li>Aérer la piece</li>
+                    <li>Ouvrez les portes et fenêtres</li>
+                    <li>Uilisez des ventilateurs</li>
+                </ul>
             </div>
         {% endif %}
         {% if id == 1 and temp < 16 %}
@@ -49,7 +58,13 @@
                 {{ temp }} °C
             </div>
             <div class="advice">
-                Allumez les radiateurs, fermez les portes et les fenêtres
+                conseils :
+            </div>
+            <div class="advicetext">
+                <ul>
+                    <li>Allumez les radiateurs</li>
+                    <li>Fermez les portes et les fenêtres</li>
+                </ul>
             </div>
         {% endif %}
 
@@ -62,7 +77,15 @@
                 {{ hum }} %
             </div>
             <div class="advice">
-                il faut aérer la piece, Ouvrez les portes et fenêtres, utilisez des ventilateur ou utilisez un déshumidificateur d'air
+                conseils :
+            </div>
+            <div class="advicetext">
+                <ul>
+                    <li>Aérer la piece</li>
+                    <li>Ouvrez les portes et fenêtres</li>
+                    <li>Uilisez des ventilateurs</li>
+                    <li>utilisez un déshumidificateur d'air</li>
+                </ul>
             </div>
         {% endif %}
         {% if id == 2 and hum < 41%}
@@ -73,7 +96,14 @@
                 {{ hum }} %
             </div>
             <div class="advice">
-                Vous pouvez ouvrir la fenêtre ou utilisez un humidificateur d'air
+                conseils :
+            </div>
+            <div class="advicetext">
+                <ul>
+                    <li>Aérer la piece</li>
+                    <li>Ouvrez les portes et fenêtres</li>
+                    <li>Utilisez un humidificateur d'air</li>
+                </ul>
             </div>
         {% endif %}
         {% if id == 3 and co2 >799%}
@@ -84,7 +114,14 @@
                 {{ co2 }} ppm
             </div>
             <div class="advice">
-                il faut aérer la piece, Ouvrez les portes et fenêtres, utilisez des ventilateur
+                conseils :
+            </div>
+            <div class="advicetext">
+                <ul>
+                    <li>Aérer la piece</li>
+                    <li>Ouvrez les portes et fenêtres</li>
+                    <li>Uilisez des ventilateurs</li>
+                </ul>
             </div>
         {% endif %}
 
