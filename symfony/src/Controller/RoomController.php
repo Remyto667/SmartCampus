@@ -26,26 +26,20 @@ class RoomController extends AbstractController
     #[Route('/salle/connexion', name: 'connexion_salle')]
     public function connexion_salle(Request $request, ManagerRegistry $doctrine): Response
     {
-        $room = new Room();
         $entityManager = $doctrine->getManager();
-        $form = $this->createForm(RoomChoice::class, $room);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){
-            return $this->redirect($this->generateUrl('/salle/{$form}',[]));
-        }
+        $repository = $entityManager->getRepository('App\Entity\Room');
+        $allRoom = $repository->findAll();
 
         return $this->render('room/connexion.html.twig', [
-            'form' =>$form->createView()
+            'allRoom' => $allRoom,
         ]);
 
     }
 
-    #[Route('/salle/{name?}', name: 'donneesSalle')]
-    public function donnees_salle(Request $request, ?string $name, ManagerRegistry $doctrine): Response{
+    #[Route('/salle/{room?}', name: 'donneesSalle')]
+    public function donnees_salle(Request $request, ?Room $room, ManagerRegistry $doctrine): Response{
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
-        $room = $repository->findRoomByName($name);
 
         $jsonT = "../assets/json/".$room->getName()."-temp.json";
         $jsonH = "../assets/json/".$room->getName()."-hum.json";
