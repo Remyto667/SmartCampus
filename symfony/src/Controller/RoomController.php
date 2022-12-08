@@ -18,7 +18,7 @@ class RoomController extends AbstractController
     #[Route('/room', name: 'app_room')]
     public function index(): Response
     {
-        return $this->render('room/index.html.twig', [
+        return $this->render('salle/index.html.twig', [
             'controller_name' => 'RoomController',
         ]);
     }
@@ -26,27 +26,23 @@ class RoomController extends AbstractController
     #[Route('/salle/connexion', name: 'connexion_salle')]
     public function connexion_salle(Request $request, ManagerRegistry $doctrine): Response
     {
-        $room = new Room();
         $entityManager = $doctrine->getManager();
-        $form = $this->createForm(RoomChoice::class, $room);
+        $repository = $entityManager->getRepository('App\Entity\Room');
+        $allRoom = $repository->findAll();
 
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){
-            return $this->redirect($this->generateUrl('/salle/{$form}',[]));
-        }
-
-        return $this->render('room/connexion.html.twig', [
-            'form' =>$form->createView()
+        return $this->render('salle/connexion.html.twig', [
+            'allRoom' => $allRoom,
         ]);
 
     }
 
 
+
     #[Route('/salle/{name?}', name: 'donneesSalle')]
     public function donnees_salle(Request $request, ?string $name, ManagerRegistry $doctrine): Response{
+
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
-        $room = $repository->findRoomByName($name);
 
         $jsonT = "../assets/json/".$room->getName()."-temp.json";
         $jsonH = "../assets/json/".$room->getName()."-hum.json";
@@ -58,7 +54,7 @@ class RoomController extends AbstractController
         $objH = json_decode($fileH);
         $objC = json_decode($fileC);
 
-        return $this->render('room/donnees_salle.html.twig', [
+        return $this->render('salle/donnees_salle.html.twig', [
             //'obj' => $obj,
             'room' => $room->getName(),
             'temp' => $objT[0]->valeur,

@@ -25,6 +25,9 @@ class Room
     #[Assert\Unique]
     private ?string $name = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $isStock = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -58,6 +61,18 @@ class Room
                 $room->setRooms(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isIsStock(): ?bool
+    {
+        return $this->isStock;
+    }
+
+    public function setIsStock(?bool $isStock): self
+    {
+        $this->isStock = $isStock;
 
         return $this;
     }
