@@ -18,7 +18,7 @@ class RoomController extends AbstractController
     #[Route('/room', name: 'app_room')]
     public function index(): Response
     {
-        return $this->render('room/index.html.twig', [
+        return $this->render('salle/index.html.twig', [
             'controller_name' => 'RoomController',
         ]);
     }
@@ -30,7 +30,7 @@ class RoomController extends AbstractController
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
 
-        return $this->render('room/connexion.html.twig', [
+        return $this->render('salle/connexion.html.twig', [
             'allRoom' => $allRoom,
         ]);
 
@@ -51,7 +51,7 @@ class RoomController extends AbstractController
         $objH = json_decode($fileH);
         $objC = json_decode($fileC);
 
-        return $this->render('room/donnees_salle.html.twig', [
+        return $this->render('salle/donnees_salle.html.twig', [
             //'obj' => $obj,
             'room' => $room->getName(),
             //'roomm' => $obj->localisation,
