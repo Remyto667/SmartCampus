@@ -28,7 +28,6 @@
     <div class="example-wrapper">
         <br>
         <h1 class="titre">{{ room }}</h1>
-        <h1 style="margin-left: 70px;">{{ room }}</h1>
         <br>
         <div class="container">
 
@@ -37,7 +36,7 @@
                 <h5>Température</h5>
                 <div class="Temp bordure">{{ temp }} °C</div>
                 {% if temp > 24 or temp < 16%}
-                    <a class="btn btn-lg" href="/salle/alerte/1 " role="button" style="width:300px">Afficher les indications</a>
+                    <a class="btn btn-lg" href="/salle/alerte/{{id}}/1 " role="button" style="width:300px">Afficher les indications</a>
                 {% endif %}
             </div>
 
@@ -46,7 +45,7 @@
                 <h5>Humidité</h5>
                 <div class="Hum bordure">{{ hum }} %</div>
                 {% if hum > 59 or hum < 41%}
-                    <a class="btn btn-lg" href="/salle/alerte/2" role="button" style="width:300px">Afficher les indications</a>
+                    <a class="btn btn-lg" href="/salle/alerte/{{id}}/2" role="button" style="width:300px">Afficher les indications</a>
                 {% endif %}
             </div>
 
@@ -55,7 +54,7 @@
                 <h5>CO2</h5>
                 <div class="C02 bordure">{{ co2 }} PPM</div>
                 {% if co2 > 800 %}
-                    <a class="btn btn-lg" href="/salle/alerte/3" role="button" >Afficher les indications</a>
+                    <a class="btn btn-lg" href="/salle/alerte/{{id}}/3" role="button" >Afficher les indications</a>
                 {% endif %}
             </div>
             

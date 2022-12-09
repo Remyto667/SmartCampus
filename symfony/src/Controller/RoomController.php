@@ -55,7 +55,31 @@ class RoomController extends AbstractController
         $objC = json_decode($fileC);
 
         return $this->render('salle/donnees_salle.html.twig', [
-            //'obj' => $obj,
+            'id' => $room->getId(),
+            'room' => $room->getName(),
+            'temp' => $objT[0]->valeur,
+            'hum' => $objH[0]->valeur,
+            'co2' => $objC[0]->valeur,
+        ]);    }
+
+    #[Route('/salle/alerte/{room?}/{id?}', name: 'alerte')]
+    public function alerte_salle(Request $request, ?Room $room, ?int $id, ManagerRegistry $doctrine): Response{
+
+        $entityManager = $doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\Room');
+
+        $jsonT = "../assets/json/".$room->getName()."-temp.json";
+        $jsonH = "../assets/json/".$room->getName()."-hum.json";
+        $jsonC = "../assets/json/".$room->getName()."-co2.json";
+        $fileT = file_get_contents($jsonT);
+        $fileH = file_get_contents($jsonH);
+        $fileC = file_get_contents($jsonC);
+        $objT = json_decode($fileT);
+        $objH = json_decode($fileH);
+        $objC = json_decode($fileC);
+
+        return $this->render('salle/alerte.html.twig', [
+            'id' => $id,
             'room' => $room->getName(),
             'temp' => $objT[0]->valeur,
             'hum' => $objH[0]->valeur,
