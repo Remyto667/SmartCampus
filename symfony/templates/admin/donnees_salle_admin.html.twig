@@ -1,18 +1,38 @@
 {% extends 'basewithnavbar.html.twig' %}
 
-{% block title %}Données Administrateur{% endblock %}
+{% block title %}Data Room{% endblock %}
 
 {% block body %}
     <style>
         .example-wrapper { text-align: center; margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
         .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-        
+
         .container {margin: 50px; display: flex; flex-wrap: wrap; justify-content: space-between;}
-        .bordure {padding: 20px; font-size: 30px; border: 1px solid black;}
-    
+        .bordure {padding: 50px; font-size: 35px; border: 0.5px solid grey; border-radius: 8px; box-shadow: 5px 5px 5px grey;}
+        .box {border: 0.5px solid grey; border-radius: 8px; box-shadow: 5px 5px 5px grey;}
+        .titre { font-size: 50px; text-shadow: 2px 2px grey;}
+
+        {% if temp > 24 or temp < 16%}
+        .Temp {padding: 20px; font-size: 30px; border: 1px solid black; background-color: #B51b1b;}
+        {% endif %}
+        {% if hum > 59 or hum < 41%}
+        .Hum {padding: 20px; font-size: 30px; border: 1px solid black; background-color: #B51b1b;}
+        {% endif %}
+        {% if co2 > 800 %}
+        .C02 {padding: 20px; font-size: 30px; border: 1px solid black; background-color: #B51b1b;}
+        {% endif %}
+
+        .btn{margin-top: 15px; background-color: #B51b1b}
     </style>
 
+
     <div class="example-wrapper">
+        <h1>Choisir une salle !</h1>
+        {% for room in allRoom %}
+            {% if room.isIsStock() != 1 %}
+                <a class="btn btn-primary img update favorite" href="/admin/inventaire/donnees_salle_admin/{{ room.id }}" role="button">{{ room.name }}</a>
+            {% endif %}
+        {% endfor %}
         <br>
         <h1 class="titre">{{ room }}</h1>
         <br>
@@ -21,27 +41,35 @@
             <div class="box">
                 <br>
                 <h5>Température</h5>
-                <div class="bordure">{{ temp }} °C</div>
-                <div class="bordure">Date de relevé : {{ dateT }}</div>
+                <div class="Temp bordure">{{ temp }} °C</div>
+                {% if temp > 24 or temp < 16%}
+                    <a class="btn btn-lg" href="/admin/alerte/{{id}}/1 " role="button" style="width:300px">Afficher les indications</a>
+                {% endif %}
+                Date de relevé : {{ dateT }}
             </div>
 
             <div class="box">
                 <br>
                 <h5>Humidité</h5>
-                <div class="bordure">{{ hum }} %</div>
-                <div class="bordure">Date de relevé : {{ dateH }}</div>
+                <div class="Hum bordure">{{ hum }} %</div>
+                {% if hum > 59 or hum < 41%}
+                    <a class="btn btn-lg" href="/admin/alerte/{{id}}/2" role="button" style="width:300px">Afficher les indications</a>
+                {% endif %}
+                Date de relevé : {{ dateH }}
             </div>
 
             <div class="box">
                 <br>
                 <h5>CO2</h5>
-                <div class="bordure">{{ co2 }} PPM</div>
-                <div class="bordure">Date de relevé : {{ dateC }}</div>
+                <div class="C02 bordure">{{ co2 }} PPM</div>
+                {% if co2 > 800 %}
+                    <a class="btn btn-lg" href="/admin/alerte/{{id}}/3" role="button" >Afficher les indications</a>
+                {% endif %}
+                Date de relevé : {{ dateC }}
             </div>
 
         </div>
 
-        <a class="btn btn-primary" href="/admin/inventaire/lister_salles" role="button">Retour</a>
-        
     </div>
 {% endblock %}
+
