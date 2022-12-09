@@ -22,7 +22,6 @@ class Room
         minMessage: 'Your room must be at least 1 characters long',
         maxMessage: 'Your room cannot be longer than 5 characters',
     )]
-    #[Assert\Unique]
     private ?string $name = null;
 
     #[ORM\Column(nullable: true)]

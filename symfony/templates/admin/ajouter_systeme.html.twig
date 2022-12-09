@@ -42,21 +42,28 @@
             border-radius: 0.25rem;
             transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
         }
+
+        .error {
+            color : rgba(195,31,41,0.9);
+            font-size : 15px ;
+            list-style-type : none;
+        }
     </style>
 
     <div class="example-wrapper">
         <!-- include bar de menu qui devrait être dans un .html -->
 
-        <h1> Ajouter un Système d'acquisition </h1>
+        <h1> Ajouter ou modifier un Système d'acquisition </h1>
         <br/>
         {{ form_start(form) }}
         <p>Nom du systeme : {{ form_widget(form.Name) }} <p/>
+        <p>Tag du systeme : {{ form_widget(form.Tag) }}<p/>
+
         <p>Nom de la salle : {{ form_widget(form.Room) }} <p/>
         <br/>
-
+        <div class="error"> {{ form_errors(form) }} </div>
         <tr>
             <td> <button class="btn btn-primary" type="submit">Enregistrer le Système d'Acquisition</button>  <a class="btn btn-primary" href="/admin/inventaire/lister_systemes" role="button">Annuler</a></td>
-
         <tr/>
         {{ form_end(form) }}
     </div>

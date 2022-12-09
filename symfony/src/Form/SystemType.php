@@ -25,7 +25,8 @@ class SystemType extends AbstractType
                  return $er->createQueryBuilder('c');
                 },
                 'choice_label' => 'name'
-            ));
+            ))
+            ->add('Tag');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

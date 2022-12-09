@@ -7,8 +7,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: SystemRepository::class)]
+#[UniqueEntity(
+    fields : 'tag',
+    message: 'Ce tag est déjà utilisé',)]
+#[UniqueEntity(
+    fields : 'name',
+    message: 'Ce nom est déjà utilisé',)]
 class System
 {
     #[ORM\Id]
@@ -24,7 +31,6 @@ class System
         minMessage: 'Votre système doit faire 1 caractère minimum',
         maxMessage: 'Votre système ne doit pas dépasser 20 caractère',
     )]
-    #[Assert\Unique]
     private ?string $name = null;
 
     #[ORM\ManyToOne]
