@@ -100,31 +100,28 @@
 
 
         {% if temp > 24 or temp < 16%}
-            .Temp {padding: 20px; font-size: 30px; border: 1px solid black; background-color: #B51b1b;}
+            .Temp {color: white; border: 1px solid black; background-color: #B51b1b;}
             .box:nth-child(1){
                 transform: scale(1);
                 animation: box 1s linear infinite;
-                color: white;
             }
         {% endif %}
         {% if hum > 59 or hum < 41%}
-            .Hum {padding: 20px; font-size: 30px; border: 1px solid black; background-color: #B51b1b;}
+            .Hum {color: white; border: 1px solid black; background-color: #B51b1b;}
             .box:nth-child(2){
                 transform: scale(1);
                 animation: box 1s linear infinite;
-                color: white;
             }
         {% endif %}
-        {% if co2 > 800 %}
-            .C02 {padding: 20px; font-size: 30px; border: 1px solid black; background-color: #B51b1b;}
+        {% if co2 >= 800 %}
+            .C02 {color: white; border: 1px solid black; background-color: #B51b1b;}
             .box:nth-child(3){
                 transform: scale(1);
                 animation: box 1s linear infinite;
-                color: white;
             }
         {% endif %}
 
-        .btn{margin-top: 15px; background-color: #B51b1b}
+        .btn{margin-top: 15px; background-color: #B51b1b; color: white;}
     </style>
 
     <div class="body">
@@ -162,7 +159,7 @@
                 <br>
                 <div class="titreDonnee">CO2</div>
                 <div class="C02 donnee">{{ co2 }} PPM</div>
-                {% if co2 > 800 %}
+                {% if co2 >= 800 %}
                     <a class="btn btn-lg" href="/salle/alerte/{{id}}/3" role="button" >Afficher les indications</a>
                 {% endif %}
             </div>
