@@ -4,9 +4,13 @@ namespace App\Entity;
 
 use App\Repository\RoomRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: RoomRepository::class)]
+#[UniqueEntity(
+    fields : 'name',
+    message: 'Ce nom est déjà utilisé',)]
 class Room
 {
     #[ORM\Id]
@@ -15,12 +19,14 @@ class Room
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotNull]
+    #[Assert\NotNull(
+        message: 'Le nom de votre salle doit faire entre 1 et 5 caractères',
+    )]
     #[Assert\Length(
         min: 1,
         max: 5,
-        minMessage: 'Your room must be at least 1 characters long',
-        maxMessage: 'Your room cannot be longer than 5 characters',
+        minMessage: 'Le nom de votre salle doit faire entre 1 et 5 caractères',
+        maxMessage: 'Le nom de votre salle doit faire entre 1 et 5 caractères',
     )]
     private ?string $name = null;
 
@@ -58,6 +64,7 @@ class Room
 
         return $this;
     }
+
     public function addRoom(Room $room): self
     {
         if (!$this->room->contains($room)) {
