@@ -83,6 +83,7 @@
             <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Nom du système</th>
+                <th scope="col">Tag</th>
                 <th scope="col">Salle</th>
                 <th scope="col">Nombre de capteurs</th>
                 <th scope="col">Options</th>
@@ -93,7 +94,9 @@
                 <tr>
                     <td> {{ system.id }} </td>
                     <td> {{ system.name }}</td>
+                    <td> {{ system.tag }}</td>
                     <td> {{ system.room.name }} </td>
+
 
                     {% for key,value in nbsensor %}
                         {% if value.id == system.id %}

@@ -29,19 +29,28 @@
         border-radius: 0.25rem;
         transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     }
-
+    .error {
+        color : rgba(195,31,41,0.9);
+        font-size : 15px ;
+        list-style-type : none;
+    }
 </style>
 
 <div class="example-wrapper">
     <h1>Ajouter une salle !</h1>
 
     {{ form_start(form) }}
-    {{ form_rest(form) }}
-    <br>
-    <button class="btn btn-primary" type="submit">Enregistrer</button>
+    <p>Nom de la salle : {{ form_widget(form.Name) }} <p/>
+    <p>Nombre de fenêtre de la salle : {{ form_widget(form.windows_number) }} <p/>
+    <p>Superficie de la salle (m2) : {{ form_widget(form.room_size) }} <p/>
+    <p>Orientation de la salle : {{ form_widget(form.orientation) }} <p/>
+    <p>Etage de la salle : {{ form_widget(form.floor) }} <p/>
+    <p>Type de salle : {{ form_widget(form.type) }} <p/>
+    <br/>
+    <div class="error"> {{ form_errors(form) }} </div>
+    <button class="btn btn-primary" type="submit">Enregistrer</button> <a class="btn btn-primary" href="/admin/inventaire/lister_salles" role="button">Retour</a>
     {{ form_end(form) }}
-    <br>
-    <a class="btn btn-primary" href="/admin/inventaire/lister_salles" role="button">Retour</a>
+
 
 </div>
 {% endblock %}

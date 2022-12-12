@@ -268,8 +268,8 @@ class AdminController extends AbstractController
 
         ]);    }
 
-    #[Route('/admin/alerte/{room?}/{id?}', name: 'alerte')]
-    public function alerte_salle(Request $request, ?Room $room, ?int $id, ManagerRegistry $doctrine): Response{
+    #[Route('/admin/alerte/{room?}/{id?}', name: 'alerteAdmin')]
+    public function alerte_salle_admin(Request $request, ?Room $room, ?int $id, ManagerRegistry $doctrine): Response{
 
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');

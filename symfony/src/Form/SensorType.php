@@ -15,7 +15,7 @@ class SensorType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
+            ->add('Name')
             ->add('type', ChoiceType::class,[
                 'label'=> 'Type',
                 'choices' =>[

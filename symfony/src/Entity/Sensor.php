@@ -4,9 +4,13 @@ namespace App\Entity;
 
 use App\Repository\SensorRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SensorRepository::class)]
+#[UniqueEntity(
+        fields : 'name',
+        message: 'Ce nom est déjà utilisé',)]
 class Sensor
 {
     #[ORM\Id]
@@ -15,9 +19,18 @@ class Sensor
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotNull(
+        message: 'Le nom de votre capteur doit faire entre 1 et 12 caractères',
+    )]
+    #[Assert\Length(
+        min: 1,
+        max: 12,
+        minMessage: 'Le nom de votre capteur doit faire entre 1 et 12 caractères',
+        maxMessage: 'Le nom de votre capteur doit faire entre 1 et 12 caractères',
+    )]
     private ?string $name = null;
-    #[Assert\NotNull]
 
+    #[Assert\NotNull]
     #[ORM\Column(length: 255)]
     private ?string $type = null;
 

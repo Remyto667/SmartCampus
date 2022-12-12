@@ -3,10 +3,7 @@
 {% block body %}
 
     <style>
-        .btn {
 
-        }
-        .gg{ text-align: center; margin: 1em auto; width: 15%; font: 18px/1.5 sans-serif; border:solid red; color: red}
         .img{
             margin-top: 8em;
         }
@@ -18,18 +15,28 @@
         .text{
             text-align: center; margin: 1em auto; font: 28px/1.5 sans-serif;
         }
-
+        body{
+            background-image: url("../img/main_wallpaper.jpg");
+            background-size: cover;
+        }
+        .btn{
+            background-color: #FFFFFF;
+            border:solid red;
+            width: 15%;
+            text-align: center;
+            margin: 1em auto;
+        }
     </style>
 
 
     <img class="rounded mx-auto d-block img" src="{{ asset('img/profil.png') }}">
 
-    <p class=" text"> ADMIN </p>
+    <p class=" text"> Bonjour {{app.user.username}} </p>
 
 
     <div class="bottom col text-center bot form-group row gg">
 
-            <a class="btn btn-red btn-lg " href="/logout" role="button">Déconnexion</a>
+            <a class="btn btn-red btn-lg" href="/logout" role="button">Déconnexion</a>
 
     </div>
 

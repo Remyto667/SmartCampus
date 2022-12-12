@@ -42,6 +42,10 @@
             border-radius: 0.25rem;
             transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
         }
+        .error {
+            color : rgba(195,31,41,0.9);
+            font-size : 15px ;
+        }
     </style>
 
     <div class="example-wrapper">
@@ -50,9 +54,21 @@
         <h1> Ajouter un Capteur </h1>
 
         {{ form_start(form) }}
-        {{ form_rest(form) }}
+        <p>Nom du capteur : {{ form_widget(form.Name) }} <p/>
+
+        <p>Type du capteur : {{ form_widget(form.type) }}<p/>
+
+        <p>Etat du capteur : {{ form_widget(form.state) }} <p/>
+
+        <p>Système du capteur : {{ form_widget(form.systems) }} <p/>
+        <br/>
+
+        <div class="error"> {{ form_errors(form) }} </div>
+
         <button class="btn btn-primary" type="submit">Enregistrer le Capteur</button>
+
         <a class="btn btn-primary" href="/admin/inventaire/lister_capteurs" role="button">Annuler</a>
+
         {{ form_end(form) }}
     </div>
 {% endblock %}
