@@ -56,7 +56,7 @@ class RoomController extends AbstractController
 
         return $this->render('salle/donnees_salle.html.twig', [
             'id' => $room->getId(),
-            'room' => $room->getName(),
+            'room' => $room,
             'temp' => $objT[0]->valeur,
             'hum' => $objH[0]->valeur,
             'co2' => $objC[0]->valeur,
