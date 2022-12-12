@@ -22,7 +22,6 @@ class Room
         minMessage: 'Your room must be at least 1 characters long',
         maxMessage: 'Your room cannot be longer than 5 characters',
     )]
-    #[Assert\Unique]
     private ?string $name = null;
 
     #[ORM\Column(nullable: true)]
@@ -119,6 +118,17 @@ class Room
     public function getType(): ?int
     {
         return $this->type;
+    }
+
+    public function getTypeString(): ?string
+    {
+        if ($this->type==0)
+            $type="Bureau";
+        elseif ($this->type==1)
+            $type="Salle de classe";
+        elseif ($this->type==2)
+            $type="Autres";
+        return $type;
     }
 
     public function setType(int $type): self
