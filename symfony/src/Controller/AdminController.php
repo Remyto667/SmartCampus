@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Domain\Query\DonneesCapteursHandler;
+use App\Domain\Query\DonnéesCapteursHandler;
+use App\Domain\Query\DonneesCapteursQuery;
 use App\Entity\Room;
 use App\Entity\Sensor;
 use App\Entity\System;
@@ -239,56 +242,36 @@ class AdminController extends AbstractController
     }
 
     #[Route('/admin/inventaire/donnees_salle_admin/{room?}', name: 'donneesSalleAdmin')]
-    public function donnees_salle_admin(Request $request, ?Room $room, ManagerRegistry $doctrine): Response{
+    public function donnees_salle_admin(?Room $room, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response{
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
 
-        $jsonT = "../assets/json/".$room->getName()."-temp.json";
-        $jsonH = "../assets/json/".$room->getName()."-hum.json";
-        $jsonC = "../assets/json/".$room->getName()."-co2.json";
-        $fileT = file_get_contents($jsonT);
-        $fileH = file_get_contents($jsonH);
-        $fileC = file_get_contents($jsonC);
-        $objT = json_decode($fileT);
-        $objH = json_decode($fileH);
-        $objC = json_decode($fileC);
+        $donnees=$handler->handle(new DonneesCapteursQuery($room));
 
 
         return $this->render('admin/donnees_salle_admin.html.twig', [
             'allRoom' => $allRoom,
             'room' => $room->getName(),
             'id' => $room->getId(),
-            'temp' => $objT[0]->valeur,
-            'hum' => $objH[0]->valeur,
-            'co2' => $objC[0]->valeur,
-            'dateT'=> $objT[0]->dateCapture,
-            'dateH'=> $objH[0]->dateCapture,
-            'dateC'=> $objC[0]->dateCapture,
-
+            'temp' => $donnees["T"]->valeur,
+            'hum' => $donnees["H"]->valeur,
+            'co2' => $donnees["C"]->valeur,
+            'dateT'=> $donnees["T"]->dateCapture,
+            'dateH'=> $donnees["H"]->dateCapture,
+            'dateC'=> $donnees["C"]->dateCapture,
         ]);    }
 
     #[Route('/admin/alerte/{room?}/{id?}', name: 'alerteAdmin')]
-    public function alerte_salle_admin(Request $request, ?Room $room, ?int $id, ManagerRegistry $doctrine): Response{
+    public function alerte_salle_admin(?Room $room, ?int $id, DonneesCapteursHandler $handler): Response{
 
-        $entityManager = $doctrine->getManager();
-        $repository = $entityManager->getRepository('App\Entity\Room');
-
-        $jsonT = "../assets/json/".$room->getName()."-temp.json";
-        $jsonH = "../assets/json/".$room->getName()."-hum.json";
-        $jsonC = "../assets/json/".$room->getName()."-co2.json";
-        $fileT = file_get_contents($jsonT);
-        $fileH = file_get_contents($jsonH);
-        $fileC = file_get_contents($jsonC);
-        $objT = json_decode($fileT);
-        $objH = json_decode($fileH);
-        $objC = json_decode($fileC);
+       $donnees=$handler->handle(new DonneesCapteursQuery($room));
 
         return $this->render('admin/alerte.html.twig', [
             'id' => $id,
             'room' => $room->getName(),
-            'temp' => $objT[0]->valeur,
-            'hum' => $objH[0]->valeur,
-            'co2' => $objC[0]->valeur,
+            'temp' => $donnees["T"]->valeur,
+            'hum' => $donnees["H"]->valeur,
+            'co2' => $donnees["C"]->valeur,
         ]);    }
 }
