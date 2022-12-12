@@ -150,6 +150,19 @@ class Room
         return $this->orientation;
     }
 
+    public function getOrientationString(): ?string
+    {
+        if ($this->orientation=="N")
+            $orientation="Nord";
+        elseif ($this->orientation=="S")
+            $orientation="Sud";
+        elseif ($this->orientation=="E")
+            $orientation="Est";
+        elseif ($this->orientation=="O")
+            $orientation="Ouest";
+        return $orientation;
+    }
+
     public function setOrientation(string $orientation): self
     {
         $this->orientation = $orientation;

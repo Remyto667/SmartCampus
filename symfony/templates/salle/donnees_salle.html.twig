@@ -127,7 +127,7 @@
         <div class="salle">
             <svg height="60" width="200" xmlns="http://www.w3.org/2000/svg">
                 <rect class="shape" height="60" width="200" />
-                <div class="text">{{ room }}</div>
+                <div class="text">{{ room.getName() }}</div>
             </svg>
         </div>
         <br>
@@ -165,17 +165,24 @@
         <div class="description">
             <div class="descriptionRoom">
                 <br><br>
-                <ul><a style="border-bottom: 2px solid #014898;">La salle {{ room }}:</a>
-                    <li> a une superficie de : </li>
-                    <li> est située au // étage </li>
+                <ul><a style="border-bottom: 2px solid #014898;">La salle {{ room.getName() }}:</a>
+                    <li> a une superficie de : {{ room.getRoomSize() }} m2</li>
+                    <li> possède {{ room.getWindowsNumber() }} fenêtres,</li>
+                    {% if room.getFloor()==1 %}
+                        <li> est située au {{ room.getFloor() }}er étage </li>
+                    {% else %}
+                        <li> est située au {{ room.getFloor() }}ème étage </li>
+                    {% endif %}
+
+                    <li> est orientée au {{ room.getOrientationString() }}</li>
                 </ul>
             </div>
             <div class="textSensor">
                 <br><br>
                 <ul>Des conseils vous seront donnés si :
-                    <li>+ // °C </li>
-                    <li>+ // % d'humidité </li>
-                    <li>+ // % PPM </li>
+                    <li>-16 °C / + 24 °C </li>
+                    <li>-41 % / + 59% d'humidité </li>
+                    <li>+ 800 % PPM </li>
                 </ul>
             </div>
         </div>
