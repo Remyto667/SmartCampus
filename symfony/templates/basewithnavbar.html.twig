@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script type="text/javascript" src="public/js/functions.js"></script>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="{{ asset('img/logo.png') }}" >
@@ -11,9 +12,6 @@
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
     </head>
     <body>
 
@@ -31,6 +29,26 @@
             width: 200px;
         }
 
+        .sousmenu{
+            text-align:center;
+            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+
+        }
+
+        .sousmenu a{
+            display:block;
+            width:100%;
+            height:100%;
+            color:#fff;
+            font-family:arial,sans-serif;
+            font-size:15px;
+            font-weight:bold;
+            text-decoration:none;
+            background:#007bff;
+            padding: 3px;
+
+        }
+
     </style>
 
     <!--
@@ -42,6 +60,9 @@
             id="sidebarMenu"
             class="col-md-auto collapse d-lg-block sidebar bg-white "
     >
+
+
+
         <div class="position-sticky pure-menu-list">
             <img class="rounded mx-auto d-block" src="{{ asset('img/logo.png') }}">
             <div class="list-group list-group-flush mx-3 mt-4">
@@ -67,7 +88,7 @@
                 </a>
                 <!-- SA -->
                 <a
-                        href="/accueil"
+                        href="#"
                         class="list-group-item list-group-item-action py-2 ripple"
                 >
                     <i class="fas fa-chart-bar fa-fw me-3"></i>
@@ -75,14 +96,32 @@
                     <i class="fas fa-chart-bar fa-fw me-3"></i>
                 </a>
                 <!-- Sensor -->
-                <a
-                        href="/admin/inventaire/lister_salles"
-                        class="list-group-item list-group-item-action py-2 ripple"
-                >
-                    <i class="fas fa-chart-bar fa-fw me-3"></i>
-                    <img class="rounded mx-auto d-block" src="{{ asset('img/SGBD_logo.png') }}">
-                    <i class="fas fa-chart-bar fa-fw me-3"></i>
-                </a>
+                <div>
+                    <div class="menu" id="menu1" onclick="afficheMenu(this)">
+                        <a
+                                href="#"
+                                class="list-group-item list-group-item-action py-2 ripple"
+                        >
+
+                            <i class="fas fa-chart-bar fa-fw me-3"></i>
+                            <img class="rounded mx-auto d-block" src="{{ asset('img/SGBD_logo.png') }}">
+                            <i class="fas fa-chart-bar fa-fw me-3"></i>
+                        </a>
+
+                    </div>
+                    <div id="sousmenu1" style="display:none">
+                        <div class="sousmenu">
+                            <a href="/admin/inventaire/lister_salles">Salles</a>
+                        </div>
+                        <div class="sousmenu">
+                            <a href="/admin/inventaire/lister_systemes">Systemes</a>
+                        </div>
+                        <div class="sousmenu">
+                            <a href="/admin/inventaire/lister_capteurs">Capteurs</a>
+                        </div>
+
+                    </div>
+                </div>
                 <!-- notification -->
                 <a
                         href="#"
@@ -105,6 +144,15 @@
             </div>
         </div>
     </nav>
-        {% block body %}{% endblock %}
+
+
+
+
+    {% block body %}{% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/axentix@0.5.3/dist/js/axentix.min.js"></script>
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+    <script src="{{ asset('js/function.js') }}"></script>
     </body>
 </html>

@@ -249,6 +249,7 @@ class AdminController extends AbstractController
 
         $donnees=$handler->handle(new DonneesCapteursQuery($room));
 
+
         return $this->render('admin/donnees_salle_admin.html.twig', [
             'allRoom' => $allRoom,
             'room' => $room->getName(),
@@ -274,4 +275,3 @@ class AdminController extends AbstractController
             'co2' => $donnees["C"]->valeur,
         ]);    }
 }
-
