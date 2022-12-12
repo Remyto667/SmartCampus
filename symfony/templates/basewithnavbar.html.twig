@@ -31,29 +31,29 @@
 
         .sousmenu{
             text-align:center;
-            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-
         }
 
         .sousmenu a{
             display:block;
             width:100%;
             height:100%;
-            color:#fff;
             font-family:arial,sans-serif;
-            font-size:18px;
-            font-weight:bold;
+            font-size:16px;
+            color:black;
             text-decoration:none;
-            background:#007bff;
             padding: 3px;
 
+        }
+        .menu{
+            border-left:none!important;
+            border-right:none!important;
         }
 
 
     </style>
 
     <!--
-    Pour faire des espaces ???
+
      <i class="fas fa-chart-bar fa-fw me-3"></i>
      -->
 
@@ -103,12 +103,13 @@
                     <img class="rounded mx-auto d-block" src="{{ asset('img/graphique_logo.png') }}">
                     <i class="fas fa-chart-bar fa-fw me-3">&ensp; &ensp; Graphique</i>
                 </a>
-                <!-- Sensor -->
+                <!-- Inventaire -->
                 <div>
-                    <div class="menu" id="menu1" onclick="afficheMenu(this)">
+                    <div class= menu id="menu1" onclick="afficheMenu(this)">
                         <a
                                 href="#"
-                                class="list-group-item list-group-item-action py-2 ripple"
+                                class="menu list-group-item list-group-item-action py-2"
+
                         >
 
                             <i class="fas fa-chart-bar fa-fw me-3"></i>
@@ -118,8 +119,10 @@
 
                     </div>
                     <div id="sousmenu1" style="display:none">
-                        <div class="sousmenu">
-                            <a href="/admin/inventaire/lister_salles">Salles</a>
+
+                        <div class="sousmenu ">
+                            <a href="/admin/inventaire/lister_salles"><i> Salles</i></a>
+
                         </div>
                         <div class="sousmenu">
                             <a href="/admin/inventaire/lister_systemes">Systemes</a>
@@ -129,16 +132,8 @@
                         </div>
 
                     </div>
+
                 </div>
-                <!-- notification -->
-                <a
-                        href="#"
-                        class="list-group-item list-group-item-action py-2 ripple"
-                >
-                    <i class="fas fa-chart-bar fa-fw me-3"></i>
-                    <img class="rounded mx-auto d-block" src="{{ asset('img/notification_logo.png') }}">
-                    <i class="fas fa-chart-bar fa-fw me-3">&ensp; &ensp; Notification </i>
-                </a>
                 <!-- logout -->
                 <a
                         href="/logout"
