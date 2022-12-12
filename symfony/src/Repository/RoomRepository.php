@@ -67,6 +67,21 @@ class RoomRepository extends ServiceEntityRepository
         return $qd->getQuery()->getOneOrNullResult();
     }
 
+    public function findAllFloor() : array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = 'SELECT r.floor
+            FROM room r
+            GROUP BY r.floor';
+
+        $result = $conn->prepare($sql)->executeQuery()->fetchAllAssociative();
+        foreach( $result as $floor)
+        {
+            $allFloor[] = $floor["floor"] ;
+        }
+        return $allFloor;
+    }
 //    /**
 //     * @return Room[] Returns an array of Room objects
 //     */
