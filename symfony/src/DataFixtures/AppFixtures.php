@@ -57,29 +57,29 @@ class AppFixtures extends Fixture
 
         $room4=new Room();
         $room4->setName("D302");
-        $room1->setFloor(3);
-        $room1->setOrientation("N");
-        $room1->setRoomSize(45);
-        $room1->setType(1);
-        $room1->setWindowsNumber(4);
+        $room4->setFloor(3);
+        $room4->setOrientation("N");
+        $room4->setRoomSize(45);
+        $room4->setType(1);
+        $room4->setWindowsNumber(4);
         $manager->persist($room4);
 
         $room5=new Room();
         $room5->setName("D002");
-        $room1->setFloor(0);
-        $room1->setOrientation("N");
-        $room1->setRoomSize(53);
-        $room1->setType(1);
-        $room1->setWindowsNumber(6);
+        $room5->setFloor(0);
+        $room5->setOrientation("N");
+        $room5->setRoomSize(53);
+        $room5->setType(1);
+        $room5->setWindowsNumber(6);
         $manager->persist($room5);
 
         $room6=new Room();
         $room6->setName("Stock");
-        $room1->setFloor(0);
-        $room1->setOrientation("S");
-        $room1->setRoomSize(45);
-        $room1->setType(2);
-        $room1->setWindowsNumber(2);
+        $room6->setFloor(0);
+        $room6->setOrientation("S");
+        $room6->setRoomSize(45);
+        $room6->setType(2);
+        $room6->setWindowsNumber(2);
         $room6->setIsStock(true);
         $manager->persist($room6);
 
