@@ -254,6 +254,7 @@ class AdminController extends AbstractController
         $objH = json_decode($fileH);
         $objC = json_decode($fileC);
 
+
         return $this->render('admin/donnees_salle_admin.html.twig', [
             'allRoom' => $allRoom,
             'room' => $room->getName(),
@@ -264,6 +265,7 @@ class AdminController extends AbstractController
             'dateT'=> $objT[0]->dateCapture,
             'dateH'=> $objH[0]->dateCapture,
             'dateC'=> $objC[0]->dateCapture,
+
         ]);    }
 
     #[Route('/admin/alerte/{room?}/{id?}', name: 'alerte')]
@@ -290,4 +292,3 @@ class AdminController extends AbstractController
             'co2' => $objC[0]->valeur,
         ]);    }
 }
-
