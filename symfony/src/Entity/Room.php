@@ -160,6 +160,8 @@ class Room
             $orientation="Est";
         elseif ($this->orientation=="O")
             $orientation="Ouest";
+        else
+            $orientation="orientation non valide";
         return $orientation;
     }
 

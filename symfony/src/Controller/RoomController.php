@@ -46,7 +46,7 @@ class RoomController extends AbstractController
         $donnees=$handler->handle(new DonneesCapteursQuery($room));
 
         return $this->render('salle/donnees_salle.html.twig', [
-            'room' => $room->getName(),
+            'room' => $room,
             'id' => $room->getId(),
             'temp' => $donnees["T"]->valeur,
             'hum' => $donnees["H"]->valeur,
