@@ -1,11 +1,11 @@
-{% extends 'logo.html.twig' %}
+{% extends 'basewithnavbar.html.twig' %}
 
 {% block title %}Data Room{% endblock %}
 
 {% block body %}
     <style>
-            /*.example-wrapper { text-align: center; margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-            .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }*/
+        /*.example-wrapper { text-align: center; margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }*/
 
         .body{
             height: 100%;
@@ -80,13 +80,14 @@
             box-shadow: 2px 2px 5px grey;
         }
 
-        /*.description {
-                    display: flex;
-                    flex-wrap: wrap;
-                    justify-content: space-between;
-                }*/
-
         /********* EFFET *********/
+        /* A Mettre dans le if */
+
+        .box:nth-child(3){ /* le nb désigne la box 1:gauche, 2: centre, 3: droite */
+            transform: scale(1);
+            animation: box 1s linear infinite;
+            color: red;
+        }
 
         @keyframes box{
             0%,
@@ -98,71 +99,44 @@
             }
         }
 
+        /*.description {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }*/
 
-        {% if temp > 24 or temp < 16%}
-            .Temp {color: white; border: 1px solid black; background-color: #B51b1b;}
-            .box:nth-child(1){
-                transform: scale(1);
-                animation: box 1s linear infinite;
-            }
-        {% endif %}
-        {% if hum > 59 or hum < 41%}
-            .Hum {color: white; border: 1px solid black; background-color: #B51b1b;}
-            .box:nth-child(2){
-                transform: scale(1);
-                animation: box 1s linear infinite;
-            }
-        {% endif %}
-        {% if co2 >= 800 %}
-            .C02 {color: white; border: 1px solid black; background-color: #B51b1b;}
-            .box:nth-child(3){
-                transform: scale(1);
-                animation: box 1s linear infinite;
-            }
-        {% endif %}
-
-        .btn{margin-top: 15px; background-color: #B51b1b; color: white;}
     </style>
 
     <div class="body">
-
         <br>
+
         <div class="salle">
             <svg height="60" width="200" xmlns="http://www.w3.org/2000/svg">
                 <rect class="shape" height="60" width="200" />
                 <div class="text">{{ room }}</div>
             </svg>
         </div>
-        <br>
+
 
         <div class="container">
 
             <div class="box">
-                <br>
                 <div class="titreDonnee">Température</div>
-                <div class="Temp donnee">{{ temp }} °C</div>
-                {% if temp > 24 or temp < 16%}
-                    <a class="btn btn-lg" href="/salle/alerte/{{id}}/1 " role="button" style="width:300px">Afficher les indications</a>
-                {% endif %}
+                <div class="donnee">{{ temp }} °C</div>
             </div>
 
+
             <div class="box">
-                <br>
                 <div class="titreDonnee">Humidité</div>
-                <div class="Hum donnee">{{ hum }} %</div>
-                {% if hum > 59 or hum < 41%}
-                    <a class="btn btn-lg" href="/salle/alerte/{{id}}/2" role="button" style="width:300px">Afficher les indications</a>
-                {% endif %}
+                <div class="donnee">{{ hum }} %</div>
             </div>
 
+
             <div class="box">
-                <br>
                 <div class="titreDonnee">CO2</div>
-                <div class="C02 donnee">{{ co2 }} PPM</div>
-                {% if co2 >= 800 %}
-                    <a class="btn btn-lg" href="/salle/alerte/{{id}}/3" role="button" >Afficher les indications</a>
-                {% endif %}
+                <div class="donnee">{{ co2 }} PPM</div>
             </div>
+
         </div>
 
         <div class="description">
@@ -183,7 +157,7 @@
             </div>
         </div>
 
-        <a class="btn btn-primary" href="/salle/selection" role="button">Retour</a>
-
+        <!-- A Modifier: Quand on clique sur la salle -> afficher les descriptions; Quand on passe sur une box, l'ombre devient plus epaisse et le type grossi et devient bleu -->
     </div>
 {% endblock %}
+
