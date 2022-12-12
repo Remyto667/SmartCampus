@@ -163,20 +163,8 @@
         </div>
 
         <div class="description">
-            <div class="descriptionRoom">
-                <br><br>
-                <ul><a style="border-bottom: 2px solid #014898;">La salle {{ room.getName() }}:</a>
-                    <li> a une superficie de : {{ room.getRoomSize() }} m2</li>
-                    <li> possède {{ room.getWindowsNumber() }} fenêtres,</li>
-                    {% if room.getFloor()==1 %}
-                        <li> est située au {{ room.getFloor() }}er étage </li>
-                    {% else %}
-                        <li> est située au {{ room.getFloor() }}ème étage </li>
-                    {% endif %}
 
-                    <li> est orientée au {{ room.getOrientationString() }}</li>
-                </ul>
-            </div>
+
             <div class="textSensor">
                 <br><br>
                 <ul>Des conseils vous seront donnés si :
