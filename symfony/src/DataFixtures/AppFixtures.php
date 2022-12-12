@@ -88,7 +88,7 @@ class AppFixtures extends Fixture
         $system6=new System();
         $system6->setName("systeme 6");
         $system6->setRoom($room1);
-        $system6->setTag(1);
+        $system6->setTag(6);
         $manager->persist($system6);
 
 // Les capteurs
