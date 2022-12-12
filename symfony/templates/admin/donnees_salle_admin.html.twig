@@ -27,7 +27,7 @@
 
 
     <div class="example-wrapper">
-        <h1>Choisir une salle !</h1>
+        <h1>Listes des salles</h1>
         {% for room in allRoom %}
             {% if room.isIsStock() != 1 %}
                 <a class="btn btn-primary img update favorite" href="/admin/inventaire/donnees_salle_admin/{{ room.id }}" role="button">{{ room.name }}</a>
