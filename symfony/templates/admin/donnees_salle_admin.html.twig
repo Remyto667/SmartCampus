@@ -1,75 +1,195 @@
-{% extends 'basewithnavbar.html.twig' %}
+{% extends 'logo.html.twig' %}
 
 {% block title %}Data Room{% endblock %}
 
 {% block body %}
     <style>
-        .example-wrapper { text-align: center; margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+        /*.example-wrapper { text-align: center; margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }*/
 
-        .container {margin: 50px; display: flex; flex-wrap: wrap; justify-content: space-between;}
-        .bordure {padding: 50px; font-size: 35px; border: 0.5px solid grey; border-radius: 8px; box-shadow: 5px 5px 5px grey;}
-        .box {border: 0.5px solid grey; border-radius: 8px; box-shadow: 5px 5px 5px grey;}
-        .titre { font-size: 50px; text-shadow: 2px 2px grey;}
+        .body{
+            height: 100%;
+            font-family: arial;
+            text-align: center;
+        }
+
+        /************************* TITRE **************************/
+        .salle {
+            margin-top: 100px;
+            margin-left: 42%;
+            transform: translateY(-50%);
+            width: 200px;
+        }
+        .shape {
+            stroke-dasharray: 140 540;
+            stroke-dashoffset: -474;
+            stroke-width: 8px;
+            fill: transparent;
+            stroke: #014898;
+            transition: stroke-width 1s, stroke-dashoffset 1s, stroke-dasharray 1s;
+        }
+        .text {
+            line-height: 32px;
+            letter-spacing: 8px;
+            top: -48px; /* Monter le text dans le rectangle plus haut */
+            position: relative;
+            text-align: center;
+            font-size: 50px;
+        }
+        .salle:hover .shape {
+            stroke-width: 4px; /* Epaisseur du contour plus fine que avant */
+            stroke-dashoffset: 0;
+            stroke-dasharray: 800;
+        }
+
+        /************************* GRILLE **************************/
+        .container{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around; /* Espacé sans être collé aux bords */
+            /*margin: 100px;*/
+        }
+
+        .box{
+
+            border: 0.5px solid grey;
+            border-radius: 8px;
+            box-shadow: 2px 2px 5px grey;
+        }
+
+        .box:hover{
+            color: #014898;
+            font-size: 25px;
+            border-shadow: 5px 5px 5px grey;
+        }
+
+        .titreDonnee{
+            font-size: 20px;
+            /*padding: 10px;*/
+        }
+
+        .donnee{
+            padding: 50px;
+            font-size: 35px;
+            border: 0.5px solid grey;
+            border-radius: 8px;
+            box-shadow: 2px 2px 5px grey;
+        }
+
+        .description{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            margin-top: 100px;
+        }
+
+        /********* EFFET *********/
+
+        @keyframes box{
+            0%,
+            100%{
+                transform: scale(1);
+            }
+            50%{
+                transform: scale(1.3);
+            }
+        }
+
 
         {% if temp > 24 or temp < 16%}
-        .Temp {padding: 20px; font-size: 30px; border: 1px solid black; background-color: #B51b1b;}
+        .Temp {color: white; border: 1px solid black; background-color: #B51b1b;}
+        .box:nth-child(1){
+            transform: scale(1);
+            animation: box 1s linear infinite;
+        }
         {% endif %}
         {% if hum > 59 or hum < 41%}
-        .Hum {padding: 20px; font-size: 30px; border: 1px solid black; background-color: #B51b1b;}
+        .Hum {color: white; border: 1px solid black; background-color: #B51b1b;}
+        .box:nth-child(2){
+            transform: scale(1);
+            animation: box 1s linear infinite;
+        }
         {% endif %}
-        {% if co2 > 800 %}
-        .C02 {padding: 20px; font-size: 30px; border: 1px solid black; background-color: #B51b1b;}
+        {% if co2 >= 800 %}
+        .C02 {color: white; border: 1px solid black; background-color: #B51b1b;}
+        .box:nth-child(3){
+            transform: scale(1);
+            animation: box 1s linear infinite;
+        }
         {% endif %}
 
-        .btn{margin-top: 15px; background-color: #B51b1b}
+        .btn{margin-top: 15px; background-color: #B51b1b; color: white;}
     </style>
 
+    <div class="body">
 
-    <div class="example-wrapper">
-        <h1>Listes des salles</h1>
-        {% for room in allRoom %}
-            {% if room.isIsStock() != 1 %}
-                <a class="btn btn-primary img update favorite" href="/admin/inventaire/donnees_salle_admin/{{ room.id }}" role="button">{{ room.name }}</a>
-            {% endif %}
-        {% endfor %}
         <br>
-        <h1 class="titre">{{ room }}</h1>
+        <div class="salle">
+            <svg height="60" width="200" xmlns="http://www.w3.org/2000/svg">
+                <rect class="shape" height="60" width="200" />
+                <div class="text">{{ room.getName() }}</div>
+            </svg>
+        </div>
         <br>
+
         <div class="container">
 
             <div class="box">
                 <br>
-                <h5>Température</h5>
-                <div class="Temp bordure">{{ temp }} °C</div>
+                <div class="titreDonnee">Température</div>
+                <div class="Temp donnee">{{ temp }} °C</div>
                 {% if temp > 24 or temp < 16%}
-                    <a class="btn btn-lg" href="/admin/alerte/{{id}}/1 " role="button" style="width:300px">Afficher les indications</a>
+                    <a class="btn btn-lg" href="/salle/alerte/{{id}}/1 " role="button" style="width:300px">Afficher les indications</a>
                 {% endif %}
                 Date de relevé : {{ dateT }}
             </div>
 
             <div class="box">
                 <br>
-                <h5>Humidité</h5>
-                <div class="Hum bordure">{{ hum }} %</div>
+                <div class="titreDonnee">Humidité</div>
+                <div class="Hum donnee">{{ hum }} %</div>
                 {% if hum > 59 or hum < 41%}
-                    <a class="btn btn-lg" href="/admin/alerte/{{id}}/2" role="button" style="width:300px">Afficher les indications</a>
+                    <a class="btn btn-lg" href="/salle/alerte/{{id}}/2" role="button" style="width:300px">Afficher les indications</a>
                 {% endif %}
                 Date de relevé : {{ dateH }}
             </div>
 
             <div class="box">
                 <br>
-                <h5>CO2</h5>
-                <div class="C02 bordure">{{ co2 }} PPM</div>
-                {% if co2 > 800 %}
-                    <a class="btn btn-lg" href="/admin/alerte/{{id}}/3" role="button" >Afficher les indications</a>
+                <div class="titreDonnee">CO2</div>
+                <div class="C02 donnee">{{ co2 }} PPM</div>
+                {% if co2 >= 800 %}
+                    <a class="btn btn-lg" href="/salle/alerte/{{id}}/3" role="button" >Afficher les indications</a>
                 {% endif %}
                 Date de relevé : {{ dateC }}
             </div>
-
         </div>
 
+        <div class="description">
+            <div class="descriptionRoom">
+                <br><br>
+                <ul><a style="border-bottom: 2px solid #014898;">La salle {{ room.getName() }}:</a>
+                    <li> a une superficie de : {{ room.getRoomSize() }} m2</li>
+                    <li> possède {{ room.getWindowsNumber() }} fenêtres,</li>
+                    {% if room.getFloor()==1 %}
+                        <li> est située au {{ room.getFloor() }}er étage </li>
+                    {% else %}
+                        <li> est située au {{ room.getFloor() }}ème étage </li>
+                    {% endif %}
+
+                    <li> est orientée au {{ room.getOrientationString() }}</li>
+                </ul>
+            </div>
+            <div class="textSensor">
+                <br><br>
+                <ul>Des conseils vous seront donnés si :
+                    <li>-16 °C / + 24 °C </li>
+                    <li>-41 % / + 59% d'humidité </li>
+                    <li>+ 800 % PPM </li>
+                </ul>
+            </div>
+        </div>
+        <br>
+        <a class="btn btn-primary" href="/salle/selection" role="button">Retour</a>
     </div>
 {% endblock %}
-
