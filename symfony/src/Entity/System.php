@@ -24,12 +24,14 @@ class System
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotNull]
+    #[Assert\NotNull(
+        message: 'Le nom de votre systeme doit faire entre 1 et 12 caractères',
+    )]
     #[Assert\Length(
         min: 1,
-        max: 20,
-        minMessage: 'Votre système doit faire 1 caractère minimum',
-        maxMessage: 'Votre système ne doit pas dépasser 20 caractère',
+        max: 12,
+        minMessage: 'Le nom de votre système doit faire entre 1 et 12 caractères',
+        maxMessage: 'Le nom de votre système doit faire entre 1 et 12 caractères',
     )]
     private ?string $name = null;
 
