@@ -1,4 +1,4 @@
-{% extends 'logo.html.twig' %}
+{% extends 'basewithnavbar.html.twig' %}
 
 {% block title %}Data Room{% endblock %}
 
@@ -14,12 +14,14 @@
         }
 
         /************************* TITRE **************************/
+
         .salle {
             margin-top: 100px;
-            margin-left: 42%;
+            margin-left: 45%;
             transform: translateY(-50%);
             width: 200px;
         }
+
         .shape {
             stroke-dasharray: 140 540;
             stroke-dashoffset: -474;
@@ -29,12 +31,14 @@
             transition: stroke-width 1s, stroke-dashoffset 1s, stroke-dasharray 1s;
         }
         .text {
+            display: block;
             line-height: 32px;
-            letter-spacing: 8px;
-            top: -48px; /* Monter le text dans le rectangle plus haut */
+            letter-spacing: 7px;
+            top: -47px; /* Monter le text dans le rectangle plus haut */
             position: relative;
             text-align: center;
             font-size: 50px;
+            justify-content: center;
         }
         .salle:hover .shape {
             stroke-width: 4px; /* Epaisseur du contour plus fine que avant */
@@ -43,7 +47,7 @@
         }
 
         /************************* GRILLE **************************/
-        .container{
+        .data-container{
             display: flex;
             flex-wrap: wrap;
             justify-content: space-around; /* Espacé sans être collé aux bords */
@@ -51,16 +55,15 @@
         }
 
         .box{
-
             border: 0.5px solid grey;
             border-radius: 8px;
             box-shadow: 2px 2px 5px grey;
         }
-
         .box:hover{
-            color: #014898;
-            font-size: 25px;
+            /*color: #014898;*/
+            /*font-size: 25px;*/
             box-shadow: 5px 5px 5px grey;
+            text-shadow: 2px 2px 5px grey;
         }
 
         .titreDonnee{
@@ -86,8 +89,7 @@
         }
 
         .boxBouton {
-            /*border: 0.5px solid grey;
-            border-radius: 8px;*/
+            width: 250px;
         }
 
         /*************************/
@@ -142,8 +144,8 @@
         }
         {% endif %}
 
-        .btn{margin-top: 15px; background-color: #B51b1b; color: white;}
-        .btn-blue{background-color: #014898; color: white;}
+        .btn{margin-top: 15px; background-color: #B51b1b; color: white; max-width: 250px}
+        .btn-blue{background-color: #00489a; color: white;}
     </style>
 
     <div class="body">
@@ -165,20 +167,20 @@
         <br>
         <div class="salle">
             <svg height="60" width="200" xmlns="http://www.w3.org/2000/svg">
-                <rect class="shape" height="60" width="200" />
+              <rect class="shape" height="60" width="200" />
                 <div class="text">{{ room.getName() }}</div>
             </svg>
         </div>
         <br>
 
         <div class="container">
-            <div>
-                <div class="box">
-                    <br>
-                    <div class="titreDonnee">Température</div>
-                    <div class="Temp donnee">{{ temp }} °C</div>
-                    Date de relevé : {{ dateT }}
-                </div>
+        <div class="data-container">
+
+            <div class="box">
+                <br>
+                <div class="titreDonnee">Température</div>
+                <div class="Temp donnee">{{ temp }} °C</div>
+                Date de relevé : {{ dateT }}
             </div>
 
             <div class="box">
@@ -198,12 +200,12 @@
         <div class="boutonAlerte">
             <div class="boxBouton">
                 {% if temp > 24 or temp < 16%}
-                    <a class="btn btn-lg" href="/salle/alerte/{{id}}/1 " role="button" style="width:300px">Afficher les indications</a>
+                    <a class="btn btn-lg" href="/salle/alerte/{{id}}/1 " role="button">Afficher les indications</a>
                 {% endif %}
             </div>
             <div class="boxBouton">
                 {% if hum > 59 or hum < 41%}
-                    <a class="btn btn-lg" href="/salle/alerte/{{id}}/2" role="button" style="width:300px">Afficher les indications</a>
+                    <a class="btn btn-lg" href="/salle/alerte/{{id}}/2" role="button">Afficher les indications</a>
                 {% endif %}
             </div>
             <div class="boxBouton">
@@ -212,7 +214,7 @@
                 {% endif %}
             </div>
         </div>
-
+        </div>
         <div class="description">
             <div class="descriptionRoom">
                 <br><br>

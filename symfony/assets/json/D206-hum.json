@@ -1,9 +1,9 @@
 [{
-  "id": "55",
+  "id": "58",
   "nom" : "hum",
-  "valeur" : "90.2",
+  "valeur" : "49.2",
   "dateCapture" : "2022-11-28 08:00:00",
-  "localisation" : "D302",
+  "localisation" : "D207",
   "description" : "",
   "tag" : 3
 }]

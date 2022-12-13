@@ -8,12 +8,11 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 
     /* BOUTONS */
-    .styled {
+    .btn {
         color: #fff;
-        background-color: #007bff;
-        border-color: #007bff;
+        background-color: #00489a;
+        border-color: #00489a;
         text-decoration: none;
-
         display: inline-block;
         font-weight: 400;
         text-align: center;
@@ -28,24 +27,51 @@
         line-height: 1.5;
         border-radius: 0.25rem;
         transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        margin-bottom: 100px;
     }
 
+    .ligne{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        column-gap: 30px;
+        margin-top: 200px;
+    }
+    .item-ligne{
+        align-self: auto;
+    }
+
+    h1{
+        text-align: center;
+        margin-top: 100px;
+    }
+
+    .btn-div{
+        justify-content: center;
+        text-align: center;
+    }
 </style>
 
 <div class="example-wrapper">
     <h1>Choisir une salle !</h1>
-    {% for floor in allFloor %}
-        <br>
-        <p> Etage {{ floor }} : </p>
-        {% for room in allRoom %}
-            {% if (room.isIsStock() != 1) and (room.floor == floor) %}
-                <a class="btn btn-primary img update favorite" href="/salle/{{ room.id }}" role="button">{{ room.name }}</a>
-            {% endif %}
-        {% endfor %}
-        <br>
-    {% endfor %}
     <br>
-    <a class="btn btn-primary" href="/accueil" role="button">Retour</a>
-</div>
 
+    <div class="ligne">
+        {% for floor in allFloor %}
+            <div class="item-ligne">
+                <p> Etage {{ floor }} : </p>
+                {% for room in allRoom %}
+                    {% if (room.isIsStock() != 1) and (room.floor == floor) %}
+                        <a class="btn btn-primary btn-blue" href="{{ room.id }}" role="button">{{ room.name }}</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+    <div class="btn-div">
+    <a class="btn btn-primary" href="javascript:history.go(-1)" role="button">Retour</a>
+    </div>
 {% endblock %}
