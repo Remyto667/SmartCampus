@@ -241,7 +241,20 @@ class AdminController extends AbstractController
         return $this->redirect($this->generateUrl('listerSalles', ['ok' => $repository->remove($room, true)]));
     }
 
-    #[Route('/admin/inventaire/donnees_salle_admin/{room?}', name: 'donneesSalleAdmin')]
+    #[Route('admin/selection_salle', name: 'selectionSalle')]
+    public function selection_salle(Request $request, ManagerRegistry $doctrine): Response
+    {
+        $entityManager = $doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\Room');
+        $allRoom = $repository->findAll();
+
+        return $this->render('admin/selection.html.twig', [
+            'allRoom' => $allRoom,
+            'allFloor' => $repository->findAllFloor(),
+        ]);
+
+    }
+    #[Route('/admin/donnees_salle_admin/{room?}', name: 'donneesSalleAdmin')]
     public function donnees_salle_admin(?Room $room, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response{
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');

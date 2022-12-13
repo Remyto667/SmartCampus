@@ -26,7 +26,7 @@ class RoomController extends AbstractController
     }
 
     #[Route('/salle/selection', name: 'selection')]
-    public function connexion_salle(Request $request, ManagerRegistry $doctrine): Response
+    public function selection_salle(Request $request, ManagerRegistry $doctrine): Response
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
