@@ -50,8 +50,7 @@
             /*margin: 100px;*/
         }
 
-        .box{
-
+        .box {
             border: 0.5px solid grey;
             border-radius: 8px;
             box-shadow: 2px 2px 5px grey;
@@ -60,7 +59,7 @@
         .box:hover{
             color: #014898;
             font-size: 25px;
-            border-shadow: 5px 5px 5px grey;
+            box-shadow: 5px 5px 5px grey;
         }
 
         .titreDonnee{
@@ -76,6 +75,21 @@
             box-shadow: 2px 2px 5px grey;
         }
 
+        /****** BOUTONS ALERTE ******/
+
+        .boutonAlerte{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 50px;
+        }
+
+        .boxBouton {
+            /*border: 0.5px solid grey;
+            border-radius: 8px;*/
+        }
+
+        /*************************/
         .description{
             display: flex;
             flex-wrap: wrap;
@@ -118,7 +132,7 @@
             }
         {% endif %}
 
-        .btn{margin-top: 15px; background-color: #B51b1b; color: white;}
+        .btn{margin-top: 15px; background-color: #B51b1b; color: white; max-width: 250px;}
     </style>
 
     <div class="body">
@@ -138,24 +152,33 @@
                 <br>
                 <div class="titreDonnee">Température</div>
                 <div class="Temp donnee">{{ temp }} °C</div>
-                {% if temp > 24 or temp < 16%}
-                    <a class="btn btn-lg" href="/salle/alerte/{{id}}/1 " role="button" style="width:300px">Afficher les indications</a>
-                {% endif %}
             </div>
 
             <div class="box">
                 <br>
                 <div class="titreDonnee">Humidité</div>
                 <div class="Hum donnee">{{ hum }} %</div>
-                {% if hum > 59 or hum < 41%}
-                    <a class="btn btn-lg" href="/salle/alerte/{{id}}/2" role="button" style="width:300px">Afficher les indications</a>
-                {% endif %}
             </div>
 
             <div class="box">
                 <br>
                 <div class="titreDonnee">CO2</div>
                 <div class="C02 donnee">{{ co2 }} PPM</div>
+            </div>
+        </div>
+
+        <div class="boutonAlerte">
+            <div class="boxBouton">
+                {% if temp > 24 or temp < 16%}
+                    <a class="btn btn-lg" href="/salle/alerte/{{id}}/1 " role="button" style="width:300px">Afficher les indications</a>
+                {% endif %}
+            </div>
+            <div class="boxBouton">
+                {% if hum > 59 or hum < 41%}
+                    <a class="btn btn-lg" href="/salle/alerte/{{id}}/2" role="button" style="width:300px">Afficher les indications</a>
+                {% endif %}
+            </div>
+            <div class="boxBouton">
                 {% if co2 >= 800 %}
                     <a class="btn btn-lg" href="/salle/alerte/{{id}}/3" role="button" >Afficher les indications</a>
                 {% endif %}

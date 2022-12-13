@@ -22,6 +22,7 @@ function afficheMenu(obj){
         }
         else{
             sousMenu.style.display = "block";
+            sousMenu.className ="menu list-group-item py-2";
         }
     }
 
