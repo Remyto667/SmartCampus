@@ -31,9 +31,7 @@ class RoomController extends AbstractController
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
-        $allFloor = $repository->findAllFloor() ;
 
-        var_dump($allFloor);
         return $this->render('salle/selection.html.twig', [
             'allRoom' => $allRoom,
             'allFloor' => $repository->findAllFloor(),

@@ -110,6 +110,15 @@
             }
         }
 
+        .ligne{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            column-gap: 30px;
+        }
+        .item-ligne{
+            align-self: auto;
+        }
 
         {% if temp > 24 or temp < 16%}
         .Temp {color: white; border: 1px solid black; background-color: #B51b1b;}
@@ -134,9 +143,24 @@
         {% endif %}
 
         .btn{margin-top: 15px; background-color: #B51b1b; color: white;}
+        .btn-blue{background-color: #014898; color: white;}
     </style>
 
     <div class="body">
+        <h1>Choisir une salle !</h1>
+        <br>
+        <div class="ligne">
+            {% for floor in allFloor %}
+                <div class="item-ligne">
+                <p> Etage {{ floor }} : </p>
+                {% for room in allRoom %}
+                    {% if (room.isIsStock() != 1) and (room.floor == floor) %}
+                        <a class="btn btn-primary btn-blue" href="{{ room.id }}" role="button">{{ room.name }}</a>
+                    {% endif %}
+                {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
 
         <br>
         <div class="salle">
@@ -213,5 +237,6 @@
                 </ul>
             </div>
         </div>
+        <br>
     </div>
 {% endblock %}
