@@ -16,7 +16,7 @@
         /************************* TITRE **************************/
         .salle {
             margin-top: 100px;
-            margin-left: 42%;
+            margin-left: 45%;
             transform: translateY(-50%);
             width: 200px;
         }
@@ -29,12 +29,14 @@
             transition: stroke-width 1s, stroke-dashoffset 1s, stroke-dasharray 1s;
         }
         .text {
+            display: block;
             line-height: 32px;
-            letter-spacing: 8px;
-            top: -48px; /* Monter le text dans le rectangle plus haut */
+            letter-spacing: 7px;
+            top: -47px; /* Monter le text dans le rectangle plus haut */
             position: relative;
             text-align: center;
             font-size: 50px;
+            justify-content: center;
         }
         .salle:hover .shape {
             stroke-width: 4px; /* Epaisseur du contour plus fine que avant */
@@ -43,7 +45,7 @@
         }
 
         /************************* GRILLE **************************/
-        .container{
+        .data-container{
             display: flex;
             flex-wrap: wrap;
             justify-content: space-around; /* Espacé sans être collé aux bords */
@@ -57,9 +59,10 @@
         }
 
         .box:hover{
-            color: #014898;
-            font-size: 25px;
+            /*color: #014898;
+            font-size: 25px;*/
             box-shadow: 5px 5px 5px grey;
+            text-shadow: 2px 2px 5px grey ;
         }
 
         .titreDonnee{
@@ -87,6 +90,7 @@
         .boxBouton {
             /*border: 0.5px solid grey;
             border-radius: 8px;*/
+            width: 250px;
         }
 
         /*************************/
@@ -133,6 +137,7 @@
         {% endif %}
 
         .btn{margin-top: 15px; background-color: #B51b1b; color: white; max-width: 250px;}
+        .btn-blue{background-color: #00489a; color: white;}
     </style>
 
     <div class="body">
@@ -145,8 +150,8 @@
             </svg>
         </div>
         <br>
-
         <div class="container">
+        <div class="data-container">
 
             <div class="box">
                 <br>
@@ -184,7 +189,7 @@
                 {% endif %}
             </div>
         </div>
-
+        </div>
         <div class="description">
 
 
@@ -198,6 +203,6 @@
             </div>
         </div>
         <br>
-        <a class="btn btn-primary" href="/salle/selection" role="button">Retour</a>
+        <a class="btn btn-blue btn-primary" href="/salle/selection" role="button">Retour</a>
     </div>
 {% endblock %}

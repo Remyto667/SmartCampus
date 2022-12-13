@@ -1,7 +1,7 @@
 [{
-  "id": "55",
-  "nom" : "hum",
-  "valeur" : "90.2",
+  "id": "60",
+  "nom" : "temp",
+  "valeur" : "10",
   "dateCapture" : "2022-11-28 08:00:00",
   "localisation" : "D302",
   "description" : "",
