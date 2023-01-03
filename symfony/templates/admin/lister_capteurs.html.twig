@@ -5,6 +5,18 @@
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .table .thead-light th {
+        color: #495057;
+        background-color: #e9ecef;
+        border-color: #dee2e6;
+    }
+    .table td, .table th {
+        padding: 0.75rem;
+        vertical-align: top;
+        border-top: 1px solid #dee2e6;
+        text-align: center;
+    }
+
     .btn:not(:disabled):not(.disabled) {
         cursor: pointer;
     }
@@ -36,23 +48,6 @@
         border-style: solid;
         border-width: 0;
         text-align: center;
-    }
-    th {
-        text-align: inherit;
-        text-align: -webkit-match-parent;
-    }
-    .table {
-
-        width: 100%;
-        margin-bottom: 1rem;
-        vertical-align: top;
-    }
-    table {
-        caption-side: bottom;
-        border-collapse: collapse;
-    }
-    roomAdd{
-        font-size: small;
     }
     .img {
         background-repeat: no-repeat;
@@ -88,10 +83,9 @@
     <br>
     <br>
 
-    <table class="table table-striped">
-        <thead>
+    <table class="table">
+        <thead class="thead-light">
         <tr>
-            <th scope="col"></th>
             <th scope="col">Nom</th>
             <th scope="col">Type</th>
             <th scope="col">State</th>
@@ -102,7 +96,6 @@
         <tbody>
         {% for sensor in allSensor %}
             <tr>
-                <th scope="row">{{ sensor.Sid }}</th>
                 <td>{{ sensor.name  }}</td>
                 <td>{{ sensor.type  }}</td>
                 <td>{{ sensor.state  }}</td>

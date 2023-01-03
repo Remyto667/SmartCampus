@@ -1,6 +1,6 @@
 {% extends 'basewithnavbar.html.twig' %}
 
-{% block title %}Inventaire des Systemes d'Aquisition{% endblock %}
+{% block title %}Inventaire des SA{% endblock %}
 
 {% block body %}
 <style>
@@ -82,7 +82,6 @@
         <table class="table">
             <thead class="thead-light">
             <tr>
-                <th scope="col">Id</th>
                 <th scope="col">Nom du système</th>
                 <th scope="col">Tag</th>
                 <th scope="col">Salle</th>
@@ -93,7 +92,6 @@
             <tbody>
             {% for system in systems %}
                 <tr>
-                    <td> {{ system.id }} </td>
                     <td> {{ system.name }}</td>
                     <td> {{ system.tag }}</td>
                     <td> {{ system.room.name }} </td>
