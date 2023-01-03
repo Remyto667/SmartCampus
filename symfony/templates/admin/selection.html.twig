@@ -27,47 +27,53 @@
         line-height: 1.5;
         border-radius: 0.25rem;
         transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-        margin-bottom: 100px;
     }
-
-    .ligne{
+    .cadre {
+        /*max-width: 500px;*/
+        margin-top: 100px;
+        padding: 10px;
+        border: 1px solid grey;
+        border-radius: 6px;
+        box-shadow: 2px 2px 5px grey;
+    }
+    .ligne {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         column-gap: 30px;
-        margin-top: 200px;
     }
-    .item-ligne{
+    .item-ligne {
         align-self: auto;
     }
 
-    h1{
+    h1 {
         text-align: center;
         margin-top: 100px;
     }
-
-    .btn-div{
+    .btn-div {
         justify-content: center;
         text-align: center;
     }
+
 </style>
 
 <div class="example-wrapper">
     <h1>Choisir une salle !</h1>
     <br>
+    <div class="cadre">
+        <div class="ligne">
+            {% for floor in allFloor %}
+                <div class="item-ligne">
+                    <p> Etage {{ floor }} : </p>
+                    {% for room in allRoom %}
+                        {% if (room.isIsStock() != 1) and (room.floor == floor) %}
+                            <a class="btn btn-primary btn-blue" href="donnees_salle_admin/{{ room.id }}" role="button">{{ room.name }}</a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
 
-    <div class="ligne">
-        {% for floor in allFloor %}
-            <div class="item-ligne">
-                <p> Etage {{ floor }} : </p>
-                {% for room in allRoom %}
-                    {% if (room.isIsStock() != 1) and (room.floor == floor) %}
-                        <a class="btn btn-primary btn-blue" href="donnees_salle_admin/{{ room.id }}" role="button">{{ room.name }}</a>
-                    {% endif %}
-                {% endfor %}
-            </div>
-        {% endfor %}
-
+        </div>
     </div>
 
 </div>
