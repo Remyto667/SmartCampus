@@ -297,4 +297,22 @@ class AdminController extends AbstractController
         ]);
 
     }
+
+    #[Route('/admin/lister_alertes', name: 'listerAlertes')]
+    public function liste_alertes(Request $request, ?Room $room, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response{
+
+        $entityManager = $doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\Room');
+        $rooms = $repository->findAll();
+
+        //$donnees=$handler->handle(new DonneesCapteursQuery($room));
+
+        // Prendre fonction alert boolleenne pour ensuite recup le type et la valeur
+
+        return $this->render('admin/lister_alertes.html.twig', [
+            'controller_name' => 'Liste des Alertes',
+            'rooms' => $rooms,
+        ]);
+    }
+
 }
