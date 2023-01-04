@@ -2,6 +2,7 @@
 
 namespace App\Domain\Query;
 
+use App\Domain\Alert;
 use App\Domain\DonneesCapteurs;
 
 class DonneesCapteursHandler
@@ -13,8 +14,30 @@ class DonneesCapteursHandler
         $this->donneesCapteurs = $donneesCapteurs;
     }
 
+    public function isItAlert($data, $requete)
+    {
+        $temp = $data["T"]->valeur;
+        $hum = $data["H"]->valeur;
+        $co2 = $data["C"]->valeur;
+        if($temp > 24 or $temp < 16)
+        {
+            $requete->getRoom()->setTempAlert(new Alert(true, $data["T"]->dateCapture));
+        }
+        if($hum > 59 or $hum < 41)
+        {
+            $requete->getRoom()->setHumAlert(new Alert(true, $data["H"]->dateCapture));
+        }
+        if($co2 >= 800)
+        {
+            $requete->getRoom()->setCo2Alert(new Alert(true, $data["C"]->dateCapture));
+        }
+
+    }
+
     public function handle(DonneesCapteursQuery $requete)
     {
-        return $this->donneesCapteurs->getDonneesPourSalle($requete->getTag());
+        $data = $this->donneesCapteurs->getDonneesPourSalle($requete->getTag());
+        $this->isItAlert($data, $requete);
+        return $data;
     }
 }
