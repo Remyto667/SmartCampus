@@ -15,6 +15,6 @@ class DonneesCapteursHandler
 
     public function handle(DonneesCapteursQuery $requete)
     {
-        return $this->donneesCapteurs->getDonneesPourSalle($requete->getRoom());
+        return $this->donneesCapteurs->getDonneesPourSalle($requete->getTag());
     }
 }
