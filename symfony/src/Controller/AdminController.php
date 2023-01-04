@@ -288,4 +288,13 @@ class AdminController extends AbstractController
             'hum' => $donnees["H"]->valeur,
             'co2' => $donnees["C"]->valeur,
         ]);    }
+
+    #[Route('/admin/suivi/graphique', name: 'graph_admin')]
+    public function graphique_admin(): Response
+    {
+        return $this->render('admin/graphique.html.twig', [
+            'controller_name' => 'graph',
+        ]);
+
+    }
 }
