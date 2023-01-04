@@ -39,17 +39,7 @@ class DonneesCapteurs
                 $this->donneesPourSalle[$type] = (object) array('valeur' => 'NULL', 'dateCapture' => 'NULL');
             }
         }
-        /*
-        $jsonT = "../assets/json/".$room->getName()."-temp.json";
-        $jsonH = "../assets/json/".$room->getName()."-hum.json";
-        $jsonC = "../assets/json/".$room->getName()."-co2.json";
-        $fileT = file_get_contents($jsonT);
-        $fileH = file_get_contents($jsonH);
-        $fileC = file_get_contents($jsonC);
-        $objT = json_decode($fileT);
-        $objH = json_decode($fileH);
-        $objC = json_decode($fileC);
-*/
+
         return $this->donneesPourSalle ;
     }
 }

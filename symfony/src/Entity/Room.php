@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Domain\Alert;
 use App\Repository\RoomRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -47,6 +48,60 @@ class Room
 
     #[ORM\Column]
     private ?int $floor = null;
+
+    private Alert $tempAlert;
+    private Alert $humAlert;
+    private Alert $co2Alert;
+
+    /**
+     * @return mixed
+     */
+    public function getTempAlert() : Alert
+    {
+        return $this->tempAlert;
+    }
+
+    /**
+     * @param mixed $tempAlert
+     */
+    public function setTempAlert(Alert $tempAlert): void
+    {
+        $this->tempAlert = $tempAlert;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHumAlert() : Alert
+    {
+        return $this->humAlert;
+    }
+
+    /**
+     * @param mixed $humAlert
+     */
+    public function setHumAlert(Alert $humAlert): void
+    {
+        $this->humAlert = $humAlert;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCo2Alert() : Alert
+    {
+        return $this->co2Alert;
+    }
+
+    /**
+     * @param mixed $co2Alert
+     */
+    public function setCo2Alert(Alert $co2Alert): void
+    {
+        $this->co2Alert = $co2Alert;
+    }
+
+
 
     public function getId(): ?int
     {
