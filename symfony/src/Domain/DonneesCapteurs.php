@@ -31,7 +31,13 @@ class DonneesCapteurs
                 'userpass' => 'bRepOh4UkiaM9c7R'
                 ],
             ]);
-            $this->donneesPourSalle[$type] = json_decode($response->getContent())[0];
+            if(sizeof(json_decode($response->getContent())) > 0)
+            {
+                $this->donneesPourSalle[$type] = json_decode($response->getContent())[0];
+            }
+            else{
+                $this->donneesPourSalle[$type] = (object) array('valeur' => 'NULL', 'dateCapture' => 'NULL');
+            }
         }
         /*
         $jsonT = "../assets/json/".$room->getName()."-temp.json";
