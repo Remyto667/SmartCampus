@@ -260,7 +260,7 @@ class AdminController extends AbstractController
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
 
-        $donnees=$handler->handle(new DonneesCapteursQuery($room));
+        $donnees=$handler->handle(new DonneesCapteursQuery($room, $doctrine));
 
 
         return $this->render('admin/donnees_salle_admin.html.twig', [
