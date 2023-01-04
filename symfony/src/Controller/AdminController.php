@@ -9,6 +9,7 @@ use App\Entity\Room;
 use App\Entity\Sensor;
 use App\Entity\System;
 use App\Form\RoomType;
+use App\Form\SearchRoomType;
 use App\Form\SensorType;
 use App\Form\SystemType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -52,15 +53,20 @@ class AdminController extends AbstractController
     }
 
     #[Route('/admin/inventaire/lister_salles/{ok?1}', name: 'listerSalles')]
-    public function lister_salles(ManagerRegistry $doctrine, ?int $ok): Response
+    public function lister_salles(Request $request, ManagerRegistry $doctrine, ?int $ok): Response
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
         $rooms = $repository->findAll();
 
+        $room = new Room();
+        $form = $this->createForm(SearchRoomType::class, $room);
+        $form->handleRequest($request);
+
         return $this->render('admin/lister_salles.html.twig', [
             'rooms' => $rooms,
             'ok' => $ok,
+            'form' =>$form->createView(),
         ]);
     }
 
