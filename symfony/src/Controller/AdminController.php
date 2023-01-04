@@ -242,11 +242,15 @@ class AdminController extends AbstractController
     }
 
     #[Route('admin/selection_salle', name: 'selectionSalle')]
-    public function selection_salle(Request $request, ManagerRegistry $doctrine): Response
+    public function selection_salle(Request $request, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
+
+        foreach($allRoom as $room)
+        $donnees=$handler->handle(new DonneesCapteursQuery($room, $doctrine));
+
 
         return $this->render('admin/selection.html.twig', [
             'allRoom' => $allRoom,
