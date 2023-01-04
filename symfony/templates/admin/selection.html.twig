@@ -87,7 +87,7 @@
                     <p> Etage {{ floor }} : </p>
                     {% for room in allRoom %}
                         {% if (room.isIsStock() != 1) and (room.floor == floor) %}
-                            {% if (room.getAlert[temp]== true or room.getAlert[co2]==true or room.getAlert[hum]==true) %}
+                            {% if (room.getAlert("temp")== true or room.getAlert("co2")]==true or room.getAlert("hum")==true) %}
                             <a class="btn btn-primary btn-red" href="donnees_salle_admin/{{ room.id }}" role="button">{{ room.name }}</a>
                             {% else %}
                             <a class="btn btn-primary btn-blue" href="donnees_salle_admin/{{ room.id }}" role="button">{{ room.name }}</a>
