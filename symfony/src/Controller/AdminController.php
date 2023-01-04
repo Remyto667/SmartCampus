@@ -9,7 +9,7 @@ use App\Entity\Room;
 use App\Entity\Sensor;
 use App\Entity\System;
 use App\Form\RoomType;
-use App\Form\SearchRoomType;
+use App\Form\SearchRoom;
 use App\Form\SensorType;
 use App\Form\SystemType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -57,14 +57,21 @@ class AdminController extends AbstractController
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
-        $rooms = $repository->findAll();
+
 
         $room = new Room();
-        $form = $this->createForm(SearchRoomType::class, $room);
+        $form = $this->createForm(SearchRoom::class, $room);
         $form->handleRequest($request);
+        $search = $form['name']->getData();
 
+        //faire un switch case pour différent type de findby
+        $filter = $repository->findBy([
+            'name' => $search
+        ]);
+        $rooms = $repository->findAll();
         return $this->render('admin/lister_salles.html.twig', [
             'rooms' => $rooms,
+            'filter' => $filter,
             'ok' => $ok,
             'form' =>$form->createView(),
         ]);
