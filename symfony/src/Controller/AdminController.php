@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
+use App\Domain\Alert;
 use App\Domain\Query\DonneesCapteursHandler;
-use App\Domain\Query\DonnéesCapteursHandler;
 use App\Domain\Query\DonneesCapteursQuery;
 use App\Entity\Room;
 use App\Entity\Sensor;
@@ -310,14 +310,26 @@ class AdminController extends AbstractController
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
         $rooms = $repository->findAll();
+        /*$alert = $room->getIsAlert();
 
-        //$donnees=$handler->handle(new DonneesCapteursQuery($room));
+        foreach ($rooms as $room)
+        {
+            $donnees=$handler->handle(new DonneesCapteursQuery($room));
+            if ($alert == true)
+            {
+                $description = "a un pb";
+            }
+        }*/
 
-        // Prendre fonction alert boolleenne pour ensuite recup le type et la valeur
 
         return $this->render('admin/lister_alertes.html.twig', [
             'controller_name' => 'Liste des Alertes',
             'rooms' => $rooms,
+            /*'alert' => $alert,
+            'temp' => $donnees["T"]->valeur,
+            'hum' => $donnees["H"]->valeur,
+            'co2' => $donnees["C"]->valeur,
+            'desc' => $description,*/
         ]);
     }
 

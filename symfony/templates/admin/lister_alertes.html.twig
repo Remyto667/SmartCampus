@@ -68,8 +68,20 @@
             {% for room in rooms %}
 
                 {% if room.name != "Stock" %}
-                    <img src="/img/alerte_logo.png" style="max-width: 30px;">
-                    <p>{{ room.name }}</p>
+
+                    <p>
+                        <img src="/img/alerte_logo.png" style="max-width: 30px;">
+                        {{ room.name }}
+                        <a class="btn" style="display: flex; justify-content: right;" href="/admin/alerte/{room?}/{id?}">Voir le détails</a>
+                    </p>
+
+                    <!--{/*% if alert == 1 %}
+                        <img src="/img/alerte_logo.png" style="max-width: 30px;">
+                        <p>{/*{ room.name }}</p><a>{/*{ description }}</a>
+                        <a class="btn" href="/admin/alerte/{room?}/{id?}">Voir le détails</a>
+                    {/*% endif %}-->
+
+
                 {% endif %}
 
             {% endfor %}
