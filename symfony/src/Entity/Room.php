@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\RoomRepository;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Boolean;
+use phpDocumentor\Reflection\Types\String_;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -48,6 +50,7 @@ class Room
     #[ORM\Column]
     private ?int $floor = null;
 
+    private $alert;
     public function getId(): ?int
     {
         return $this->id;
@@ -56,6 +59,18 @@ class Room
     public function getName(): ?string
     {
         return $this->name;
+    }
+
+    public function setAlert(string $type, Boolean $isAlert): self
+    {
+        $this->alert[$type] = $isAlert;
+
+        return $this;
+    }
+
+    public function getAlert(string $type): self
+    {
+        return $this->alert[$type];
     }
 
     public function setName(string $name): self

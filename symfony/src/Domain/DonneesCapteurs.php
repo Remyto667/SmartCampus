@@ -16,6 +16,7 @@ class DonneesCapteurs
 
     public function getDonneesPourSalle(int $tag):array
     {
+
         $types["T"] = "temp";
         $types["H"] = "hum";
         $types["C"] = "co2";
@@ -33,6 +34,7 @@ class DonneesCapteurs
             ]);
             if(sizeof(json_decode($response->getContent())) > 0)
             {
+                // rajouter maj de alert dans room
                 $this->donneesPourSalle[$type] = json_decode($response->getContent())[0];
             }
             else{
