@@ -40,6 +40,12 @@
             font-size: 50px;
             justify-content: center;
         }
+
+        .textSensor{
+            position : relative;
+            margin-top : 50px;
+        }
+
         .salle:hover .shape {
             stroke-width: 4px; /* Epaisseur du contour plus fine que avant */
             stroke-dashoffset: 0;
@@ -76,7 +82,7 @@
         }
 
         .titreDonnee{
-            font-size: 20px;
+            font-size: 10px;
             /*padding: 10px;*/
         }
 
@@ -111,7 +117,7 @@
         .titrePage{
             position: relative;
             text-align: center;
-            font-size: 50px;
+            font-size: 25px;
         }
 
         /********* EFFET *********/
@@ -131,6 +137,7 @@
             flex-wrap: wrap;
             justify-content: center;
             column-gap: 30px;
+            padding-top: 100px;
         }
         .item-ligne{
             align-self: auto;
@@ -195,13 +202,15 @@
                 </div>
             {% endfor %}
         </div>
-
-        <div class="description"><div class="textSensor">
-                <ul>Des conseils vous seront donnés si :
-                    <li>-16 °C / + 24 °C </li>
-                    <li>-41 % / + 59% d'humidité </li>
-                    <li>+ 800 PPM </li>
-                </ul>
+        <div class="description">
+            <div class="boxDesc">
+                <div class="textSensor">
+                    <ul>Des conseils vous seront donnés si :
+                        <li>-16 °C / + 24 °C </li>
+                        <li>-41 % / + 59% d'humidité </li>
+                        <li>+ 800 PPM </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
