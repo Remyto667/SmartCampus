@@ -8,7 +8,7 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 
     /* BOUTONS */
-    .btn {
+    .blue {
         color: #fff;
         background-color: #00489a;
         border-color: #00489a;
@@ -28,10 +28,10 @@
         border-radius: 0.25rem;
         transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     }
-    .btn-red {
+    .red {
         color: #fff;
-        background-color: red;
-        border-color: darkred;
+        background-color: #B51b1b;
+        border: #B51b1b;
         text-decoration: none;
         display: inline-block;
         font-weight: 400;
@@ -47,6 +47,10 @@
         line-height: 1.5;
         border-radius: 0.25rem;
         transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+
+    a:hover {
+        color : #FFFFFF;
     }
     .cadre {
         /*max-width: 500px;*/
@@ -88,9 +92,9 @@
                     {% for room in allRoom %}
                         {% if (room.isIsStock() != 1) and (room.floor == floor) %}
                             {% if (room.getTempAlert.isAlert == true or room.getCo2Alert.isAlert==true or room.getHumAlert.isAlert==true) %}
-                            <a class="btn btn-primary btn-red" href="donnees_salle_admin/{{ room.id }}" role="button">{{ room.name }}</a>
+                            <a class="btn red btn-danger" href="donnees_salle_admin/{{ room.id }}">{{ room.name }}</a>
                             {% else %}
-                            <a class="btn btn-primary btn-blue" href="donnees_salle_admin/{{ room.id }}" role="button">{{ room.name }}</a>
+                            <a class="btn btn-primary blue" href="donnees_salle_admin/{{ room.id }}">{{ room.name }}</a>
                             {% endif %}
                         {% endif %}
                     {% endfor %}

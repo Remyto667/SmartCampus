@@ -56,6 +56,18 @@ class Room
     private Alert $co2Alert;
 
     /**
+     * @param Alert $tempAlert
+     * @param Alert $humAlert
+     * @param Alert $co2Alert
+     */
+    public function __construct()
+    {
+        $this->tempAlert = new Alert(false, '');
+        $this->humAlert = new Alert(false, '');
+        $this->co2Alert = new Alert(false, '');
+    }
+
+    /**
      * @return mixed
      */
     public function getTempAlert() : Alert
