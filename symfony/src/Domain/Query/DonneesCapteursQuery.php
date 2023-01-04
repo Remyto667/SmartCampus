@@ -38,7 +38,7 @@ class DonneesCapteursQuery
 
     }
 
-    public function __construct(Room $room, ManagerRegistry $doctrine)
+    public function __construct(Room &$room, ManagerRegistry $doctrine)
     {
         $this->room = $room;
         $this->doctrine = $doctrine;

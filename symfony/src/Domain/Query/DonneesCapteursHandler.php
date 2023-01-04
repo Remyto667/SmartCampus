@@ -23,15 +23,23 @@ class DonneesCapteursHandler
         {
             $requete->getRoom()->setTempAlert(new Alert(true, $data["T"]->dateCapture));
         }
+        else{
+            $requete->getRoom()->setTempAlert(new Alert(false, ''));
+        }
         if($hum > 59 or $hum < 41)
         {
             $requete->getRoom()->setHumAlert(new Alert(true, $data["H"]->dateCapture));
+        }
+        else{
+            $requete->getRoom()->setHumAlert(new Alert(false, ''));
         }
         if($co2 >= 800)
         {
             $requete->getRoom()->setCo2Alert(new Alert(true, $data["C"]->dateCapture));
         }
-
+        else{
+            $requete->getRoom()->setCo2Alert(new Alert(false, ''));
+        }
     }
 
     public function handle(DonneesCapteursQuery $requete)

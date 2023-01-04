@@ -7,7 +7,6 @@ use phpDocumentor\Reflection\Types\Boolean;
 class Alert
 {
     private bool $isAlert ;
-    private string $type ;
     private string $date ;
 
     /**
