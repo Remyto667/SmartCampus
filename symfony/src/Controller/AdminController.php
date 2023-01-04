@@ -249,7 +249,9 @@ class AdminController extends AbstractController
         $allRoom = $repository->findAll();
 
         foreach($allRoom as $room)
-        $donnees=$handler->handle(new DonneesCapteursQuery($room, $doctrine));
+        {
+            $handler->handle(new DonneesCapteursQuery($room, $doctrine));
+        }
 
 
         return $this->render('admin/selection.html.twig', [
