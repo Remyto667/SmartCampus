@@ -52,14 +52,19 @@ class AdminController extends AbstractController
     }
 
     #[Route('/admin/inventaire/lister_salles/{ok?1}', name: 'listerSalles')]
-    public function lister_salles(ManagerRegistry $doctrine, ?int $ok): Response
+    public function lister_salles(ManagerRegistry $doctrine, ?int $ok, DonneesCapteursHandler $handler): Response
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
-        $rooms = $repository->findAll();
+        $allRoom = $repository->findAll();
+
+        foreach($allRoom as $room)
+        {
+            $handler->handle(new DonneesCapteursQuery($room, $doctrine));
+        }
 
         return $this->render('admin/lister_salles.html.twig', [
-            'rooms' => $rooms,
+            'rooms' => $allRoom,
             'ok' => $ok,
         ]);
     }
@@ -266,6 +271,11 @@ class AdminController extends AbstractController
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
 
+        foreach($allRoom as $rooms)
+        {
+            $handler->handle(new DonneesCapteursQuery($rooms, $doctrine));
+        }
+
         $donnees=$handler->handle(new DonneesCapteursQuery($room, $doctrine));
 
 
@@ -282,9 +292,9 @@ class AdminController extends AbstractController
         ]);    }
 
     #[Route('/admin/alerte/{room?}/{id?}', name: 'alerteAdmin')]
-    public function alerte_salle_admin(?Room $room, ?int $id, DonneesCapteursHandler $handler): Response{
+    public function alerte_salle_admin(?Room $room, ?int $id, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response{
 
-       $donnees=$handler->handle(new DonneesCapteursQuery($room));
+       $donnees=$handler->handle(new DonneesCapteursQuery($room, $doctrine));
 
         return $this->render('admin/alerte.html.twig', [
             'id' => $id,
