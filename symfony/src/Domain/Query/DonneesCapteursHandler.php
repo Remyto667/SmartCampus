@@ -19,6 +19,7 @@ class DonneesCapteursHandler
         $temp = $data["T"]->valeur;
         $hum = $data["H"]->valeur;
         $co2 = $data["C"]->valeur;
+
         if($temp > 24 or $temp < 16)
         {
             $requete->getRoom()->setTempAlert(new Alert(true, $data["T"]->dateCapture));
