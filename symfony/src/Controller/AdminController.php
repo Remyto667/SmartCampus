@@ -58,22 +58,12 @@ class AdminController extends AbstractController
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
 
-
-        $room = new Room();
-        $form = $this->createForm(SearchRoom::class, $room);
-        $form->handleRequest($request);
-        $search = $form['name']->getData();
-
-        //faire un switch case pour différent type de findby
-        $filter = $repository->findBy([
-            'name' => $search
-        ]);
         $rooms = $repository->findAll();
         return $this->render('admin/lister_salles.html.twig', [
             'rooms' => $rooms,
-            'filter' => $filter,
+            //'filter' => $filter,
             'ok' => $ok,
-            'form' =>$form->createView(),
+            //'form' =>$form->createView(),
         ]);
     }
 
