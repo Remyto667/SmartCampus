@@ -273,7 +273,6 @@ class AdminController extends AbstractController
             'allRoom' => $allRoom,
             'allFloor' => $repository->findAllFloor(),
             'room' => $room,
-            'id' => $room->getId(),
             'temp' => $donnees["T"]->valeur,
             'hum' => $donnees["H"]->valeur,
             'co2' => $donnees["C"]->valeur,
