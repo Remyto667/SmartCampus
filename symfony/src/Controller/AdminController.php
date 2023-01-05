@@ -310,26 +310,44 @@ class AdminController extends AbstractController
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
         $rooms = $repository->findAll();
-        /*$alert = $room->getIsAlert();
+        //$alert = $room->getAlert('Tem');
 
         foreach ($rooms as $room)
         {
             $donnees=$handler->handle(new DonneesCapteursQuery($room));
-            if ($alert == true)
-            {
-                $description = "a un pb";
-            }
-        }*/
+            //$alert = $room->getAlert();
+
+            //if($alert == 1)
+            //{
+                if ($donnees["T"]->valeur>24 or $donnees["T"]->valeur<16)
+                {
+                    $desc = "a un pb de température";
+                }
+                if ($donnees["H"]->valeur>59 or $donnees["H"]->valeur<41)
+                {
+                    $desc = "a un pb d'humidité";
+                }
+                if ($donnees["C"]->valeur>799 )
+                {
+                    $desc = "a un pb de CO2";
+                }
+            //}
+
+        }
 
 
         return $this->render('admin/lister_alertes.html.twig', [
             'controller_name' => 'Liste des Alertes',
             'rooms' => $rooms,
-            /*'alert' => $alert,
-            'temp' => $donnees["T"]->valeur,
+            'room' => $room,
+            //'alert' => $alert,
+            /*'temp' => $donnees["T"]->valeur,
             'hum' => $donnees["H"]->valeur,
-            'co2' => $donnees["C"]->valeur,
-            'desc' => $description,*/
+            'co2' => $donnees["C"]->valeur,*/
+            'desc' => $desc,
+            /*'descT' => $descT,
+            'descH' => $descH,
+            'descC' => $descC,*/
         ]);
     }
 
