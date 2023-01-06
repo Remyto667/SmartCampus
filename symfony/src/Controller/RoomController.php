@@ -42,7 +42,7 @@ class RoomController extends AbstractController
     #[Route('/salle/{room?}', name: 'donneesSalle')]
     public function donnees_salle(Request $request, ?Room $room, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response{
 
-        $donnees=$handler->handle(new DonneesCapteursQuery($room));
+        $donnees=$handler->handle(new DonneesCapteursQuery($room, $doctrine));
 
         return $this->render('salle/donnees_salle.html.twig', [
             'room' => $room,
@@ -52,10 +52,14 @@ class RoomController extends AbstractController
             'co2' => $donnees["C"]->valeur,
         ]);    }
 
-    #[Route('/salle/alerte/{room?}/{id?}', name: 'alerte')]
-    public function alerte_salle(Request $request, ?Room $room, ?int $id, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response{
+    #[Route('/salle/alerte/{roomId?}/{id?}', name: 'alerte')]
+    public function alerte_salle(Request $request, ?int $roomId, ?int $id, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response{
 
-        $donnees=$handler->handle(new DonneesCapteursQuery($room));
+        $entityManager = $doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\Room');
+        $room = $repository->findOneBy(['id' => $roomId]);
+
+        $donnees=$handler->handle(new DonneesCapteursQuery($room, $doctrine));
 
         return $this->render('salle/alerte.html.twig', [
             'id' => $id,
