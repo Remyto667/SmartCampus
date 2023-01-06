@@ -283,9 +283,9 @@ class AdminController extends AbstractController
         ]);    }
 
     #[Route('/admin/alerte/{room?}/{id?}', name: 'alerteAdmin')]
-    public function alerte_salle_admin(?Room $room, ?int $id, DonneesCapteursHandler $handler): Response{
+    public function alerte_salle_admin(?Room $room, ?int $id, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response{
 
-       $donnees=$handler->handle(new DonneesCapteursQuery($room));
+       $donnees=$handler->handle(new DonneesCapteursQuery($room,$doctrine));
 
         return $this->render('admin/alerte.html.twig', [
             'id' => $id,
@@ -310,15 +310,31 @@ class AdminController extends AbstractController
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
         $rooms = $repository->findAll();
-        //$alert = $room->getAlert('Tem');
 
-        foreach ($rooms as $room)
+        foreach ($rooms as $aRoom)
         {
-            $donnees=$handler->handle(new DonneesCapteursQuery($room));
-            //$alert = $room->getAlert();
+            $donnees=$handler->handle(new DonneesCapteursQuery($aRoom, $doctrine));
 
-            //if($alert == 1)
-            //{
+            $alertT = $aRoom->getTempAlert()->getIsAlert();
+            $alertH = $aRoom->getHumAlert()->getIsAlert();
+            $alertC = $aRoom->getCo2Alert()->getIsAlert();
+
+            //$desc = "";
+            if($alertT == true)
+            {
+                $descT = "a un pb de temperature";
+            }
+            if($alertH == true)
+            {
+                $descH = "a un pb dhumidite";
+            }
+            if($alertC == true)
+            {
+                $descC = "a un pb de CO2";
+            }
+
+            /*if($alertT == 1 or $alertH == 1 or $alertC == 1)
+            {
                 if ($donnees["T"]->valeur>24 or $donnees["T"]->valeur<16)
                 {
                     $desc = "a un pb de température";
@@ -331,7 +347,7 @@ class AdminController extends AbstractController
                 {
                     $desc = "a un pb de CO2";
                 }
-            //}
+            }*/
 
         }
 
@@ -341,13 +357,10 @@ class AdminController extends AbstractController
             'rooms' => $rooms,
             'room' => $room,
             //'alert' => $alert,
-            /*'temp' => $donnees["T"]->valeur,
-            'hum' => $donnees["H"]->valeur,
-            'co2' => $donnees["C"]->valeur,*/
-            'desc' => $desc,
-            /*'descT' => $descT,
+            //'desc' => $desc,
+            'descT' => $descT,
             'descH' => $descH,
-            'descC' => $descC,*/
+            'descC' => $descC,
         ]);
     }
 

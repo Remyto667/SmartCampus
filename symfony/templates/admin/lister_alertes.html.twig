@@ -66,23 +66,32 @@
 
         <div class="container">
             {% for room in rooms %}
-
                 {% if room.name != "Stock" %}
-                    {% if alert == true %}
+
+                    {% if room.getTempAlert.isAlert == 1 or room.getHumAlert.isAlert == 1 or room.getCo2Alert.isAlert == 1 %}
                         <p>
-                            <img src="/img/alerte_logo.png" style="max-width: 30px;">
-
-                            {{ room }}{{ desc }}
-                            <a class="btn" style="display: flex; justify-content: right;" href="/admin/alerte/{room?}/{id?}">Voir le détails</a>
+                            <img src="/img/warning_rouge.png" style="max-width: 30px;"> <!-- OU alerte_logo.png -->
+                            {{ room.name }}<a> a un pb de température</a>
+                            <a class="btn" style="display: flex; justify-content: right;" href="/admin/alerte/{room.name}/{room.id}">Voir le détails</a>
                         </p>
-
-                        <!--{/*% if alert == 1 %} //room.getIsAlert() == 1
-                            <img src="/img/alerte_logo.png" style="max-width: 30px;">
-                            <p>{/*{ room.name }}</p><a>{/*{ desc }}</a>
-                            <a class="btn" href="/admin/alerte/{room?}/{id?}">Voir le détails</a>
-                        {/*% endif %}-->
-
                     {% endif %}
+
+                    {% if room.getHumAlert.isAlert == 1 %}
+                        <p>
+                            <img src="/img/warning_rouge.png" style="max-width: 30px;">
+                            {{ room.name }}<a> a un pb d'humidité</a>
+                            <a class="btn" style="display: flex; justify-content: right;" href="/admin/alerte/{room.name}/{room.id}">Voir le détails</a>
+                        </p>
+                    {% endif %}
+
+                    {% if room.getCo2Alert.isAlert == 1 %}
+                        <p>
+                            <img src="/img/warning_rouge.png" style="max-width: 30px;">
+                            {{ room.name }} <a> a un pb de CO2</a>
+                            <a class="btn" style="display: flex; justify-content: right;" href="/admin/alerte/{room.name}/{room.id}">Voir le détails</a>
+                        </p>
+                    {% endif %}
+
                 {% endif %}
 
             {% endfor %}
