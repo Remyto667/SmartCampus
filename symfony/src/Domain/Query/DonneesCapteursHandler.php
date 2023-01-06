@@ -22,8 +22,20 @@ class DonneesCapteursHandler
         $tempDate = $data["T"]->dateCapture;
         $humDate = $data["H"]->dateCapture;
         $co2Date = $data["C"]->dateCapture;
+        $roomType = $requete->getRoom()->getType();
 
-        if($temp > 24 or $temp < 16)
+        switch ($roomType){
+            case 0:case 1:case 3:case 4:
+                $tempMin=16; $tempMax=24;$humMin=41; $humMax=59;
+                break;
+            case 2:
+                $tempMin=10; $tempMax=18;$humMin=38; $humMax=50;
+                break;
+            default:
+                $tempMin=0; $tempMax=100;$humMin=0; $humMax=100;
+        }
+
+        if(($temp > $tempMax) or ($temp < $tempMin))
         {
             $requete->getRoom()->setTempAlert(new Alert(true, $tempDate));
             $requete->getRoom()->getTempAlert()->setIsAlert(true);
@@ -31,7 +43,7 @@ class DonneesCapteursHandler
         else{
             $requete->getRoom()->setTempAlert(new Alert(false, ''));
         }
-        if($hum > 59 or $hum < 41)
+        if($hum > $humMax or $hum < $humMin)
         {
             $requete->getRoom()->setHumAlert(new Alert(true, $humDate));
         }
