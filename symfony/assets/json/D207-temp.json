@@ -6,4 +6,26 @@
   "localisation" : "D207",
   "description" : "",
   "tag" : 3
-}]
+},
+
+  {
+    "id": "51",
+    "nom" : "temp",
+    "valeur" : "25.2",
+    "dateCapture" : "2022-11-30 08:00:00",
+    "localisation" : "D207",
+    "description" : "",
+    "tag" : 3
+  },
+
+  {
+    "id": "51",
+    "nom" : "temp",
+    "valeur" : "39.2",
+    "dateCapture" : "2022-11-29 08:00:00",
+    "localisation" : "D207",
+    "description" : "",
+    "tag" : 3
+  }
+
+]

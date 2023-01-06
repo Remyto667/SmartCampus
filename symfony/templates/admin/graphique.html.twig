@@ -25,6 +25,12 @@
             <button onclick="showChartData('semaine')"> Semaine</button>
             <button onclick="showChartData('mois')"> Mois</button>
 
+            <div class="titreDonnee">Température</div>
+            <div class="Temp donnee">{{ temp }} °C</div>
+
+            Date de relevé : {{ dateT }}
+            {{ room.getName() }}
+
         </div>
     </div>
 
@@ -250,7 +256,9 @@
             }
         }
 
-
     </script>
+
+
+
 {% endblock %}
 

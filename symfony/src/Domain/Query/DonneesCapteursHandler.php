@@ -53,4 +53,12 @@ class DonneesCapteursHandler
         $this->isItAlert($data, $requete);
         return $data;
     }
+
+    public function handleGraph(DonneesCapteursQuery $requete)
+    {
+        $data = $this->donneesCapteurs->getDonneesPourGraphique($requete->getTag());
+        return $data;
+    }
+
+
 }

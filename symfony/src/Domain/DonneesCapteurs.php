@@ -67,14 +67,15 @@ class DonneesCapteurs
             ]);
             if(sizeof(json_decode($response->getContent())) > 0)
             {
-                // rajouter maj de alert dans room
+                //echo sizeof(json_decode($response->getContent()));
 
-                while($i<sizeof(json_decode($response->getContent()))){
+                foreach(json_decode($response->getContent()) as $data => $array) {
 
-                    $this->donneesPourGraphique[$type] = json_decode($response->getContent())[$i];
-                    $i++;
+
+                    $this->donneesPourGraphique[$type][$data] = $array;
+                    //echo $data;
+
                 }
-
             }
             else{
                 $this->donneesPourGraphique[$type] = (object) array('valeur' => 'NULL', 'dateCapture' => 'NULL');

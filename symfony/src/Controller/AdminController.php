@@ -311,14 +311,51 @@ class AdminController extends AbstractController
             'co2' => $donnees["C"]->valeur,
         ]);    }
 
-    #[Route('/admin/suivi/graphique', name: 'graph_admin')]
-    public function graphique_admin(): Response
+
+    #[Route('admin/suivi/selection_salle', name: 'suivi_selectionSalle')]
+    public function suivi_selection_salle(Request $request, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
     {
-        return $this->render('admin/graphique.html.twig', [
-            'controller_name' => 'graph',
+        $entityManager = $doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\Room');
+        $allRoom = $repository->findAll();
+
+        foreach($allRoom as $room)
+        {
+            $handler->handle(new DonneesCapteursQuery($room, $doctrine));
+        }
+
+
+        return $this->render('admin/suivi_selection.html.twig', [
+            'allRoom' => $allRoom,
+            'allFloor' => $repository->findAllFloor(),
         ]);
 
     }
+
+    #[Route('/admin/suivi/graphique/{room?}', name: 'graph_admin')]
+    public function graphique_admin(?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
+    {
+        $entityManager = $doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\Room');
+        $allRoom = $repository->findAll();
+
+        foreach($allRoom as $rooms)
+        {
+            $handler->handle(new DonneesCapteursQuery($rooms, $doctrine));
+        }
+
+        $donnees=$handler->handleGraph(new DonneesCapteursQuery($room, $doctrine));
+
+
+        return $this->render('admin/graphique.html.twig', [
+            'room' => $room,
+            'temp' => $donnees["T"]->valeur,
+            'dateT'=> $donnees["T"][0]->dateCapture,
+
+        ]);
+    }
+
+
 
     #[Route('/admin/lister_alertes', name: 'listerAlertes')]
     public function liste_alertes(Request $request, ?Room $room, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response{
