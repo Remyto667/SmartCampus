@@ -94,13 +94,143 @@ class AppFixtures extends Fixture
         $room6->setFloor(0);
         $room6->setOrientation("S");
         $room6->setRoomSize(45);
-        $room6->setType(2);
+        $room6->setType(0);
         $room6->setWindowsNumber(2);
         $room6->setIsStock(true);
         $room6->setTempAlert(new Alert(false, ''));
         $room6->setHumAlert(new Alert(false, ''));
         $room6->setCo2Alert(new Alert(false, ''));
         $manager->persist($room6);
+
+        $room7=new Room();
+        $room7->setName("D205");
+        $room7->setFloor(2);
+        $room7->setOrientation("S");
+        $room7->setRoomSize(45);
+        $room7->setType(1);
+        $room7->setWindowsNumber(4);
+        $room7->setIsStock(false);
+        $room7->setTempAlert(new Alert(false, ''));
+        $room7->setHumAlert(new Alert(false, ''));
+        $room7->setCo2Alert(new Alert(false, ''));
+        $manager->persist($room7);
+
+        $room8=new Room();
+        $room8->setName("D204");
+        $room8->setFloor(2);
+        $room8->setOrientation("N");
+        $room8->setRoomSize(45);
+        $room8->setType(1);
+        $room8->setWindowsNumber(4);
+        $room8->setIsStock(false);
+        $room8->setTempAlert(new Alert(false, ''));
+        $room8->setHumAlert(new Alert(false, ''));
+        $room8->setCo2Alert(new Alert(false, ''));
+        $manager->persist($room8);
+
+        $room9=new Room();
+        $room9->setName("D203");
+        $room9->setFloor(2);
+        $room9->setOrientation("S");
+        $room9->setRoomSize(55);
+        $room9->setType(1);
+        $room9->setWindowsNumber(4);
+        $room9->setIsStock(false);
+        $room9->setTempAlert(new Alert(false, ''));
+        $room9->setHumAlert(new Alert(false, ''));
+        $room9->setCo2Alert(new Alert(false, ''));
+        $manager->persist($room9);
+
+        $room10=new Room();
+        $room10->setName("C101");
+        $room10->setFloor(1);
+        $room10->setOrientation("S");
+        $room10->setRoomSize(55);
+        $room10->setType(1);
+        $room10->setWindowsNumber(5);
+        $room10->setIsStock(false);
+        $room10->setTempAlert(new Alert(false, ''));
+        $room10->setHumAlert(new Alert(false, ''));
+        $room10->setCo2Alert(new Alert(false, ''));
+        $manager->persist($room10);
+
+        $room11=new Room();
+        $room11->setName("C109");
+        $room11->setFloor(1);
+        $room11->setOrientation("S");
+        $room11->setRoomSize(55);
+        $room11->setType(1);
+        $room11->setWindowsNumber(5);
+        $room11->setIsStock(false);
+        $room11->setTempAlert(new Alert(false, ''));
+        $room11->setHumAlert(new Alert(false, ''));
+        $room11->setCo2Alert(new Alert(false, ''));
+        $manager->persist($room11);
+
+        $room12=new Room();
+        $room12->setName("Secrétariat");
+        $room12->setFloor(1);
+        $room12->setOrientation("N");
+        $room12->setRoomSize(40);
+        $room12->setType(3);
+        $room12->setWindowsNumber(2);
+        $room12->setIsStock(false);
+        $room12->setTempAlert(new Alert(false, ''));
+        $room12->setHumAlert(new Alert(false, ''));
+        $room12->setCo2Alert(new Alert(false, ''));
+        $manager->persist($room12);
+
+        $room13=new Room();
+        $room13->setName("D001");
+        $room13->setFloor(0);
+        $room13->setOrientation("N");
+        $room13->setRoomSize(60);
+        $room13->setType(1);
+        $room13->setWindowsNumber(5);
+        $room13->setIsStock(false);
+        $room13->setTempAlert(new Alert(false, ''));
+        $room13->setHumAlert(new Alert(false, ''));
+        $room13->setCo2Alert(new Alert(false, ''));
+        $manager->persist($room13);
+
+        $room14=new Room();
+        $room14->setName("D004");
+        $room14->setFloor(0);
+        $room14->setOrientation("S");
+        $room14->setRoomSize(60);
+        $room14->setType(1);
+        $room14->setWindowsNumber(5);
+        $room14->setIsStock(false);
+        $room14->setTempAlert(new Alert(false, ''));
+        $room14->setHumAlert(new Alert(false, ''));
+        $room14->setCo2Alert(new Alert(false, ''));
+        $manager->persist($room14);
+
+        $room15=new Room();
+        $room15->setName("C003");
+        $room15->setFloor(0);
+        $room15->setOrientation("N");
+        $room15->setRoomSize(60);
+        $room15->setType(1);
+        $room15->setWindowsNumber(5);
+        $room15->setIsStock(false);
+        $room15->setTempAlert(new Alert(false, ''));
+        $room15->setHumAlert(new Alert(false, ''));
+        $room15->setCo2Alert(new Alert(false, ''));
+        $manager->persist($room15);
+
+        $room16=new Room();
+        $room16->setName("C007");
+        $room16->setFloor(0);
+        $room16->setOrientation("N");
+        $room16->setRoomSize(60);
+        $room16->setType(1);
+        $room16->setWindowsNumber(5);
+        $room16->setIsStock(false);
+        $room16->setTempAlert(new Alert(false, ''));
+        $room16->setHumAlert(new Alert(false, ''));
+        $room16->setCo2Alert(new Alert(false, ''));
+        $manager->persist($room16);
 
 //Les systemes
 
@@ -136,11 +266,65 @@ class AppFixtures extends Fixture
 
         $system6=new System();
         $system6->setName("systeme 6");
-        $system6->setRoom($room1);
-        $system6->setTag(3);
+        $system6->setRoom($room10);
+        $system6->setTag(8);
         $manager->persist($system6);
 
-// Les capteurs
+        $system7=new System();
+        $system7->setName("systeme 7");
+        $system7->setRoom($room7);
+        $system7->setTag(1);
+        $manager->persist($system7);
+
+        $system8=new System();
+        $system8->setName("systeme 8");
+        $system8->setRoom($room8);
+        $system8->setTag(4);
+        $manager->persist($system8);
+
+        $system9=new System();
+        $system9->setName("systeme 9");
+        $system9->setRoom($room9);
+        $system9->setTag(5);
+        $manager->persist($system9);
+
+        $system10=new System();
+        $system10->setName("systeme 10");
+        $system10->setRoom($room11);
+        $system10->setTag(9);
+        $manager->persist($system10);
+
+        $system11=new System();
+        $system11->setName("systeme 11");
+        $system11->setRoom($room12);
+        $system11->setTag(10);
+        $manager->persist($system11);
+
+        $system12=new System();
+        $system12->setName("systeme 12");
+        $system12->setRoom($room13);
+        $system12->setTag(11);
+        $manager->persist($system12);
+
+        $system13=new System();
+        $system13->setName("systeme 13");
+        $system13->setRoom($room14);
+        $system13->setTag(13);
+        $manager->persist($system13);
+
+        $system14=new System();
+        $system14->setName("systeme 14");
+        $system14->setRoom($room15);
+        $system14->setTag(14);
+        $manager->persist($system14);
+
+        $system15=new System();
+        $system15->setName("systeme 14");
+        $system15->setRoom($room16);
+        $system15->setTag(15);
+        $manager->persist($system15);
+
+// Les capteur
 
 //      -----------System 1--------------------------------
 
