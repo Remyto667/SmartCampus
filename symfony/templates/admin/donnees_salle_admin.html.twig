@@ -166,8 +166,9 @@
         }
         {% endif %}
 
-        .btn{margin-top: 15px; background-color: #B51b1b; color: white; max-width: 250px}
-        .btn-blue{background-color: #00489a; color: white;}
+        .red{margin-top: 15px; background-color: #B51b1b; color: white; max-width: 250px}
+        .blue{margin-top: 15px; background-color: #00489a;
+            border-color: #00489a; color: white; max-width: 250px}
     </style>
     <div class = titrePage>Choisir une salle !</div>
         <div class = "container">
@@ -198,9 +199,9 @@
                 {% for room in allRoom %}
                     {% if (room.isIsStock() != 1) and (room.floor == floor) %}
                         {% if (room.getTempAlert.isAlert == true or room.getCo2Alert.isAlert==true or room.getHumAlert.isAlert==true) %}
-                            <a class="btn red btn-danger" href="{{ room.id }}">{{ room.name }}</a>
+                            <a class="btn red btn-danger" href="{{ room.id }}" role="button">{{ room.name }}</a>
                         {% else %}
-                            <a class="btn btn-primary" href="{{ room.id }}" role="button">{{ room.name }}</a>
+                            <a class="btn blue btn-primary" href="{{ room.id }}" role="button">{{ room.name }}</a>
                         {% endif %}
                     {% endif %}
                 {% endfor %}
