@@ -8,7 +8,7 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 
     /* BOUTONS */
-    .btn {
+    .blue {
         color: #fff;
         background-color: #00489a;
         border-color: #00489a;
@@ -27,6 +27,30 @@
         line-height: 1.5;
         border-radius: 0.25rem;
         transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+    .red {
+        color: #fff;
+        background-color: #B51b1b;
+        border: #B51b1b;
+        text-decoration: none;
+        display: inline-block;
+        font-weight: 400;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        border-radius: 0.25rem;
+        transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+
+    a:hover {
+        color : #FFFFFF;
     }
     .cadre {
         /*max-width: 500px;*/
@@ -67,7 +91,11 @@
                     <p> Etage {{ floor }} : </p>
                     {% for room in allRoom %}
                         {% if (room.isIsStock() != 1) and (room.floor == floor) %}
-                            <a class="btn btn-primary btn-blue" href="donnees_salle_admin/{{ room.id }}" role="button">{{ room.name }}</a>
+                            {% if (room.getTempAlert.isAlert == true or room.getCo2Alert.isAlert==true or room.getHumAlert.isAlert==true) %}
+                            <a class="btn red btn-danger" href="donnees_salle_admin/{{ room.id }}">{{ room.name }}</a>
+                            {% else %}
+                            <a class="btn btn-primary blue" href="donnees_salle_admin/{{ room.id }}">{{ room.name }}</a>
+                            {% endif %}
                         {% endif %}
                     {% endfor %}
                 </div>

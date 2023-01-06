@@ -40,6 +40,12 @@
             font-size: 50px;
             justify-content: center;
         }
+
+        .textSensor{
+            position : relative;
+            margin-top : 50px;
+        }
+
         .salle:hover .shape {
             stroke-width: 4px; /* Epaisseur du contour plus fine que avant */
             stroke-dashoffset: 0;
@@ -54,10 +60,20 @@
             /*margin: 100px;*/
         }
 
+        .boxDesc{
+            border: 2px solid grey;
+            border-radius: 32px;
+            box-shadow: 2px 2px 5px grey;
+            padding-bottom: 30px;
+            padding-left: 20px;
+            padding-right: 30px;
+        }
+
         .box{
             border: 0.5px solid grey;
             border-radius: 8px;
             box-shadow: 2px 2px 5px grey;
+            padding: 20px;
         }
         .box:hover{
             /*color: #014898;*/
@@ -67,7 +83,7 @@
         }
 
         .titreDonnee{
-            font-size: 20px;
+            font-size: 30px;
             /*padding: 10px;*/
         }
 
@@ -99,6 +115,11 @@
             justify-content: space-evenly;
             margin-top: 100px;
         }
+        .titrePage{
+            position: relative;
+            text-align: center;
+            font-size: 25px;
+        }
 
         /********* EFFET *********/
 
@@ -117,6 +138,7 @@
             flex-wrap: wrap;
             justify-content: center;
             column-gap: 30px;
+            padding-top: 100px;
         }
         .item-ligne{
             align-self: auto;
@@ -147,98 +169,101 @@
         .btn{margin-top: 15px; background-color: #B51b1b; color: white; max-width: 250px}
         .btn-blue{background-color: #00489a; color: white;}
     </style>
+    <div class = titrePage>Choisir une salle !</div>
+        <div class = "container">
+            <div class = "data-container">
+                <div class="description">
+                    <div class="boxDesc">
+                        <div class="descriptionRoom">
+                            <br><br>
+                            <ul><a style="border-bottom: 2px solid #014898;">La salle {{ room.getName() }}:</a>
+                                <li> a une superficie de : {{ room.getRoomSize() }} m2</li>
+                                <li> possède {{ room.getWindowsNumber() }} fenêtres,</li>
+                                {% if room.getFloor()==1 %}
+                                    <li> est située au {{ room.getFloor() }}er étage </li>
+                                {% else %}
+                                    <li> est située au {{ room.getFloor() }}ème étage </li>
+                                {% endif %}
 
-    <div class="body">
-        <h1>Choisir une salle !</h1>
-        <br>
+                                <li> est orientée au {{ room.getOrientationString() }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         <div class="ligne">
             {% for floor in allFloor %}
                 <div class="item-ligne">
                 <p> Etage {{ floor }} : </p>
                 {% for room in allRoom %}
                     {% if (room.isIsStock() != 1) and (room.floor == floor) %}
-                        <a class="btn btn-primary btn-blue" href="{{ room.id }}" role="button">{{ room.name }}</a>
+                        {% if (room.getTempAlert.isAlert == true or room.getCo2Alert.isAlert==true or room.getHumAlert.isAlert==true) %}
+                            <a class="btn red btn-danger" href="{{ room.id }}">{{ room.name }}</a>
+                        {% else %}
+                            <a class="btn btn-primary" href="{{ room.id }}" role="button">{{ room.name }}</a>
+                        {% endif %}
                     {% endif %}
                 {% endfor %}
                 </div>
-            {% endfor %}
+                <div class="description">
+                    <div class="boxDesc">
+                        <div class="textSensor">
+                            <ul>Des conseils vous seront donnés si :
+                                <li>-16 °C / + 24 °C </li>
+                                <li>-41 % / + 59% d'humidité </li>
+                                <li>+ 800 PPM </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <br>
+    <div class="body">
         <div class="salle">
             <svg height="60" width="200" xmlns="http://www.w3.org/2000/svg">
               <rect class="shape" height="60" width="200" />
                 <div class="text">{{ room.getName() }}</div>
             </svg>
         </div>
-        <br>
 
         <div class="container">
-        <div class="data-container">
+            <div class="data-container">
 
-            <div class="box">
-                <br>
-                <div class="titreDonnee">Température</div>
-                <div class="Temp donnee">{{ temp }} °C</div>
-                Date de relevé : {{ dateT }}
+                <div class="box">
+                    <div class="titreDonnee">Température</div>
+                    <div class="Temp donnee">{{ temp }} °C</div>
+                    Date de relevé : {{ dateT }}
+                </div>
+
+                <div class="box">
+                    <div class="titreDonnee">Humidité</div>
+                    <div class="Hum donnee">{{ hum }} %</div>
+                    Date de relevé : {{ dateH }}
+                </div>
+                <div class="box">
+                    <div class="titreDonnee">CO2</div>
+                    <div class="C02 donnee">{{ co2 }} PPM</div>
+                    Date de relevé : {{ dateC }}
+                </div>
             </div>
 
-            <div class="box">
-                <br>
-                <div class="titreDonnee">Humidité</div>
-                <div class="Hum donnee">{{ hum }} %</div>
-                Date de relevé : {{ dateH }}
-            </div>
-            <div class="box">
-                <br>
-                <div class="titreDonnee">CO2</div>
-                <div class="C02 donnee">{{ co2 }} PPM</div>
-                Date de relevé : {{ dateC }}
-            </div>
-        </div>
-
-        <div class="boutonAlerte">
-            <div class="boxBouton">
-                {% if temp > 24 or temp < 16%}
-                    <a class="btn btn-lg" href="/salle/alerte/{{id}}/1 " role="button">Afficher les indications</a>
-                {% endif %}
-            </div>
-            <div class="boxBouton">
-                {% if hum > 59 or hum < 41%}
-                    <a class="btn btn-lg" href="/salle/alerte/{{id}}/2" role="button">Afficher les indications</a>
-                {% endif %}
-            </div>
-            <div class="boxBouton">
-                {% if co2 >= 800 %}
-                    <a class="btn btn-lg" href="/salle/alerte/{{id}}/3" role="button" >Afficher les indications</a>
-                {% endif %}
-            </div>
-        </div>
-        </div>
-        <div class="description">
-            <div class="descriptionRoom">
-                <br><br>
-                <ul><a style="border-bottom: 2px solid #014898;">La salle {{ room.getName() }}:</a>
-                    <li> a une superficie de : {{ room.getRoomSize() }} m2</li>
-                    <li> possède {{ room.getWindowsNumber() }} fenêtres,</li>
-                    {% if room.getFloor()==1 %}
-                        <li> est située au {{ room.getFloor() }}er étage </li>
-                    {% else %}
-                        <li> est située au {{ room.getFloor() }}ème étage </li>
+            <div class="boutonAlerte">
+                <div class="boxBouton">
+                    {% if temp > 24 or temp < 16%}
+                        <a class="btn btn-lg" href="/salle/alerte/{{room.id}}/1 " role="button">Afficher les indications</a>
                     {% endif %}
-
-                    <li> est orientée au {{ room.getOrientationString() }}</li>
-                </ul>
-            </div>
-            <div class="textSensor">
-                <br><br>
-                <ul>Des conseils vous seront donnés si :
-                    <li>-16 °C / + 24 °C </li>
-                    <li>-41 % / + 59% d'humidité </li>
-                    <li>+ 800 PPM </li>
-                </ul>
+                </div>
+                <div class="boxBouton">
+                    {% if hum > 59 or hum < 41%}
+                        <a class="btn btn-lg" href="/salle/alerte/{{room.id}}/2" role="button">Afficher les indications</a>
+                    {% endif %}
+                </div>
+                <div class="boxBouton">
+                    {% if co2 >= 800 %}
+                        <a class="btn btn-lg" href="/salle/alerte/{{room.id}}/3" role="button" >Afficher les indications</a>
+                    {% endif %}
+                </div>
             </div>
         </div>
-        <br>
     </div>
 {% endblock %}

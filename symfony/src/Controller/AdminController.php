@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
+use App\Domain\Alert;
 use App\Domain\Query\DonneesCapteursHandler;
-use App\Domain\Query\DonnéesCapteursHandler;
 use App\Domain\Query\DonneesCapteursQuery;
 use App\Entity\Room;
 use App\Entity\Sensor;
@@ -53,15 +53,20 @@ class AdminController extends AbstractController
     }
 
     #[Route('/admin/inventaire/lister_salles/{ok?1}', name: 'listerSalles')]
-    public function lister_salles(Request $request, ManagerRegistry $doctrine, ?int $ok): Response
+    public function lister_salles(ManagerRegistry $doctrine, ?int $ok, DonneesCapteursHandler $handler): Response
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
+        $allRoom = $repository->findAll();
+
+        foreach($allRoom as $room)
+        {
+            $handler->handle(new DonneesCapteursQuery($room, $doctrine));
+        }
 
         $rooms = $repository->findAll();
         return $this->render('admin/lister_salles.html.twig', [
-            'rooms' => $rooms,
-            //'filter' => $filter,
+            'rooms' => $allRoom,
             'ok' => $ok,
             //'form' =>$form->createView(),
         ]);
@@ -245,11 +250,17 @@ class AdminController extends AbstractController
     }
 
     #[Route('admin/selection_salle', name: 'selectionSalle')]
-    public function selection_salle(Request $request, ManagerRegistry $doctrine): Response
+    public function selection_salle(Request $request, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
+
+        foreach($allRoom as $room)
+        {
+            $handler->handle(new DonneesCapteursQuery($room, $doctrine));
+        }
+
 
         return $this->render('admin/selection.html.twig', [
             'allRoom' => $allRoom,
@@ -263,14 +274,18 @@ class AdminController extends AbstractController
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
 
-        $donnees=$handler->handle(new DonneesCapteursQuery($room));
+        foreach($allRoom as $rooms)
+        {
+            $handler->handle(new DonneesCapteursQuery($rooms, $doctrine));
+        }
+
+        $donnees=$handler->handle(new DonneesCapteursQuery($room, $doctrine));
 
 
         return $this->render('admin/donnees_salle_admin.html.twig', [
             'allRoom' => $allRoom,
             'allFloor' => $repository->findAllFloor(),
             'room' => $room,
-            'id' => $room->getId(),
             'temp' => $donnees["T"]->valeur,
             'hum' => $donnees["H"]->valeur,
             'co2' => $donnees["C"]->valeur,
@@ -280,9 +295,9 @@ class AdminController extends AbstractController
         ]);    }
 
     #[Route('/admin/alerte/{room?}/{id?}', name: 'alerteAdmin')]
-    public function alerte_salle_admin(?Room $room, ?int $id, DonneesCapteursHandler $handler): Response{
+    public function alerte_salle_admin(?Room $room, ?int $id, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response{
 
-       $donnees=$handler->handle(new DonneesCapteursQuery($room));
+       $donnees=$handler->handle(new DonneesCapteursQuery($room, $doctrine));
 
         return $this->render('admin/alerte.html.twig', [
             'id' => $id,
@@ -291,4 +306,43 @@ class AdminController extends AbstractController
             'hum' => $donnees["H"]->valeur,
             'co2' => $donnees["C"]->valeur,
         ]);    }
+
+    #[Route('/admin/suivi/graphique', name: 'graph_admin')]
+    public function graphique_admin(): Response
+    {
+        return $this->render('admin/graphique.html.twig', [
+            'controller_name' => 'graph',
+        ]);
+
+    }
+
+    #[Route('/admin/lister_alertes', name: 'listerAlertes')]
+    public function liste_alertes(Request $request, ?Room $room, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response{
+
+        $entityManager = $doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\Room');
+        $rooms = $repository->findAll();
+        /*$alert = $room->getIsAlert();
+
+        foreach ($rooms as $room)
+        {
+            $donnees=$handler->handle(new DonneesCapteursQuery($room));
+            if ($alert == true)
+            {
+                $description = "a un pb";
+            }
+        }*/
+
+
+        return $this->render('admin/lister_alertes.html.twig', [
+            'controller_name' => 'Liste des Alertes',
+            'rooms' => $rooms,
+            /*'alert' => $alert,
+            'temp' => $donnees["T"]->valeur,
+            'hum' => $donnees["H"]->valeur,
+            'co2' => $donnees["C"]->valeur,
+            'desc' => $description,*/
+        ]);
+    }
+
 }

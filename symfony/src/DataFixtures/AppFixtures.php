@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Domain\Alert;
 use App\Entity\Room;
 use App\Entity\Sensor;
 use App\Entity\System;
@@ -35,6 +36,9 @@ class AppFixtures extends Fixture
         $room1->setRoomSize(45);
         $room1->setType(1);
         $room1->setWindowsNumber(4);
+        $room1->setTempAlert(new Alert(false, ''));
+        $room1->setHumAlert(new Alert(false, ''));
+        $room1->setCo2Alert(new Alert(false, ''));
         $manager->persist($room1);
 
         $room2=new Room();
@@ -44,6 +48,9 @@ class AppFixtures extends Fixture
         $room2->setRoomSize(44);
         $room2->setType(1);
         $room2->setWindowsNumber(5);
+        $room2->setTempAlert(new Alert(false, ''));
+        $room2->setHumAlert(new Alert(false, ''));
+        $room2->setCo2Alert(new Alert(false, ''));
         $manager->persist($room2);
 
         $room3=new Room();
@@ -53,6 +60,9 @@ class AppFixtures extends Fixture
         $room3->setRoomSize(50);
         $room3->setType(1);
         $room3->setWindowsNumber(3);
+        $room3->setTempAlert(new Alert(false, ''));
+        $room3->setHumAlert(new Alert(false, ''));
+        $room3->setCo2Alert(new Alert(false, ''));
         $manager->persist($room3);
 
         $room4=new Room();
@@ -62,6 +72,9 @@ class AppFixtures extends Fixture
         $room4->setRoomSize(45);
         $room4->setType(1);
         $room4->setWindowsNumber(4);
+        $room4->setTempAlert(new Alert(false, ''));
+        $room4->setHumAlert(new Alert(false, ''));
+        $room4->setCo2Alert(new Alert(false, ''));
         $manager->persist($room4);
 
         $room5=new Room();
@@ -71,6 +84,9 @@ class AppFixtures extends Fixture
         $room5->setRoomSize(53);
         $room5->setType(1);
         $room5->setWindowsNumber(6);
+        $room5->setTempAlert(new Alert(false, ''));
+        $room5->setHumAlert(new Alert(false, ''));
+        $room5->setCo2Alert(new Alert(false, ''));
         $manager->persist($room5);
 
         $room6=new Room();
@@ -81,6 +97,9 @@ class AppFixtures extends Fixture
         $room6->setType(2);
         $room6->setWindowsNumber(2);
         $room6->setIsStock(true);
+        $room6->setTempAlert(new Alert(false, ''));
+        $room6->setHumAlert(new Alert(false, ''));
+        $room6->setCo2Alert(new Alert(false, ''));
         $manager->persist($room6);
 
 //Les systemes
