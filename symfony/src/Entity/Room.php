@@ -42,9 +42,6 @@ class Room
     #[ORM\Column]
     private ?int $windows_number = null;
 
-    #[ORM\Column]
-    private ?int $type = null;
-
     #[ORM\Column(length: 3)]
     private ?string $orientation = null;
 
@@ -54,6 +51,10 @@ class Room
     private Alert $tempAlert;
     private Alert $humAlert;
     private Alert $co2Alert;
+
+    #[ORM\ManyToOne(inversedBy: 'room')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Type $type = null;
 
     /**
      * @param Alert $tempAlert
@@ -203,6 +204,7 @@ class Room
         return $this;
     }
 
+
     public function getType(): ?int
     {
         return $this->type;
@@ -268,4 +270,6 @@ class Room
 
         return $this;
     }
+
+
 }

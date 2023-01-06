@@ -50,7 +50,7 @@ class DonneesCapteursHandler
         else{
             $requete->getRoom()->setHumAlert(new Alert(false, ''));
         }
-        if($co2 >= 800)
+        if($co2 >= 800 && $co2  < 400)
         {
             $requete->getRoom()->setCo2Alert(new Alert(true, $co2Date));
         }
