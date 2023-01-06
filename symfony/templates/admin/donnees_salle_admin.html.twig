@@ -227,14 +227,14 @@
                 </div>
                 <div class="boxBouton">
                     {% if hum > 59 or hum < 41%}
-                        {% if temp != "NULL" %}
+                        {% if hum != "NULL" %}
                             <a class="btn red btn-lg" href="/salle/alerte/{{room.id}}/2" role="button">Afficher les indications</a>
                         {% endif %}
                     {% endif %}
                 </div>
                 <div class="boxBouton">
                     {% if co2 >= 800 %}
-                        {% if temp != "NULL" %}
+                        {% if co2 != "NULL" %}
                             <a class="btn red btn-lg" href="/salle/alerte/{{room.id}}/3" role="button" >Afficher les indications</a>
                         {% endif %}
                     {% endif %}
