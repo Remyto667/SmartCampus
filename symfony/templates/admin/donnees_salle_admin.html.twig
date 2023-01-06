@@ -143,16 +143,32 @@
         .item-ligne{
             align-self: auto;
         }
+        {% if room.getType()==0 or room.getType()==1 or room.getType()==3 %}
+        {% set tempMin = 16 %}
+        {% set tempMax = 24 %}
+        {% set humMin = 41 %}
+        {% set humMax = 59 %}
+        {% elseif room.getType()==2 %}
+        {% set tempMin = 10 %}
+        {% set tempMax = 18 %}
+        {% set humMin = 38 %}
+        {% set humMax = 50 %}
+        {% elseif room.getType()==4 %}
+        {% else %}
+        {% set tempMin = 0 %}
+        {% set tempMax = 100 %}
+        {% set humMin = 0 %}
+        {% set humMax = 100 %}
+        {% endif %}
 
-
-        {% if temp > 24 or temp < 16 %}
+        {% if temp > tempMax or temp < tempMin%}
         .Temp {color: white; border: 1px solid black; background-color: #B51b1b;}
         .box:nth-child(1){
             transform: scale(1);
             animation: box 1s linear infinite;
         }
         {% endif %}
-        {% if hum > 59 or hum < 41%}
+        {% if hum > humMax or hum < humMin%}
         .Hum {color: white; border: 1px solid black; background-color: #B51b1b;}
         .box:nth-child(2){
             transform: scale(1);
