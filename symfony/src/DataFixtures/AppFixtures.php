@@ -66,7 +66,7 @@ class AppFixtures extends Fixture
         $manager->persist($room3);
 
         $room4=new Room();
-        $room4->setName("D302");
+        $room4->setName("D303");
         $room4->setFloor(3);
         $room4->setOrientation("N");
         $room4->setRoomSize(45);
@@ -107,7 +107,7 @@ class AppFixtures extends Fixture
         $system1=new System();
         $system1->setName("systeme 1");
         $system1->setRoom($room1);
-        $system1->setTag(1);
+        $system1->setTag(3);
         $manager->persist($system1);
 
         $system2=new System();
@@ -119,25 +119,25 @@ class AppFixtures extends Fixture
         $system3=new System();
         $system3->setName("systeme 3");
         $system3->setRoom($room3);
-        $system3->setTag(3);
+        $system3->setTag(7);
         $manager->persist($system3);
 
         $system4=new System();
         $system4->setName("systeme 4");
         $system4->setRoom($room4);
-        $system4->setTag(4);
+        $system4->setTag(6);
         $manager->persist($system4);
 
         $system5=new System();
         $system5->setName("systeme 5");
         $system5->setRoom($room5);
-        $system5->setTag(5);
+        $system5->setTag(12);
         $manager->persist($system5);
 
         $system6=new System();
         $system6->setName("systeme 6");
         $system6->setRoom($room1);
-        $system6->setTag(6);
+        $system6->setTag(3);
         $manager->persist($system6);
 
 // Les capteurs
