@@ -31,7 +31,9 @@ class RoomType extends AbstractType
                 'choices' =>[
                     'Bureau' => 0,
                     'Salle de classe' => 1,
-                    'Autres'=> 2
+                    'Serveur ' => 2,
+                    'Secrétariat' => 3,
+                    'Autres'=> 4
                 ]
             ])
         ;

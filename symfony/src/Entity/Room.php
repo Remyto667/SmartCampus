@@ -215,6 +215,10 @@ class Room
         elseif ($this->type==1)
             $type="Salle de classe";
         elseif ($this->type==2)
+            $type="Serveur";
+        elseif ($this->type==3)
+            $type="Secrétariat";
+        elseif ($this->type==4)
             $type="Autres";
         return $type;
     }
