@@ -143,6 +143,23 @@
         .item-ligne{
             align-self: auto;
         }
+        {% if room.getType()==0 or room.getType()==1 or room.getType()==3 %}
+        {% set tempMin = 16 %}
+        {% set tempMax = 24 %}
+        {% set humMin = 41 %}
+        {% set humMax = 59 %}
+        {% elseif room.getType()==2 %}
+        {% set tempMin = 10 %}
+        {% set tempMax = 18 %}
+        {% set humMin = 38 %}
+        {% set humMax = 50 %}
+        {% elseif room.getType()==4 %}
+        {% else %}
+        {% set tempMin = 0 %}
+        {% set tempMax = 100 %}
+        {% set humMin = 0 %}
+        {% set humMax = 100 %}
+        {% endif %}
 
 
         {% if temp > 25 or temp < 15%}
