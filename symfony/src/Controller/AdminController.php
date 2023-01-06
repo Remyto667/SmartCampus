@@ -9,6 +9,7 @@ use App\Entity\Room;
 use App\Entity\Sensor;
 use App\Entity\System;
 use App\Form\RoomType;
+use App\Form\SearchRoom;
 use App\Form\SensorType;
 use App\Form\SystemType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -63,9 +64,11 @@ class AdminController extends AbstractController
             $handler->handle(new DonneesCapteursQuery($room, $doctrine));
         }
 
+        $rooms = $repository->findAll();
         return $this->render('admin/lister_salles.html.twig', [
             'rooms' => $allRoom,
             'ok' => $ok,
+            //'form' =>$form->createView(),
         ]);
     }
 

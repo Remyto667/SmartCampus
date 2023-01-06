@@ -76,6 +76,28 @@
     </style>
 
     <script>
+        function searchTable() {
+            var input, filter, found, table, tr, td, i, j;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("table");
+            tr = table.getElementsByTagName("tr");
+            for (i = 1; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td");
+                for (j = 0; j < td.length; j++) {
+                    if (td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        found = true;
+                    }
+                }
+                if (found) {
+                    tr[i].style.display = "";
+                    found = false;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+
         function erreur()
         {
             alert("Il y a des systèmes dans cette salle ! " +
@@ -105,10 +127,14 @@
     <div class="example-wrapper">
         <h1>Inventaire des Salles</h1>
         <br>
-        <br>
-        <!-- Lister Salles -->
 
-        <table class="table">
+        <span class="h6 research">Recherche: <label for="myInput"></label><input id="myInput" onkeyup="searchTable()" type="text"></span>
+
+        <br>
+        <!-- if si il y a rien ne pas afficher le deuxieme tableau -->
+
+
+        <table class="table" id="table">
             <thead class="thead-light">
             <tr>
                 <th scope="col">    </th>
@@ -151,4 +177,6 @@
         <!-- Ajouter Salle -->
         <a class="btn btn-primary" href="/admin/inventaire/ajouter_salle" role="button">Ajouter une salle</a>
     </div>
+
+
 {% endblock %}
