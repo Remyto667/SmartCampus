@@ -65,6 +65,29 @@
 </style>
 
 <script language="JavaScript">
+
+    function searchTable() {
+        var input, filter, found, table, tr, td, i, j;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("table");
+        tr = table.getElementsByTagName("tr");
+        for (i = 1; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td");
+            for (j = 0; j < td.length; j++) {
+                if (td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    found = true;
+                }
+            }
+            if (found) {
+                tr[i].style.display = "";
+                found = false;
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+
     function openPopup(id)
         {
             var dialog = confirm("Supprimer le capteur ?");
@@ -82,8 +105,8 @@
     <h1>{{ controller_name }}</h1>
     <br>
     <br>
-
-    <table class="table">
+    <span class="h6 research">Recherche: <label for="myInput"></label><input id="myInput" onkeyup="searchTable()" type="text"></span>
+    <table class="table" id="table">
         <thead class="thead-light">
         <tr>
             <th scope="col">Nom</th>

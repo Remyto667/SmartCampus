@@ -9,6 +9,7 @@ use App\Entity\Room;
 use App\Entity\Sensor;
 use App\Entity\System;
 use App\Form\RoomType;
+use App\Form\SearchRoom;
 use App\Form\SensorType;
 use App\Form\SystemType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -52,15 +53,22 @@ class AdminController extends AbstractController
     }
 
     #[Route('/admin/inventaire/lister_salles/{ok?1}', name: 'listerSalles')]
-    public function lister_salles(ManagerRegistry $doctrine, ?int $ok): Response
+    public function lister_salles(ManagerRegistry $doctrine, ?int $ok, DonneesCapteursHandler $handler): Response
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
-        $rooms = $repository->findAll();
+        $allRoom = $repository->findAll();
 
+        foreach($allRoom as $room)
+        {
+            $handler->handle(new DonneesCapteursQuery($room, $doctrine));
+        }
+
+        $rooms = $repository->findAll();
         return $this->render('admin/lister_salles.html.twig', [
-            'rooms' => $rooms,
+            'rooms' => $allRoom,
             'ok' => $ok,
+            //'form' =>$form->createView(),
         ]);
     }
 
@@ -266,6 +274,11 @@ class AdminController extends AbstractController
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
 
+        foreach($allRoom as $rooms)
+        {
+            $handler->handle(new DonneesCapteursQuery($rooms, $doctrine));
+        }
+
         $donnees=$handler->handle(new DonneesCapteursQuery($room, $doctrine));
 
 
@@ -273,7 +286,6 @@ class AdminController extends AbstractController
             'allRoom' => $allRoom,
             'allFloor' => $repository->findAllFloor(),
             'room' => $room,
-            'id' => $room->getId(),
             'temp' => $donnees["T"]->valeur,
             'hum' => $donnees["H"]->valeur,
             'co2' => $donnees["C"]->valeur,

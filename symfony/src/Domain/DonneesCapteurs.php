@@ -12,6 +12,7 @@ class DonneesCapteurs
     public function __construct()
     {
         $this->donneesPourSalle = array();
+        $this->donneesPourGraphique = array();
     }
 
     public function getDonneesPourSalle(int $tag):array
@@ -43,5 +44,43 @@ class DonneesCapteurs
         }
 
         return $this->donneesPourSalle ;
+    }
+
+    public function getDonneesPourGraphique(int $tag):array
+    {
+
+        $types["T"] = "temp";
+        $types["H"] = "hum";
+        $types["C"] = "co2";
+        $i=0;
+
+        $client = HttpClient::create();
+        foreach($types as $type => $nom)
+        {
+            $response = $client->request('GET', 'http://sae34.k8s.iut-larochelle.fr/api/captures?nom='.$nom.'&tag='.$tag.'&page=1', [
+                'headers' => [
+                    'Accept' => 'application/ld+json',
+                    'dbname' => 'sae34bdx1eq3',
+                    'username' => 'x1eq3',
+                    'userpass' => 'bRepOh4UkiaM9c7R'
+                ],
+            ]);
+            if(sizeof(json_decode($response->getContent())) > 0)
+            {
+                // rajouter maj de alert dans room
+
+                while($i<sizeof(json_decode($response->getContent()))){
+
+                    $this->donneesPourGraphique[$type] = json_decode($response->getContent())[$i];
+                    $i++;
+                }
+
+            }
+            else{
+                $this->donneesPourGraphique[$type] = (object) array('valeur' => 'NULL', 'dateCapture' => 'NULL');
+            }
+        }
+
+        return $this->donneesPourGraphique ;
     }
 }
