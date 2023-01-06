@@ -6,9 +6,11 @@ bool co2_initialized=false;
 
 void init_CO2()
 {
-    while (sgp_probe() != STATUS_OK) {
+    while (sgp_probe() != STATUS_OK) 
+    {
          Serial.println("SGP failed");
-         while(1);}
+         while(1);
+    }
 
   co2_initialized = true;
 }
