@@ -349,8 +349,8 @@ class AdminController extends AbstractController
 
         return $this->render('admin/graphique.html.twig', [
             'room' => $room,
-            'temp' => $donnees["T"]->valeur,
-            'dateT'=> $donnees["T"][0]->dateCapture,
+            'temp' => $donnees["T"],
+            'dateT'=> $donnees["T"],
 
         ]);
     }
