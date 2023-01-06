@@ -32,10 +32,10 @@ final class Version20221116084827 extends AbstractMigration
         $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, username VARCHAR(180) NOT NULL, roles LONGTEXT NOT NULL COMMENT \'(DC2Type:json)\', password VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_8D93D649F85E0677 (username), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE room ADD is_stock TINYINT(1) DEFAULT NULL');
         $this->addSql('ALTER TABLE room ADD room_size INT NOT NULL, ADD windows_number INT NOT NULL, ADD type INT NOT NULL, ADD orientation VARCHAR(3) NOT NULL, ADD floor INT NOT NULL');
-        $this->addSql('CREATE TABLE type (id INT AUTO_INCREMENT NOT NULL, temp_max INT NOT NULL, temp_min INT NOT NULL, hum_max INT NOT NULL, hum_min INT NOT NULL, co2_max INT NOT NULL, co2_min INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('ALTER TABLE room ADD type_id INT NOT NULL');
-        $this->addSql('ALTER TABLE room ADD CONSTRAINT FK_729F519B59B3B456 FOREIGN KEY (type_id) REFERENCES type (id)');
-        $this->addSql('CREATE INDEX IDX_729F519B59B3B456 ON room (type_id)');
+        $this->addSql('CREATE TABLE type (id INT AUTO_INCREMENT NOT NULL, temp_max INT NOT NULL, temp_min INT NOT NULL, hum_max INT NOT NULL, hum_min INT NOT NULL, co2_max INT NOT NULL, co2_min INT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE room CHANGE type type_id INT NOT NULL');
+        $this->addSql('ALTER TABLE room ADD CONSTRAINT FK_729F519BC54C8C93 FOREIGN KEY (type_id) REFERENCES type (id)');
+        $this->addSql('CREATE INDEX IDX_729F519BC54C8C93 ON room (type_id)');
     }
 
     public function down(Schema $schema): void
@@ -53,9 +53,9 @@ final class Version20221116084827 extends AbstractMigration
         $this->addSql('DROP TABLE user');
         $this->addSql('ALTER TABLE room DROP is_stock');
         $this->addSql('ALTER TABLE room DROP room_size, DROP windows_number, DROP type, DROP orientation, DROP floor');
-        $this->addSql('ALTER TABLE room DROP FOREIGN KEY FK_729F519B59B3B456');
+        $this->addSql('ALTER TABLE room DROP FOREIGN KEY FK_729F519BC54C8C93');
         $this->addSql('DROP TABLE type');
-        $this->addSql('DROP INDEX IDX_729F519B59B3B456 ON room');
-        $this->addSql('ALTER TABLE room DROP type_id');
+        $this->addSql('DROP INDEX IDX_729F519BC54C8C93 ON room');
+        $this->addSql('ALTER TABLE room CHANGE type_id type INT NOT NULL');
     }
 }
