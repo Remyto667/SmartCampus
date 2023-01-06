@@ -143,15 +143,23 @@
         .item-ligne{
             align-self: auto;
         }
+        {% if room.getType()==0 or room.getType()==1 or room.getType()==3 %}
+        {% set tempMin = 16 tempMax =24, humMin=41, humMax=59% %}
+        {% elseif room.getType()==2 %}
+        {% set tempMin=10 tempMax=18, humMin=38, humMax=50 %}
+        {% elseif room.getType()==4 %}
+        {% else %}
+        {% set tempMin=0, tempMax=100, humMin=0, humMax=100 %}
+        {% endif %}
 
-        {% if temp > 24 or temp < 16%}
+        {% if temp > tempMax or temp < tempMin%}
         .Temp {color: white; border: 1px solid black; background-color: #B51b1b;}
         .box:nth-child(1){
             transform: scale(1);
             animation: box 1s linear infinite;
         }
         {% endif %}
-        {% if hum > 59 or hum < 41%}
+        {% if hum > humMax or hum < humMin%}
         .Hum {color: white; border: 1px solid black; background-color: #B51b1b;}
         .box:nth-child(2){
             transform: scale(1);
@@ -252,17 +260,17 @@
             <div class="boutonAlerte">
                 <div class="boxBouton">
                     {% if temp > 24 or temp < 16%}
-                        <a class="btn btn-lg" href="/salle/alerte/{{room.id}}/1 " role="button">Afficher les indications</a>
+                        <a class="btn red btn-lg" href="/salle/alerte/{{room.id}}/1 " role="button">Afficher les indications</a>
                     {% endif %}
                 </div>
                 <div class="boxBouton">
                     {% if hum > 59 or hum < 41%}
-                        <a class="btn btn-lg" href="/salle/alerte/{{room.id}}/2" role="button">Afficher les indications</a>
+                        <a class="btn red btn-lg" href="/salle/alerte/{{room.id}}/2" role="button">Afficher les indications</a>
                     {% endif %}
                 </div>
                 <div class="boxBouton">
                     {% if co2 >= 800 %}
-                        <a class="btn btn-lg" href="/salle/alerte/{{room.id}}/3" role="button" >Afficher les indications</a>
+                        <a class="btn red btn-lg" href="/salle/alerte/{{room.id}}/3" role="button" >Afficher les indications</a>
                     {% endif %}
                 </div>
             </div>
