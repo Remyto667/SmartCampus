@@ -3,7 +3,7 @@
 
 {% block body %}
     <style>
-        .example-wrapper { margin: 1em auto; max-width: 500px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
         .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
         /* BOUTONS */
         .btn {
@@ -128,20 +128,17 @@
         <h1>Inventaire des Salles</h1>
         <br>
 
-        <span class="h6 research">Recherche: <label for="myInput"></label><input id="myInput" onkeyup="searchTable()" type="text"></span>
+        <span class="h6">Recherche: <label for="myInput"></label><input id="myInput" onkeyup="searchTable()" type="text" class="form-control form-control-lg"></span>
 
-        <br>
-        <!-- if si il y a rien ne pas afficher le deuxieme tableau -->
-
-
+        <br><br>
         <table class="table" id="table">
             <thead class="thead-light">
             <tr>
-                <th scope="col">    </th>
-                <th scope="col">Nom</th>
+                <th scope="col"></th>
+                <th scope="col-auto">Nom de la salle</th>
                 <th scope="col">Modifier</th>
                 <th scope="col">Supprimer</th>
-                <th scope="col">Voir les Données</th>
+                <th scope="col-sm-6">Voir les Données</th>
             </tr>
             </thead>
             <tbody>
