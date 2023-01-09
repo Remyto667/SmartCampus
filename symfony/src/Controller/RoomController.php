@@ -46,7 +46,7 @@ class RoomController extends AbstractController
         }
         return $this->render('salle/selection.html.twig', [
             'allRoom' => $allRoom,
-            'allFloor' => $repository->findAllFloor(),
+            'allFloor' => $repository->findAllFloorClassroom(),
             'temp' => $temp,
             'hum' => $hum,
             'co2' => $co2,
