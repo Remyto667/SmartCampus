@@ -3,6 +3,8 @@
 
 namespace App\Domain\Stat;
 
+namespace App\Domain\Stat;
+/*
 class Stat
 {
     private $moyJanvier=array();

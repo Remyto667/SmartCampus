@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Domain\Alert;
 use App\Domain\Query\DonneesCapteursHandler;
 use App\Domain\Query\DonneesCapteursQuery;
 use App\Entity\Room;
@@ -26,18 +27,45 @@ class RoomController extends AbstractController
     }
 
     #[Route('/salle/selection', name: 'selection')]
-    public function selection_salle(Request $request, ManagerRegistry $doctrine): Response
+    public function selection_salle(Request $request, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
+
+        foreach($allRoom as $room)
+        {
+            $donnees=$handler->handle(new DonneesCapteursQuery($room, $doctrine));
+        }
+
+        return $this->render('salle/selection.html.twig', [
+            'allRoom' => $allRoom,
+            'allFloor' => $repository->findAllFloor(),
+            'temp' => $donnees["T"]->valeur,
+            'hum' => $donnees["H"]->valeur,
+            'co2' => $donnees["C"]->valeur,
+        ]);
+
+    }
+
+    /*#[Route('/salle/selection', name: 'selection')]
+    public function selection_salle_user(Request $request, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
+    {
+        $entityManager = $doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\Room');
+        $allRoom = $repository->findAll();
+
+        foreach($allRoom as $room)
+        {
+            $handler->handle(new DonneesCapteursQuery($room, $doctrine));
+        }
 
         return $this->render('salle/selection.html.twig', [
             'allRoom' => $allRoom,
             'allFloor' => $repository->findAllFloor(),
         ]);
 
-    }
+    }*/
 
     #[Route('/salle/{room?}', name: 'donneesSalle')]
     public function donnees_salle(Request $request, ?Room $room, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response{
