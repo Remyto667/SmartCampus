@@ -115,27 +115,27 @@
         }
 
 
-        {% if temp > 24 or temp < 16%}
+            {% if temp > room.getType().getTempMax() or temp < room.getType().getTempMin() %}
             .Temp {color: white; border: 1px solid black; background-color: #B51b1b;}
             .box:nth-child(1){
                 transform: scale(1);
                 animation: box 1s linear infinite;
             }
-        {% endif %}
-        {% if hum > 59 or hum < 41%}
+            {% endif %}
+            {% if hum > room.getType().getHumMax() or hum < room.getType().getHumMin() %}
             .Hum {color: white; border: 1px solid black; background-color: #B51b1b;}
             .box:nth-child(2){
                 transform: scale(1);
                 animation: box 1s linear infinite;
             }
-        {% endif %}
-        {% if co2 >= 800 %}
+            {% endif %}
+            {% if co2 >= room.getType().getCo2Min()  or co2 <= room.getType().getCo2Max() %}
             .C02 {color: white; border: 1px solid black; background-color: #B51b1b;}
             .box:nth-child(3){
                 transform: scale(1);
                 animation: box 1s linear infinite;
             }
-        {% endif %}
+            {% endif %}
 
         .btn{margin-top: 15px; background-color: #B51b1b; color: white; max-width: 250px;}
         .btn-blue{background-color: #00489a; color: white;}
@@ -173,23 +173,29 @@
             </div>
         </div>
 
-        <div class="boutonAlerte">
-            <div class="boxBouton">
-                {% if temp > 24 or temp < 16%}
-                    <a class="btn btn-lg" href="/salle/alerte/{{id}}/1 " role="button" style="width:300px">Afficher les indications</a>
-                {% endif %}
+            <div class="boutonAlerte">
+                <div class="boxBouton">
+                    {% if temp > room.getType().getTempMax() or temp < room.getType().getTempMin() and temp != "NULL" %}
+                        {% if temp != "NULL" %}
+                            <a class="btn red btn-lg" href="/salle/alerte/{{room.id}}/1 " role="button">Afficher les indications</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="boxBouton">
+                    {% if hum > room.getType().getHumMax() or hum < room.getType().getHumMin()%}
+                        {% if temp != "NULL" %}
+                            <a class="btn red btn-lg" href="/salle/alerte/{{room.id}}/2" role="button">Afficher les indications</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="boxBouton">
+                    {% if co2 >= room.getType().getCo2Max() or co2 >= room.getType().getCo2Min() %}
+                        {% if temp != "NULL" %}
+                            <a class="btn red btn-lg" href="/salle/alerte/{{room.id}}/3" role="button" >Afficher les indications</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
             </div>
-            <div class="boxBouton">
-                {% if hum > 59 or hum < 41%}
-                    <a class="btn btn-lg" href="/salle/alerte/{{id}}/2" role="button" style="width:300px">Afficher les indications</a>
-                {% endif %}
-            </div>
-            <div class="boxBouton">
-                {% if co2 >= 800 %}
-                    <a class="btn btn-lg" href="/salle/alerte/{{id}}/3" role="button" >Afficher les indications</a>
-                {% endif %}
-            </div>
-        </div>
         </div>
         <div class="description">
 
