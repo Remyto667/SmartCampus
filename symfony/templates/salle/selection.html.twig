@@ -52,8 +52,8 @@
 
     .grey {
         color: #fff;
-        background-color: #808080;
-        border: #808080;
+        background-color: grey;
+        border: grey;
         text-decoration: none;
         display: inline-block;
         font-weight: 400;
@@ -98,6 +98,16 @@
         justify-content: center;
         text-align: center;
     }
+
+    .red:hover
+    {
+        background: #da0e0e;
+    }
+    .grey:hover
+    {
+        background: grey;
+    }
+
 </style>
 
 <div class="example-wrapper">
@@ -111,8 +121,7 @@
                     <p> Etage {{ floor }} : </p>
                     {% for room in allRoom %}
                         {% if (room.isIsStock() != 1) and (room.floor == floor) %}
-                            {% if temp == "NULL" or hum == "NULL" or co2 == "NULL" %}
-                                <!--if((temp == "NULL" and hum == "NULL") or (hum == "NULL" and co2 == "NULL") or (temp == "NULL" and co2 == "NULL") or (temp == "NULL" and hum == "NULL" and co2 == "NULL"))-->
+                            {% if noData[room.getId] == 1 %}
                                 <a class="btn grey btn-danger" href="#">{{ room.name }}</a>
                             {% elseif (room.getTempAlert.isAlert == true or room.getCo2Alert.isAlert==true or room.getHumAlert.isAlert==true) %}
                                 <a class="btn red btn-danger" href="{{ room.id }}">{{ room.name }}</a>

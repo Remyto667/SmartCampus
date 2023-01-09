@@ -32,19 +32,25 @@ class RoomController extends AbstractController
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
-
-        foreach($allRoom as $room)
-        {
-            $handler->handle(new DonneesCapteursQuery($room, $doctrine));
+        $noData = array();
+        foreach($allRoom as $room) {
+            $donnees = $handler->handle(new DonneesCapteursQuery($room, $doctrine));
+            $temp = $donnees["T"]->valeur;
+            $hum = $donnees["H"]->valeur;
+            $co2 = $donnees["C"]->valeur;
+            if (($temp == "NULL" and $hum == "NULL") or ($hum == "NULL" and $co2 == "NULL") or ($temp == "NULL" and $co2 == "NULL") or ($temp == "NULL" and $hum == "NULL" and $co2 == "NULL")) {
+                $noData[$room->getId()] = 1;
+            } else {
+                $noData[$room->getId()] = 0;
+            }
         }
-        $donnees=$handler->handle(new DonneesCapteursQuery($room, $doctrine));
-
         return $this->render('salle/selection.html.twig', [
             'allRoom' => $allRoom,
             'allFloor' => $repository->findAllFloor(),
-            'temp' => $donnees["T"]->valeur,
-            'hum' => $donnees["H"]->valeur,
-            'co2' => $donnees["C"]->valeur,
+            'temp' => $temp,
+            'hum' => $hum,
+            'co2' => $co2,
+            'noData' => $noData,
         ]);
 
     }
