@@ -3,13 +3,16 @@
 #include "vTask_CO2.h"
 #include "vTask_Temp.h"
 #include "vTask_Post.h"
-#include "connexion.h"
+#include "connexion_eduroam.h"
+#include "connexion_tel.h"
 
 // Task handle for the light value read task 
 TaskHandle_t vTask_TimeHandle = NULL;
 TaskHandle_t vTask_TempHandle = NULL;
 TaskHandle_t vTask_CO2Handle = NULL;
 TaskHandle_t vTask_DisplayHandle = NULL; 
+
+int counter = 0;
 
 void setup()
 {
@@ -23,6 +26,13 @@ void setup()
   //init wifi mode
   // Example1 (most common): a cert-file-free eduroam with PEAP (or TTLS)
   WiFi.begin(ssid, WPA2_AUTH_PEAP, EAP_IDENTITY, EAP_USERNAME, EAP_PASSWORD);
+
+  //Serial.println(telSsid);
+  //Serial.println(password);
+
+  //WiFi.begin(telSsid, password);    
+  
+
   // Example 2: a cert-file WPA2 Enterprise with PEAP
   //WiFi.begin(ssid, WPA2_AUTH_PEAP, EAP_IDENTITY, EAP_USERNAME, EAP_PASSWORD, ca_pem, client_cert, client_key);
   // Example 3: TLS with cert-files and no password//WiFi.begin(ssid, WPA2_AUTH_TLS, EAP_IDENTITY, NULL, NULL, ca_pem, client_cert, client_key);
@@ -31,9 +41,7 @@ void setup()
     delay(500);Serial.print(".");
     counter++;
     if(counter>=60)
-    {
-      //after 30 seconds timeout -reset board``
-      ESP.restart();
+    {//connexion à un telephone
     }
   }
   Serial.println("");

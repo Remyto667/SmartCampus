@@ -1,0 +1,11 @@
+#include "GlobalValue.h"
+#include <WiFi.h>
+#include <HTTPClient.h>
+
+void vTask_Post( void*pvParameters);
+
+extern const char* serverName; 
+
+extern unsigned long lastTime;
+extern unsigned long timerDelay;
+

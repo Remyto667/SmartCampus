@@ -303,7 +303,33 @@ class AdminController extends AbstractController
 
        $donnees=$handler->handle(new DonneesCapteursQuery($room, $doctrine));
 
+       //récupération de la température de la rochelle
+        $city = 'La Rochelle';
+
+        // Création de l'instance HttpClient
+        $client = HttpClient::create();
+
+        // Envoi de la requête à l'API OpenWeather
+        $response = $client->request(
+            'GET',
+            'https://api.openweathermap.org/data/2.5/weather',
+            [
+                'query' => [
+                    'q' => $city,
+                    'appid' => '3e754b09e95d904997b1f4c2a5597bc5 ',
+                    'units' => 'metric',
+                ],
+            ]
+        );
+
+        // Récupérez la réponse sous forme de tableau PHP
+        $data = json_decode($response->getBody(), true);
+
+        // Récupérez la température à partir du tableau de données
+        $temperature = $data['main']['temp'];
+
         return $this->render('admin/alerte.html.twig', [
+            'temperature' => $temperature,
             'id' => $id,
             'room' => $room->getName(),
             'temp' => $donnees["T"]->valeur,
@@ -349,8 +375,8 @@ class AdminController extends AbstractController
 
         return $this->render('admin/graphique.html.twig', [
             'room' => $room,
-            'temp' => $donnees["T"]->valeur,
-            'dateT'=> $donnees["T"][0]->dateCapture,
+            'temp' => $donnees["T"],
+            'dateT'=> $donnees["T"],
 
         ]);
     }
