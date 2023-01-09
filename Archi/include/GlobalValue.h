@@ -6,6 +6,7 @@
 #include "sensirion_common.h"
 #include "sgp30.h"          // Only needed for Arduino 1.6.5 and earlier
 #include "SSD1306Wire.h"        // legacy: #include "SSD1306.h"
+#include <vector>
 
 
 extern RtcDateTime globalDateTime;
@@ -14,3 +15,6 @@ extern u16 global_tvoc_ppb, global_co2_eq_ppm;
 //extern char globalDatestring[20];
 extern String globalNTPDatestring;
 
+extern std::vector< TempAndHumidity > *globalTemps;
+extern std::vector< TempAndHumidity > *globalHums;
+extern std::vector< u16 > *globals_co2;
