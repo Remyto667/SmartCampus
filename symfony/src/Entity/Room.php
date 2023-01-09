@@ -117,6 +117,20 @@ class Room
     }
 
 
+    public function getNbAlert(): ?int
+    {
+        $nb=0;
+        if($this->tempAlert==true){
+            $nb++;
+        }
+        if($this->humAlert==true){
+            $nb++;
+        }
+        if($this->co2Alert==true){
+            $nb++;
+        }
+        return $nb;
+    }
 
     public function getId(): ?int
     {

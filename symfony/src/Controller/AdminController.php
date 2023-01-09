@@ -391,35 +391,35 @@ class AdminController extends AbstractController
     }
 
 
+    /*
+        #[Route('/admin/lister_alertes', name: 'listerAlertes')]
+        public function liste_alertes(Request $request, ?Room $room, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response{
 
-    #[Route('/admin/lister_alertes', name: 'listerAlertes')]
-    public function liste_alertes(Request $request, ?Room $room, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response{
+            $entityManager = $doctrine->getManager();
+            $repository = $entityManager->getRepository('App\Entity\Room');
+            $rooms = $repository->findAll();
 
-        $entityManager = $doctrine->getManager();
-        $repository = $entityManager->getRepository('App\Entity\Room');
-        $rooms = $repository->findAll();
-
-        foreach ($rooms as $aRoom)
-        {
-            $donnees=$handler->handle(new DonneesCapteursQuery($aRoom, $doctrine));
-
-            /*$alertT = $aRoom->getTempAlert()->getIsAlert();
-            $alertH = $aRoom->getHumAlert()->getIsAlert();
-            $alertC = $aRoom->getCo2Alert()->getIsAlert();
-
-            //$desc = "";
-            if($alertT == true)
+            foreach ($rooms as $aRoom)
             {
-                $descT = "a un pb de temperature";
-            }
-            if($alertH == true)
-            {
-                $descH = "a un pb dhumidite";
-            }
-            if($alertC == true)
-            {
-                $descC = "a un pb de CO2";
-            }*/
+                $donnees=$handler->handle(new DonneesCapteursery($aRoom, $doctrine));
+
+                /*$alertT = $aRoom->getTempAlert()->getIsAlert();
+                $alertH = $aRoom->getHumAlert()->getIsAlert();
+                $alertC = $aRoom->getCo2Alert()->getIsAlert();
+
+                //$desc = "";
+                if($alertT == true)
+                {
+                    $descT = "a un pb de temperature";
+                }
+                if($alertH == true)
+                {
+                    $descH = "a un pb dhumidite";
+                }
+                if($alertC == true)
+                {
+                    $descC = "a un pb de CO2";
+                }
 
         }
 
@@ -432,8 +432,8 @@ class AdminController extends AbstractController
             //'desc' => $desc,
             /*'descT' => $descT,
             'descH' => $descH,
-            'descC' => $descC,*/
+            'descC' => $descC,
         ]);
-    }
+    }*/
 
 }
