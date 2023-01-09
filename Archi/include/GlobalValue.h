@@ -11,4 +11,6 @@
 extern RtcDateTime globalDateTime;
 extern TempAndHumidity globalTemp;
 extern u16 global_tvoc_ppb, global_co2_eq_ppm;
-extern char globalDatestring[20];
+//extern char globalDatestring[20];
+extern char globalNTPDatestring[20];
+
