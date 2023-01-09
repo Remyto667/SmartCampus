@@ -31,8 +31,7 @@ class RoomController extends AbstractController
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
-        $allRoom = $repository->findAll();
-
+        $allRoom = $repository->findAll("Salle de classe");
         foreach($allRoom as $room)
         {
             $donnees=$handler->handle(new DonneesCapteursQuery($room, $doctrine));
@@ -40,7 +39,7 @@ class RoomController extends AbstractController
 
         return $this->render('salle/selection.html.twig', [
             'allRoom' => $allRoom,
-            'allFloor' => $repository->findAllFloor(),
+            'allFloor' => $repository->findAllFloorClassroom(),
             'temp' => $donnees["T"]->valeur,
             'hum' => $donnees["H"]->valeur,
             'co2' => $donnees["C"]->valeur,

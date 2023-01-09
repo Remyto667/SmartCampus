@@ -73,7 +73,27 @@ class RoomRepository extends ServiceEntityRepository
 
         $sql = 'SELECT r.floor
             FROM room r
-            GROUP BY r.floor';
+            GROUP BY r.floor
+            ';
+
+        $result = $conn->prepare($sql)->executeQuery()->fetchAllAssociative();
+        foreach( $result as $floor)
+        {
+            $allFloor[] = $floor["floor"] ;
+        }
+        return $allFloor;
+    }
+
+    public function findAllFloorClassroom() : array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = 'SELECT r.floor
+            FROM room r, type t
+            where r.type_id = t.id
+            and t.name = "Salle de classe"
+            GROUP BY r.floor
+            ';
 
         $result = $conn->prepare($sql)->executeQuery()->fetchAllAssociative();
         foreach( $result as $floor)
