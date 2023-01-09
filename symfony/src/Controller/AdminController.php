@@ -3,13 +3,14 @@
 namespace App\Controller;
 
 use App\Domain\Alert;
+use App\Domain\Query\ConseilAlerteQuery;
+use App\Domain\Query\ConseilAlerteHandler;
 use App\Domain\Query\DonneesCapteursHandler;
 use App\Domain\Query\DonneesCapteursQuery;
 use App\Entity\Room;
 use App\Entity\Sensor;
 use App\Entity\System;
 use App\Form\RoomType;
-use App\Form\SearchRoom;
 use App\Form\SensorType;
 use App\Form\SystemType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -270,7 +271,7 @@ class AdminController extends AbstractController
 
     }
     #[Route('/admin/donnees_salle_admin/{room?}', name: 'donneesSalleAdmin')]
-    public function donnees_salle_admin(?Room $room, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response{
+    public function donnees_salle_admin(?Room $room, ManagerRegistry $doctrine, DonneesCapteursHandler $handler,ConseilAlerteHandler  $handler2): Response{
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
@@ -281,6 +282,8 @@ class AdminController extends AbstractController
         }
 
         $donnees=$handler->handle(new DonneesCapteursQuery($room, $doctrine));
+
+        $conseils=$handler2->handle(new ConseilAlerteQuery($room, $doctrine));
 
 
         return $this->render('admin/donnees_salle_admin.html.twig', [
