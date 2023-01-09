@@ -31,18 +31,26 @@ class RoomController extends AbstractController
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
-        $allRoom = $repository->findAll("Salle de classe");
-        foreach($allRoom as $room)
-        {
-            $donnees=$handler->handle(new DonneesCapteursQuery($room, $doctrine));
+        $allRoom = $repository->findAll();
+        $noData = array();
+        foreach($allRoom as $room) {
+            $donnees = $handler->handle(new DonneesCapteursQuery($room, $doctrine));
+            $temp = $donnees["T"]->valeur;
+            $hum = $donnees["H"]->valeur;
+            $co2 = $donnees["C"]->valeur;
+            if (($temp == "NULL" and $hum == "NULL") or ($hum == "NULL" and $co2 == "NULL") or ($temp == "NULL" and $co2 == "NULL") or ($temp == "NULL" and $hum == "NULL" and $co2 == "NULL")) {
+                $noData[$room->getId()] = 1;
+            } else {
+                $noData[$room->getId()] = 0;
+            }
         }
-
         return $this->render('salle/selection.html.twig', [
             'allRoom' => $allRoom,
-            'allFloor' => $repository->findAllFloorClassroom(),
-            'temp' => $donnees["T"]->valeur,
-            'hum' => $donnees["H"]->valeur,
-            'co2' => $donnees["C"]->valeur,
+            'allFloor' => $repository->findAllFloor(),
+            'temp' => $temp,
+            'hum' => $hum,
+            'co2' => $co2,
+            'noData' => $noData,
         ]);
 
     }
@@ -77,6 +85,9 @@ class RoomController extends AbstractController
             'temp' => $donnees["T"]->valeur,
             'hum' => $donnees["H"]->valeur,
             'co2' => $donnees["C"]->valeur,
+            'dateT'=> $donnees["T"]->dateCapture,
+            'dateH'=> $donnees["H"]->dateCapture,
+            'dateC'=> $donnees["C"]->dateCapture,
         ]);    }
 
     #[Route('/salle/alerte/{roomId?}/{id?}', name: 'alerte')]

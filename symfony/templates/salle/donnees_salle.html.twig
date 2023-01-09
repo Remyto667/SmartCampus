@@ -31,6 +31,7 @@
         .text {
             display: block;
             line-height: 32px;
+            /*text-decoration:underline;*/
             letter-spacing: 7px;
             top: -47px; /* Monter le text dans le rectangle plus haut */
             position: relative;
@@ -139,17 +140,58 @@
 
         .btn{margin-top: 15px; background-color: #B51b1b; color: white; max-width: 250px;}
         .btn-blue{background-color: #00489a; color: white;}
+
+
+
+        /************************/
+
+            .title
+            {
+                position:absolute;
+                text-align:center;
+                width:100%;
+                font-size: 40px;
+            }
+
+            .titleEffect {
+                position: relative;
+                color: black;
+                text-decoration: none;
+            }
+
+            .titleEffect:after {
+                content: '';
+                display: block;
+                position: absolute;
+                bottom: 0px;
+                width: 0%;
+                left: 0px;
+                height: 3px;
+                transition: 0.25s cubic-bezier(0.72,-0.01, 0.19, 0.92);
+                background: #014898;
+            }
+
+            .titleEffect:hover:after {
+                width: 100%;
+            }
+
+        /************************/
     </style>
 
     <div class="body">
 
         <br>
-        <div class="salle">
+        <!--<div class="salle">
             <svg height="60" width="200" xmlns="http://www.w3.org/2000/svg">
                 <rect class="shape" height="60" width="200" />
-                <div class="text">{{ room.getName() }}</div>
+                <div class="text">{/*{ room.getName() }}</div>
             </svg>
+        </div>-->
+        <div class="title">
+            <a class="titleEffect">{{ room.getName() }}</a>
         </div>
+        <br>
+        <br><br><br><br><br>
         <br>
         <div class="container">
             <div class="data-container">

@@ -13,6 +13,35 @@
             text-align: center;
         }
 
+        .title
+        {
+            position:absolute;
+            text-align:center;
+            width:100%;
+            font-size: 40px;
+        }
+
+        .titleEffect {
+            position: relative;
+            color: black;
+            text-decoration: none;
+        }
+
+        .titleEffect:after {
+            content: '';
+            display: block;
+            position: absolute;
+            bottom: 0px;
+            width: 0%;
+            left: 0px;
+            height: 3px;
+            transition: 0.25s cubic-bezier(0.72,-0.01, 0.19, 0.92);
+            background: #014898;
+        }
+
+        .titleEffect:hover:after {
+            width: 100%;
+        }
         /************************* TITRE **************************/
 
         .salle {
@@ -170,16 +199,30 @@
         .red{margin-top: 15px; background-color: #B51b1b; color: white; max-width: 250px}
         .blue{margin-top: 15px; background-color: #00489a;
             border-color: #00489a; color: white; max-width: 250px}
+
+        .red:hover
+        {
+            background: #da0e0e;
+        }
+
     </style>
 
 
     <div class="body">
-        <div class="salle">
+        <br>
+        <div class="title">
+            <a class="titleEffect">{{ room.getName() }}</a>
+        </div>
+        <br>
+        <br><br><br><br><br>
+        <br>
+
+        <!--<div class="salle">
             <svg height="60" width="200" xmlns="http://www.w3.org/2000/svg">
               <rect class="shape" height="60" width="200" />
                 <div class="text">{{ room.getName() }}</div>
             </svg>
-        </div>
+        </div>-->
 
         <div class="container">
             <div class="data-container">
