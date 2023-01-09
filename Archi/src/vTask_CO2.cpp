@@ -34,7 +34,7 @@ void vTask_CO2( void*pvParameters)
         } else {
              Serial.println("error reading IAQ values\n"); 
         }
-        vTaskDelay( pdMS_TO_TICKS(50) );
+        vTaskDelay( pdMS_TO_TICKS(1000) );
 	}
   
 }
