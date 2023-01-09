@@ -143,40 +143,23 @@
         .item-ligne{
             align-self: auto;
         }
-        {% if room.getType()==0 or room.getType()==1 or room.getType()==3 %}
-        {% set tempMin = 16 %}
-        {% set tempMax = 24 %}
-        {% set humMin = 41 %}
-        {% set humMax = 59 %}
-        {% elseif room.getType()==2 %}
-        {% set tempMin = 10 %}
-        {% set tempMax = 18 %}
-        {% set humMin = 38 %}
-        {% set humMax = 50 %}
-        {% elseif room.getType()==4 %}
-        {% else %}
-        {% set tempMin = 0 %}
-        {% set tempMax = 100 %}
-        {% set humMin = 0 %}
-        {% set humMax = 100 %}
-        {% endif %}
 
 
-        {% if temp > 25 or temp < 15%}
+        {% if temp > room.getType().getTempMax() or temp < room.getType().getTempMin() %}
         .Temp {color: white; border: 1px solid black; background-color: #B51b1b;}
         .box:nth-child(1){
             transform: scale(1);
             animation: box 1s linear infinite;
         }
         {% endif %}
-        {% if hum > 80 or hum < 40%}
+        {% if hum > room.getType().getHumMax() or hum < room.getType().getHumMin() %}
         .Hum {color: white; border: 1px solid black; background-color: #B51b1b;}
         .box:nth-child(2){
             transform: scale(1);
             animation: box 1s linear infinite;
         }
         {% endif %}
-        {% if co2 >= 800 %}
+        {% if co2 < room.getType().getCo2Min()  or co2 >= room.getType().getCo2Max() %}
         .C02 {color: white; border: 1px solid black; background-color: #B51b1b;}
         .box:nth-child(3){
             transform: scale(1);
@@ -236,21 +219,21 @@
 
             <div class="boutonAlerte">
                 <div class="boxBouton">
-                    {% if temp > 24 or temp < 16 and temp != "NULL" %}
+                    {% if temp > room.getType().getTempMax() or temp < room.getType().getTempMin() and temp != "NULL" %}
                         {% if temp != "NULL" %}
                             <a class="btn red btn-lg" href="/salle/alerte/{{room.id}}/1 " role="button">Afficher les indications</a>
                         {% endif %}
                     {% endif %}
                 </div>
                 <div class="boxBouton">
-                    {% if hum > 59 or hum < 41%}
+                    {% if hum > room.getType().getHumMax() or hum < room.getType().getHumMin()%}
                         {% if hum != "NULL" %}
                             <a class="btn red btn-lg" href="/salle/alerte/{{room.id}}/2" role="button">Afficher les indications</a>
                         {% endif %}
                     {% endif %}
                 </div>
                 <div class="boxBouton">
-                    {% if co2 >= 800 %}
+                    {% if co2 >= room.getType().getCo2Max() or co2 < room.getType().getCo2Min() %}
                         {% if co2 != "NULL" %}
                             <a class="btn red btn-lg" href="/salle/alerte/{{room.id}}/3" role="button" >Afficher les indications</a>
                         {% endif %}
@@ -283,9 +266,9 @@
                 <div class="boxDesc">
                     <div class="textSensor">
                         <ul>Des conseils vous seront donnés si :
-                            <li>-16 °C / + 24 °C </li>
-                            <li>-41 % / + 59% d'humidité </li>
-                            <li>+ 800 PPM </li>
+                            <li>- {{ room.getType().getTempMin() }} °C / + {{ room.getType().getTempMax() }} °C </li>
+                            <li>-{{ room.getType().getHumMin() }} % / + {{ room.getType().getHumMax() }}% d'humidité </li>
+                            <li>- {{ room.getType().getCo2Min() }} PPM / +{{ room.getType().getCo2Max() }}PPM </li>
                         </ul>
                     </div>
                 </div>

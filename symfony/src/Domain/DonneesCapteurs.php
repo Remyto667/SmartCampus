@@ -8,38 +8,61 @@ use Symfony\Component\HttpClient\HttpClient;
 class DonneesCapteurs
 {
     private $donneesPourSalle ;
+    private $donneesPourGraphique ;
+    private $tags ;
+
+    private function initTags()
+    {
+        $this->tags[1] = 'sae34bdx1eq1';
+        $this->tags[2] = 'sae34bdx1eq2';
+        $this->tags[3] = 'sae34bdx1eq3';
+        $this->tags[4] = 'sae34bdx2eq1';
+        $this->tags[5] = 'sae34bdx2eq2';
+        $this->tags[6] = 'sae34bdx2eq3';
+        $this->tags[7] = 'sae34bdy1eq1';
+        $this->tags[8] = 'sae34bdy1eq2';
+        $this->tags[9] = 'sae34bdy1eq3';
+        $this->tags[10] = 'sae34bdy2eq1';
+        $this->tags[11] = 'sae34bdy2eq2';
+        $this->tags[12] = 'sae34bdy2eq3';
+        $this->tags[13] = 'sae34bdz1eq1';
+        $this->tags[14] = 'sae34bdz1eq2';
+        $this->tags[15] = 'sae34bdz1eq3';
+    }
 
     public function __construct()
     {
         $this->donneesPourSalle = array();
         $this->donneesPourGraphique = array();
+        $this->tags = array();
+        $this->initTags();
+
     }
 
     public function getDonneesPourSalle(int $tag):array
     {
-
-        $types["T"] = "temp";
-        $types["H"] = "hum";
-        $types["C"] = "co2";
-
-        $client = HttpClient::create();
-        foreach($types as $type => $nom)
+        if($tag >0)
         {
-            $response = $client->request('GET', 'http://sae34.k8s.iut-larochelle.fr/api/captures/last?nom='.$nom.'&tag='.$tag.'&page=1', [
-            'headers' => [
-                'Accept' => 'application/ld+json',
-                'dbname' => 'sae34bdx1eq3',
-                'username' => 'x1eq3',
-                'userpass' => 'bRepOh4UkiaM9c7R'
-                ],
-            ]);
-            if(sizeof(json_decode($response->getContent())) > 0)
-            {
-                // rajouter maj de alert dans room
-                $this->donneesPourSalle[$type] = json_decode($response->getContent())[0];
-            }
-            else{
-                $this->donneesPourSalle[$type] = (object) array('valeur' => 'NULL', 'dateCapture' => 'NULL');
+            $types["T"] = "temp";
+            $types["H"] = "hum";
+            $types["C"] = "co2";
+
+            $client = HttpClient::create();
+            foreach ($types as $type => $nom) {
+                $response = $client->request('GET', 'http://sae34.k8s.iut-larochelle.fr/api/captures/last?nom=' . $nom . '&tag=' . $tag . '&page=1', [
+                    'headers' => [
+                        'Accept' => 'application/ld+json',
+                        'dbname' => $this->tags[$tag],
+                        'username' => 'x1eq3',
+                        'userpass' => 'bRepOh4UkiaM9c7R'
+                    ],
+                ]);
+                if (sizeof(json_decode($response->getContent())) > 0) {
+                    // rajouter maj de alert dans room
+                    $this->donneesPourSalle[$type] = json_decode($response->getContent())[0];
+                } else {
+                    $this->donneesPourSalle[$type] = (object)array('valeur' => 'NULL', 'dateCapture' => 'NULL');
+                }
             }
         }
 

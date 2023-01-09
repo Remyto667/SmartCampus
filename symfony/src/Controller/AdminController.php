@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\All;
+use App\Domain\Stat;
 
 class AdminController extends AbstractController
 {
@@ -361,6 +362,7 @@ class AdminController extends AbstractController
     #[Route('/admin/suivi/graphique/{room?}', name: 'graph_admin')]
     public function graphique_admin(?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
     {
+        $statClass= new Stat\Stat();
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
@@ -372,11 +374,18 @@ class AdminController extends AbstractController
 
         $donnees=$handler->handleGraph(new DonneesCapteursQuery($room, $doctrine));
 
+        foreach($donnees["T"] as $temp){
+
+            $statClass->PushToArrayDateMonth($statClass->transformMonth($temp->dateCapture),$temp->valeur);
+
+        }
+
 
         return $this->render('admin/graphique.html.twig', [
             'room' => $room,
-            'temp' => $donnees["T"],
-            'dateT'=> $donnees["T"],
+            //'temp' => $donnees["T"],
+            'novembre' => $statClass->getMoyNovembre(),
+            //'dateT'=> $donnees["T"],
 
         ]);
     }
