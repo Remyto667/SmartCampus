@@ -110,13 +110,15 @@
                 <div class="item-ligne">
                     <p> Etage {{ floor }} : </p>
                     {% for room in allRoom %}
-                        {% if (room.isIsStock() != 1) and (room.floor == floor) %}
-                            {% if (temp == "Pas de donnée" or hum == "Pas de donnée" or co2 == "Pas de donnée") %}
-                                <a class="btn grey btn-danger" href="#">{{ room.name }}</a>
-                            {% elseif (room.getTempAlert.isAlert == true or room.getCo2Alert.isAlert==true or room.getHumAlert.isAlert==true) %}
-                                <a class="btn red btn-danger" href="{{ room.id }}">{{ room.name }}</a>
-                            {% else %}
-                                <a class="btn btn-primary blue" href="{{ room.id }}">{{ room.name }}</a>
+                        {% if room.getType().getName() == "Salle de classe" %}
+                            {% if (room.isIsStock() != 1) and (room.floor == floor) %}
+                                {% if (temp == "Pas de donnée" or hum == "Pas de donnée" or co2 == "Pas de donnée") %}
+                                    <a class="btn grey btn-danger" href="#">{{ room.name }}</a>
+                                {% elseif (room.getTempAlert.isAlert == true or room.getCo2Alert.isAlert==true or room.getHumAlert.isAlert==true) %}
+                                    <a class="btn red btn-danger" href="{{ room.id }}">{{ room.name }}</a>
+                                {% else %}
+                                    <a class="btn btn-primary blue" href="{{ room.id }}">{{ room.name }}</a>
+                                {% endif %}
                             {% endif %}
                         {% endif %}
                     {% endfor %}
