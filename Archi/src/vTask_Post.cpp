@@ -7,7 +7,7 @@ unsigned long timerDelay = 900000;
 
 void vTask_Post( void*pvParameters)
 {
-    delay(10000);
+    delay(timerDelay);
     for(;;)
     {
         if((millis() -lastTime) > timerDelay) 
@@ -28,11 +28,18 @@ void vTask_Post( void*pvParameters)
                 http.addHeader("userpass", "bRepOh4UkiaM9c7R");
 
                 //int i = http.POST("{\"nom\":\"temp\",\"valeur\":\"20.4\",\"dateCapture\":\"2023-01-09 15:12:35\",\"localisation\":\"D207\",\"description\":\"test\",\"tag\":3}");
-                int i = http.POST("{\"nom\":\"temp\",\"valeur\":\"" + String(globalTemp.temperature, 1) + "\",\"dateCapture\":\"" + String(globalNTPDatestring) + "\",\"localisation\":\"D207\",\"description\":\"test\",\"tag\":3}");
-                http.POST("{\"nom\":\"hum\",\"valeur\":\""+ String(globalTemp.humidity, 1) +"\",\"dateCapture\":\"" + String(globalNTPDatestring) +"\",\"localisation\":\"D207\",\"description\":\"test\",\"tag\":3}");
-                http.POST("{\"nom\":\"co2\",\"valeur\":\""+ String(global_co2_eq_ppm) +"\",\"dateCapture\":\"" + String(globalNTPDatestring) +"\",\"localisation\":\"D207\",\"description\":\"test\",\"tag\":3}");
-
-                Serial.println(i);
+                if(globalTemp.temperature != NAN)
+                {
+                    int i = http.POST("{\"nom\":\"temp\",\"valeur\":\"" + String(globalTemp.temperature, 1) + "\",\"dateCapture\":\"" + String(globalNTPDatestring) + "\",\"localisation\":\"D207\",\"description\":\"test\",\"tag\":3}");
+                }
+                if(globalTemp.humidity != NAN)
+                {       
+                    http.POST("{\"nom\":\"hum\",\"valeur\":\""+ String(globalTemp.humidity, 1) +"\",\"dateCapture\":\"" + String(globalNTPDatestring) +"\",\"localisation\":\"D207\",\"description\":\"test\",\"tag\":3}");
+                }
+                if(global_co2_eq_ppm != 0)
+                {
+                    http.POST("{\"nom\":\"co2\",\"valeur\":\""+ String(global_co2_eq_ppm) +"\",\"dateCapture\":\"" + String(globalNTPDatestring) +"\",\"localisation\":\"D207\",\"description\":\"test\",\"tag\":3}");
+                }
                 http.end();
             }
             else
