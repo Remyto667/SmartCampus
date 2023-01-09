@@ -30,7 +30,8 @@ void printNTPDateTime()
       return;
     }
    // Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
-   String sec, hour ;
+   String sec, hour, min ;
+
    if(timeinfo.tm_sec<10)
    {
     sec = "0"+String(timeinfo.tm_sec);
@@ -39,14 +40,31 @@ void printNTPDateTime()
    {
     sec = String(timeinfo.tm_sec);
    }
+
+   if(timeinfo.tm_min<10)
+   { min = "0"+String(timeinfo.tm_min); }
+   else
+   { min = String(timeinfo.tm_min); }
+
    if(timeinfo.tm_isdst == 0)
+    {
+      hour = String(timeinfo.tm_hour + 1);
+    }
+    else{
+      hour = String(timeinfo.tm_hour);
+    }
+
+   if(timeinfo.tm_hour < 10)
    {
-    hour = String(timeinfo.tm_hour + 1);
+    hour = "0"+String(hour);
    }
-   else{
-    hour = String(timeinfo.tm_hour);
+   else
+   {
+    hour = String(hour);
    }
-    globalNTPDatestring = ""+ String(timeinfo.tm_year+1900) + "-0" + String(timeinfo.tm_mon+1)+"-0"+String(timeinfo.tm_mday)+" "+ hour +":"+String(timeinfo.tm_min)+":"+sec;
+
+   
+    globalNTPDatestring = ""+ String(timeinfo.tm_year+1900) + "-0" + String(timeinfo.tm_mon+1)+"-0"+String(timeinfo.tm_mday)+" "+ hour +":"+min+":"+sec;
     Serial.print(globalNTPDatestring);
     Serial.print("");
 
