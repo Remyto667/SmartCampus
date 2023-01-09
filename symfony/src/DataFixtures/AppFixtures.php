@@ -188,7 +188,7 @@ class AppFixtures extends Fixture
         $room10->setFloor(1);
         $room10->setOrientation("S");
         $room10->setRoomSize(55);
-        $room10->setType($type2);
+        $room10->setType($type3);
         $room10->setWindowsNumber(5);
         $room10->setIsStock(false);
         $room10->setTempAlert(new Alert(false, ''));
@@ -201,7 +201,7 @@ class AppFixtures extends Fixture
         $room11->setFloor(1);
         $room11->setOrientation("S");
         $room11->setRoomSize(55);
-        $room11->setType($type2);
+        $room11->setType($type3);
         $room11->setWindowsNumber(5);
         $room11->setIsStock(false);
         $room11->setTempAlert(new Alert(false, ''));
