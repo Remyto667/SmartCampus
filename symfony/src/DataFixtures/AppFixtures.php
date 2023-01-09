@@ -175,7 +175,7 @@ class AppFixtures extends Fixture
         $room9->setFloor(2);
         $room9->setOrientation("S");
         $room9->setRoomSize(55);
-        $room9->setType($type1);
+        $room9->setType($type2);
         $room9->setWindowsNumber(4);
         $room9->setIsStock(false);
         $room9->setTempAlert(new Alert(false, ''));
