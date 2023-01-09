@@ -362,7 +362,9 @@ class AdminController extends AbstractController
     #[Route('/admin/suivi/graphique/{room?}', name: 'graph_admin')]
     public function graphique_admin(?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
     {
-        $statClass= new Stat\Stat();
+        $statTemp= new Stat\Stat();
+        $statHum= new Stat\Stat();
+        $statCo2= new Stat\Stat();
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
@@ -372,34 +374,38 @@ class AdminController extends AbstractController
             $handler->handle(new DonneesCapteursQuery($rooms, $doctrine));
         }
 
-        $donnees=$handler->handleGraph(new DonneesCapteursQuery($room, $doctrine));
+        $donnees=$handler->handleGraph(new DonneesCapteursQuery($room, $doctrine));             // Récupération de toutes les données de l'API
 
         foreach($donnees["T"] as $temp){
 
-            $statClass->PushToArrayDateMonth($statClass->transformMonth($temp->dateCapture),$temp->valeur);
-
+            $statTemp->PushToArrayDateMonth($statTemp->transformMonth($temp->dateCapture),doubleval($temp->valeur));        // On classe les données en fonction de leur mois
 
         }
-        $statClass->PopulateMoy();
 
-        //dd($donnees["T"]);
+        $moyTemp=json_encode($statTemp->PopulateMoy());                 // On calcule la moyenne de chaque mois et on structure en tableau
+
+        foreach($donnees["H"] as $hum){
+
+            $statHum->PushToArrayDateMonth($statHum->transformMonth($hum->dateCapture),doubleval($hum->valeur));        // Hum
+
+        }
+
+        $moyHum=json_encode($statHum->PopulateMoy());       // Hum
+
+        foreach($donnees["C"] as $co2){
+
+            $statCo2->PushToArrayDateMonth($statCo2->transformMonth($co2->dateCapture),doubleval($co2->valeur));        // Co2
+
+        }
+
+        $moyCo2=json_encode($statCo2->PopulateMoy());       // Co2
 
 
         return $this->render('admin/graphique.html.twig', [
             'room' => $room,
-            'janvier' =>$statClass->getMoyJanvier(),
-            'fevrier' =>$statClass->getMoyFevrier(),
-            'mars' =>$statClass->getMoyMars(),
-            'avril' => $statClass->getMoyAvril(),
-            'mai' => $statClass ->getMoyMai(),
-            'juin' => $statClass->getMoyJuin(),
-            'juillet' => $statClass->getMoyJuillet(),
-            'aout' =>$statClass->getMoyAout(),
-            'septembre' =>$statClass->getMoySeptembre(),
-            'octobre' => $statClass->getMoyOctobre(),
-            'novembre' => $statClass->getMoyNovembre(),
-            'decembre' => $statClass->getMoyDecembre()
-            //'dateT'=> $donnees["T"],
+            'dataTemp' =>$moyTemp,
+            'dataHum' =>$moyHum,
+            'dataCo2' =>$moyCo2,
 
         ]);
     }

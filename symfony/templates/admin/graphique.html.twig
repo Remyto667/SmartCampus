@@ -23,7 +23,7 @@
 
             <button onclick="showChartData('jour')"> Jour</button>
             <button onclick="showChartData('semaine')"> Semaine</button>
-            <button onclick="showChartData('mois')"> Mois</button>
+            <button onclick="showChartData('mois')"> Année</button>
 
 
 
@@ -48,8 +48,8 @@
         var dataTemp = {
             labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Aout','Septembre','Novembre','Octobre','Decembre'],
             datasets: [{
-                label: 'Temperature',
-                data: [{{janvier}},{{fevrier}},{{mars}},{{ avril }},{{ mai }},{{ juin }},{{ juillet }},{{ aout }},{{ septembre }},{{ octobre }},{{ novembre }},{{ decembre }}],    //$arrayTemp,
+                label: 'Temperature 12 derniere mois',
+                data: {{dataTemp}},    //$arrayTemp,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -104,8 +104,8 @@
         var dataHum = {
             labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Aout','Septembre','Novembre','Octobre','Decembre'],
             datasets: [{
-                label: 'Mes données',
-                    data: [10, 20, 30, 40, 50, 60, 70,80,90,100,110,120],
+                label: 'Humidite 12 derniere mois',
+                    data: {{ dataHum }},
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -146,8 +146,8 @@
         var dataCo2 = {
             labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Aout','Septembre','Novembre','Octobre','Decembre'],
             datasets: [{
-                label: 'Mes données',
-                data: [10, 20, 30, 40, 50, 60, 70,80,90,100,110,120],
+                label: 'Co2 12 derniere mois',
+                data: {{ dataCo2 }},
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -207,7 +207,7 @@
 
             const jour = [1,2,3,4,5,6,7,8,9,10,11,12];
             const semaine = [10,20,30,40,50,60,70];
-            const mois = [{{janvier}},{{fevrier}},{{mars}},{{ avril }},{{ mai }},{{ juin }},{{ juillet }},{{ aout }},{{ septembre }},{{ octobre }},{{ novembre }},{{ decembre }}];
+            const mois = {{dataTemp}};
 
             if(type === 'jour') {
                 myChartTemp.data.datasets[0].data = jour;
