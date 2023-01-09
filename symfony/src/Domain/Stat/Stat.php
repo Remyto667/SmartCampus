@@ -20,14 +20,43 @@ class Stat
     private $moyNovembre=array();
     private $moyDecembre=array();
 
-
-    public function transformMonth($DateCapture): ?string
+    /**
+     * @param array $moyJanvier
+     * @param array $moyFevrier
+     * @param array $moyMars
+     * @param array $moyAvril
+     * @param array $moyMai
+     * @param array $moyJuin
+     * @param array $moyJuillet
+     * @param array $moyAout
+     * @param array $moySeptembre
+     * @param array $moyOctobre
+     * @param array $moyNovembre
+     * @param array $moyDecembre
+     */
+    public function __construct()
     {
-        $arrayDateCapture = explode(" ", $DateCapture);
+        $moyJanvier = array();
+        $this->moyJanvier = $moyJanvier;
+        $this->moyFevrier = $moyFevrier;
+        $this->moyMars = $moyMars;
+        $this->moyAvril = $moyAvril;
+        $this->moyMai = $moyMai;
+        $this->moyJuin = $moyJuin;
+        $this->moyJuillet = $moyJuillet;
+        $this->moyAout = $moyAout;
+        $this->moySeptembre = $moySeptembre;
+        $this->moyOctobre = $moyOctobre;
+        $this->moyNovembre = $moyNovembre;
+        $this->moyDecembre = $moyDecembre;
+    }
+
+
+    public function transformMonth($dateCapture): ?string
+    {
+        $arrayDateCapture = explode(" ", $dateCapture);
 
         $arrayDate =  explode('-', $arrayDateCapture[0]);
-
-        //dd($arrayDate);
 
         return $arrayDate[1];
     }
@@ -36,21 +65,24 @@ class Stat
     {
 
 
+
         switch($date){
 
-            case 1: $moyJanvier[] = $valeur;
-            case 2: $moyFevrier[] = $valeur;
-            case 3: $moyMars[] = $valeur;
-            case 4: $moyAvril[] = $valeur;
-            case 5: $moyMai[] = $valeur;
-            case 6: $moyJuin[] = $valeur;
-            case 7: $moyJuillet[] = $valeur;
-            case 8: $moyAout[] = $valeur;
-            case 9: $moySeptembre[] = $valeur;
-            case 10: $moyOctobre[] = $valeur;
-            case 11: $moyNovembre[] = $valeur;
-            case 12: $moyDecembre[] = $valeur;
+            case 1: $moyJanvier = $valeur;break;
+            case 2: $moyFevrier[] = $valeur;break;
+            case 3: $moyMars[] = $valeur;break;
+            case 4: $moyAvril[] = $valeur;break;
+            case 5: $moyMai[] = $valeur;break;
+            case 6: $moyJuin[] = $valeur;break;
+            case 7: $moyJuillet[] = $valeur;break;
+            case 8: $moyAout[] = $valeur;break;
+            case 9: $moySeptembre[] = $valeur;break;
+            case 10: $moyOctobre[] = $valeur;break;
+            case 11: $moyNovembre[] = $valeur;break;
+            case 12: $moyDecembre[] = $valeur;break;
         }
+
+        //dd($moyJanvier);
 
     }
 

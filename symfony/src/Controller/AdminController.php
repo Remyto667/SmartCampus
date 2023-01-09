@@ -377,14 +377,19 @@ class AdminController extends AbstractController
         foreach($donnees["T"] as $temp){
 
             $statClass->PushToArrayDateMonth($statClass->transformMonth($temp->dateCapture),$temp->valeur);
+            //dd($statClass->getMoyJanvier());
 
         }
+
+        //dd($donnees["T"]);
 
 
         return $this->render('admin/graphique.html.twig', [
             'room' => $room,
             //'temp' => $donnees["T"],
             'novembre' => $statClass->getMoyNovembre(),
+
+
             //'dateT'=> $donnees["T"],
 
         ]);

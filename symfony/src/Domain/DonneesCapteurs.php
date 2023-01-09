@@ -83,7 +83,7 @@ class DonneesCapteurs
             $response = $client->request('GET', 'http://sae34.k8s.iut-larochelle.fr/api/captures?nom='.$nom.'&tag='.$tag.'&page=1', [
                 'headers' => [
                     'Accept' => 'application/ld+json',
-                    'dbname' => 'sae34bdx1eq3',
+                    'dbname' => $this->tags[$tag],
                     'username' => 'x1eq3',
                     'userpass' => 'bRepOh4UkiaM9c7R'
                 ],
