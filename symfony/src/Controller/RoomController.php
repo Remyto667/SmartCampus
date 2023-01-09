@@ -35,8 +35,9 @@ class RoomController extends AbstractController
 
         foreach($allRoom as $room)
         {
-            $donnees=$handler->handle(new DonneesCapteursQuery($room, $doctrine));
+            $handler->handle(new DonneesCapteursQuery($room, $doctrine));
         }
+        $donnees=$handler->handle(new DonneesCapteursQuery($room, $doctrine));
 
         return $this->render('salle/selection.html.twig', [
             'allRoom' => $allRoom,
@@ -78,6 +79,9 @@ class RoomController extends AbstractController
             'temp' => $donnees["T"]->valeur,
             'hum' => $donnees["H"]->valeur,
             'co2' => $donnees["C"]->valeur,
+            'dateT'=> $donnees["T"]->dateCapture,
+            'dateH'=> $donnees["H"]->dateCapture,
+            'dateC'=> $donnees["C"]->dateCapture,
         ]);    }
 
     #[Route('/salle/alerte/{roomId?}/{id?}', name: 'alerte')]
