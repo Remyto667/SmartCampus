@@ -362,7 +362,9 @@ class AdminController extends AbstractController
     #[Route('/admin/suivi/graphique/{room?}', name: 'graph_admin')]
     public function graphique_admin(?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
     {
-        $statClass= new Stat\Stat();
+        $statTemp= new Stat\Stat();
+        $statHum= new Stat\Stat();
+        $statCo2= new Stat\Stat();
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
@@ -372,54 +374,72 @@ class AdminController extends AbstractController
             $handler->handle(new DonneesCapteursQuery($rooms, $doctrine));
         }
 
-        $donnees=$handler->handleGraph(new DonneesCapteursQuery($room, $doctrine));
+        $donnees=$handler->handleGraph(new DonneesCapteursQuery($room, $doctrine));             // Récupération de toutes les données de l'API
 
         foreach($donnees["T"] as $temp){
 
-            $statClass->PushToArrayDateMonth($statClass->transformMonth($temp->dateCapture),$temp->valeur);
+            $statTemp->PushToArrayDateMonth($statTemp->transformMonth($temp->dateCapture),doubleval($temp->valeur));        // On classe les données en fonction de leur mois
 
         }
+
+        $moyTemp=json_encode($statTemp->PopulateMoy());                 // On calcule la moyenne de chaque mois et on structure en tableau
+
+        foreach($donnees["H"] as $hum){
+
+            $statHum->PushToArrayDateMonth($statHum->transformMonth($hum->dateCapture),doubleval($hum->valeur));        // Hum
+
+        }
+
+        $moyHum=json_encode($statHum->PopulateMoy());       // Hum
+
+        foreach($donnees["C"] as $co2){
+
+            $statCo2->PushToArrayDateMonth($statCo2->transformMonth($co2->dateCapture),doubleval($co2->valeur));        // Co2
+
+        }
+
+        $moyCo2=json_encode($statCo2->PopulateMoy());       // Co2
 
 
         return $this->render('admin/graphique.html.twig', [
             'room' => $room,
-            //'temp' => $donnees["T"],
-            'novembre' => $statClass->getMoyNovembre(),
-            //'dateT'=> $donnees["T"],
+            'dataTemp' =>$moyTemp,
+            'dataHum' =>$moyHum,
+            'dataCo2' =>$moyCo2,
 
         ]);
     }
 
 
+    /*
+        #[Route('/admin/lister_alertes', name: 'listerAlertes')]
+        public function liste_alertes(Request $request, ?Room $room, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response{
 
-    #[Route('/admin/lister_alertes', name: 'listerAlertes')]
-    public function liste_alertes(Request $request, ?Room $room, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response{
+            $entityManager = $doctrine->getManager();
+            $repository = $entityManager->getRepository('App\Entity\Room');
+            $rooms = $repository->findAll();
 
-        $entityManager = $doctrine->getManager();
-        $repository = $entityManager->getRepository('App\Entity\Room');
-        $rooms = $repository->findAll();
-
-        foreach ($rooms as $aRoom)
-        {
-            $donnees=$handler->handle(new DonneesCapteursQuery($aRoom, $doctrine));
-
-            /*$alertT = $aRoom->getTempAlert()->getIsAlert();
-            $alertH = $aRoom->getHumAlert()->getIsAlert();
-            $alertC = $aRoom->getCo2Alert()->getIsAlert();
-
-            //$desc = "";
-            if($alertT == true)
+            foreach ($rooms as $aRoom)
             {
-                $descT = "a un pb de temperature";
-            }
-            if($alertH == true)
-            {
-                $descH = "a un pb dhumidite";
-            }
-            if($alertC == true)
-            {
-                $descC = "a un pb de CO2";
-            }*/
+                $donnees=$handler->handle(new DonneesCapteursery($aRoom, $doctrine));
+
+                /*$alertT = $aRoom->getTempAlert()->getIsAlert();
+                $alertH = $aRoom->getHumAlert()->getIsAlert();
+                $alertC = $aRoom->getCo2Alert()->getIsAlert();
+
+                //$desc = "";
+                if($alertT == true)
+                {
+                    $descT = "a un pb de temperature";
+                }
+                if($alertH == true)
+                {
+                    $descH = "a un pb dhumidite";
+                }
+                if($alertC == true)
+                {
+                    $descC = "a un pb de CO2";
+                }
 
         }
 
@@ -432,8 +452,10 @@ class AdminController extends AbstractController
             //'desc' => $desc,
             /*'descT' => $descT,
             'descH' => $descH,
-            'descC' => $descC,*/
+            'descC' => $descC,
         ]);
-    }
+    }*/
 
 }
+
+

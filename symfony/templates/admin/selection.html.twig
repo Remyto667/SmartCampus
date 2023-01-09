@@ -98,9 +98,9 @@
                     {% for room in allRoom %}
                         {% if (room.isIsStock() != 1) and (room.floor == floor) %}
                             {% if (room.getTempAlert.isAlert == true or room.getCo2Alert.isAlert==true or room.getHumAlert.isAlert==true) %}
-                            <a class="btn red btn-danger" href="donnees_salle_admin/{{ room.id }}">{{ room.name }}</a>
+                            <a class="btn red btn-danger" href="/admin/donnees_salle_admin/{{ room.id }}">{{ room.name }}</a>
                             {% else %}
-                            <a class="btn btn-primary blue" href="donnees_salle_admin/{{ room.id }}">{{ room.name }}</a>
+                            <a class="btn btn-primary blue" href="/admin/donnees_salle_admin/{{ room.id }}">{{ room.name }}</a>
                             {% endif %}
                         {% endif %}
                     {% endfor %}

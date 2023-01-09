@@ -7,150 +7,125 @@ namespace App\Domain\Stat;
 
 class Stat
 {
-    private $moyJanvier=array();
-    private $moyFevrier=array();
-    private $moyMars=array();
-    private $moyAvril=array();
-    private $moyMai=array();
-    private $moyJuin=array();
-    private $moyJuillet=array();
-    private $moyAout=array();
-    private $moySeptembre=array();
-    private $moyOctobre=array();
-    private $moyNovembre=array();
-    private $moyDecembre=array();
+    private $moyAllMonth = array();
+
+    private $dataJanvier= array();
+    private $dataFevrier= array();
+    private $dataMars= array();
+    private $dataAvril= array();
+    private $dataMai= array();
+    private $dataJuin= array();
+    private $dataJuillet= array();
+    private $dataAout= array();
+    private $dataSeptembre= array();
+    private $dataOctobre= array();
+    private $dataNovembre= array();
+    private $dataDecembre= array();
 
 
-    public function transformMonth($DateCapture): ?string
+
+    public function transformMonth($dateCapture): ?string
     {
-        $arrayDateCapture = explode(" ", $DateCapture);
+        $arrayDateCapture = explode(" ", $dateCapture);
 
         $arrayDate =  explode('-', $arrayDateCapture[0]);
-
-        //dd($arrayDate);
 
         return $arrayDate[1];
     }
 
+    public function PushToArrayMoy($arrayMoy):float
+    {
+        $cpp=0;
+
+        foreach($arrayMoy as $data){
+
+            $cpp+=$data;
+        }
+        if(sizeof($arrayMoy)>0 ) {
+            $moy = ($cpp / sizeof($arrayMoy));
+        }
+        else{
+            $moy=0;
+        }
+
+        return $moy;
+
+    }
+
+
     public function PushToArrayDateMonth($date, $valeur): void
     {
 
-
         switch($date){
 
-            case 1: $moyJanvier[] = $valeur;
-            case 2: $moyFevrier[] = $valeur;
-            case 3: $moyMars[] = $valeur;
-            case 4: $moyAvril[] = $valeur;
-            case 5: $moyMai[] = $valeur;
-            case 6: $moyJuin[] = $valeur;
-            case 7: $moyJuillet[] = $valeur;
-            case 8: $moyAout[] = $valeur;
-            case 9: $moySeptembre[] = $valeur;
-            case 10: $moyOctobre[] = $valeur;
-            case 11: $moyNovembre[] = $valeur;
-            case 12: $moyDecembre[] = $valeur;
+            case 1: $this->dataJanvier[] = $valeur;
+            break;
+
+            case 2: $this->dataFevrier[] = $valeur;
+            break;
+
+            case 3: $this->dataMars[] = $valeur;
+            break;
+
+            case 4: $this->dataAvril[] = $valeur;
+            break;
+
+            case 5: $this->dataMai[] = $valeur;
+            break;
+
+            case 6: $this->dataJuin[] = $valeur;
+            break;
+
+            case 7: $this->dataJuillet[] = $valeur;
+            break;
+
+            case 8: $this->dataAout[] = $valeur;
+            break;
+
+            case 9: $this->dataSeptembre[] = $valeur;
+            break;
+
+            case 10: $this->dataOctobre[] = $valeur;
+            break;
+
+            case 11: $this->dataNovembre[] = $valeur;
+            break;
+
+            case 12: $this->dataDecembre[] = $valeur;
+            break;
         }
 
+        //dd($dataJanvier);
     }
 
 
+    public function PopulateMoy() : array {
 
-    /**
-     * @return array
-     */
-    public function getMoyJanvier(): array
-    {
-        return $this->moyJanvier;
+        //dd($this->dataJanvier);
+
+        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataJanvier));
+
+
+        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataFevrier));
+        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataMars));
+        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataAvril));
+        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataMai));
+        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataJuin));
+        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataJuillet));
+        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataAout));
+        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataSeptembre));
+        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataOctobre));
+        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataNovembre));
+        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataDecembre));
+
+        //dd($this->moyJanvier);
+
+        return $this->moyAllMonth;
+
+
     }
 
-    /**
-     * @return array
-     */
-    public function getMoyFevrier(): array
-    {
-        return $this->moyFevrier;
-    }
 
-    /**
-     * @return array
-     */
-    public function getMoyMars(): array
-    {
-        return $this->moyMars;
-    }
-
-    /**
-     * @return array
-     */
-    public function getMoyAvril(): array
-    {
-        return $this->moyAvril;
-    }
-
-    /**
-     * @return array
-     */
-    public function getMoyMai(): array
-    {
-        return $this->moyMai;
-    }
-
-    /**
-     * @return array
-     */
-    public function getMoyJuin(): array
-    {
-        return $this->moyJuin;
-    }
-
-    /**
-     * @return array
-     */
-    public function getMoyJuillet(): array
-    {
-        return $this->moyJuillet;
-    }
-
-    /**
-     * @return array
-     */
-    public function getMoyAout(): array
-    {
-        return $this->moyAout;
-    }
-
-    /**
-     * @return array
-     */
-    public function getMoySeptembre(): array
-    {
-        return $this->moySeptembre;
-    }
-
-    /**
-     * @return array
-     */
-    public function getMoyOctobre(): array
-    {
-        return $this->moyOctobre;
-    }
-
-    /**
-     * @return array
-     */
-    public function getMoyNovembre(): array
-    {
-        return $this->moyNovembre;
-    }
-
-    /**
-     * @return array
-     */
-    public function getMoyDecembre(): array
-    {
-        return $this->moyDecembre;
-    }
 
 
 
@@ -161,6 +136,8 @@ class Stat
 
 // Je montre la moyenne sur 2h (8 captures pour 1 jours) et j'affiche 8 points (8h-10h-12h-14h-16h-18h-20h-22h) tous les semaines
 
-// moyenne de 8h tous les mois (8 captures pour 1 mois) et j'affiche 8 points (8h -16h -24h)
+// moyenne de 8h sur un mois (8 captures pour 1 mois) et j'affiche 8 points (8h -16h -24h)
 
 // Je montre une capture toutes les 15 minutes (sur un jours)
+
+// 96 data
