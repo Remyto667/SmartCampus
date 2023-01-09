@@ -189,46 +189,27 @@
 
             <div class="boutonAlerte">
                 <div class="boxBouton">
-                    {% if temp > 24 or temp < 16 and temp != "NULL" %}
+                    {% if temp > room.getType().getTempMax() or temp < room.getType().getTempMin() %}
                         {% if temp != "NULL" %}
                             <a class="btn red btn-lg" href="/salle/alerte/{{room.id}}/1 " role="button">Afficher les indications</a>
                         {% endif %}
                     {% endif %}
                 </div>
                 <div class="boxBouton">
-                    {% if hum > 59 or hum < 41%}
+                    {% if hum > room.getType().getHumMax() or hum < room.getType().getHumMin() %}
                         {% if hum != "NULL" %}
                             <a class="btn red btn-lg" href="/salle/alerte/{{room.id}}/2" role="button">Afficher les indications</a>
                         {% endif %}
                     {% endif %}
                 </div>
                 <div class="boxBouton">
-                    {% if co2 >= 800 %}
+                    {% if co2 >= room.getType().getCo2Min()  or co2 <= room.getType().getCo2Max() %}
                         {% if co2 != "NULL" %}
                             <a class="btn red btn-lg" href="/salle/alerte/{{room.id}}/3" role="button" >Afficher les indications</a>
                         {% endif %}
                     {% endif %}
                 </div>
             </div>
-        </div>
-
-        <div class="boutonAlerte">
-            <div class="boxBouton">
-                {% if temp > 24 or temp < 16%}
-                    <a class="btn btn-lg" href="/salle/alerte/{{id}}/1 " role="button" style="width:300px">Afficher les indications</a>
-                {% endif %}
-            </div>
-            <div class="boxBouton">
-                {% if hum > 59 or hum < 41%}
-                    <a class="btn btn-lg" href="/salle/alerte/{{id}}/2" role="button" style="width:300px">Afficher les indications</a>
-                {% endif %}
-            </div>
-            <div class="boxBouton">
-                {% if co2 >= 800 %}
-                    <a class="btn btn-lg" href="/salle/alerte/{{id}}/3" role="button" >Afficher les indications</a>
-                {% endif %}
-            </div>
-        </div>
         </div>
         <div class="description">
 
