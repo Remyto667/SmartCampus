@@ -7,49 +7,32 @@ namespace App\Domain\Stat;
 
 class Stat
 {
-    private $moyJanvier=array();
-    private $moyFevrier=array();
-    private $moyMars=array();
-    private $moyAvril=array();
-    private $moyMai=array();
-    private $moyJuin=array();
-    private $moyJuillet=array();
-    private $moyAout=array();
-    private $moySeptembre=array();
-    private $moyOctobre=array();
-    private $moyNovembre=array();
-    private $moyDecembre=array();
+    private $moyJanvier;
+    private $moyFevrier;
+    private $moyMars;
+    private $moyAvril;
+    private $moyMai;
+    private $moyJuin;
+    private $moyJuillet;
+    private $moyAout;
+    private $moySeptembre;
+    private $moyOctobre;
+    private $moyNovembre;
+    private $moyDecembre;
 
-    /**
-     * @param array $moyJanvier
-     * @param array $moyFevrier
-     * @param array $moyMars
-     * @param array $moyAvril
-     * @param array $moyMai
-     * @param array $moyJuin
-     * @param array $moyJuillet
-     * @param array $moyAout
-     * @param array $moySeptembre
-     * @param array $moyOctobre
-     * @param array $moyNovembre
-     * @param array $moyDecembre
-     */
-    public function __construct()
-    {
-        $moyJanvier = array();
-        $this->moyJanvier = $moyJanvier;
-        $this->moyFevrier = $moyFevrier;
-        $this->moyMars = $moyMars;
-        $this->moyAvril = $moyAvril;
-        $this->moyMai = $moyMai;
-        $this->moyJuin = $moyJuin;
-        $this->moyJuillet = $moyJuillet;
-        $this->moyAout = $moyAout;
-        $this->moySeptembre = $moySeptembre;
-        $this->moyOctobre = $moyOctobre;
-        $this->moyNovembre = $moyNovembre;
-        $this->moyDecembre = $moyDecembre;
-    }
+    private $dataJanvier= array();
+    private $dataFevrier= array();
+    private $dataMars= array();
+    private $dataAvril= array();
+    private $dataMai= array();
+    private $dataJuin= array();
+    private $dataJuillet= array();
+    private $dataAout= array();
+    private $dataSeptembre= array();
+    private $dataOctobre= array();
+    private $dataNovembre= array();
+    private $dataDecembre= array();
+
 
 
     public function transformMonth($dateCapture): ?string
@@ -61,125 +44,184 @@ class Stat
         return $arrayDate[1];
     }
 
+    public function PushToArrayMoy($arrayMoy):float
+    {
+        $cpp=0;
+
+        foreach($arrayMoy as $data){
+
+            $cpp+=$data;
+        }
+        if(sizeof($arrayMoy)>0) {
+            $moy = ($cpp / sizeof($arrayMoy));
+        }
+        else{
+            $moy=0;
+        }
+
+        return $moy;
+
+    }
+
+
     public function PushToArrayDateMonth($date, $valeur): void
     {
 
-
-
         switch($date){
 
-            case 1: $moyJanvier = $valeur;break;
-            case 2: $moyFevrier[] = $valeur;break;
-            case 3: $moyMars[] = $valeur;break;
-            case 4: $moyAvril[] = $valeur;break;
-            case 5: $moyMai[] = $valeur;break;
-            case 6: $moyJuin[] = $valeur;break;
-            case 7: $moyJuillet[] = $valeur;break;
-            case 8: $moyAout[] = $valeur;break;
-            case 9: $moySeptembre[] = $valeur;break;
-            case 10: $moyOctobre[] = $valeur;break;
-            case 11: $moyNovembre[] = $valeur;break;
-            case 12: $moyDecembre[] = $valeur;break;
+            case 1: $this->dataJanvier[] = $valeur;
+            break;
+
+            case 2: $this->dataFevrier[] = $valeur;
+            break;
+
+            case 3: $this->dataMars[] = $valeur;
+            break;
+
+            case 4: $this->dataAvril[] = $valeur;
+            break;
+
+            case 5: $this->dataMai[] = $valeur;
+            break;
+
+            case 6: $this->dataJuin[] = $valeur;
+            break;
+
+            case 7: $this->dataJuillet[] = $valeur;
+            break;
+
+            case 8: $this->dataAout[] = $valeur;
+            break;
+
+            case 9: $this->dataSeptembre[] = $valeur;
+            break;
+
+            case 10: $this->dataOctobre[] = $valeur;
+            break;
+
+            case 11: $this->dataNovembre[] = $valeur;
+            break;
+
+            case 12: $this->dataDecembre[] = $valeur;
+            break;
         }
 
-        //dd($moyJanvier);
+        //dd($dataJanvier);
+    }
+
+
+    public function PopulateMoy() : void {
+
+        $this->moyJanvier=($this->PushToArrayMoy($this->dataJanvier));
+        $this->moyFevrier=($this->PushToArrayMoy($this->dataFevrier));
+        $this->moyMars=($this->PushToArrayMoy($this->dataMars));
+        $this->moyAvril=($this->PushToArrayMoy($this->dataAvril));
+        $this->moyMai=($this->PushToArrayMoy($this->dataMai));
+        $this->moyJuin=($this->PushToArrayMoy($this->dataJuin));
+        $this->moyJuillet=($this->PushToArrayMoy($this->dataJuillet));
+        $this->moyAout=($this->PushToArrayMoy($this->dataAout));
+        $this->moySeptembre=($this->PushToArrayMoy($this->dataSeptembre));
+        $this->moyOctobre=($this->PushToArrayMoy($this->dataOctobre));
+        $this->moyNovembre=($this->PushToArrayMoy($this->dataNovembre));
+        $this->moyDecembre=($this->PushToArrayMoy($this->dataDecembre));
+
 
     }
 
 
 
     /**
-     * @return array
+     * @return float
      */
-    public function getMoyJanvier(): array
+    public function getMoyJanvier(): ?float
     {
         return $this->moyJanvier;
     }
 
     /**
-     * @return array
+     * @return float
      */
-    public function getMoyFevrier(): array
+    public function getMoyFevrier(): ?float
     {
         return $this->moyFevrier;
     }
 
     /**
-     * @return array
+     * @return float
      */
-    public function getMoyMars(): array
+    public function getMoyMars(): ?float
     {
         return $this->moyMars;
     }
 
     /**
-     * @return array
+     * @return float
      */
-    public function getMoyAvril(): array
+    public function getMoyAvril(): ?float
     {
         return $this->moyAvril;
     }
 
     /**
-     * @return array
+     * @return float
      */
-    public function getMoyMai(): array
+    public function getMoyMai(): ?float
     {
         return $this->moyMai;
     }
 
     /**
-     * @return array
+     * @return float
      */
-    public function getMoyJuin(): array
+    public function getMoyJuin(): ?float
     {
         return $this->moyJuin;
     }
 
     /**
-     * @return array
+     * @return float
      */
-    public function getMoyJuillet(): array
+    public function getMoyJuillet(): ?float
     {
         return $this->moyJuillet;
     }
 
     /**
-     * @return array
+     * @return float
      */
-    public function getMoyAout(): array
+    public function getMoyAout(): ?float
     {
         return $this->moyAout;
     }
 
     /**
-     * @return array
+     * @return float
      */
-    public function getMoySeptembre(): array
+    public function getMoySeptembre(): ?float
     {
         return $this->moySeptembre;
     }
 
     /**
-     * @return array
+     * @return float
      */
-    public function getMoyOctobre(): array
+    public function getMoyOctobre(): ?float
     {
         return $this->moyOctobre;
     }
 
     /**
-     * @return array
+     * @return float
      */
-    public function getMoyNovembre(): array
+    public function getMoyNovembre(): ?float
     {
         return $this->moyNovembre;
     }
 
     /**
-     * @return array
+     * @return float
      */
-    public function getMoyDecembre(): array
+    public function getMoyDecembre(): ?float
     {
         return $this->moyDecembre;
     }
