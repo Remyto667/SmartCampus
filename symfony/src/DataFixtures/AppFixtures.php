@@ -76,7 +76,7 @@ class AppFixtures extends Fixture
         $room1->setFloor(2);
         $room1->setOrientation("N");
         $room1->setRoomSize(45);
-        $room1->setType($type1->getId());
+        $room1->setType($type1);
         $room1->setWindowsNumber(4);
         $room1->setTempAlert(new Alert(false, ''));
         $room1->setHumAlert(new Alert(false, ''));
@@ -88,7 +88,7 @@ class AppFixtures extends Fixture
         $room2->setFloor(2);
         $room2->setOrientation("N");
         $room2->setRoomSize(44);
-        $room2->setType($type1->getId());
+        $room2->setType($type1);
         $room2->setWindowsNumber(5);
         $room2->setTempAlert(new Alert(false, ''));
         $room2->setHumAlert(new Alert(false, ''));
@@ -100,7 +100,7 @@ class AppFixtures extends Fixture
         $room3->setFloor(3);
         $room3->setOrientation("S");
         $room3->setRoomSize(50);
-        $room3->setType($type1->getId());
+        $room3->setType($type1);
         $room3->setWindowsNumber(3);
         $room3->setTempAlert(new Alert(false, ''));
         $room3->setHumAlert(new Alert(false, ''));
@@ -112,7 +112,7 @@ class AppFixtures extends Fixture
         $room4->setFloor(3);
         $room4->setOrientation("N");
         $room4->setRoomSize(45);
-        $room4->setType($type1->getId());
+        $room4->setType($type1);
         $room4->setWindowsNumber(4);
         $room4->setTempAlert(new Alert(false, ''));
         $room4->setHumAlert(new Alert(false, ''));
@@ -124,7 +124,7 @@ class AppFixtures extends Fixture
         $room5->setFloor(0);
         $room5->setOrientation("N");
         $room5->setRoomSize(53);
-        $room5->setType($type1->getId());
+        $room5->setType($type1);
         $room5->setWindowsNumber(6);
         $room5->setTempAlert(new Alert(false, ''));
         $room5->setHumAlert(new Alert(false, ''));
@@ -136,7 +136,7 @@ class AppFixtures extends Fixture
         $room6->setFloor(0);
         $room6->setOrientation("S");
         $room6->setRoomSize(45);
-        $room6->setType($type3->getId());
+        $room6->setType($type3);
         $room6->setWindowsNumber(2);
         $room6->setIsStock(true);
         $room6->setTempAlert(new Alert(false, ''));
@@ -149,7 +149,7 @@ class AppFixtures extends Fixture
         $room7->setFloor(2);
         $room7->setOrientation("S");
         $room7->setRoomSize(45);
-        $room7->setType($type1->getId());
+        $room7->setType($type1);
         $room7->setWindowsNumber(4);
         $room7->setIsStock(false);
         $room7->setTempAlert(new Alert(false, ''));
@@ -162,7 +162,7 @@ class AppFixtures extends Fixture
         $room8->setFloor(2);
         $room8->setOrientation("N");
         $room8->setRoomSize(45);
-        $room8->setType($type1->getId());
+        $room8->setType($type1);
         $room8->setWindowsNumber(4);
         $room8->setIsStock(false);
         $room8->setTempAlert(new Alert(false, ''));
@@ -175,7 +175,7 @@ class AppFixtures extends Fixture
         $room9->setFloor(2);
         $room9->setOrientation("S");
         $room9->setRoomSize(55);
-        $room9->setType($type1->getId());
+        $room9->setType($type1);
         $room9->setWindowsNumber(4);
         $room9->setIsStock(false);
         $room9->setTempAlert(new Alert(false, ''));
@@ -188,7 +188,7 @@ class AppFixtures extends Fixture
         $room10->setFloor(1);
         $room10->setOrientation("S");
         $room10->setRoomSize(55);
-        $room10->setType($type2->getId());
+        $room10->setType($type2);
         $room10->setWindowsNumber(5);
         $room10->setIsStock(false);
         $room10->setTempAlert(new Alert(false, ''));
@@ -201,7 +201,7 @@ class AppFixtures extends Fixture
         $room11->setFloor(1);
         $room11->setOrientation("S");
         $room11->setRoomSize(55);
-        $room11->setType($type2->getId());
+        $room11->setType($type2);
         $room11->setWindowsNumber(5);
         $room11->setIsStock(false);
         $room11->setTempAlert(new Alert(false, ''));
@@ -214,7 +214,7 @@ class AppFixtures extends Fixture
         $room12->setFloor(1);
         $room12->setOrientation("N");
         $room12->setRoomSize(40);
-        $room12->setType($type4->getId());
+        $room12->setType($type4);
         $room12->setWindowsNumber(2);
         $room12->setIsStock(false);
         $room12->setTempAlert(new Alert(false, ''));
@@ -227,7 +227,7 @@ class AppFixtures extends Fixture
         $room13->setFloor(0);
         $room13->setOrientation("N");
         $room13->setRoomSize(60);
-        $room13->setType($type1->getId());
+        $room13->setType($type1);
         $room13->setWindowsNumber(5);
         $room13->setIsStock(false);
         $room13->setTempAlert(new Alert(false, ''));
@@ -240,7 +240,7 @@ class AppFixtures extends Fixture
         $room14->setFloor(0);
         $room14->setOrientation("S");
         $room14->setRoomSize(60);
-        $room14->setType($type1->getId());
+        $room14->setType($type1);
         $room14->setWindowsNumber(5);
         $room14->setIsStock(false);
         $room14->setTempAlert(new Alert(false, ''));
@@ -253,7 +253,7 @@ class AppFixtures extends Fixture
         $room15->setFloor(0);
         $room15->setOrientation("N");
         $room15->setRoomSize(60);
-        $room15->setType($type1->getId());
+        $room15->setType($type1);
         $room15->setWindowsNumber(5);
         $room15->setIsStock(false);
         $room15->setTempAlert(new Alert(false, ''));
@@ -266,7 +266,7 @@ class AppFixtures extends Fixture
         $room16->setFloor(0);
         $room16->setOrientation("N");
         $room16->setRoomSize(60);
-        $room16->setType($type1->getId());
+        $room16->setType($type1);
         $room16->setWindowsNumber(5);
         $room16->setIsStock(false);
         $room16->setTempAlert(new Alert(false, ''));

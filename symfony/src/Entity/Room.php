@@ -205,7 +205,7 @@ class Room
     }
 
 
-    public function getType(): ?int
+    public function getType(): ?Type
     {
         return $this->type;
     }
@@ -225,7 +225,7 @@ class Room
         return $type;
     }
 
-    public function setType(int $type): self
+    public function setType(Type $type): self
     {
         $this->type = $type;
 
