@@ -268,4 +268,23 @@ class Room
 
         return $this;
     }
+
+    /*public function nbNull(): ?int
+
+        $nbNull = 0;
+        if (temp = "Pas de donnée")
+        {
+            $nbNull++;
+        }
+        if (hum = "Pas de donnée")
+        {
+            $nbNull++;
+        }
+        if (co2 = "Pas de donnée")
+        {
+            $nbNull++;
+        }
+        return $nbNull;
+    }*/
+
 }
