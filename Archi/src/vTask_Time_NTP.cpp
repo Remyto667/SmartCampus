@@ -3,7 +3,7 @@
 #include "time.h"
 
  
-char globalNTPDatestring[20];
+String globalNTPDatestring;
 
 const char* ntpServer = "pool.ntp.org";
 const long gmtOffset_sec = 0;
@@ -30,7 +30,23 @@ void printNTPDateTime()
       return;
     }
    // Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
-    sprintf(globalNTPDatestring, "%d-0%d-0%d %d:%d:%d \n", timeinfo.tm_year+1900,  timeinfo.tm_mon+1, timeinfo.tm_mday, timeinfo.tm_hour, timeinfo.tm_min, timeinfo.tm_sec);
+   String sec, hour ;
+   if(timeinfo.tm_sec<10)
+   {
+    sec = "0"+String(timeinfo.tm_sec);
+   }
+   else
+   {
+    sec = String(timeinfo.tm_sec);
+   }
+   if(timeinfo.tm_isdst == 0)
+   {
+    hour = String(timeinfo.tm_hour + 1);
+   }
+   else{
+    hour = String(timeinfo.tm_hour);
+   }
+    globalNTPDatestring = ""+ String(timeinfo.tm_year+1900) + "-0" + String(timeinfo.tm_mon+1)+"-0"+String(timeinfo.tm_mday)+" "+ hour +":"+String(timeinfo.tm_min)+":"+sec;
     Serial.print(globalNTPDatestring);
     Serial.print("");
 
