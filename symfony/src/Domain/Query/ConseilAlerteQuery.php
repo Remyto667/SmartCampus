@@ -43,19 +43,14 @@ class ConseilAlerteQuery
     /**
      * @return Conseil
      */
-    public function getAdvice($temp_alerte_sup,$temp_alerte_inf,$hum_alerte_sup,$hum_alerte_inf,$co2_alerte_sup,$co2_alerte_inf,$temp_sup_outside,$no_data): int
+    public function getAdvice(bool $temp_alerte_sup,bool $temp_alerte_inf,bool $hum_alerte_sup,bool $hum_alerte_inf,bool $co2_alerte_sup,bool $co2_alerte_inf,bool$temp_sup_outside,bool $no_data): array
     {
         $entityManager = $this->doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Conseil');
         $advice = $repository->findAdvice($temp_alerte_sup,$temp_alerte_inf,$hum_alerte_sup,$hum_alerte_inf,$co2_alerte_sup,$co2_alerte_inf,$temp_sup_outside,$no_data);
-        if (sizeof($advice) > 0)
-        {
-            return $advice;
-        }
-        else
-        {
-            return 0;
-        }
+
+        return $advice;
+
 
     }
 

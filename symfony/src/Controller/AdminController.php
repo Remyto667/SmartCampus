@@ -271,7 +271,7 @@ class AdminController extends AbstractController
 
     }
     #[Route('/admin/donnees_salle_admin/{room?}', name: 'donneesSalleAdmin')]
-    public function donnees_salle_admin(?Room $room, ManagerRegistry $doctrine, DonneesCapteursHandler $handler,ConseilAlerteHandler  $handler2): Response{
+    public function donnees_salle_admin(?Room $room, ManagerRegistry $doctrine, DonneesCapteursHandler $handler,ConseilAlerteHandler $handler2): Response{
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
@@ -284,9 +284,9 @@ class AdminController extends AbstractController
         $donnees=$handler->handle(new DonneesCapteursQuery($room, $doctrine));
 
         $conseils=$handler2->handle(new ConseilAlerteQuery($room, $doctrine));
-
-
+        var_dump($conseils);
         return $this->render('admin/donnees_salle_admin.html.twig', [
+            'conseil' => $conseils[0],
             'allRoom' => $allRoom,
             'allFloor' => $repository->findAllFloor(),
             'room' => $room,
@@ -306,7 +306,7 @@ class AdminController extends AbstractController
         $room = $repository->findOneBy(['id' => $roomId]);
 
        $donnees=$handler->handle(new DonneesCapteursQuery($room, $doctrine));
-
+        //récupération dans l'api open Weather
        //récupération de la température de la rochelle
         $city = 'La Rochelle';
 

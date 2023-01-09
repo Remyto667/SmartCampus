@@ -34,7 +34,7 @@ class ConseilAlerteHandler
         $no_data = false;
 
 
-        if($temp <= $roomType->getTempMax())
+        if($temp >= $roomType->getTempMax())
         {
             $temp_alerte_sup = true;
         }
@@ -42,19 +42,19 @@ class ConseilAlerteHandler
         {
             $temp_alerte_inf = true;
         }
-        if($hum <= $roomType->getTempMax())
+        if($hum >= $roomType->getHumMax())
         {
             $hum_alerte_sup = true;
         }
-        if($hum <= $roomType->getTempMin())
+        if($hum <= $roomType->getHumMin())
         {
             $hum_alerte_inf = true;
         }
-        if($co2 <= $roomType->getTempMax())
+        if($co2 >= $roomType->getCo2Max())
         {
             $co2_alerte_sup = true;
         }
-        if($co2 <= $roomType->getTempMin())
+        if($co2 <= $roomType->getCo2Min())
         {
             $co2_alerte_inf = true;
         }
@@ -71,8 +71,7 @@ class ConseilAlerteHandler
         $data = $this->donneesCapteurs->getDonneesPourSalle($requete->getTag());
 
         //récupere la donnée (donnée du repository)
-        $conseil = $this->typeOfAlert($data, $requete);
         //renvoie le conseil
-        return $conseil;
+        return $this->typeOfAlert($data, $requete);
     }
 }

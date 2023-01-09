@@ -262,6 +262,13 @@
                     </div>
                 </div>
             </div>
+            <div>
+
+                {% if temp > room.getType().getTempMax() or temp < room.getType().getTempMin() or hum > room.getType().getHumMax() or hum < room.getType().getHumMin() or co2 < room.getType().getCo2Min()  or co2 >= room.getType().getCo2Max() %}
+                     {{ conseil.conseil }}
+                {% endif %}
+
+            </div>
             <div class="description">
                 <div class="boxDesc">
                     <div class="textSensor">

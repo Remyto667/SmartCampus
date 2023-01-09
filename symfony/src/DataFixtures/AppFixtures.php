@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Domain\Alert;
+use App\Entity\Conseil;
 use App\Entity\Room;
 use App\Entity\Sensor;
 use App\Entity\System;
@@ -497,6 +498,31 @@ class AppFixtures extends Fixture
         $sensor17->setSystems($system6);
         $sensor17->setType("CO2");
         $manager->persist($sensor17);
+
+// Les Conseils
+        $conseil1 = new Conseil();
+        $conseil1->setConseil("a");
+        $conseil1->setTempAlerteSup(false);
+        $conseil1->setTempAlerteInf(false);
+        $conseil1->setHumAlerteSup(false);
+        $conseil1->setHumAlerteInf(false);
+        $conseil1->setCo2AlerteSup(false);
+        $conseil1->setCo2AlerteInf(false);
+        $conseil1->setTempSupOutside(false);
+        $conseil1->setNoData(false);
+        $manager->persist($conseil1);
+
+        $conseil2 = new Conseil();
+        $conseil2->setConseil("aide");
+        $conseil2->setTempAlerteSup(true);
+        $conseil2->setTempAlerteInf(false);
+        $conseil2->setHumAlerteSup(false);
+        $conseil2->setHumAlerteInf(false);
+        $conseil2->setCo2AlerteSup(false);
+        $conseil2->setCo2AlerteInf(false);
+        $conseil2->setTempSupOutside(false);
+        $conseil2->setNoData(false);
+        $manager->persist($conseil2);
 
         $manager->flush();
     }
