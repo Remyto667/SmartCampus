@@ -80,9 +80,11 @@ class DonneesCapteurs
         $client = HttpClient::create();
         foreach($types as $type => $nom)
         {
+            var_dump($tag);
             $response = $client->request('GET', 'http://sae34.k8s.iut-larochelle.fr/api/captures?nom='.$nom.'&tag='.$tag.'&page=1', [
                 'headers' => [
                     'Accept' => 'application/ld+json',
+
                     'dbname' => $this->tags[$tag],
                     'username' => 'x1eq3',
                     'userpass' => 'bRepOh4UkiaM9c7R'
@@ -93,7 +95,7 @@ class DonneesCapteurs
                 //echo sizeof(json_decode($response->getContent()));
 
                 foreach(json_decode($response->getContent()) as $data => $array) {
-
+                    //var_dump(sizeof($array));
 
                     $this->donneesPourGraphique[$type][$data] = $array;
                     //echo $data;
@@ -110,36 +112,40 @@ class DonneesCapteurs
 
     public function getDonneesPourHistoriqueAlerte(int $tag):array
     {
+        if($tag >0) {
+            var_dump($tag);
 
-        $types["T"] = "temp";
-        $types["H"] = "hum";
-        $types["C"] = "co2";
+            $types["T"] = "temp";
+            $types["H"] = "hum";
+            $types["C"] = "co2";
 
-        $client = HttpClient::create();
-        foreach($types as $type => $nom)
-        {
-            $response = $client->request('GET', 'http://sae34.k8s.iut-larochelle.fr/api/captures?nom='.$nom.'&tag='.$tag.'&page=1', [
-                'headers' => [
-                    'Accept' => 'application/ld+json',
-                    'dbname' => $this->tags[$tag],
-                    'username' => 'x1eq3',
-                    'userpass' => 'bRepOh4UkiaM9c7R'
-                ],
-            ]);
-            if(sizeof(json_decode($response->getContent())) > 0)
-            {
-                //echo sizeof(json_decode($response->getContent()));
+            $client = HttpClient::create();
+            foreach ($types as $type => $nom) {
+                $response = $client->request('GET', 'http://sae34.k8s.iut-larochelle.fr/api/captures?nom=' . $nom . '&tag=' . $tag . '&page=1', [
+                    'headers' => [
+                        'Accept' => 'application/ld+json',
+                        'dbname' => $this->tags[$tag],
+                        'username' => 'x1eq3',
+                        'userpass' => 'bRepOh4UkiaM9c7R'
+                    ],
+                ]);
 
-                foreach(json_decode($response->getContent()) as $data => $array) {
+                $json_response = array();
+                $json_response = json_decode($response->getContent());
 
+                if (sizeof($json_response) > 0) {
+                    //echo sizeof(json_decode($response->getContent()));
 
-                    $this->donneesPourGraphique[$type][$data] = $array;
-                    //echo $data;
+                    foreach(json_decode($response->getContent()) as $data => $array) {
+                        //var_dump(sizeof($array));
 
+                        $this->donneesPourGraphique[$type][$data] = $array;
+                        //echo $data;
+
+                    }
+                } else {
+                    $this->donneesPourGraphique[$type] = (object)array('valeur' => 'NULL', 'dateCapture' => 'NULL');
                 }
-            }
-            else{
-                $this->donneesPourGraphique[$type] = (object) array('valeur' => 'NULL', 'dateCapture' => 'NULL');
             }
         }
 
