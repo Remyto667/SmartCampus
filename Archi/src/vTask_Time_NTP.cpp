@@ -80,7 +80,7 @@ void vTask_Time_NTP( void*pvParameters)
   for(;;)
   {
   printNTPDateTime();
-  vTaskDelay( pdMS_TO_TICKS(1000) );
+  vTaskDelay( pdMS_TO_TICKS(60000) );
   }
 }
 

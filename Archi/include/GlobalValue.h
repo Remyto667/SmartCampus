@@ -10,7 +10,8 @@
 
 
 extern RtcDateTime globalDateTime;
-extern TempAndHumidity globalTemp;
+extern float globalTemp;
+extern float globalHum;
 extern u16 global_tvoc_ppb, global_co2_eq_ppm;
 //extern char globalDatestring[20];
 extern String globalNTPDatestring;

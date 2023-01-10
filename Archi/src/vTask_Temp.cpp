@@ -1,6 +1,7 @@
 #include "vTask_Temp.h"
 
-TempAndHumidity globalTemp;
+float globalTemp;
+float globalHum;
 std::vector< float > globalTemps;
 std::vector< float > globalHums;
 
@@ -33,12 +34,13 @@ void vTask_Temp( void*pvParameters)
   uxPriority= uxTaskPriorityGet( NULL);
   for(;;)
   {
-    globalTemp = dht.getTempAndHumidity();
-    globalTemps.push_back(globalTemp.temperature);
-    globalHums.push_back(globalTemp.humidity);
+    globalTemp = dht.getTempAndHumidity().temperature;
+    globalHum = dht.getTempAndHumidity().humidity;
+    globalTemps.push_back(globalTemp);
+    globalHums.push_back(globalHum);
 
-    printTemperature(globalTemp);
+    printTemperature(dht.getTempAndHumidity());
 
-    vTaskDelay( pdMS_TO_TICKS(1000) );
+    vTaskDelay( pdMS_TO_TICKS(60000) );
 	}
 }
