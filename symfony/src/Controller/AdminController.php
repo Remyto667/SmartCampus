@@ -285,6 +285,7 @@ class AdminController extends AbstractController
 
         $conseils=$handler2->handle(new ConseilAlerteQuery($room, $doctrine));
 
+
         return $this->render('admin/donnees_salle_admin.html.twig', [
             'conseil' => $conseils[0],
             'allRoom' => $allRoom,
@@ -297,7 +298,7 @@ class AdminController extends AbstractController
             'dateH'=> $donnees["H"]->dateCapture,
             'dateC'=> $donnees["C"]->dateCapture,
         ]);    }
-
+/*
     #[Route('/admin/alerte/{roomId?}/{id?}', name: 'alerteAdmin')]
     public function alerte_salle_admin(?int $roomId, ?int $id, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response{
 
@@ -314,17 +315,7 @@ class AdminController extends AbstractController
         $client = HttpClient::create();
 
         // Envoi de la requête à l'API OpenWeather
-        $response = $client->request(
-            'GET',
-            'https://api.openweathermap.org/data/2.5/weather',
-            [
-                'query' => [
-                    'q' => $city,
-                    'appid' => '3e754b09e95d904997b1f4c2a5597bc5 ',
-                    'units' => 'metric',
-                ],
-            ]
-        );
+        $response = $client->request('GET',https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key});
 
         // Récupérez la réponse sous forme de tableau PHP
         $data = json_decode($response->getBody(), true);
@@ -341,7 +332,7 @@ class AdminController extends AbstractController
             'co2' => $donnees["C"]->valeur,
         ]);    }
 
-
+*/
     #[Route('admin/suivi/selection_salle', name: 'suivi_selectionSalle')]
     public function suivi_selection_salle(Request $request, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
     {

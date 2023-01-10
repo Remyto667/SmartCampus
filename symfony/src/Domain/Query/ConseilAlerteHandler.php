@@ -15,7 +15,27 @@ class ConseilAlerteHandler
         $this->donneesCapteurs = $donneesCapteurs;
     }
 
-    public function typeOfAlert($data, $requete)
+    public function getWeatherData()
+    {
+        $url = 'https://api.openweathermap.org/data/2.5/weather?q=La%20Rochelle&appid=3e754b09e95d904997b1f4c2a5597bc5';
+        $ch = curl_init($url);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        $weatherData = json_decode($response, true);
+
+        if(!array_key_exists('main',$weatherData))
+        {
+            return false ;
+        }
+
+        $temp_outside = $weatherData['main']['temp'];
+
+        return $temp_outside-273.15;
+    }
+
+    public function typeOfAlert($data, $requete, $temp_outside)
     {
         //récupératoin des valeurs
         $temp = $data["T"]->valeur;
@@ -33,6 +53,21 @@ class ConseilAlerteHandler
         $temp_sup_outside = false;
         $no_data = false;
 
+
+
+        /*
+        // Création de l'instance HttpClient
+        $client = HttpClient::create();
+
+        // Envoi de la requête à l'API OpenWeather
+        $response = $client->request('GET',https://api.openweathermap.org/data/2.5/weather?q=London&appid=3e754b09e95d904997b1f4c2a5597bc5);
+
+        // Récupérez la réponse sous forme de tableau PHP
+        $data = json_decode($response->getBody(), true);
+
+        // Récupérez la température à partir du tableau de données
+        $temperature = $data['main']['temp'];
+        */
 
         if($temp > $roomType->getTempMax())
         {
@@ -58,10 +93,13 @@ class ConseilAlerteHandler
         {
             $co2_alerte_inf = true;
         }
+        if($temp_outside > $temp)
+        {
+            $temp_sup_outside = true;
+        }
 
         //appel du repository et renvoie du conseil
         $a = $requete->getAdvice($temp_alerte_sup,$temp_alerte_inf,$hum_alerte_sup,$hum_alerte_inf,$co2_alerte_sup,$co2_alerte_inf,$temp_sup_outside,$no_data);
-
         return $a;
 
     }
@@ -72,7 +110,8 @@ class ConseilAlerteHandler
 
         //récupere la donnée (donnée du repository)
         //renvoie le conseil
-        return $this->typeOfAlert($data, $requete);
+        $temp_outside = $this->getWeatherData();
+        return $this->typeOfAlert($data, $requete,$temp_outside);
 
     }
 }
