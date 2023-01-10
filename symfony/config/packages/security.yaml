@@ -31,7 +31,8 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: '^/admin', roles: ROLE_ADMIN }
+        - { path: '^/admin/inventaire/', roles: ROLE_ADMIN}
+        - # Pour que uniquement le role admin ait access à tous ce qui est admin dont l'inventaire, et que le role tech ait access a tous come l'admin sauf inventaire
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

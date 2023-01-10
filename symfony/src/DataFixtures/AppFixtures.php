@@ -30,7 +30,7 @@ class AppFixtures extends Fixture
 
 // Technicien
         $tech = new User();
-        $hash='tech';
+        $hash='$2y$13$Gru6EdJc//C7NqYiqzg2jezgJbfacqcYV0QComjCohtsLHYCDiaxu';
         $tech->setPassword($hash);
         $tech->setUsername("technicien");
         $tech->SetRoles(array('ROLE_TECH'));
