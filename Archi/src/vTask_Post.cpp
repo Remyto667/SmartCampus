@@ -3,7 +3,33 @@
 const char* serverName = "http://sae34.k8s.iut-larochelle.fr/api/captures"; 
 
 unsigned long lastTime = 0;
-unsigned long timerDelay = 900000;
+unsigned long timerDelay = 10000;
+
+float avarageTempValue(std::vector< float > vec)
+{
+    float avg = 0;
+    int size = 0;
+    for (auto& i : vec)
+    {
+        if(i == NAN)
+        {
+            return NAN;
+        }
+        else if(i > -40 && i < 80)
+        {
+           avg += i; 
+        }
+        else{
+            avg += 0 ;
+        }
+        size++;
+        Serial.println(i);
+    }
+    Serial.println(size);
+    Serial.println(avg);
+    avg = avg / size;
+    return avg;
+}
 
 void vTask_Post( void*pvParameters)
 {
@@ -27,6 +53,9 @@ void vTask_Post( void*pvParameters)
                 http.addHeader("username", "x1eq3");
                 http.addHeader("userpass", "bRepOh4UkiaM9c7R");
 
+                float temp = avarageTempValue(globalTemps);
+                globalTemps.clear();
+                Serial.printf("LA TEMPERATUR MOYENNE EST %d", temp);
                 //int i = http.POST("{\"nom\":\"temp\",\"valeur\":\"20.4\",\"dateCapture\":\"2023-01-09 15:12:35\",\"localisation\":\"D207\",\"description\":\"test\",\"tag\":3}");
                 if(globalTemp.temperature != NAN)
                 {

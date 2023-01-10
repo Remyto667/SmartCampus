@@ -3,7 +3,7 @@
 #include <HTTPClient.h>
 
 void vTask_Post( void*pvParameters);
-
+float avarageTempValue(std::vector< float > * vec);
 extern const char* serverName; 
 
 extern unsigned long lastTime;
