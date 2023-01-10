@@ -48,7 +48,6 @@ class ConseilAlerteQuery
         $entityManager = $this->doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Conseil');
 
-        //$advice = $repository->findAdvice($temp_alerte_sup,$temp_alerte_inf,$hum_alerte_sup,$hum_alerte_inf,$co2_alerte_sup,$co2_alerte_inf,$temp_sup_outside,$no_data);
         $advice = $repository->findBy(
         array('temp_alerte_sup' => (string)$temp_alerte_sup,
             'temp_alerte_inf' => (string)$temp_alerte_inf,
@@ -60,11 +59,7 @@ class ConseilAlerteQuery
             'no_data' => (string)$no_data)
         );
 
-        //var_dump($temp_alerte_sup,$temp_alerte_inf,$hum_alerte_sup,$hum_alerte_inf,$co2_alerte_sup,$co2_alerte_inf,$temp_sup_outside,$no_data);
          return $advice;
-
-
-
 
     }
 
@@ -73,5 +68,4 @@ class ConseilAlerteQuery
         $this->room = $room;
         $this->doctrine = $doctrine;
     }
-
 }

@@ -287,7 +287,7 @@ class AdminController extends AbstractController
 
 
         return $this->render('admin/donnees_salle_admin.html.twig', [
-            'conseil' => $conseils[0],
+            'conseil' => $conseils[1],
             'allRoom' => $allRoom,
             'allFloor' => $repository->findAllFloor(),
             'room' => $room,

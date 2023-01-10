@@ -146,6 +146,11 @@ class Conseil
         return $this->no_data;
     }
 
+    public function getNoData(): ?bool
+    {
+        return (string)$this->no_data;
+    }
+
     public function setNoData(bool $no_data): self
     {
         $this->no_data = $no_data;

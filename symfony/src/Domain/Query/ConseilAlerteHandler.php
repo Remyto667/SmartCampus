@@ -97,11 +97,13 @@ class ConseilAlerteHandler
         {
             $temp_sup_outside = true;
         }
+        if($temp == 0 or $hum == 0 or $co2 == 0)
+        {
+            $no_data = true;
+        }
 
         //appel du repository et renvoie du conseil
-        $a = $requete->getAdvice($temp_alerte_sup,$temp_alerte_inf,$hum_alerte_sup,$hum_alerte_inf,$co2_alerte_sup,$co2_alerte_inf,$temp_sup_outside,$no_data);
-        return $a;
-
+        return $requete->getAdvice($temp_alerte_sup,$temp_alerte_inf,$hum_alerte_sup,$hum_alerte_inf,$co2_alerte_sup,$co2_alerte_inf,$temp_sup_outside,$no_data);
     }
 
     public function handle(ConseilAlerteQuery $requete)
