@@ -51,33 +51,44 @@ class DonneesCapteursHandler
     public function countAlertTemp($data, $requete):int
     {
         $nb=0;
-        $temp = $data["T"]->valeur;
+        //var_dump($data[0]);
         $roomType = $requete->getRoom()->getType();
-        if(($temp <= $roomType->getTempMin()) or ($temp > $roomType->getTempMax()))
-        {
-            $nb+=1;
+        //for($i=0;$i<count((array)$data);$i+=1){
+        foreach($data as $d){
+
+            $temp = $d->valeur;
+            if((int)$temp < $roomType->getTempMin() or ((int)$temp > $roomType->getTempMax()))
+            {
+                $nb+=1;
+            }
         }
+
         return $nb;
     }
     public function countAlertCo2($data, $requete):int
     {
         $nb=0;
-        $co2 = $data["C"]->valeur;
         $roomType = $requete->getRoom()->getType();
-        if(($co2 <= $roomType->getCo2Min()) or ($co2 > $roomType->getCo2Max()))
-        {
-            $nb+=1;
+        for($i=0;$i<sizeof($data);$i+=1){
+            $co2 = $data[$i]->valeur;
+            if(($co2 < $roomType->getCo2Min()) or ($co2 > $roomType->getCo2Max()))
+            {
+                $nb+=1;
+            }
         }
+
         return $nb;
     }
     public function countAlertHum($data, $requete):int
     {
         $nb=0;
-        $hum = $data["H"]->valeur;
         $roomType = $requete->getRoom()->getType();
-        if(($hum <= $roomType->getHumMin()) or ($hum > $roomType->getHumMax()))
-        {
-            $nb+=1;
+        for($i=0;$i<sizeof($data);$i+=1){
+            $hum = $data[$i]->valeur;
+            if(($hum < $roomType->getHumMin()) or ($hum > $roomType->getHumMax()))
+            {
+                $nb+=1;
+            }
         }
         return $nb;
     }
@@ -95,20 +106,32 @@ class DonneesCapteursHandler
         return $data;
     }
 
-    public function handleNbAlertTemp(DonneesCapteursQuery $requete):int
+    public function handleNbAlertTemp(DonneesCapteursQuery $requete,$date1,$date2):int
     {
-        $data = $this->donneesCapteurs->getDonneesPourSalle($requete->getTag());
-        return $this->countAlertTemp($data, $requete);
+        $datas = $this->donneesCapteurs->getDonneesInterval($requete->getTag(),$date1,$date2);
+        $nb=0;
+        foreach($datas as $data){
+            $nb+=$this->countAlertTemp($data, $requete);
+        }
+        return $nb;
     }
-    public function handleNbAlertHum(DonneesCapteursQuery $requete):int
+    public function handleNbAlertHum(DonneesCapteursQuery $requete,$date1,$date2):int
     {
-        $data = $this->donneesCapteurs->getDonneesPourSalle($requete->getTag());
-        return $this->countAlertHum($data, $requete);
+        $datas = $this->donneesCapteurs->getDonneesInterval($requete->getTag(),$date1,$date2);
+        $nb=0;
+        foreach($datas as $data){
+            $nb+=$this->countAlertHum($data, $requete);
+        }
+        return $nb;
     }
-    public function handleNbAlertCo2(DonneesCapteursQuery $requete):int
+    public function handleNbAlertCo2(DonneesCapteursQuery $requete,$date1,$date2):int
     {
-        $data = $this->donneesCapteurs->getDonneesPourSalle($requete->getTag());
-        return $this->countAlertCo2($data, $requete);
+        $datas = $this->donneesCapteurs->getDonneesInterval($requete->getTag(),$date1,$date2);
+        $nb=0;
+        foreach($datas as $data){
+            $nb+=$this->countAlertCo2($data, $requete);
+        }
+        return $nb;
     }
 
 
