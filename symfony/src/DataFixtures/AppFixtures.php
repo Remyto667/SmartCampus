@@ -22,7 +22,7 @@ class AppFixtures extends Fixture
     {
 // Admin
         $admin = new User();
-        $hash='$2y$13$nsVjukfaWtKD7JXsy1AUS.Ye0xn.9Ofet/7Db9ucxHQsc6CmxTkuq';
+        $hash='$2y$13$nsVjukfaWtKD7JXsy1AUS.Ye0xn.9Ofet/7Db9ucxHQsc6CmxTkuq'; //admin
         $admin->setPassword($hash);
         $admin->setUsername("admin");
         $admin->SetRoles(array('ROLE_ADMIN'));
@@ -30,7 +30,7 @@ class AppFixtures extends Fixture
 
 // Technicien
         $tech = new User();
-        $hash='$2y$13$Gru6EdJc//C7NqYiqzg2jezgJbfacqcYV0QComjCohtsLHYCDiaxu';
+        $hash='$2y$13$57i6DzDxoYj7x9MU4JfurOzAhAawvQeJ1Hx0i8rwJA8f2Y1uulZ2C'; //tech $2y$13$Gru6EdJc//C7NqYiqzg2jezgJbfacqcYV0QComjCohtsLHYCDiaxu
         $tech->setPassword($hash);
         $tech->setUsername("technicien");
         $tech->SetRoles(array('ROLE_TECH'));
