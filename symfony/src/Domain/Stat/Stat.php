@@ -276,6 +276,20 @@ class Stat
 
     }
 
+    public function PopulateDayAsLabel() : array{
+
+        $i=0;
+
+        foreach($this->allDay as $day){
+
+                $arrayString[]= "{x: '".substr($day[$i],0,8)."', y: ".$day[$i+1]." }";          // à l'echelle mois, mettre en parametre un jour pour choisir un jour en particulier et mettre To date pour aujourd'hui
+                $i=+2;
+        }
+
+        return $arrayString;
+
+    }
+
     /**
      * @return array
      */

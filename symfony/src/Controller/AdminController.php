@@ -384,7 +384,8 @@ class AdminController extends AbstractController
 
         }
 
-        dd($allDay=$statTemp->getAllDay());
+        $allDay=$statTemp->getAllDay();
+        dd($dataDay=json_encode($statTemp->PopulateDayAsLabel()));
 
         $moyTemp=json_encode($statTemp->PopulateMoy());                 // On calcule la moyenne de chaque mois et on structure en tableau
 
