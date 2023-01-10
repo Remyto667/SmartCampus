@@ -120,104 +120,135 @@ class Stat
 
         switch($date[0]){
 
-            case 1: $this->allDay[1][] = $valeur;
-                    $this->allDay[1][] = $date[1];
+            case 1: $this->allDay[1][] = $date[1];
+                $this->allDay[1][] = $valeur;
                 break;
 
-            case 2: $this->allDay[2][] = $valeur;
+            case 2:
+                $this->allDay[2][] = $date[1];
+                $this->allDay[2][] = $valeur;
                 break;
 
-            case 3: $this->allDay[3][] = $valeur;
+            case 3: $this->allDay[3][] = $date[1];
+                $this->allDay[3][] = $valeur;
                 break;
 
-            case 4: $this->allDay[4][] = $valeur;
+            case 4: $this->allDay[4][] = $date[1];
+                $this->allDay[4][] = $valeur;
+
                 break;
 
-            case 5: $this->allDay[5][] = $valeur;
+            case 5: $this->allDay[5][] = $date[1];
+                $this->allDay[5][] = $valeur;
                 break;
 
-            case 6: $this->allDay[6][] = $valeur;
+            case 6:$this->allDay[6][] = $date[1];
+                $this->allDay[6][] = $valeur;
                 break;
 
-            case 7: $this->allDay[7][] = $valeur;
+            case 7: $this->allDay[7][] = $date[1];
+                $this->allDay[7][] = $valeur;
                 break;
 
-            case 8: $this->allDay[8][] = $valeur;
+            case 8: $this->allDay[8][] = $date[1];
+                $this->allDay[8][] = $valeur;
                 break;
 
-            case 9: $this->allDay[9][] = $valeur;
-                    $this->allDay[9][] = $date[1];
+            case 9: $this->allDay[9][] = $date[1];
+                $this->allDay[9][] = $valeur;
                 break;
 
-            case 10: $this->allDay[10][] = $valeur;
+            case 10: $this->allDay[10][] = $date[1];
+                $this->allDay[10][] = $valeur;
                 break;
 
-            case 11: $this->allDay[11][] = $valeur;
+            case 11: $this->allDay[11][] = $date[1];
+                $this->allDay[11][] = $valeur;
                 break;
 
-            case 12: $this->allDay[12][] = $valeur;
+            case 12: $this->allDay[12][] = $date[1];
+                $this->allDay[12][] = $valeur;
                 break;
 
-            case 13: $this->allDay[13][] = $valeur;
+            case 13: $this->allDay[13][] = $date[1];
+                $this->allDay[13][] = $valeur;
                 break;
 
-            case 14: $this->allDay[14][] = $valeur;
+            case 14: $this->allDay[14][] = $date[1];
+                $this->allDay[14][] = $valeur;
                 break;
 
-            case 15: $this->allDay[15][] = $valeur;
+            case 15: $this->allDay[15][] = $date[1];
+                $this->allDay[15][] = $valeur;
+
                 break;
 
-            case 16: $this->allDay[16][] = $valeur;
+            case 16: $this->allDay[16][] = $date[1];
+                $this->allDay[16][] = $valeur;
                 break;
 
-            case 17: $this->allDay[17][] = $valeur;
+            case 17: $this->allDay[17][] = $date[1];
+                $this->allDay[17][] = $valeur;
                 break;
 
-            case 18: $this->allDay[18][] = $valeur;
+            case 18: $this->allDay[18][] = $date[1];
+                $this->allDay[18][] = $valeur;
                 break;
 
-            case 19: $this->allDay[19][] = $valeur;
+            case 19: $this->allDay[19][] = $date[1];
+                $this->allDay[19][] = $valeur;
                 break;
 
-            case 20: $this->allDay[20][] = $valeur;
+            case 20: $this->allDay[20][] = $date[1];
+                $this->allDay[20][] = $valeur;
                 break;
 
-            case 21: $this->allDay[21][] = $valeur;
+            case 21: $this->allDay[21][] = $date[1];
+                $this->allDay[21][] = $valeur;
                 break;
 
-            case 22: $this->allDay[22][] = $valeur;
+            case 22: $this->allDay[22][] = $date[1];
+                $this->allDay[22][] = $valeur;
                 break;
 
-            case 23: $this->allDay[23][] = $valeur;
+            case 23: $this->allDay[23][] = $date[1];
+                $this->allDay[23][] = $valeur;
                 break;
 
-            case 24: $this->allDay[24][] = $valeur;
+            case 24: $this->allDay[24][] = $date[1];
+                $this->allDay[24][] = $valeur;
                 break;
 
-            case 25: $this->allDay[25][] = $valeur;
+            case 25: $this->allDay[25][] = $date[1];
+                $this->allDay[25][] = $valeur;
                 break;
 
-            case 26: $this->allDay[26][] = $valeur;
+            case 26: $this->allDay[26][] = $date[1];
+                $this->allDay[26][] = $valeur;
                 break;
 
-            case 27: $this->allDay[27][] = $valeur;
+            case 27:  $this->allDay[27][] = $date[1];
+                $this->allDay[27][] = $valeur;
                 break;
 
-            case 28: $this->allDay[28][] = $valeur;
+            case 28: $this->allDay[28][] = $date[1];
+                $this->allDay[28][] = $valeur;
                 break;
 
-            case 29: $this->allDay[29][] = $valeur;
+            case 29: $this->allDay[29][] = $date[1];
+                $this->allDay[29][] = $valeur;
                 break;
 
-            case 30: $this->allDay[30][] = $valeur;
+            case 30: $this->allDay[30][] = $date[1];
+                $this->allDay[30][] = $valeur;
                 break;
 
-            case 31: $this->allDay[31][] = $valeur;
+            case 31: $this->allDay[31][] = $date[1];
+                $this->allDay[31][] = $valeur;
                 break;
 
         }
 
-        //dd($this->allDay[9]);
     }
 
 
