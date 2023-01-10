@@ -4,6 +4,12 @@
 
     <style>
 
+        h1{
+            font-family: sans-serif;
+            font-size: 40px;
+            margin: 40px;
+        }
+
         .graph{
             display: flex;
             flex-direction:column;
@@ -13,27 +19,58 @@
             width :1000px
         }
 
+        .btGraph
+        {
+            display: flex;
+            justify-content: center;
+            margin: 40px 10px;
+        }
+
+        .btn {
+            margin: 20px;
+            color: #fff;
+            background-color: #00489a;
+            border-color: #00489a;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 400;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
+
     </style>
     <div class="container">
+
         <div class="graph" id="canvasWrapper" style=" ">
 
-        <canvas id="ChartHum" width="2000" height="200"></canvas>
-        <canvas id="ChartCo2" width="2000" height="200"></canvas>
-        <canvas id="ChartTemp" width="2000" height="200"></canvas>
+            <h1>{{ room.getName() }}</h1>
 
-            <button onclick="showChartData('jour')"> Jour</button>
+            <canvas id="ChartHum" width="2000" height="200"></canvas>
+            <canvas id="ChartCo2" width="2000" height="200"></canvas>
+            <canvas id="ChartTemp" width="2000" height="200"></canvas>
+
+            <!--<button onclick="showChartData('jour')"> Jour</button>
             <button onclick="showChartData('semaine')"> Semaine</button>
-            <button onclick="showChartData('mois')"> Année</button>
-
-
-
+            <button onclick="showChartData('mois')"> Année</button>-->
 
             <!-- % for date in dateT %} { date.dateCapture }} % endfor %} -->
-
-            {{ room.getName() }}
-
-
+            <div class="btGraph">
+                <a class="btn btn-primary blue" onclick="showChartData('jour')">Jour</a>
+                <a class="btn btn-primary blue" onclick="showChartData('semaine')">Semaine</a>
+                <a class="btn btn-primary blue" onclick="showChartData('mois')">Année</a>
+            </div>
         </div>
+
     </div>
 
 
