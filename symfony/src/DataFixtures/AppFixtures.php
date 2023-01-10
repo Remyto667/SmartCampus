@@ -28,6 +28,14 @@ class AppFixtures extends Fixture
         $admin->SetRoles(array('ROLE_ADMIN'));
         $manager->persist($admin);
 
+// Technicien
+        $tech = new User();
+        $hash='tech';
+        $tech->setPassword($hash);
+        $tech->setUsername("technicien");
+        $tech->SetRoles(array('ROLE_TECH'));
+        $manager->persist($tech);
+
 // type de salle pour les seuils
         $type1= new Type();
         $type1->setName("Salle de classe");
