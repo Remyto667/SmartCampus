@@ -130,7 +130,7 @@
                 animation: box 1s linear infinite;
             }
             {% endif %}
-            {% if co2 >= room.getType().getCo2Min()  or co2 <= room.getType().getCo2Max() %}
+            {% if co2 < room.getType().getCo2Min()  or co2 >= room.getType().getCo2Max() %}
             .C02 {color: white; border: 1px solid black; background-color: #B51b1b;}
             .box:nth-child(3){
                 transform: scale(1);
@@ -245,7 +245,7 @@
                     {% endif %}
                 </div>
                 <div class="boxBouton">
-                    {% if co2 >= room.getType().getCo2Min()  or co2 <= room.getType().getCo2Max() %}
+                    {% if co2 >= room.getType().getCo2Max()  or co2 < room.getType().getCo2Min() %}
                         {% if co2 != "NULL" %}
                             <a class="btn red btn-lg" href="/salle/alerte/{{room.id}}/3" role="button" >Afficher les indications</a>
                         {% endif %}
@@ -259,9 +259,9 @@
             <div class="textSensor">
                 <br><br>
                 <ul>Des conseils vous seront donnés si :
-                    <li>-16 °C / + 24 °C </li>
-                    <li>-41 % / + 59% d'humidité </li>
-                    <li>+ 800 PPM </li>
+                    <li>- {{ room.getType().getTempMin() }} °C / + {{ room.getType().getTempMax() }} °C </li>
+                    <li>-{{ room.getType().getHumMin() }} % / + {{ room.getType().getHumMax() }}% d'humidité </li>
+                    <li>- {{ room.getType().getCo2Min() }} PPM / +{{ room.getType().getCo2Max() }}PPM </li>
                 </ul>
             </div>
         </div>
