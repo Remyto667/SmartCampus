@@ -10,11 +10,12 @@
 
 
 extern RtcDateTime globalDateTime;
-extern TempAndHumidity globalTemp;
+extern float globalTemp;
+extern float globalHum;
 extern u16 global_tvoc_ppb, global_co2_eq_ppm;
 //extern char globalDatestring[20];
 extern String globalNTPDatestring;
 
-extern std::vector< TempAndHumidity > *globalTemps;
-extern std::vector< TempAndHumidity > *globalHums;
-extern std::vector< u16 > *globals_co2;
+extern std::vector< float > globalTemps;
+extern std::vector< float > globalHums;
+extern std::vector< u16 > globals_co2;

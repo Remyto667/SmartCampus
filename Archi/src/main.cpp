@@ -23,7 +23,8 @@ void setup()
   WiFi.disconnect(true);
   //disconnect form wifi to set new wifi connection
   WiFi.mode(WIFI_STA);
-  WiFi.begin(telSsid, password);
+  WiFi.begin(ssid, WPA2_AUTH_PEAP, EAP_IDENTITY, EAP_USERNAME, EAP_PASSWORD);
+ // WiFi.begin(telSsid, password);
 
   while(WiFi.status() != WL_CONNECTED) 
   {

@@ -30,7 +30,7 @@ void vTask_Display(void* pvParameters)
     display.setTextAlignment(TEXT_ALIGN_RIGHT);
 
     display.drawString(100, 10, globalNTPDatestring);
-    display.drawString(50, 30, " T:" + String(globalTemp.temperature, 0) + " H:" + String(globalTemp.humidity, 0));
+    display.drawString(50, 30, " T:" + String(globalTemp, 0) + " H:" + String(globalHum, 0));
     display.drawString(50, 50, String(global_co2_eq_ppm)+"ppm");
     // write the buffer to the display
     display.display();

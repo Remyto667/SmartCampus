@@ -1,8 +1,9 @@
 #include "vTask_Temp.h"
 
-TempAndHumidity globalTemp;
-std::vector< TempAndHumidity > *globalTemps;
-std::vector< TempAndHumidity > *globalHums;
+float globalTemp;
+float globalHum;
+std::vector< float > globalTemps;
+std::vector< float > globalHums;
 
 DHTesp dht;
 /** Pin number for DHT11 data pin */
@@ -33,10 +34,13 @@ void vTask_Temp( void*pvParameters)
   uxPriority= uxTaskPriorityGet( NULL);
   for(;;)
   {
-    globalTemp = dht.getTempAndHumidity();
-    globalTemps->push_back(globalTemp);
-    printTemperature(globalTemp);
+    globalTemp = dht.getTempAndHumidity().temperature;
+    globalHum = dht.getTempAndHumidity().humidity;
+    globalTemps.push_back(globalTemp);
+    globalHums.push_back(globalHum);
 
-    vTaskDelay( pdMS_TO_TICKS(1000) );
+    printTemperature(dht.getTempAndHumidity());
+
+    vTaskDelay( pdMS_TO_TICKS(60000) );
 	}
 }
