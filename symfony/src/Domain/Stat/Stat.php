@@ -8,6 +8,7 @@ namespace App\Domain\Stat;
 class Stat
 {
     private $moyAllMonth = array();
+    private $allDay = array();
 
     private $dataJanvier= array();
     private $dataFevrier= array();
@@ -31,6 +32,19 @@ class Stat
         $arrayDate =  explode('-', $arrayDateCapture[0]);
 
         return $arrayDate[1];
+    }
+
+    public function transformDay($dateCapture): ?array
+    {
+        $arrayDateCapture = explode(" ", $dateCapture);
+
+        $arrayDate =  explode('-', $arrayDateCapture[0]);
+
+        $arrayResult[]=$arrayDate[2];
+        $arrayResult[]=$arrayDateCapture[1];
+
+        return $arrayResult;
+
     }
 
     public function PushToArrayMoy($arrayMoy):float
@@ -98,14 +112,120 @@ class Stat
         //dd($dataJanvier);
     }
 
+    public function PushToArrayDateDay($date, $valeur): void
+    {
+
+        //dd($date);
+        //dd($valeur);
+
+        switch($date[0]){
+
+            case 1: $this->allDay[1][] = $valeur;
+                    $this->allDay[1][] = $date[1];
+                break;
+
+            case 2: $this->allDay[2][] = $valeur;
+                break;
+
+            case 3: $this->allDay[3][] = $valeur;
+                break;
+
+            case 4: $this->allDay[4][] = $valeur;
+                break;
+
+            case 5: $this->allDay[5][] = $valeur;
+                break;
+
+            case 6: $this->allDay[6][] = $valeur;
+                break;
+
+            case 7: $this->allDay[7][] = $valeur;
+                break;
+
+            case 8: $this->allDay[8][] = $valeur;
+                break;
+
+            case 9: $this->allDay[9][] = $valeur;
+                    $this->allDay[9][] = $date[1];
+                break;
+
+            case 10: $this->allDay[10][] = $valeur;
+                break;
+
+            case 11: $this->allDay[11][] = $valeur;
+                break;
+
+            case 12: $this->allDay[12][] = $valeur;
+                break;
+
+            case 13: $this->allDay[13][] = $valeur;
+                break;
+
+            case 14: $this->allDay[14][] = $valeur;
+                break;
+
+            case 15: $this->allDay[15][] = $valeur;
+                break;
+
+            case 16: $this->allDay[16][] = $valeur;
+                break;
+
+            case 17: $this->allDay[17][] = $valeur;
+                break;
+
+            case 18: $this->allDay[18][] = $valeur;
+                break;
+
+            case 19: $this->allDay[19][] = $valeur;
+                break;
+
+            case 20: $this->allDay[20][] = $valeur;
+                break;
+
+            case 21: $this->allDay[21][] = $valeur;
+                break;
+
+            case 22: $this->allDay[22][] = $valeur;
+                break;
+
+            case 23: $this->allDay[23][] = $valeur;
+                break;
+
+            case 24: $this->allDay[24][] = $valeur;
+                break;
+
+            case 25: $this->allDay[25][] = $valeur;
+                break;
+
+            case 26: $this->allDay[26][] = $valeur;
+                break;
+
+            case 27: $this->allDay[27][] = $valeur;
+                break;
+
+            case 28: $this->allDay[28][] = $valeur;
+                break;
+
+            case 29: $this->allDay[29][] = $valeur;
+                break;
+
+            case 30: $this->allDay[30][] = $valeur;
+                break;
+
+            case 31: $this->allDay[31][] = $valeur;
+                break;
+
+        }
+
+        //dd($this->allDay[9]);
+    }
+
 
     public function PopulateMoy() : array {
 
         //dd($this->dataJanvier);
 
         $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataJanvier));
-
-
         $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataFevrier));
         $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataMars));
         $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataAvril));
@@ -124,6 +244,15 @@ class Stat
 
 
     }
+
+    /**
+     * @return array
+     */
+    public function getAllDay(): array
+    {
+        return $this->allDay;
+    }
+
 
 
 
