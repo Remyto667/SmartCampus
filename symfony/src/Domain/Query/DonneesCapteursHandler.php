@@ -61,5 +61,11 @@ class DonneesCapteursHandler
         return $data;
     }
 
+    public function handleAlerte(DonneesCapteursQuery $requete)
+    {
+        $data = $this->donneesCapteurs->getDonneesPourHistoriqueAlerte($requete->getTag());
+        return $data;
+    }
+
 
 }

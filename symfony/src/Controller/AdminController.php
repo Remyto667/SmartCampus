@@ -410,6 +410,76 @@ class AdminController extends AbstractController
         ]);
     }
 
+    #[Route('admin/alerte_selection', name: 'alerte_selection')]
+    public function alerte_selection_salle(Request $request, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
+    {
+        $entityManager = $doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\Room');
+        $allRoom = $repository->findAll();
+
+        foreach($allRoom as $room)
+        {
+            $handler->handle(new DonneesCapteursQuery($room, $doctrine));
+        }
+
+
+        return $this->render('admin/alerte_selection.html.twig', [
+            'allRoom' => $allRoom,
+            'allFloor' => $repository->findAllFloor(),
+        ]);
+
+    }
+
+    #[Route('/admin/alerte_vision/{room?}', name: 'alerte_admin')]
+    public function alerte_vision(?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
+    {
+        $statTemp= new Stat\Stat();
+        $statHum= new Stat\Stat();
+        $statCo2= new Stat\Stat();
+        $entityManager = $doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\Room');
+        $allRoom = $repository->findAll();
+
+        foreach($allRoom as $rooms)
+        {
+            $handler->handle(new DonneesCapteursQuery($rooms, $doctrine));
+        }
+
+        $donnees=$handler->handleGraph(new DonneesCapteursQuery($room, $doctrine));             // Récupération de toutes les données de l'API
+
+        foreach($donnees["T"] as $temp){
+
+            $statTemp->PushToArrayDateMonth($statTemp->transformMonth($temp->dateCapture),doubleval($temp->valeur));        // On classe les données en fonction de leur mois
+
+        }
+
+        $moyTemp=json_encode($statTemp->PopulateMoy());                 // On calcule la moyenne de chaque mois et on structure en tableau
+
+        foreach($donnees["H"] as $hum){
+
+            $statHum->PushToArrayDateMonth($statHum->transformMonth($hum->dateCapture),doubleval($hum->valeur));        // Hum
+
+        }
+
+        $moyHum=json_encode($statHum->PopulateMoy());       // Hum
+
+        foreach($donnees["C"] as $co2){
+
+            $statCo2->PushToArrayDateMonth($statCo2->transformMonth($co2->dateCapture),doubleval($co2->valeur));        // Co2
+
+        }
+
+        $moyCo2=json_encode($statCo2->PopulateMoy());       // Co2
+
+
+        return $this->render('admin/alerteStat.html.twig', [
+            'room' => $room,
+            'dataTemp' =>$moyTemp,
+            'dataHum' =>$moyHum,
+            'dataCo2' =>$moyCo2,
+
+        ]);
+    }
 
     /*
         #[Route('/admin/lister_alertes', name: 'listerAlertes')]
