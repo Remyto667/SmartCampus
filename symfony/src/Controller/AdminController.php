@@ -284,7 +284,7 @@ class AdminController extends AbstractController
         $donnees=$handler->handle(new DonneesCapteursQuery($room, $doctrine));
 
         $conseils=$handler2->handle(new ConseilAlerteQuery($room, $doctrine));
-        var_dump($conseils);
+
         return $this->render('admin/donnees_salle_admin.html.twig', [
             'conseil' => $conseils[0],
             'allRoom' => $allRoom,

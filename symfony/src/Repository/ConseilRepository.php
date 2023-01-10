@@ -41,8 +41,9 @@ class ConseilRepository extends ServiceEntityRepository
 
     public function findAdvice(bool $temp_alerte_sup, bool $temp_alerte_inf, bool $hum_alerte_sup, bool $hum_alerte_inf, bool $co2_alerte_sup, bool $co2_alerte_inf, bool $temp_sup_outside, bool $no_data): array
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.temp_alerte_sup = :temp_alerte_sup')
+        /*
+        $result = $this->createQueryBuilder('c')
+            ->where('c.temp_alerte_sup = :temp_alerte_sup')
             ->andWhere('c.temp_alerte_inf = :temp_alerte_inf')
             ->andWhere('c.hum_alerte_sup = :hum_alerte_sup')
             ->andWhere('c.hum_alerte_sup = :hum_alerte_inf')
@@ -50,18 +51,43 @@ class ConseilRepository extends ServiceEntityRepository
             ->andWhere('c.co2_alerte_inf = :co2_alerte_inf')
             ->andWhere('c.temp_sup_outside = :temp_sup_outside')
             ->andWhere('c.no_data = :no_data')
-            ->setParameter('temp_alerte_sup', $temp_alerte_sup)
-            ->setParameter('temp_alerte_inf', $temp_alerte_inf)
-            ->setParameter('hum_alerte_sup', $hum_alerte_sup)
-            ->setParameter('hum_alerte_inf', $hum_alerte_inf)
-            ->setParameter('co2_alerte_sup', $co2_alerte_sup)
-            ->setParameter('co2_alerte_inf', $co2_alerte_inf)
-            ->setParameter('temp_sup_outside', $temp_sup_outside)
-            ->setParameter('no_data', $no_data)
+            ->setParameter('temp_alerte_sup', (int)$temp_alerte_sup)
+            ->setParameter('temp_alerte_inf', (int)$temp_alerte_inf)
+            ->setParameter('hum_alerte_sup', (int)$hum_alerte_sup)
+            ->setParameter('hum_alerte_inf', (int)$hum_alerte_inf)
+            ->setParameter('co2_alerte_sup', (int)$co2_alerte_sup)
+            ->setParameter('co2_alerte_inf', (int)$co2_alerte_inf)
+            ->setParameter('temp_sup_outside', (int)$temp_sup_outside)
+            ->setParameter('no_data', (int)$no_data)
             ->getQuery()
             ->getResult();
 
+        var_dump($temp_alerte_sup,$temp_alerte_inf,$hum_alerte_sup,$hum_alerte_inf,$co2_alerte_sup,$co2_alerte_inf,$temp_sup_outside,$no_data);
+        var_dump($result);
+        return $result;
+    */
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $qb->select('c')
+            ->from('App/Entity/Conseil', 'c')
+            ->where('c.temp_alerte_sup = ?1')
+            ->andWhere('c.temp_alerte_inf = ?2')
+            ->andWhere('c.hum_alerte_sup = ?3')
+            ->andWhere('c.hum_alerte_sup = ?4')
+            ->andWhere('c.co2_alerte_sup = ?5')
+            ->andWhere('c.co2_alerte_inf = ?6')
+            ->andWhere('c.temp_sup_outside = 0')
+            ->andWhere('c.no_data = 0')
+            ->setParameter(1, (int)$temp_alerte_sup)
+            ->setParameter(1, (int)$temp_alerte_inf)
+            ->setParameter(1, (int)$hum_alerte_sup)
+            ->setParameter(1, (int)$hum_alerte_inf)
+            ->setParameter(1, (int)$co2_alerte_sup)
+            ->setParameter(1, (int)$co2_alerte_inf);
+        $query = $qb->getQuery();
+        $result = $query->getResult();
 
+        return $result;
     }
 
 //    /**

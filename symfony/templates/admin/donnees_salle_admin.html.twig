@@ -1,4 +1,4 @@
-{% extends 'basewithnavbar.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}Données d'une salle{% endblock %}
 
@@ -217,29 +217,7 @@
                 </div>
             </div>
 
-            <div class="boutonAlerte">
-                <div class="boxBouton">
-                    {% if temp > room.getType().getTempMax() or temp < room.getType().getTempMin() and temp != "NULL" %}
-                        {% if temp != "NULL" %}
-                            <a class="btn red btn-lg" href="/salle/alerte/{{room.id}}/1 " role="button">Afficher les indications</a>
-                        {% endif %}
-                    {% endif %}
-                </div>
-                <div class="boxBouton">
-                    {% if hum > room.getType().getHumMax() or hum < room.getType().getHumMin()%}
-                        {% if hum != "NULL" %}
-                            <a class="btn red btn-lg" href="/salle/alerte/{{room.id}}/2" role="button">Afficher les indications</a>
-                        {% endif %}
-                    {% endif %}
-                </div>
-                <div class="boxBouton">
-                    {% if co2 >= room.getType().getCo2Max() or co2 < room.getType().getCo2Min() %}
-                        {% if co2 != "NULL" %}
-                            <a class="btn red btn-lg" href="/salle/alerte/{{room.id}}/3" role="button" >Afficher les indications</a>
-                        {% endif %}
-                    {% endif %}
-                </div>
-            </div>
+
         </div>
     </div>
     <div class = "container">
@@ -262,11 +240,13 @@
                     </div>
                 </div>
             </div>
-            <div>
+            <div class = "description boxDesc ">
+                <div class="descriptionRoom">
+                    <br><br>
+                    <p style="border-bottom: 2px solid #014898;">Conseil</p>
+                    <p>{{ conseil.conseil }}</p>
+                </div>
 
-                {% if temp > room.getType().getTempMax() or temp < room.getType().getTempMin() or hum > room.getType().getHumMax() or hum < room.getType().getHumMin() or co2 < room.getType().getCo2Min()  or co2 >= room.getType().getCo2Max() %}
-                     {{ conseil.conseil }}
-                {% endif %}
 
             </div>
             <div class="description">

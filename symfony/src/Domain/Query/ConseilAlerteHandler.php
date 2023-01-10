@@ -34,19 +34,19 @@ class ConseilAlerteHandler
         $no_data = false;
 
 
-        if($temp >= $roomType->getTempMax())
+        if($temp > $roomType->getTempMax())
         {
             $temp_alerte_sup = true;
         }
-        if($temp <= $roomType->getTempMin())
+        if($temp < $roomType->getTempMin())
         {
             $temp_alerte_inf = true;
         }
-        if($hum >= $roomType->getHumMax())
+        if($hum > $roomType->getHumMax())
         {
             $hum_alerte_sup = true;
         }
-        if($hum <= $roomType->getHumMin())
+        if($hum < $roomType->getHumMin())
         {
             $hum_alerte_inf = true;
         }
@@ -54,15 +54,15 @@ class ConseilAlerteHandler
         {
             $co2_alerte_sup = true;
         }
-        if($co2 <= $roomType->getCo2Min())
+        if($co2 < $roomType->getCo2Min())
         {
             $co2_alerte_inf = true;
         }
 
-
         //appel du repository et renvoie du conseil
-        return $requete->getAdvice($temp_alerte_sup,$temp_alerte_inf,$hum_alerte_sup,$hum_alerte_inf,$co2_alerte_sup,$co2_alerte_inf,$temp_sup_outside,$no_data);
+        $a = $requete->getAdvice($temp_alerte_sup,$temp_alerte_inf,$hum_alerte_sup,$hum_alerte_inf,$co2_alerte_sup,$co2_alerte_inf,$temp_sup_outside,$no_data);
 
+        return $a;
 
     }
 
@@ -73,5 +73,6 @@ class ConseilAlerteHandler
         //récupere la donnée (donnée du repository)
         //renvoie le conseil
         return $this->typeOfAlert($data, $requete);
+
     }
 }

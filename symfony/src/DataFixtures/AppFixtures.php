@@ -500,8 +500,9 @@ class AppFixtures extends Fixture
         $manager->persist($sensor17);
 
 // Les Conseils
+        //rien
         $conseil1 = new Conseil();
-        $conseil1->setConseil("a");
+        $conseil1->setConseil("");
         $conseil1->setTempAlerteSup(false);
         $conseil1->setTempAlerteInf(false);
         $conseil1->setHumAlerteSup(false);
@@ -512,8 +513,9 @@ class AppFixtures extends Fixture
         $conseil1->setNoData(false);
         $manager->persist($conseil1);
 
+        //alerte unitaire
         $conseil2 = new Conseil();
-        $conseil2->setConseil("aide");
+        $conseil2->setConseil("Ouvrez les fenetres et les portes pour faire circuler l'air");
         $conseil2->setTempAlerteSup(true);
         $conseil2->setTempAlerteInf(false);
         $conseil2->setHumAlerteSup(false);
@@ -523,6 +525,392 @@ class AppFixtures extends Fixture
         $conseil2->setTempSupOutside(false);
         $conseil2->setNoData(false);
         $manager->persist($conseil2);
+
+        $conseil3 = new Conseil();
+        $conseil3->setConseil("aide 2");
+        $conseil3->setTempAlerteSup(false);
+        $conseil3->setTempAlerteInf(true);
+        $conseil3->setHumAlerteSup(false);
+        $conseil3->setHumAlerteInf(false);
+        $conseil3->setCo2AlerteSup(false);
+        $conseil3->setCo2AlerteInf(false);
+        $conseil3->setTempSupOutside(false);
+        $conseil3->setNoData(false);
+        $manager->persist($conseil3);
+
+        $conseil4 = new Conseil();
+        $conseil4->setConseil("aide 3");
+        $conseil4->setTempAlerteSup(false);
+        $conseil4->setTempAlerteInf(false);
+        $conseil4->setHumAlerteSup(true);
+        $conseil4->setHumAlerteInf(false);
+        $conseil4->setCo2AlerteSup(false);
+        $conseil4->setCo2AlerteInf(false);
+        $conseil4->setTempSupOutside(false);
+        $conseil4->setNoData(false);
+        $manager->persist($conseil4);
+
+        $conseil5 = new Conseil();
+        $conseil5->setConseil("augmentez la température");
+        $conseil5->setTempAlerteSup(false);
+        $conseil5->setTempAlerteInf(false);
+        $conseil5->setHumAlerteSup(false);
+        $conseil5->setHumAlerteInf(true);
+        $conseil5->setCo2AlerteSup(false);
+        $conseil5->setCo2AlerteInf(false);
+        $conseil5->setTempSupOutside(false);
+        $conseil5->setNoData(false);
+        $manager->persist($conseil5);
+
+        $conseil6 = new Conseil();
+        $conseil6->setConseil("augmentez la température");
+        $conseil6->setTempAlerteSup(false);
+        $conseil6->setTempAlerteInf(false);
+        $conseil6->setHumAlerteSup(false);
+        $conseil6->setHumAlerteInf(false);
+        $conseil6->setCo2AlerteSup(true);
+        $conseil6->setCo2AlerteInf(false);
+        $conseil6->setTempSupOutside(false);
+        $conseil6->setNoData(false);
+        $manager->persist($conseil6);
+
+        $conseil7 = new Conseil();
+        $conseil7->setConseil("augmentez la température");
+        $conseil7->setTempAlerteSup(false);
+        $conseil7->setTempAlerteInf(false);
+        $conseil7->setHumAlerteSup(false);
+        $conseil7->setHumAlerteInf(false);
+        $conseil7->setCo2AlerteSup(false);
+        $conseil7->setCo2AlerteInf(true);
+        $conseil7->setTempSupOutside(false);
+        $conseil7->setNoData(false);
+        $manager->persist($conseil7);
+
+
+        //toute les alertes superieures ensemble
+        $conseil8 = new Conseil();
+        $conseil8->setConseil("aide 8");
+        $conseil8->setTempAlerteSup(true);
+        $conseil8->setTempAlerteInf(false);
+        $conseil8->setHumAlerteSup(true);
+        $conseil8->setHumAlerteInf(false);
+        $conseil8->setCo2AlerteSup(false);
+        $conseil8->setCo2AlerteInf(false);
+        $conseil8->setTempSupOutside(false);
+        $conseil8->setNoData(false);
+        $manager->persist($conseil8);
+
+        $conseil9 = new Conseil();
+        $conseil9->setConseil("aide 9");
+        $conseil9->setTempAlerteSup(true);
+        $conseil9->setTempAlerteInf(false);
+        $conseil9->setHumAlerteSup(false);
+        $conseil9->setHumAlerteInf(false);
+        $conseil9->setCo2AlerteSup(true);
+        $conseil9->setCo2AlerteInf(false);
+        $conseil9->setTempSupOutside(false);
+        $conseil9->setNoData(false);
+        $manager->persist($conseil9);
+
+        $conseil10 = new Conseil();
+        $conseil10->setConseil("aide 10");
+        $conseil10->setTempAlerteSup(false);
+        $conseil10->setTempAlerteInf(false);
+        $conseil10->setHumAlerteSup(true);
+        $conseil10->setHumAlerteInf(false);
+        $conseil10->setCo2AlerteSup(true);
+        $conseil10->setCo2AlerteInf(false);
+        $conseil10->setTempSupOutside(false);
+        $conseil10->setNoData(false);
+        $manager->persist($conseil10);
+
+        $conseil11 = new Conseil();
+        $conseil11->setConseil("augmentez la température");
+        $conseil11->setTempAlerteSup(true);
+        $conseil11->setTempAlerteInf(false);
+        $conseil11->setHumAlerteSup(true);
+        $conseil11->setHumAlerteInf(false);
+        $conseil11->setCo2AlerteSup(true);
+        $conseil11->setCo2AlerteInf(false);
+        $conseil11->setTempSupOutside(false);
+        $conseil11->setNoData(false);
+        $manager->persist($conseil11);
+
+        //toute les alertes inférieurs ensemble
+
+        $conseil12 = new Conseil();
+        $conseil12->setConseil("a");
+        $conseil12->setTempAlerteSup(false);
+        $conseil12->setTempAlerteInf(true);
+        $conseil12->setHumAlerteSup(false);
+        $conseil12->setHumAlerteInf(false);
+        $conseil12->setCo2AlerteSup(false);
+        $conseil12->setCo2AlerteInf(true);
+        $conseil12->setTempSupOutside(false);
+        $conseil12->setNoData(false);
+        $manager->persist($conseil12);
+
+        $conseil13 = new Conseil();
+        $conseil13->setConseil("a");
+        $conseil13->setTempAlerteSup(false);
+        $conseil13->setTempAlerteInf(true);
+        $conseil13->setHumAlerteSup(false);
+        $conseil13->setHumAlerteInf(true);
+        $conseil13->setCo2AlerteSup(false);
+        $conseil13->setCo2AlerteInf(false);
+        $conseil13->setTempSupOutside(false);
+        $conseil13->setNoData(false);
+        $manager->persist($conseil13);
+
+        $conseil14 = new Conseil();
+        $conseil14->setConseil("a");
+        $conseil14->setTempAlerteSup(false);
+        $conseil14->setTempAlerteInf(false);
+        $conseil14->setHumAlerteSup(false);
+        $conseil14->setHumAlerteInf(true);
+        $conseil14->setCo2AlerteSup(false);
+        $conseil14->setCo2AlerteInf(true);
+        $conseil14->setTempSupOutside(false);
+        $conseil14->setNoData(false);
+        $manager->persist($conseil14);
+
+        $conseil15 = new Conseil();
+        $conseil15->setConseil("a");
+        $conseil15->setTempAlerteSup(false);
+        $conseil15->setTempAlerteInf(true);
+        $conseil15->setHumAlerteSup(false);
+        $conseil15->setHumAlerteInf(true);
+        $conseil15->setCo2AlerteSup(false);
+        $conseil15->setCo2AlerteInf(true);
+        $conseil15->setTempSupOutside(false);
+        $conseil15->setNoData(false);
+        $manager->persist($conseil15);
+
+        //2 superieur 1 inferieur
+        $conseil16 = new Conseil();
+        $conseil16->setConseil("a");
+        $conseil16->setTempAlerteSup(true);
+        $conseil16->setTempAlerteInf(false);
+        $conseil16->setHumAlerteSup(true);
+        $conseil16->setHumAlerteInf(false);
+        $conseil16->setCo2AlerteSup(false);
+        $conseil16->setCo2AlerteInf(true);
+        $conseil16->setTempSupOutside(false);
+        $conseil16->setNoData(false);
+        $manager->persist($conseil16);
+
+        $conseil17 = new Conseil();
+        $conseil17->setConseil("a");
+        $conseil17->setTempAlerteSup(true);
+        $conseil17->setTempAlerteInf(false);
+        $conseil17->setHumAlerteSup(false);
+        $conseil17->setHumAlerteInf(true);
+        $conseil17->setCo2AlerteSup(true);
+        $conseil17->setCo2AlerteInf(false);
+        $conseil17->setTempSupOutside(false);
+        $conseil17->setNoData(false);
+        $manager->persist($conseil17);
+
+        $conseil18 = new Conseil();
+        $conseil18->setConseil("a");
+        $conseil18->setTempAlerteSup(false);
+        $conseil18->setTempAlerteInf(true);
+        $conseil18->setHumAlerteSup(true);
+        $conseil18->setHumAlerteInf(false);
+        $conseil18->setCo2AlerteSup(true);
+        $conseil18->setCo2AlerteInf(false);
+        $conseil18->setTempSupOutside(false);
+        $conseil18->setNoData(false);
+        $manager->persist($conseil18);
+
+        //2inferieur 1 supérieur
+        $conseil19 = new Conseil();
+        $conseil19->setConseil("a");
+        $conseil19->setTempAlerteSup(true);
+        $conseil19->setTempAlerteInf(false);
+        $conseil19->setHumAlerteSup(false);
+        $conseil19->setHumAlerteInf(true);
+        $conseil19->setCo2AlerteSup(false);
+        $conseil19->setCo2AlerteInf(true);
+        $conseil19->setTempSupOutside(false);
+        $conseil19->setNoData(false);
+        $manager->persist($conseil19);
+
+
+        $conseil20 = new Conseil();
+        $conseil20->setConseil("a");
+        $conseil20->setTempAlerteSup(false);
+        $conseil20->setTempAlerteInf(true);
+        $conseil20->setHumAlerteSup(true);
+        $conseil20->setHumAlerteInf(false);
+        $conseil20->setCo2AlerteSup(false);
+        $conseil20->setCo2AlerteInf(true);
+        $conseil20->setTempSupOutside(false);
+        $conseil20->setNoData(false);
+        $manager->persist($conseil20);
+
+
+        $conseil21 = new Conseil();
+        $conseil21->setConseil("a");
+        $conseil21->setTempAlerteSup(false);
+        $conseil21->setTempAlerteInf(true);
+        $conseil21->setHumAlerteSup(false);
+        $conseil21->setHumAlerteInf(true);
+        $conseil21->setCo2AlerteSup(true);
+        $conseil21->setCo2AlerteInf(false);
+        $conseil21->setTempSupOutside(false);
+        $conseil21->setNoData(false);
+        $manager->persist($conseil21);
+
+        //temperature bonne
+        $conseil22 = new Conseil();
+        $conseil22->setConseil("a");
+        $conseil22->setTempAlerteSup(false);
+        $conseil22->setTempAlerteInf(false);
+        $conseil22->setHumAlerteSup(true);
+        $conseil22->setHumAlerteInf(false);
+        $conseil22->setCo2AlerteSup(true);
+        $conseil22->setCo2AlerteInf(false);
+        $conseil22->setTempSupOutside(false);
+        $conseil22->setNoData(false);
+        $manager->persist($conseil22);
+
+        $conseil23 = new Conseil();
+        $conseil23->setConseil("a");
+        $conseil23->setTempAlerteSup(false);
+        $conseil23->setTempAlerteInf(false);
+        $conseil23->setHumAlerteSup(false);
+        $conseil23->setHumAlerteInf(true);
+        $conseil23->setCo2AlerteSup(false);
+        $conseil23->setCo2AlerteInf(true);
+        $conseil23->setTempSupOutside(false);
+        $conseil23->setNoData(false);
+        $manager->persist($conseil23);
+
+        $conseil24 = new Conseil();
+        $conseil24->setConseil("a");
+        $conseil24->setTempAlerteSup(false);
+        $conseil24->setTempAlerteInf(false);
+        $conseil24->setHumAlerteSup(true);
+        $conseil24->setHumAlerteInf(false);
+        $conseil24->setCo2AlerteSup(false);
+        $conseil24->setCo2AlerteInf(true);
+        $conseil24->setTempSupOutside(false);
+        $conseil24->setNoData(false);
+        $manager->persist($conseil24);
+
+        $conseil25 = new Conseil();
+        $conseil25->setConseil("a");
+        $conseil25->setTempAlerteSup(false);
+        $conseil25->setTempAlerteInf(false);
+        $conseil25->setHumAlerteSup(false);
+        $conseil25->setHumAlerteInf(true);
+        $conseil25->setCo2AlerteSup(true);
+        $conseil25->setCo2AlerteInf(false);
+        $conseil25->setTempSupOutside(false);
+        $conseil25->setNoData(false);
+        $manager->persist($conseil25);
+
+        //humidite bonne
+        $conseil26 = new Conseil();
+        $conseil26->setConseil("a");
+        $conseil26->setTempAlerteSup(true);
+        $conseil26->setTempAlerteInf(false);
+        $conseil26->setHumAlerteSup(false);
+        $conseil26->setHumAlerteInf(false);
+        $conseil26->setCo2AlerteSup(true);
+        $conseil26->setCo2AlerteInf(false);
+        $conseil26->setTempSupOutside(false);
+        $conseil26->setNoData(false);
+        $manager->persist($conseil26);
+
+        $conseil27 = new Conseil();
+        $conseil27->setConseil("a");
+        $conseil27->setTempAlerteSup(false);
+        $conseil27->setTempAlerteInf(true);
+        $conseil27->setHumAlerteSup(false);
+        $conseil27->setHumAlerteInf(false);
+        $conseil27->setCo2AlerteSup(false);
+        $conseil27->setCo2AlerteInf(true);
+        $conseil27->setTempSupOutside(false);
+        $conseil27->setNoData(false);
+        $manager->persist($conseil27);
+
+
+        $conseil28 = new Conseil();
+        $conseil28->setConseil("a");
+        $conseil28->setTempAlerteSup(true);
+        $conseil28->setTempAlerteInf(false);
+        $conseil28->setHumAlerteSup(false);
+        $conseil28->setHumAlerteInf(false);
+        $conseil28->setCo2AlerteSup(false);
+        $conseil28->setCo2AlerteInf(true);
+        $conseil28->setTempSupOutside(false);
+        $conseil28->setNoData(false);
+        $manager->persist($conseil28);
+
+
+        $conseil29 = new Conseil();
+        $conseil29->setConseil("a");
+        $conseil29->setTempAlerteSup(false);
+        $conseil29->setTempAlerteInf(true);
+        $conseil29->setHumAlerteSup(false);
+        $conseil29->setHumAlerteInf(false);
+        $conseil29->setCo2AlerteSup(true);
+        $conseil29->setCo2AlerteInf(false);
+        $conseil29->setTempSupOutside(false);
+        $conseil29->setNoData(false);
+        $manager->persist($conseil29);
+
+        //co2 bon
+        $conseil30 = new Conseil();
+        $conseil30->setConseil("a");
+        $conseil30->setTempAlerteSup(true);
+        $conseil30->setTempAlerteInf(false);
+        $conseil30->setHumAlerteSup(true);
+        $conseil30->setHumAlerteInf(false);
+        $conseil30->setCo2AlerteSup(false);
+        $conseil30->setCo2AlerteInf(false);
+        $conseil30->setTempSupOutside(false);
+        $conseil30->setNoData(false);
+        $manager->persist($conseil30);
+
+        $conseil31 = new Conseil();
+        $conseil31->setConseil("a");
+        $conseil31->setTempAlerteSup(false);
+        $conseil31->setTempAlerteInf(true);
+        $conseil31->setHumAlerteSup(false);
+        $conseil31->setHumAlerteInf(true);
+        $conseil31->setCo2AlerteSup(false);
+        $conseil31->setCo2AlerteInf(false);
+        $conseil31->setTempSupOutside(false);
+        $conseil31->setNoData(false);
+        $manager->persist($conseil31);
+
+        $conseil32 = new Conseil();
+        $conseil32->setConseil("Ouvrez les fenetres et les portes pour faire circuler l'air");
+        $conseil32->setTempAlerteSup(true);
+        $conseil32->setTempAlerteInf(false);
+        $conseil32->setHumAlerteSup(false);
+        $conseil32->setHumAlerteInf(true);
+        $conseil32->setCo2AlerteSup(false);
+        $conseil32->setCo2AlerteInf(false);
+        $conseil32->setTempSupOutside(false);
+        $conseil32->setNoData(false);
+        $manager->persist($conseil32);
+
+        $conseil33 = new Conseil();
+        $conseil33->setConseil("a");
+        $conseil33->setTempAlerteSup(false);
+        $conseil33->setTempAlerteInf(true);
+        $conseil33->setHumAlerteSup(true);
+        $conseil33->setHumAlerteInf(false);
+        $conseil33->setCo2AlerteSup(false);
+        $conseil33->setCo2AlerteInf(false);
+        $conseil33->setTempSupOutside(false);
+        $conseil33->setNoData(false);
+        $manager->persist($conseil33);
+
 
         $manager->flush();
     }
