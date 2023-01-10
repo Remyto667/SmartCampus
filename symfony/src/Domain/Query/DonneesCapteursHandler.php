@@ -48,6 +48,40 @@ class DonneesCapteursHandler
         }
     }
 
+    public function countAlertTemp($data, $requete):int
+    {
+        $nb=0;
+        $temp = $data["T"]->valeur;
+        $roomType = $requete->getRoom()->getType();
+        if(($temp <= $roomType->getTempMin()) or ($temp > $roomType->getTempMax()))
+        {
+            $nb+=1;
+        }
+        return $nb;
+    }
+    public function countAlertCo2($data, $requete):int
+    {
+        $nb=0;
+        $co2 = $data["C"]->valeur;
+        $roomType = $requete->getRoom()->getType();
+        if(($co2 <= $roomType->getCo2Min()) or ($co2 > $roomType->getCo2Max()))
+        {
+            $nb+=1;
+        }
+        return $nb;
+    }
+    public function countAlertHum($data, $requete):int
+    {
+        $nb=0;
+        $hum = $data["H"]->valeur;
+        $roomType = $requete->getRoom()->getType();
+        if(($hum <= $roomType->getHumMin()) or ($hum > $roomType->getHumMax()))
+        {
+            $nb+=1;
+        }
+        return $nb;
+    }
+
     public function handle(DonneesCapteursQuery $requete)
     {
         $data = $this->donneesCapteurs->getDonneesPourSalle($requete->getTag());
@@ -61,10 +95,20 @@ class DonneesCapteursHandler
         return $data;
     }
 
-    public function handleAlerte(DonneesCapteursQuery $requete)
+    public function handleNbAlertTemp(DonneesCapteursQuery $requete):int
     {
-        $data = $this->donneesCapteurs->getDonneesPourHistoriqueAlerte(3);
-        return $data;
+        $data = $this->donneesCapteurs->getDonneesPourSalle($requete->getTag());
+        return $this->countAlertTemp($data, $requete);
+    }
+    public function handleNbAlertHum(DonneesCapteursQuery $requete):int
+    {
+        $data = $this->donneesCapteurs->getDonneesPourSalle($requete->getTag());
+        return $this->countAlertHum($data, $requete);
+    }
+    public function handleNbAlertCo2(DonneesCapteursQuery $requete):int
+    {
+        $data = $this->donneesCapteurs->getDonneesPourSalle($requete->getTag());
+        return $this->countAlertCo2($data, $requete);
     }
 
 

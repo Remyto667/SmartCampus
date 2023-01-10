@@ -97,6 +97,8 @@
                     <p> Etage {{ floor }} : </p>
                     {% for room in allRoom %}
                         {% if (room.isIsStock() != 1) and (room.floor == floor) %}
+                            <!-- si nombre d'alert de l'id de la salle est supp a 10 par exemple bouton est rouge et pas ce qu'il y a pour l'istant en dessous-->
+                            <!-- if nbAlert[room.getId()] > 10 -> bouton rouge -->
                             {% if (room.getTempAlert.isAlert == true or room.getCo2Alert.isAlert==true or room.getHumAlert.isAlert==true) %}
                             <a class="btn red btn-danger" href="/admin/donnees_salle_admin/{{ room.id }}">{{ room.name }}</a>
                             {% else %}

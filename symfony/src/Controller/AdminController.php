@@ -275,6 +275,7 @@ class AdminController extends AbstractController
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
 
+        //pour mettre les alertes
         foreach($allRoom as $rooms)
         {
             $handler->handle(new DonneesCapteursQuery($rooms, $doctrine));
@@ -413,26 +414,24 @@ class AdminController extends AbstractController
     #[Route('admin/alerte_selection', name: 'alerte_selection')]
     public function alerte_selection_salle(Request $request, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
     {
-        $statTemp= new Stat\Stat();
-        $statHum= new Stat\Stat();
-        $statCo2= new Stat\Stat();
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
 
-        $donnees = array();
-        // Récupération de toutes les données de l'API
-        foreach($allRoom as $room)
+        $nbAlert = array();
+        foreach($allRoom as $rooms)
         {
-            var_dump($room);
-            $donnees[$room->getId()]=$handler->handleAlerte(new DonneesCapteursQuery($room, $doctrine));
+            //initialize
+            $handler->handle(new DonneesCapteursQuery($rooms, $doctrine));
+            $nbAlert[$rooms->getId()]["T"] = $handler->handleNbAlertTemp(new DonneesCapteursQuery($rooms, $doctrine));
+            $nbAlert[$rooms->getId()]["H"] = $handler->handleNbAlertHum(new DonneesCapteursQuery($rooms, $doctrine));
+            $nbAlert[$rooms->getId()]["C"] = $handler->handleNbAlertCo2(new DonneesCapteursQuery($rooms, $doctrine));
         }
 
         return $this->render('admin/alerte_selection.html.twig', [
-            'room' => $room,
             'allRoom' => $allRoom,
             'allFloor' => $repository->findAllFloor(),
-            'donnees' =>$donnees,
+            'nbAlert' =>$nbAlert,
 
         ]);
 
