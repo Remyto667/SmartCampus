@@ -39,10 +39,8 @@ class AdminController extends AbstractController
     #[Route('/admin/profil', name: 'profil_admin')]
     public function connexion_admin(): Response
     {
-        //$username = $this->getUsername();
         return $this->render('admin/profil.html.twig', [
             'controller_name' => 'CONNEXION',
-            //'username' => $username,
         ]);
     }
 
