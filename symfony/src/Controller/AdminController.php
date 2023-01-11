@@ -66,7 +66,7 @@ class AdminController extends AbstractController
             $temp = $donnees["T"]->valeur;
             $hum = $donnees["H"]->valeur;
             $co2 = $donnees["C"]->valeur;
-            if (($temp == "NULL" and $hum == "NULL") or ($hum == "NULL" and $co2 == "NULL") or ($temp == "NULL" and $co2 == "NULL") or ($temp == "NULL" and $hum == "NULL" and $co2 == "NULL")) {
+            if ($temp =="NULL" or $hum =="NULL" or $co2 =="NULL") {
                 $noData[$room->getId()] = 1;
             } else {
                 $noData[$room->getId()] = 0;
