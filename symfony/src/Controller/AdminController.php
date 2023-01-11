@@ -387,8 +387,11 @@ class AdminController extends AbstractController
         }
 
         $allDay=$statTemp->getAllDay();
-        dd($dataDay=json_encode($statTemp->PopulateDayAsLabel()));
+        $dataDay=$statTemp->PopulateDayAsLabel(11);
 
+
+
+        $statTemp->PopulateMoy();
         $moyTemp=json_encode($statTemp->PopulateMoy());                 // On calcule la moyenne de chaque mois et on structure en tableau
 
         foreach($donnees["H"] as $hum){
@@ -413,7 +416,8 @@ class AdminController extends AbstractController
             'dataTemp' =>$moyTemp,
             'dataHum' =>$moyHum,
             'dataCo2' =>$moyCo2,
-            //'allDay'=>$allDay,
+            'dataDay'=>$dataDay,
+            //'data'=>$dataDay,
 
         ]);
     }
