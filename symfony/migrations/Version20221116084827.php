@@ -36,6 +36,8 @@ final class Version20221116084827 extends AbstractMigration
         $this->addSql('ALTER TABLE room CHANGE type type_id INT NOT NULL');
         $this->addSql('ALTER TABLE room ADD CONSTRAINT FK_729F519BC54C8C93 FOREIGN KEY (type_id) REFERENCES type (id)');
         $this->addSql('CREATE INDEX IDX_729F519BC54C8C93 ON room (type_id)');
+        $this->addSql('CREATE TABLE conseil (id INT AUTO_INCREMENT NOT NULL, conseil VARCHAR(255) NOT NULL, temp_alerte_sup TINYINT(1) NOT NULL, temp_alerte_inf TINYINT(1) NOT NULL, hum_alerte_sup TINYINT(1) NOT NULL, hum_alerte_inf TINYINT(1) NOT NULL, co2_alerte_sup TINYINT(1) NOT NULL, co2_alerte_inf TINYINT(1) NOT NULL, temp_sup_outside TINYINT(1) NOT NULL, no_data TINYINT(1) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+
     }
 
     public function down(Schema $schema): void
@@ -57,5 +59,6 @@ final class Version20221116084827 extends AbstractMigration
         $this->addSql('DROP TABLE type');
         $this->addSql('DROP INDEX IDX_729F519BC54C8C93 ON room');
         $this->addSql('ALTER TABLE room CHANGE type_id type INT NOT NULL');
+        $this->addSql('DROP TABLE conseil');
     }
 }
