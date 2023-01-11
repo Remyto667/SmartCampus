@@ -44,7 +44,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/inventaire', name: 'inventaire')]
+    #[Route('/inventaire', name: 'inventaire')]
     public function inventaire(): Response
     {
         return $this->render('admin/inventaire.html.twig', [
@@ -52,7 +52,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/inventaire/lister_salles/{ok?1}', name: 'listerSalles')]
+    #[Route('/inventaire/lister_salles/{ok?1}', name: 'listerSalles')]
     public function lister_salles(ManagerRegistry $doctrine, ?int $ok, DonneesCapteursHandler $handler): Response
     {
         $entityManager = $doctrine->getManager();
@@ -72,7 +72,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/inventaire/lister_systemes', name: 'listerSystemes')]
+    #[Route('/inventaire/lister_systemes', name: 'listerSystemes')]
     public function lister_systemes(ManagerRegistry $doctrine): Response
     {
         $entityManager = $doctrine->getManager();
@@ -87,7 +87,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/inventaire/lister_capteurs', name: 'listerCapteurs')]
+    #[Route('/inventaire/lister_capteurs', name: 'listerCapteurs')]
     public function lister_capteurs(ManagerRegistry $doctrine): Response
     {
         $entityManager = $doctrine->getManager();
@@ -99,7 +99,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/inventaire/ajouter_capteur', name: 'ajouterCapteur')]
+    #[Route('/inventaire/ajouter_capteur', name: 'ajouterCapteur')]
     public function ajouter_capteur(Request $request, EntityManagerInterface $entityManager): Response
     {
         $sensor = new Sensor();
@@ -117,7 +117,7 @@ class AdminController extends AbstractController
 
     }
 
-    #[Route('/admin/inventaire/ajouter_salle', name: 'ajouter_salle')]
+    #[Route('/inventaire/ajouter_salle', name: 'ajouter_salle')]
     public function ajouter_salle(Request $request, ManagerRegistry $doctrine): Response
     {
         $room = new Room();
@@ -136,7 +136,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/inventaire/ajouter_systeme', name: 'ajouterSystemes')]
+    #[Route('/inventaire/ajouter_systeme', name: 'ajouterSystemes')]
     public function add_system(Request $request, EntityManagerInterface $entityManager): Response
     {
         $system = new System();
@@ -155,7 +155,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/inventaire/modifier_systeme/{id?}', name: 'modifierSystemes')]
+    #[Route('/inventaire/modifier_systeme/{id?}', name: 'modifierSystemes')]
     public function update_system(Request $request, ?int $id, ManagerRegistry $doctrine): Response
     {
         $entityManager = $doctrine->getManager();
@@ -177,7 +177,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/inventaire/modifier_salle/{id?}', name: 'modifierSalles')]
+    #[Route('/inventaire/modifier_salle/{id?}', name: 'modifierSalles')]
     public function update_room(Request $request, ?int $id, ManagerRegistry $doctrine): Response
     {
         $entityManager = $doctrine->getManager();
@@ -199,7 +199,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/inventaire/modifier_capteur/{id?}', name: 'modifierCapteurs')]
+    #[Route('/inventaire/modifier_capteur/{id?}', name: 'modifierCapteurs')]
     public function update_capteur(Request $request, ?int $id, ManagerRegistry $doctrine): Response{
         $entityManager =$doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Sensor');
@@ -218,7 +218,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/inventaire/supprimer_capteur/{id?}', name: 'supprimerCapteur')]
+    #[Route('/inventaire/supprimer_capteur/{id?}', name: 'supprimerCapteur')]
     public function supprimer_capteur(Request $request, ?int $id, ManagerRegistry $doctrine): Response{
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Sensor');
@@ -229,7 +229,7 @@ class AdminController extends AbstractController
 
 
     }
-    #[Route('/admin/inventaire/supprimer_systeme/{id?}', name: 'supprimerSysteme')]
+    #[Route('/inventaire/supprimer_systeme/{id?}', name: 'supprimerSysteme')]
     public function supprimer_systeme(Request $request, ?int $id, ManagerRegistry $doctrine): Response{
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\System');
@@ -240,7 +240,7 @@ class AdminController extends AbstractController
         return $this->redirect($this->generateUrl('listerSystemes'));
     }
 
-    #[Route('/admin/inventaire/supprimer_salle/{id?}', name: 'supprimerSalle')]
+    #[Route('/inventaire/supprimer_salle/{id?}', name: 'supprimerSalle')]
     public function supprimer_salle(Request $request, ?int $id, ManagerRegistry $doctrine): Response{
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
