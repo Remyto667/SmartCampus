@@ -40,10 +40,8 @@ class AdminController extends AbstractController
     #[Route('/admin/profil', name: 'profil_admin')]
     public function connexion_admin(): Response
     {
-        //$username = $this->getUsername();
         return $this->render('admin/profil.html.twig', [
             'controller_name' => 'CONNEXION',
-            //'username' => $username,
         ]);
     }
 
@@ -62,17 +60,27 @@ class AdminController extends AbstractController
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
 
-        foreach($allRoom as $room)
-        {
-            $handler->handle(new DonneesCapteursQuery($room, $doctrine));
+        $noData = array();
+        foreach($allRoom as $room) {
+            $donnees = $handler->handle(new DonneesCapteursQuery($room, $doctrine));
+            $temp = $donnees["T"]->valeur;
+            $hum = $donnees["H"]->valeur;
+            $co2 = $donnees["C"]->valeur;
+            if (($temp == "NULL" and $hum == "NULL") or ($hum == "NULL" and $co2 == "NULL") or ($temp == "NULL" and $co2 == "NULL") or ($temp == "NULL" and $hum == "NULL" and $co2 == "NULL")) {
+                $noData[$room->getId()] = 1;
+            } else {
+                $noData[$room->getId()] = 0;
+            }
         }
 
         $rooms = $repository->findAll();
         return $this->render('admin/lister_salles.html.twig', [
-            'rooms' => $allRoom,
             'ok' => $ok,
-            //'form' =>$form->createView(),
+            'allRoom' => $allRoom,
+            'allFloor' => $repository->findAllFloorClassroom(),
+            'noData' => $noData,
         ]);
+
     }
 
     #[Route('/admin/inventaire/lister_systemes', name: 'listerSystemes')]
