@@ -294,6 +294,9 @@
                             {% if conseil.getNoData() %}
                                 <p>Un des capteurs est peut-être hors service</p>
                             {% endif %}
+                            {% if conseil.getCo2AlerteInf() %}
+                                <p>Il semblerait que le capteur est défaillant, veuillez alerter le service technique ou un supérieur</p>
+                            {% endif %}
                     </div>
                 </div>
             {% endif %}
