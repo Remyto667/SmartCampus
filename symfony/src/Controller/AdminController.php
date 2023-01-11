@@ -417,8 +417,8 @@ class AdminController extends AbstractController
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
-        $date1 = '2023-01-08';
-        $date2 = '2023-01-11';
+        $date1 = '2022-12-12';
+        $date2 = '2023-01-12';
 
         $nbAlert = array();
         foreach($allRoom as $rooms)
@@ -431,6 +431,7 @@ class AdminController extends AbstractController
                 $nbAlert[$rooms->getId()]["C"] = $handler->handleNbAlertCo2(new DonneesCapteursQuery($rooms, $doctrine),$date1,$date2);
             }
         }
+        //var_dump($nbAlert);
 
         return $this->render('admin/alerte_selection.html.twig', [
             'allRoom' => $allRoom,

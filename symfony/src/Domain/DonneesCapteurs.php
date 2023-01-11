@@ -9,6 +9,7 @@ class DonneesCapteurs
 {
     private $donneesPourSalle ;
     private $donneesPourGraphique ;
+    private $donneesPourInterval ;
     private $tags ;
 
     private function initTags()
@@ -34,6 +35,8 @@ class DonneesCapteurs
     {
         $this->donneesPourSalle = array();
         $this->donneesPourGraphique = array();
+        $this->donneesPourInterval = array();
+
         $this->tags = array();
         $this->initTags();
 
@@ -80,35 +83,33 @@ class DonneesCapteurs
 
             $client = HttpClient::create();
             foreach ($types as $type => $nom) {
-                $response = $client->request('GET', 'http://sae34.k8s.iut-larochelle.fr/api/captures/interval?date1='.$date1.'&date2='.$date2.'&page=1', [
+                $response = $client->request('GET', 'http://sae34.k8s.iut-larochelle.fr/api/captures/interval?nom='.$nom.'&date1='.$date1.'&date2='.$date2.'&page=1', [
                     'headers' => [
                         'Accept' => 'application/ld+json',
                         'dbname' => $this->tags[$tag],
+                        //'dbname' => 'sae34bdx1eq1',
                         'username' => 'x1eq3',
                         'userpass' => 'bRepOh4UkiaM9c7R'
                     ],
                 ]);
-                $content=$response->getContent();
-                if(sizeof(json_decode($content)) > 0)
+                $content=json_decode($response->getContent());
+                if(sizeof($content) > 0)
                 {
-                    //echo sizeof(json_decode($response->getContent()));
-
-                    //$this->donneesPourSalle[$type] = json_decode($content)[0];
-
-                    foreach(json_decode($content) as $data => $array) {
-                        //var_dump(sizeof($array));
-
-                        $this->donneesPourGraphique[$type][$data] = $array;
-                        //echo $data;
-
+                    //var_dump($content);
+                    foreach($content as $data => $array) {
+                        $arrayMieux = json_decode(json_encode($array), true);
+                        if($arrayMieux["nom"]==$nom)
+                        {
+                            //var_dump($arrayMieux);
+                            $this->donneesPourInterval[$type][$data] = $arrayMieux;
+                        }
                     }
                 }
                 else{
-                    $this->donneesPourGraphique[$type] = (object) array('valeur' => 'NULL', 'dateCapture' => 'NULL');
+                    $this->donneesPourInterval[$type][0] = (object) array('valeur' => 'NULL', 'dateCapture' => 'NULL');
                 }
             }
-
-        return $this->donneesPourGraphique ;
+        return $this->donneesPourInterval ;
     }
 
     public function getDonneesPourGraphique(int $tag):array
