@@ -158,11 +158,8 @@
                     <td><input class="btn btn-primary img delete favorite" type=button onclick="openPopup({{ room.id }})"></td>
                     <td>
                         {% if room.isIsStock() != 1 %}
-                            {% if (room.getTempAlert.isAlert == true or room.getCo2Alert.isAlert==true or room.getHumAlert.isAlert==true) %}
-                                <a class="btn red btn-danger" href="/admin/donnees_salle_admin/{{ room.id }}">{{ room.name }}</a>
-                            {% else %}
                                 <a class="btn btn-primary" href="/admin/donnees_salle_admin/{{ room.id }}" role="button">{{ room.name }}</a>
-                            {% endif %}
+
                         {% else %}
                             {{ room.name }}
                         {% endif %}
