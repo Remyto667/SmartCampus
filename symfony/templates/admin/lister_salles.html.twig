@@ -142,10 +142,12 @@
             </tr>
             </thead>
             <tbody>
-            {% for room in rooms %}
+            {% for room in allRoom %}
                 <tr>
                     <td>
-                        {% if ( (room.getTempAlert.isAlert == true or room.getCo2Alert.isAlert==true or room.getHumAlert.isAlert==true) and room.isIsStock() != 1) %}
+                        <!-- Un warning s'affiche uniquement s'il y a un pb de recuperation des données pour chaque salle --
+                        {/*% if ( (room.getTempAlert.isAlert == true or room.getCo2Alert.isAlert==true or room.getHumAlert.isAlert==true) and room.isIsStock() != 1) %}-->
+                        {% if (noData[room.getId] == 1) %}
                             <img class="img warning" src="{{ asset('img/warning_rouge.png') }}">
                         {% endif %}
                     </td>
