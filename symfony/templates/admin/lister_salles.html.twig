@@ -134,7 +134,7 @@
         <table class="table" id="table">
             <thead class="thead-light">
             <tr>
-                <th scope="col"></th>
+                <th>Donnée(s)<br>indisponible(s)</th>
                 <th scope="col-auto">Nom de la salle</th>
                 <th scope="col">Modifier</th>
                 <th scope="col">Supprimer</th>
@@ -142,10 +142,12 @@
             </tr>
             </thead>
             <tbody>
-            {% for room in rooms %}
+            {% for room in allRoom %}
                 <tr>
                     <td>
-                        {% if ( (room.getTempAlert.isAlert == true or room.getCo2Alert.isAlert==true or room.getHumAlert.isAlert==true) and room.isIsStock() != 1) %}
+                        <!-- Un warning s'affiche uniquement s'il y a un pb de recuperation des données pour chaque salle --
+                        {/*% if ( (room.getTempAlert.isAlert == true or room.getCo2Alert.isAlert==true or room.getHumAlert.isAlert==true) and room.isIsStock() != 1) %}-->
+                        {% if (noData[room.getId] == 1) %}
                             <img class="img warning" src="{{ asset('img/warning_rouge.png') }}">
                         {% endif %}
                     </td>
@@ -156,11 +158,8 @@
                     <td><input class="btn btn-primary img delete favorite" type=button onclick="openPopup({{ room.id }})"></td>
                     <td>
                         {% if room.isIsStock() != 1 %}
-                            {% if (room.getTempAlert.isAlert == true or room.getCo2Alert.isAlert==true or room.getHumAlert.isAlert==true) %}
-                                <a class="btn red btn-danger" href="/admin/donnees_salle_admin/{{ room.id }}">{{ room.name }}</a>
-                            {% else %}
                                 <a class="btn btn-primary" href="/admin/donnees_salle_admin/{{ room.id }}" role="button">{{ room.name }}</a>
-                            {% endif %}
+
                         {% else %}
                             {{ room.name }}
                         {% endif %}
