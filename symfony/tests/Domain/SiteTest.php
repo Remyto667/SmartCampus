@@ -17,9 +17,8 @@ class AdminControllerTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 
-    public function test_page_avec_authentification()
+    /*public function test_page_avec_authentification()
     {
-        /*
         // Arrange
         $client = static::createClient();
         // Act
@@ -31,8 +30,8 @@ class AdminControllerTest extends WebTestCase
         $client->request('GET', '/admin/profil');
         // Assert
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        */
-    }
+
+    }*/
 
 }
 
