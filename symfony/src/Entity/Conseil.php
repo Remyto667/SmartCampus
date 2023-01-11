@@ -122,6 +122,11 @@ class Conseil
         return $this->co2_alerte_inf;
     }
 
+    public function getCo2AlerteInf(): ?bool
+    {
+        return (string)$this->co2_alerte_inf;
+    }
+
     public function setCo2AlerteInf(bool $co2_alerte_inf): self
     {
         $this->co2_alerte_inf = $co2_alerte_inf;

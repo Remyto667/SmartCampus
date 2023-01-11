@@ -523,7 +523,7 @@ class AppFixtures extends Fixture
 
         //alerte unitaire
         $conseil2 = new Conseil();
-        $conseil2->setConseil("Aérer et ventiler, Ouvrez les fenetres et les portes.");
+        $conseil2->setConseil("Ouvrir les fenêtres et baisser le chauffage");
         $conseil2->setTempAlerteSup(true);
         $conseil2->setTempAlerteInf(false);
         $conseil2->setHumAlerteSup(false);
@@ -535,7 +535,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil2);
 
         $conseil3 = new Conseil();
-        $conseil3->setConseil("Fermez les fenêtres et allumez les chauffages si nécéssaire");
+        $conseil3->setConseil("Fermer les fenêtres et augmenter le chauffage");
         $conseil3->setTempAlerteSup(false);
         $conseil3->setTempAlerteInf(true);
         $conseil3->setHumAlerteSup(false);
@@ -547,7 +547,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil3);
 
         $conseil4 = new Conseil();
-        $conseil4->setConseil("Aérer et ventiler, Ouvrez les fenetres et les portes");
+        $conseil4->setConseil("Ouvrir fenêtres et portes pour aérer la pièce");
         $conseil4->setTempAlerteSup(false);
         $conseil4->setTempAlerteInf(false);
         $conseil4->setHumAlerteSup(true);
@@ -559,7 +559,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil4);
 
         $conseil5 = new Conseil();
-        $conseil5->setConseil("Aérer et ventiler, Ouvrez les fenetres et les portes");
+        $conseil5->setConseil("Ouvrir fenêtres et portes pour aérer la pièce");
         $conseil5->setTempAlerteSup(false);
         $conseil5->setTempAlerteInf(false);
         $conseil5->setHumAlerteSup(false);
@@ -571,7 +571,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil5);
 
         $conseil6 = new Conseil();
-        $conseil6->setConseil("Aérer et ventiler, Ouvrez les fenetres et les portes");
+        $conseil6->setConseil("Ouvrir fenêtres et portes pour aérer la pièce");
         $conseil6->setTempAlerteSup(false);
         $conseil6->setTempAlerteInf(false);
         $conseil6->setHumAlerteSup(false);
@@ -583,7 +583,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil6);
 
         $conseil7 = new Conseil();
-        $conseil7->setConseil("Le capteur de Co2 a un problème");
+        $conseil7->setConseil("");
         $conseil7->setTempAlerteSup(false);
         $conseil7->setTempAlerteInf(false);
         $conseil7->setHumAlerteSup(false);
@@ -597,7 +597,7 @@ class AppFixtures extends Fixture
 
         //toute les alertes superieures ensemble
         $conseil8 = new Conseil();
-        $conseil8->setConseil("Aérer et ventiler, Ouvrez les fenetres et les portes");
+        $conseil8->setConseil("Ouvrir les fenêtres et portes + baisser le chauffage");
         $conseil8->setTempAlerteSup(true);
         $conseil8->setTempAlerteInf(false);
         $conseil8->setHumAlerteSup(true);
@@ -609,7 +609,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil8);
 
         $conseil9 = new Conseil();
-        $conseil9->setConseil("Aérer et ventiler, Ouvrez les fenetres et les portes");
+        $conseil9->setConseil("Ouvrir les fenêtres et baisser le chauffage");
         $conseil9->setTempAlerteSup(true);
         $conseil9->setTempAlerteInf(false);
         $conseil9->setHumAlerteSup(false);
@@ -621,7 +621,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil9);
 
         $conseil10 = new Conseil();
-        $conseil10->setConseil("Aérer et ventiler, Ouvrez les fenetres et les portes");
+        $conseil10->setConseil("Ouvrir fenêtres et portes pour aérer la pièce");
         $conseil10->setTempAlerteSup(false);
         $conseil10->setTempAlerteInf(false);
         $conseil10->setHumAlerteSup(true);
@@ -633,7 +633,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil10);
 
         $conseil11 = new Conseil();
-        $conseil11->setConseil("Aérer et ventiler, Ouvrez les fenetres et les portes");
+        $conseil11->setConseil("Ouvrir les fenêtres et portes + baisser le chauffage");
         $conseil11->setTempAlerteSup(true);
         $conseil11->setTempAlerteInf(false);
         $conseil11->setHumAlerteSup(true);
@@ -647,7 +647,7 @@ class AppFixtures extends Fixture
         //toute les alertes inférieurs ensemble
 
         $conseil12 = new Conseil();
-        $conseil12->setConseil("Fermez les fenêtres et allumez les chauffages si nécéssaire, le capteur de Co2 a un problème");
+        $conseil12->setConseil("Fermer les fenêtres et augmenter le chauffage");
         $conseil12->setTempAlerteSup(false);
         $conseil12->setTempAlerteInf(true);
         $conseil12->setHumAlerteSup(false);
@@ -659,7 +659,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil12);
 
         $conseil13 = new Conseil();
-        $conseil13->setConseil("Fermez les fenêtres, allumez les chauffages si nécéssaire et Ouvrez les portes");
+        $conseil13->setConseil("Fermer les fenêtres + chauffage et utiliser un humidificateur d'air, si vous n'en avez pas : aérer la pièce quelques minutes puis augmenter le chauffage");
         $conseil13->setTempAlerteSup(false);
         $conseil13->setTempAlerteInf(true);
         $conseil13->setHumAlerteSup(false);
@@ -671,7 +671,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil13);
 
         $conseil14 = new Conseil();
-        $conseil14->setConseil("Aérer et ventiler, Ouvrez les fenetres et les portes, le capteur de Co2 a un problème");
+        $conseil14->setConseil("Ouvrir fenêtres et portes pour aérer la pièce");
         $conseil14->setTempAlerteSup(false);
         $conseil14->setTempAlerteInf(false);
         $conseil14->setHumAlerteSup(false);
@@ -683,7 +683,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil14);
 
         $conseil15 = new Conseil();
-        $conseil15->setConseil("Fermez les fenêtres, allumez les chauffages si nécéssaire, Ouvrez les portes et le capteur de Co2 a un problème");
+        $conseil15->setConseil("Fermer les fenêtres + chauffage et utiliser un humidificateur d'air, si vous n'en avez pas : aérer la pièce quelques minutes puis augmenter le chauffage");
         $conseil15->setTempAlerteSup(false);
         $conseil15->setTempAlerteInf(true);
         $conseil15->setHumAlerteSup(false);
@@ -696,7 +696,7 @@ class AppFixtures extends Fixture
 
         //2 superieur 1 inferieur
         $conseil16 = new Conseil();
-        $conseil16->setConseil("Aérer et ventiler, Ouvrez les fenetres et les portes, le capteur de Co2 a un problème");
+        $conseil16->setConseil("Ouvrir les fenêtres et portes + baisser le chauffage");
         $conseil16->setTempAlerteSup(true);
         $conseil16->setTempAlerteInf(false);
         $conseil16->setHumAlerteSup(true);
@@ -708,7 +708,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil16);
 
         $conseil17 = new Conseil();
-        $conseil17->setConseil("Aérer et ventiler, Ouvrez les fenetres et les portes");
+        $conseil17->setConseil("Ouvrir les fenêtres et portes + baisser le chauffage");
         $conseil17->setTempAlerteSup(true);
         $conseil17->setTempAlerteInf(false);
         $conseil17->setHumAlerteSup(false);
@@ -720,7 +720,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil17);
 
         $conseil18 = new Conseil();
-        $conseil18->setConseil("Fermez les fenêtres, allumez les chauffages si nécéssaire et Ouvrez les portes");
+        $conseil18->setConseil("Fermer les fenêtres et augmenter le chauffage et utiliser un déshumidificateur d'air, si vous n'en avez pas : Aérer la pièce quelques minutes puis augmenter le chauffage");
         $conseil18->setTempAlerteSup(false);
         $conseil18->setTempAlerteInf(true);
         $conseil18->setHumAlerteSup(true);
@@ -733,7 +733,7 @@ class AppFixtures extends Fixture
 
         //2inferieur 1 supérieur
         $conseil19 = new Conseil();
-        $conseil19->setConseil("Aérer et ventiler, Ouvrez les fenetres et les portes, le capteur de Co2 a un problème");
+        $conseil19->setConseil("Ouvrir les fenêtres et portes + baisser le chauffage");
         $conseil19->setTempAlerteSup(true);
         $conseil19->setTempAlerteInf(false);
         $conseil19->setHumAlerteSup(false);
@@ -746,7 +746,7 @@ class AppFixtures extends Fixture
 
 
         $conseil20 = new Conseil();
-        $conseil20->setConseil("Fermez les fenêtres, allumez les chauffages si nécéssaire et ouvrez les portes, le capteur de Co2 a un problème");
+        $conseil20->setConseil("Fermer les fenêtres et augmenter le chauffage et utiliser un déshumidificateur d'air, si vous n'en avez pas : Aérer la pièce quelques minutes puis augmenter le chauffage");
         $conseil20->setTempAlerteSup(false);
         $conseil20->setTempAlerteInf(true);
         $conseil20->setHumAlerteSup(true);
@@ -759,7 +759,7 @@ class AppFixtures extends Fixture
 
 
         $conseil21 = new Conseil();
-        $conseil21->setConseil("Fermez les fenêtres, allumez les chauffages si nécéssaire et ouvrez les portes");
+        $conseil21->setConseil("Fermer les fenêtres + chauffage et utiliser un humidificateur d'air, si vous n'en avez pas : aérer la pièce quelques minutes puis augmenter le chauffage");
         $conseil21->setTempAlerteSup(false);
         $conseil21->setTempAlerteInf(true);
         $conseil21->setHumAlerteSup(false);
@@ -772,7 +772,7 @@ class AppFixtures extends Fixture
 
         //temperature bonne
         $conseil22 = new Conseil();
-        $conseil22->setConseil("Aérer et ventiler, Ouvrez les fenetres et les portes");
+        $conseil22->setConseil("Ouvrir fenêtres et portes pour aérer la pièce");
         $conseil22->setTempAlerteSup(false);
         $conseil22->setTempAlerteInf(false);
         $conseil22->setHumAlerteSup(true);
@@ -784,7 +784,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil22);
 
         $conseil23 = new Conseil();
-        $conseil23->setConseil("Aérer et ventiler, Ouvrez les fenetres et les portes, le capteur de Co2 a un problème");
+        $conseil23->setConseil("Ouvrir fenêtres et portes pour aérer la pièce");
         $conseil23->setTempAlerteSup(false);
         $conseil23->setTempAlerteInf(false);
         $conseil23->setHumAlerteSup(false);
@@ -796,7 +796,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil23);
 
         $conseil24 = new Conseil();
-        $conseil24->setConseil("Aérer et ventiler, Ouvrez les fenetres et les portes, le capteur de Co2 a un problème");
+        $conseil24->setConseil("Ouvrir fenêtres et portes pour aérer la pièce");
         $conseil24->setTempAlerteSup(false);
         $conseil24->setTempAlerteInf(false);
         $conseil24->setHumAlerteSup(true);
@@ -808,7 +808,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil24);
 
         $conseil25 = new Conseil();
-        $conseil25->setConseil("Aérer et ventiler, Ouvrez les fenetres et les portes");
+        $conseil25->setConseil("Ouvrir fenêtres et portes pour aérer la pièce");
         $conseil25->setTempAlerteSup(false);
         $conseil25->setTempAlerteInf(false);
         $conseil25->setHumAlerteSup(false);
@@ -821,7 +821,7 @@ class AppFixtures extends Fixture
 
         //humidite bonne
         $conseil26 = new Conseil();
-        $conseil26->setConseil("Aérer et ventiler, Ouvrez les fenetres et les portes");
+        $conseil26->setConseil("Ouvrir les fenêtres et baisser le chauffage");
         $conseil26->setTempAlerteSup(true);
         $conseil26->setTempAlerteInf(false);
         $conseil26->setHumAlerteSup(false);
@@ -833,7 +833,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil26);
 
         $conseil27 = new Conseil();
-        $conseil27->setConseil("Fermez les fenêtres, allumez les chauffages si nécéssaire, le capteur de Co2 a un problème");
+        $conseil27->setConseil("Fermer les fenêtres et augmenter le chauffage");
         $conseil27->setTempAlerteSup(false);
         $conseil27->setTempAlerteInf(true);
         $conseil27->setHumAlerteSup(false);
@@ -846,7 +846,7 @@ class AppFixtures extends Fixture
 
 
         $conseil28 = new Conseil();
-        $conseil28->setConseil("Aérer et ventiler, Ouvrez les fenetres et les portes, le capteur de Co2 a un problème");
+        $conseil28->setConseil("Ouvrir les fenêtres et baisser le chauffage");
         $conseil28->setTempAlerteSup(true);
         $conseil28->setTempAlerteInf(false);
         $conseil28->setHumAlerteSup(false);
@@ -859,7 +859,7 @@ class AppFixtures extends Fixture
 
 
         $conseil29 = new Conseil();
-        $conseil29->setConseil("Fermez les fenêtres, allumez les chauffages si nécéssaire et ouvrez les portes");
+        $conseil29->setConseil("Fermer les fenêtres et augmenter le chauffage");
         $conseil29->setTempAlerteSup(false);
         $conseil29->setTempAlerteInf(true);
         $conseil29->setHumAlerteSup(false);
@@ -872,7 +872,7 @@ class AppFixtures extends Fixture
 
         //co2 bon
         $conseil30 = new Conseil();
-        $conseil30->setConseil("Aérer et ventiler, Ouvrez les fenetres et les portes");
+        $conseil30->setConseil("Ouvrir les fenêtres et portes + baisser le chauffage");
         $conseil30->setTempAlerteSup(true);
         $conseil30->setTempAlerteInf(false);
         $conseil30->setHumAlerteSup(true);
@@ -884,7 +884,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil30);
 
         $conseil31 = new Conseil();
-        $conseil31->setConseil("Fermez les fenêtres, allumez les chauffages si nécéssaire et ouvrez les portes");
+        $conseil31->setConseil(" Fermer les fenêtres + chauffage et utiliser un humidificateur d'air, si vous n'en avez pas : aérer la pièce quelques minutes puis augmenter le chauffage");
         $conseil31->setTempAlerteSup(false);
         $conseil31->setTempAlerteInf(true);
         $conseil31->setHumAlerteSup(false);
@@ -896,7 +896,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil31);
 
         $conseil32 = new Conseil();
-        $conseil32->setConseil("Aérer et ventiler, Ouvrez les fenetres et les portes");
+        $conseil32->setConseil("Ouvrir les fenêtres et portes + baisser le chauffage");
         $conseil32->setTempAlerteSup(true);
         $conseil32->setTempAlerteInf(false);
         $conseil32->setHumAlerteSup(false);
@@ -908,7 +908,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil32);
 
         $conseil33 = new Conseil();
-        $conseil33->setConseil("Fermez les fenêtres, allumez les chauffages si nécéssaire et ouvrez les portes");
+        $conseil33->setConseil("Fermer les fenêtres et augmenter le chauffage et utiliser un déshumidificateur d'air, si vous n'en avez pas : Aérer la pièce quelques minutes puis augmenter le chauffage");
         $conseil33->setTempAlerteSup(false);
         $conseil33->setTempAlerteInf(true);
         $conseil33->setHumAlerteSup(true);
@@ -923,7 +923,7 @@ class AppFixtures extends Fixture
 
         //alerte unitaire
         $conseil35 = new Conseil();
-        $conseil35->setConseil("Fermez les fenêtres, volets, ouvrez les portes et utilisez des ventilateurs");
+        $conseil35->setConseil("Ouvrir les fenêtres la nuit et fermez les volets, éteindre le chauffage");
         $conseil35->setTempAlerteSup(true);
         $conseil35->setTempAlerteInf(false);
         $conseil35->setHumAlerteSup(false);
@@ -935,7 +935,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil35);
 
         $conseil36 = new Conseil();
-        $conseil36->setConseil("Aérer la pièce, Ouvrez les fenetres ou allumez les chauffages");
+        $conseil36->setConseil("Ouvrir les fenêtres");
         $conseil36->setTempAlerteSup(false);
         $conseil36->setTempAlerteInf(true);
         $conseil36->setHumAlerteSup(false);
@@ -947,7 +947,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil36);
 
         $conseil37 = new Conseil();
-        $conseil37->setConseil("Fermez les fenêtres, volets, ouvrez les portes et utilisez des ventilateurs");
+        $conseil37->setConseil("Ouvrir fenêtres et portes pour aérer la pièce");
         $conseil37->setTempAlerteSup(false);
         $conseil37->setTempAlerteInf(false);
         $conseil37->setHumAlerteSup(true);
@@ -959,7 +959,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil37);
 
         $conseil38 = new Conseil();
-        $conseil38->setConseil("Fermez les fenêtres, volets, ouvrez les portes et utilisez des ventilateurs");
+        $conseil38->setConseil("Ouvrir fenêtres et portes pour aérer la pièce");
         $conseil38->setTempAlerteSup(false);
         $conseil38->setTempAlerteInf(false);
         $conseil38->setHumAlerteSup(false);
@@ -971,7 +971,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil38);
 
         $conseil39 = new Conseil();
-        $conseil39->setConseil("Ouvrez les portes et utilisez des ventilateurs");
+        $conseil39->setConseil("Ouvrir fenêtres et portes pour aérer la pièce");
         $conseil39->setTempAlerteSup(false);
         $conseil39->setTempAlerteInf(false);
         $conseil39->setHumAlerteSup(false);
@@ -983,7 +983,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil39);
 
         $conseil40 = new Conseil();
-        $conseil40->setConseil("Le capteur de Co2 a un problème");
+        $conseil40->setConseil("");
         $conseil40->setTempAlerteSup(false);
         $conseil40->setTempAlerteInf(false);
         $conseil40->setHumAlerteSup(false);
@@ -997,7 +997,7 @@ class AppFixtures extends Fixture
 
         //toute les alertes superieures ensemble
         $conseil41 = new Conseil();
-        $conseil41->setConseil("Fermez les fenêtres, volets, ouvrez les portes et utilisez des ventilateurs");
+        $conseil41->setConseil("Ouvrir les fenêtres la nuit et ouvrir les portes, éteindre le chauffage");
         $conseil41->setTempAlerteSup(true);
         $conseil41->setTempAlerteInf(false);
         $conseil41->setHumAlerteSup(true);
@@ -1009,7 +1009,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil41);
 
         $conseil42 = new Conseil();
-        $conseil42->setConseil("Fermez les fenêtres, volets, ouvrez les portes et utilisez des ventilateurs");
+        $conseil42->setConseil("Ouvrir les fenêtres la nuit et fermez les volets, éteindre le chauffage");
         $conseil42->setTempAlerteSup(true);
         $conseil42->setTempAlerteInf(false);
         $conseil42->setHumAlerteSup(false);
@@ -1021,7 +1021,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil42);
 
         $conseil43 = new Conseil();
-        $conseil43->setConseil("Fermez les fenêtres, volets, ouvrez les portes et utilisez des ventilateurs");
+        $conseil43->setConseil("Ouvrir fenêtres et portes pour aérer la pièce");
         $conseil43->setTempAlerteSup(false);
         $conseil43->setTempAlerteInf(false);
         $conseil43->setHumAlerteSup(true);
@@ -1033,7 +1033,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil43);
 
         $conseil44 = new Conseil();
-        $conseil44->setConseil("Fermez les fenêtres, volets, ouvrez les portes et utilisez des ventilateurs");
+        $conseil44->setConseil("Ouvrir les fenêtres la nuit et ouvrir les portes, éteindre le chauffage");
         $conseil44->setTempAlerteSup(true);
         $conseil44->setTempAlerteInf(false);
         $conseil44->setHumAlerteSup(true);
@@ -1047,7 +1047,7 @@ class AppFixtures extends Fixture
         //toute les alertes inférieurs ensemble
 
         $conseil45 = new Conseil();
-        $conseil45->setConseil("Aérer la pièce, Ouvrez les fenetres ou allumez les chauffages, Le capteur de Co2 a un problème");
+        $conseil45->setConseil("Ouvrir les fenêtres");
         $conseil45->setTempAlerteSup(false);
         $conseil45->setTempAlerteInf(true);
         $conseil45->setHumAlerteSup(false);
@@ -1059,7 +1059,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil45);
 
         $conseil46 = new Conseil();
-        $conseil46->setConseil("Aérer la pièce, Ouvrez les fenetres ou allumez les chauffages");
+        $conseil46->setConseil("Ouvrir les fenêtres et portes pour aérer la pièce");
         $conseil46->setTempAlerteSup(false);
         $conseil46->setTempAlerteInf(true);
         $conseil46->setHumAlerteSup(false);
@@ -1071,7 +1071,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil46);
 
         $conseil47 = new Conseil();
-        $conseil47->setConseil("Aérer la pièce, Ouvrez les fenetres et les portes, Le capteur de Co2 a un problème");
+        $conseil47->setConseil("Ouvrir fenêtres et portes pour aérer la pièce");
         $conseil47->setTempAlerteSup(false);
         $conseil47->setTempAlerteInf(false);
         $conseil47->setHumAlerteSup(false);
@@ -1083,7 +1083,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil47);
 
         $conseil48 = new Conseil();
-        $conseil48->setConseil("Aérer la pièce, Ouvrez les fenetres ou allumez le chauffage, ouvrez les portes, Le capteur de Co2 a un problème");
+        $conseil48->setConseil("Ouvrir les fenêtres et portes pour aérer la pièce");
         $conseil48->setTempAlerteSup(false);
         $conseil48->setTempAlerteInf(true);
         $conseil48->setHumAlerteSup(false);
@@ -1096,7 +1096,7 @@ class AppFixtures extends Fixture
 
         //2 superieur 1 inferieur
         $conseil49 = new Conseil();
-        $conseil49->setConseil("Ouvrez les portes, Le capteur de Co2 a un problème");
+        $conseil49->setConseil("Ouvrir les fenêtres la nuit et ouvrir les portes, éteindre le chauffage");
         $conseil49->setTempAlerteSup(true);
         $conseil49->setTempAlerteInf(false);
         $conseil49->setHumAlerteSup(true);
@@ -1108,7 +1108,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil49);
 
         $conseil50 = new Conseil();
-        $conseil50->setConseil("Fermez les fenêtres, volets, ouvrez les portes et utilisez des ventilateurs");
+        $conseil50->setConseil("Ouvrir les fenêtres la nuit, ouvrir les portes et fermez les volets, éteindre le chauffage");
         $conseil50->setTempAlerteSup(true);
         $conseil50->setTempAlerteInf(false);
         $conseil50->setHumAlerteSup(false);
@@ -1120,7 +1120,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil50);
 
         $conseil51 = new Conseil();
-        $conseil51->setConseil("Aérer la pièce, Ouvrez les fenetres ou allumez les chauffages et ouvrez les portes");
+        $conseil51->setConseil("Ouvrir les fenêtres et portes pour aérer la pièce");
         $conseil51->setTempAlerteSup(false);
         $conseil51->setTempAlerteInf(true);
         $conseil51->setHumAlerteSup(true);
@@ -1133,7 +1133,7 @@ class AppFixtures extends Fixture
 
         //2inferieur 1 supérieur
         $conseil52 = new Conseil();
-        $conseil52->setConseil("Fermez les fenêtres, volets, ouvrez les portes et utilisez des ventilateurs, Le capteur de Co2 a un problème");
+        $conseil52->setConseil("Ouvrir les fenêtres la nuit, ouvrir les portes et fermez les volets, éteindre le chauffage");
         $conseil52->setTempAlerteSup(true);
         $conseil52->setTempAlerteInf(false);
         $conseil52->setHumAlerteSup(false);
@@ -1146,7 +1146,7 @@ class AppFixtures extends Fixture
 
 
         $conseil53 = new Conseil();
-        $conseil53->setConseil("Aérer la pièce, Ouvrez les fenetres ou allumez le chauffage, Le capteur de Co2 a un problème");
+        $conseil53->setConseil("Ouvrir les fenêtres et portes pour aérer la pièce");
         $conseil53->setTempAlerteSup(false);
         $conseil53->setTempAlerteInf(true);
         $conseil53->setHumAlerteSup(true);
@@ -1159,7 +1159,7 @@ class AppFixtures extends Fixture
 
 
         $conseil54 = new Conseil();
-        $conseil54->setConseil("Aérer la pièce, Ouvrez les fenetres ou allumez le chauffage");
+        $conseil54->setConseil("Ouvrir les fenêtres et portes pour aérer la pièce");
         $conseil54->setTempAlerteSup(false);
         $conseil54->setTempAlerteInf(true);
         $conseil54->setHumAlerteSup(false);
@@ -1172,7 +1172,7 @@ class AppFixtures extends Fixture
 
         //temperature bonne
         $conseil55 = new Conseil();
-        $conseil55->setConseil("Aérer la pièce, Ouvrez les portes");
+        $conseil55->setConseil("Ouvrir fenêtres et portes pour aérer la pièce");
         $conseil55->setTempAlerteSup(false);
         $conseil55->setTempAlerteInf(false);
         $conseil55->setHumAlerteSup(true);
@@ -1184,7 +1184,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil55);
 
         $conseil56 = new Conseil();
-        $conseil56->setConseil("Aérer la pièce, Ouvrez les portes, Le capteur de Co2 a un problème");
+        $conseil56->setConseil("Ouvrir fenêtres et portes pour aérer la pièce");
         $conseil56->setTempAlerteSup(false);
         $conseil56->setTempAlerteInf(false);
         $conseil56->setHumAlerteSup(false);
@@ -1196,7 +1196,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil56);
 
         $conseil57 = new Conseil();
-        $conseil57->setConseil("Aérer la pièce, Ouvrez les portes, Le capteur de Co2 a un problème");
+        $conseil57->setConseil("Ouvrir fenêtres et portes pour aérer la pièce");
         $conseil57->setTempAlerteSup(false);
         $conseil57->setTempAlerteInf(false);
         $conseil57->setHumAlerteSup(true);
@@ -1208,7 +1208,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil57);
 
         $conseil58 = new Conseil();
-        $conseil58->setConseil("Aérer la pièce, Ouvrez les portes");
+        $conseil58->setConseil("Ouvrir fenêtres et portes pour aérer la pièce");
         $conseil58->setTempAlerteSup(false);
         $conseil58->setTempAlerteInf(false);
         $conseil58->setHumAlerteSup(false);
@@ -1221,7 +1221,7 @@ class AppFixtures extends Fixture
 
         //humidite bonne
         $conseil59 = new Conseil();
-        $conseil59->setConseil("Fermez les fenêtres, volets, ouvrez les portes et utilisez des ventilateurs");
+        $conseil59->setConseil("Ouvrir les fenêtres la nuit et fermez les volets, éteindre le chauffage");
         $conseil59->setTempAlerteSup(true);
         $conseil59->setTempAlerteInf(false);
         $conseil59->setHumAlerteSup(false);
@@ -1233,7 +1233,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil59);
 
         $conseil60 = new Conseil();
-        $conseil60->setConseil("Aérer la pièce, Ouvrez les fenetres ou allumez le chauffage, Le capteur de Co2 a un problème");
+        $conseil60->setConseil("Ouvrir les fenêtres");
         $conseil60->setTempAlerteSup(false);
         $conseil60->setTempAlerteInf(true);
         $conseil60->setHumAlerteSup(false);
@@ -1246,7 +1246,7 @@ class AppFixtures extends Fixture
 
 
         $conseil61 = new Conseil();
-        $conseil61->setConseil("Fermez les fenêtres, volets, ouvrez les portes et utilisez des ventilateurs, Le capteur de Co2 a un problème");
+        $conseil61->setConseil("Ouvrir les fenêtres la nuit et fermez les volets, éteindre le chauffage");
         $conseil61->setTempAlerteSup(true);
         $conseil61->setTempAlerteInf(false);
         $conseil61->setHumAlerteSup(false);
@@ -1259,7 +1259,7 @@ class AppFixtures extends Fixture
 
 
         $conseil62 = new Conseil();
-        $conseil62->setConseil("Aérer la pièce, Ouvrez les fenetres et les portes ou allumez le chauffage");
+        $conseil62->setConseil("Ouvrir les fenêtres");
         $conseil62->setTempAlerteSup(false);
         $conseil62->setTempAlerteInf(true);
         $conseil62->setHumAlerteSup(false);
@@ -1272,7 +1272,7 @@ class AppFixtures extends Fixture
 
         //co2 bon
         $conseil63 = new Conseil();
-        $conseil63->setConseil("Fermez les fenêtres, volets, ouvrez les portes et utilisez des ventilateurs");
+        $conseil63->setConseil("Ouvrir les fenêtres la nuit et ouvrir les portes, éteindre le chauffage");
         $conseil63->setTempAlerteSup(true);
         $conseil63->setTempAlerteInf(false);
         $conseil63->setHumAlerteSup(true);
@@ -1284,7 +1284,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil63);
 
         $conseil64 = new Conseil();
-        $conseil64->setConseil("Aérer la pièce, Ouvrez les fenetres et les portes ou allumez le chauffage");
+        $conseil64->setConseil("Ouvrir les fenêtres et portes pour aérer la pièce");
         $conseil64->setTempAlerteSup(false);
         $conseil64->setTempAlerteInf(true);
         $conseil64->setHumAlerteSup(false);
@@ -1296,7 +1296,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil64);
 
         $conseil65 = new Conseil();
-        $conseil65->setConseil("Fermez les fenêtres, volets, ouvrez les portes et utilisez des ventilateurs");
+        $conseil65->setConseil("Ouvrir les fenêtres la nuit, ouvrir les portes et fermez les volets, éteindre le chauffage");
         $conseil65->setTempAlerteSup(true);
         $conseil65->setTempAlerteInf(false);
         $conseil65->setHumAlerteSup(false);
@@ -1308,7 +1308,7 @@ class AppFixtures extends Fixture
         $manager->persist($conseil65);
 
         $conseil66 = new Conseil();
-        $conseil66->setConseil("Aérer la pièce, Ouvrez les fenetres et les portes ou allumez le chauffage");
+        $conseil66->setConseil("Ouvrir les fenêtres et portes pour aérer la pièce");
         $conseil66->setTempAlerteSup(false);
         $conseil66->setTempAlerteInf(true);
         $conseil66->setHumAlerteSup(true);
