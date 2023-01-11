@@ -283,22 +283,21 @@
                     </div>
                 </div>
             </div>
-            <div class = "description boxDesc ">
-                <div class="descriptionRoom">
-                    <br><br>
-                    <p class ="font-weight-bold h5" style="border-bottom: 2px solid #014898; color : red;">Conseil</p>
-                    <p>{{ conseil.conseil }}</p>
-                    <p>{{ conseil.getNoData() }}</p>
-                    {% if conseil.getNoData() %}
-                        <p>Un des capteurs est peut-être hors service</p>
-                    {% endif %}
+            {% if temp > room.getType().getTempMax() or temp < room.getType().getTempMin() or hum > room.getType().getHumMax() or hum < room.getType().getHumMin() or co2 < room.getType().getCo2Min()  or co2 >= room.getType().getCo2Max() %}
+                <div class = "description boxDesc ">
+                    <div class="descriptionRoom">
+                        <br><br>
 
-
-
+                            <p class ="font-weight-bold h5" style="border-bottom: 2px solid #014898; color : red;">Conseil</p>
+                            <p>{{ conseil.conseil }}</p>
+                            <p>{{ conseil.getNoData() }}</p>
+                            {% if conseil.getNoData() %}
+                                <p>Un des capteurs est peut-être hors service</p>
+                            {% endif %}
+                    </div>
                 </div>
-
-
-            </div>
+            {% endif %}
+            
             <div class="description">
                 <div class="boxDesc">
                     <div class="textSensor">
