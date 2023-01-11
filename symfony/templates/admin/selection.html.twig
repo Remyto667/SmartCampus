@@ -4,11 +4,14 @@
 
 {% block body %}
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper { margin: 1em auto; max-width: 1000px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
     h1 {
         text-align: center;
         margin-top: 100px;
+    }
+    h2 {
+        text-align: center;
     }
 
     /************* BOUTONS ET COULEURS **************/
@@ -58,20 +61,22 @@
     }
     .cadre {
         /*max-width: 500px;*/
-        margin-top: 100px;
+        margin-top: 80px;
         padding: 10px;
         border: 1px solid grey;
         border-radius: 6px;
         box-shadow: 2px 2px 5px grey;
+        justify-items: center;
     }
     .ligne {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        column-gap: 30px;
+        column-gap: 5000px;
     }
     .item-ligne {
         align-self: auto;
+        text-align: center;
     }
 
     .btn-div {
@@ -103,29 +108,38 @@
 
 </style>
 
-<div class="example-wrapper">
-    <h1>Choisir une salle !</h1>
-    <br>
-    <div class="cadre">
-        <div class="ligne">
-            {% for floor in allFloor %}
-                <div class="item-ligne">
-                    <p> Etage {{ floor }} : </p>
-                    {% for room in allRoom %}
-                        {% if (room.isIsStock() != 1) and (room.floor == floor) %}
-                            {% if (room.getTempAlert.isAlert == true or room.getCo2Alert.isAlert==true or room.getHumAlert.isAlert==true) %}
-                            <a class="btn red btn-danger" href="/admin/donnees_salle_admin/{{ room.id }}">{{ room.name }}</a>
-                            {% else %}
-                            <a class="btn btn-primary blue" href="/admin/donnees_salle_admin/{{ room.id }}">{{ room.name }}</a>
-                            {% endif %}
+    <div class="example-wrapper">
+        <h1>Choisir une salle !</h1>
+        <h1>Choisir une salle </h1>
+        <br>
+        <h2> pour voir la température, le co2 et l'humidité actuel dans la salle </h2>
+        <br>
+        <div class="cadre">
+            <div class="ligne">
+                {% for floor in allFloor %}
+                {% for floor in allFloor |reverse%}
+                    <div class="item-ligne">
+                        {% if ( floor == 0) %}
+                            <p> Rez de chaussé : </p>
+                        {% else %}
+                            <p> Etage {{ floor }} : </p>
                         {% endif %}
-                    {% endfor %}
-                </div>
-            {% endfor %}
+                        {% for room in allRoom %}
+                            {% if (room.isIsStock() != 1) and (room.floor == floor) %}
+                                {% if (room.getTempAlert.isAlert == true or room.getCo2Alert.isAlert==true or room.getHumAlert.isAlert==true) %}
+                                    <a class="btn red btn-danger" href="/admin/donnees_salle_admin/{{ room.id }}">{{ room.name }}</a>
+                                {% else %}
+                                    <a class="btn btn-primary blue" href="/admin/donnees_salle_admin/{{ room.id }}">{{ room.name }}</a>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <br>
+                {% endfor %}
 
+            </div>
         </div>
-    </div>
-    <br>
+        <br>
 
     <div class="legende">
         <p class="legendeBlue">Salle sans problèmes</p>

@@ -85,8 +85,9 @@ Quand je créer une issue :
   * je trouve le nom de l'issue : verbe d'action + fonctionnalité + persona concerné
   * je specifie l'us avec "en tant que" + "je veux" + "afin de"
   * je défini les règles métier (ex : pour les conseils -> écrire pour chaque alertes quels conseils)
+  * j'ajoute une maquette si c'est nécessaire
   * je défini les taches et je les spécifies pour que ça soit compréhensible par tous
-  * je relis mon issue en me mettant à la place de quelqu'un qui n'est pas dans l'équipe : "est-ce qu'il comprendrais"
+  * je relis mon issue en me mettant à la place de quelqu'un qui n'est pas dans l'équipe : "est-ce qu'il comprendrais est ce qu'il saurait à quoi ça va ressembler"
   * je la met en READY
 
 ## 5. Définition of DONE
