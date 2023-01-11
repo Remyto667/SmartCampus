@@ -238,12 +238,28 @@
             options: optionsTemp
         });
 
-        var input = [{{ dataDay | raw }}]
+        var inputTemp = [{{ dataDayTemp | raw }}]
 
-        var dataDayx = input.map(function(item) {
+        var dataDayTempx = inputTemp.map(function(item) {
             return item.x});
 
-        var dataDayy = input.map(function(item) {
+        var dataDayTempy = inputTemp.map(function(item) {
+            return item.y});
+
+        var inputHum = [{{ dataDayHum | raw }}]
+
+        var dataDayHumx = inputHum.map(function(item) {
+            return item.x});
+
+        var dataDayHumy = inputHum.map(function(item) {
+            return item.y});
+
+        var inputCo2= [{{ dataDayCo2 | raw }}]
+
+        var dataDayCo2x = inputCo2.map(function(item) {
+            return item.x});
+
+        var dataDayCo2y = inputCo2.map(function(item) {
             return item.y});
 
 
@@ -254,7 +270,9 @@
             const anneeLabels=['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Aout','Septembre','Novembre','Octobre','Decembre'];
                                 //Utils.months({count: 12})
 
-            const jour = dataDayy;
+            const jourTemp = dataDayTempy;
+            const jourHum = dataDayHumy;
+            const jourCo2 = dataDayCo2y;
             const semaine = [10,20,30,40,50,60,70];
             const anneeTemp = {{dataTemp}};
             const anneeHum = {{ dataHum }};
@@ -262,18 +280,18 @@
 
 
             if(type === 'jour') {
-                myChartTemp.data.datasets[0].data = jour;
-                myChartTemp.data.labels = dataDayx;
+                myChartTemp.data.datasets[0].data = jourTemp;
+                myChartTemp.data.labels = dataDayTempx;
                 myChartTemp.data.datasets[0].label = 'Temperature 12 dernieres heures '
                 myChartTemp.update();
 
-                myChartHum.data.datasets[0].data = jour;
-                myChartHum.data.labels = jourLabels;
+                myChartHum.data.datasets[0].data = jourHum;
+                myChartHum.data.labels = dataDayHumx;
                 myChartHum.data.datasets[0].label = 'Humidité 12 dernieres heures '
                 myChartHum.update();
 
-                myChartCo2.data.datasets[0].data = jour;
-                myChartCo2.data.labels = jourLabels;
+                myChartCo2.data.datasets[0].data = jourCo2;
+                myChartCo2.data.labels = dataDayCo2x;
                 myChartCo2.data.datasets[0].label = 'Co2 12 dernieres heures '
                 myChartCo2.update();
             }

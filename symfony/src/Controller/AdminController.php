@@ -387,28 +387,29 @@ class AdminController extends AbstractController
 
         }
 
-        $allDay=$statTemp->getAllDay();
-        $dataDay=$statTemp->PopulateDayAsLabel(11);
 
-
-
-        $statTemp->PopulateMoy();
+        $dataDayTemp=$statTemp->PopulateDayAsLabel(11);
         $moyTemp=json_encode($statTemp->PopulateMoy());                 // On calcule la moyenne de chaque mois et on structure en tableau
 
         foreach($donnees["H"] as $hum){
 
             $statHum->PushToArrayDateMonth($statHum->transformMonth($hum->dateCapture),doubleval($hum->valeur));        // Hum
+            $statHum->PushToArrayDateDay(($statHum->transformDay($hum->dateCapture)),doubleval($hum->valeur));
 
         }
 
+
+        $dataDayHum=$statHum->PopulateDayAsLabel(11);
         $moyHum=json_encode($statHum->PopulateMoy());       // Hum
 
         foreach($donnees["C"] as $co2){
 
             $statCo2->PushToArrayDateMonth($statCo2->transformMonth($co2->dateCapture),doubleval($co2->valeur));        // Co2
+            $statCo2->PushToArrayDateDay(($statCo2->transformDay($co2->dateCapture)),doubleval($co2->valeur));
 
         }
 
+        $dataDayCo2=$statCo2->PopulateDayAsLabel(11);
         $moyCo2=json_encode($statCo2->PopulateMoy());       // Co2
 
 
@@ -417,7 +418,12 @@ class AdminController extends AbstractController
             'dataTemp' =>$moyTemp,
             'dataHum' =>$moyHum,
             'dataCo2' =>$moyCo2,
-            'dataDay'=>$dataDay,
+            'dataDayTemp'=>$dataDayTemp,
+            'dataDayHum' =>$dataDayHum,
+            'dataDayCo2' =>$dataDayCo2,
+
+
+
             //'data'=>$dataDay,
 
         ]);
