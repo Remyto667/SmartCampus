@@ -111,14 +111,14 @@
                 "Ceci ne la supprimera que s'il n'y a aucun système dans la salle \n" +
                 "Sinon annulez et changez les systemes de salle d'abord");
             if (dialog) {
-                document.location.href="/admin/inventaire/supprimer_salle/"+id;
+                document.location.href="/inventaire/supprimer_salle/"+id;
                 if({{ ok }} == 0)
                 {
                     erreur();
                 }
             }
             else {
-                document.location.href="/admin/inventaire/lister_salles";
+                document.location.href="/inventaire/lister_salles";
 
             }
         }
@@ -154,7 +154,7 @@
                     <td>{{ room.name }}</td>
                     <!-- Supprimer Salle : faire requete pour suppr de la BD -->
                     <!--<td><button class="styled" type="button">Supprimer</button></td>-->
-                    <td><a class="btn btn-primary img update favorite" href="/admin/inventaire/modifier_salle/{{ room.id }}" role="button"></a></td>
+                    <td><a class="btn btn-primary img update favorite" href="/inventaire/modifier_salle/{{ room.id }}" role="button"></a></td>
                     <td><input class="btn btn-primary img delete favorite" type=button onclick="openPopup({{ room.id }})"></td>
                     <td>
                         {% if room.isIsStock() != 1 %}
@@ -171,7 +171,7 @@
         </table>
         <br><br>
         <!-- Ajouter Salle -->
-        <a class="btn btn-primary" href="/admin/inventaire/ajouter_salle" role="button">Ajouter une salle</a>
+        <a class="btn btn-primary" href="/inventaire/ajouter_salle" role="button">Ajouter une salle</a>
     </div>
 
 
