@@ -3,151 +3,177 @@
 {% block title %}Selection d'une salle{% endblock %}
 
 {% block body %}
-<style>
-    body{
-        background-color: #f7f9fa;
-    }
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    h1 {
-        text-align: center;
-        margin-top: 100px;
-    }
-    h2 {
-        text-align: center;
-    }
+        h1 {
+            text-align: center;
+            margin-top: 100px;
+        }
+        h2 {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 20px;
+        }
 
-    /************* BOUTONS ET COULEURS **************/
-    .blue {
-        color: #fff;
-        background-color: #00489a;
-        border-color: #00489a;
-        text-decoration: none;
-        display: inline-block;
-        font-weight: 400;
-        text-align: center;
-        white-space: nowrap;
-        vertical-align: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        padding: 0.375rem 0.75rem;
-        font-size: 1rem;
-        line-height: 1.5;
-        border-radius: 0.25rem;
-        transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-    }
-    .red {
-        color: #fff;
-        background-color: #B51b1b;
-        border: #B51b1b;
-        text-decoration: none;
-        display: inline-block;
-        font-weight: 400;
-        text-align: center;
-        white-space: nowrap;
-        vertical-align: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        padding: 0.375rem 0.75rem;
-        font-size: 1rem;
-        line-height: 1.5;
-        border-radius: 0.25rem;
-        transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-    }
+        /************* BOUTONS ET COULEURS **************/
+        .blue {
+            color: #fff;
+            background-color: #00489a;
+            border-color: #00489a;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 400;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
+        .red {
+            color: #fff;
+            background-color: #B51b1b;
+            border: #B51b1b;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 400;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out
+        }
 
-    a:hover {
-        color : #FFFFFF;
-    }
-    .cadre {
-        /*max-width: 500px;*/
-        margin-top: 80px;
-        padding: 10px;
-        border: 1px solid grey;
-        border-radius: 6px;
-        box-shadow: 2px 2px 5px grey;
-        justify-items: center;
-    }
-    .ligne {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        column-gap: 5000px;
-    }
-    .item-ligne {
-        align-self: auto;
-        text-align: center;
-    }
+        .btn
+        {
+            align-items: center;
+        }
+        a:hover {
+            color : #FFFFFF;
+        }
+        .cadre {
+            /*max-width: 500px;
+            margin-top: 100px;*/
+            padding: 10px;
+            border: 1px solid grey;
+            border-radius: 6px;
+            box-shadow: 2px 2px 5px grey;
+        }
 
-    .btn-div {
-        justify-content: center;
-        text-align: center;
-    }
+        .cadre:hover {
+            box-shadow: 4px 4px 7px grey;
+        }
+        .ligne {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            column-gap: 5000px;
+            row-gap: 1px;
+        }
+        .item-ligne {
+            /*align-self: auto;*/
+            display : flex;
+            /* align-items: center; */
+            /*text-align: center;*/
+            justify-content: space-around;
+            column-gap: 50px;
+        }
 
-    .red:hover
-    {
-        background: #da0e0e;
-    }
+        .item-salle {
+            /*align-self: center;*/
+            width : 150px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            column-gap: 500px;
+            row-gap: 10px;
+        }
+        .btn-div {
+            justify-content: center;
+            text-align: center;
+        }
 
-    /************* LEGENDES **************/
+        .red:hover
+        {
+            background: #da0e0e;
+        }
 
-    .legende
-    {
-        display: flex;
-        justify-content: space-around;
-    }
-    .legendeBlue
-    {
-        border-bottom: 3px solid blue;
-    }
-    .legendeRed
-    {
-        border-bottom: 3px solid red;
-    }
+        /************* LEGENDES **************/
 
+        .legende
+        {
+            display: flex;
+            justify-content: space-around;
+        }
+        .legendeBlue
+        {
+            border-bottom: 3px solid blue;
+            color: #00489a;
 
-</style>
+        }
+        .legendeRed
+        {
+            border-bottom: 3px solid red;
+            color: #B51b1b;
+        }
+        .text{
+            text-align: center;
+        }
+    </style>
 
     <div class="example-wrapper">
-        <h1>Choisissez une salle</h1>
+        <h1>Choisir une salle</h1>
+        <h2>Pour voir la température, le CO2 et l'humidité actuel</h2>
         <br>
-        <h2> pour voir la température, le co2 et l'humidité actuel dans la salle </h2>
         <br>
-        <div class="cadre">
-            <div class="ligne">
-                {% for floor in allFloor |reverse%}
-                    <div class="item-ligne">
-                        {% if ( floor == 0) %}
-                            <p> Rez de chaussé : </p>
-                        {% else %}
-                            <p> Etage {{ floor }} : </p>
-                        {% endif %}
-                        {% for room in allRoom %}
-                            {% if (room.isIsStock() != 1) and (room.floor == floor) %}
+        <div class="ligne">
+            {% for floor in allFloor | reverse %}
+                <p class=""> Etage {{ floor }} : </p>
+                <div class="item-ligne">
+                    {% for room in allRoom %}
+
+                        {% if (room.isIsStock() != 1) and (room.floor == floor) %}
+                            <div class="item-salle cadre" onclick="window.location='/admin/donnees_salle_admin/{{ room.id }}';">
                                 {% if (room.getTempAlert.isAlert == true or room.getCo2Alert.isAlert==true or room.getHumAlert.isAlert==true) %}
                                     <a class="btn red btn-danger" href="/admin/donnees_salle_admin/{{ room.id }}">{{ room.name }}</a>
                                 {% else %}
                                     <a class="btn btn-primary blue" href="/admin/donnees_salle_admin/{{ room.id }}">{{ room.name }}</a>
                                 {% endif %}
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                    <br>
-                {% endfor %}
+                            </div>
 
-            </div>
+                        {% endif %}
+
+                    {% endfor %}
+                </div>
+                <br>
+                <br>
+            {% endfor %}
+            <br>
+
+        </div>
+
+        <div class="legende">
+            <p class="legendeBlue">Salle sans problèmes</p>
+            <p class="legendeRed">Salle avec Alerte(s)</p>
         </div>
         <br>
 
-    <div class="legende">
-        <p class="legendeBlue">Salle sans problèmes</p>
-        <p class="legendeRed">Salle avec Alerte(s)</p>
     </div>
-    <br>
-
-</div>
 {% endblock %}
