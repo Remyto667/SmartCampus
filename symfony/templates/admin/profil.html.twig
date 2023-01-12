@@ -2,6 +2,9 @@
 
 {% block body %}
 
+    <!-- A Faire :
+    -- centrer les elements entre eux et sans debordements -->
+
     <style>
 
         .img{
@@ -17,6 +20,7 @@
             text-align: center; margin: 1em auto; font: 28px/1.5 sans-serif;
             text-decoration-line: underline;
             text-decoration-color: #00489a;
+            font-size: 20px;
         }
         body{
             background-image: url("../img/main_wallpaper.jpg");
@@ -33,7 +37,7 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: space-evenly; /* Espacé sans être collé aux bords */
-            /*margin: 100px;*/
+            margin-left: 50px;
         }
 
         .boxDesc{
@@ -60,17 +64,17 @@
 
         <div class="data-container">
             <div class="boxDesc bg-light p-3 ">
-                <p class=" text" >Nombre de salles gérer :</p>
+                <p class=" text" >Nombre de salles gérées :</p>
                 <br>
                 <p class="d-flex justify-content-center h1" >{{ countRoom }}</p>
             </div>
             <div class="boxDesc bg-light p-3 h1">
-                <p class=" text" >Nombre de capteurs gérer :</p>
+                <p class=" text" >Nombre de capteurs gérés :</p>
                 <br>
                 <p class="d-flex justify-content-center h1" >{{ CountSensor }}</p>
             </div>
             <div class="boxDesc bg-light p-3 h1">
-                <p class=" text" >Nombre de systemes gérer :</p>
+                <p class=" text" >Nombre de systèmes gérés :</p>
                 <br>
                 <p class="d-flex justify-content-center h1" >{{ countSystem }}</p>
             </div>
