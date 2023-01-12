@@ -38,9 +38,22 @@ class AdminController extends AbstractController
     }
 
     #[Route('/admin/profil', name: 'profil_admin')]
-    public function connexion_admin(): Response
+    public function connexion_admin(ManagerRegistry $doctrine): Response
     {
+        $entityManager = $doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\Room');
+        $allRoom = $repository->findAll();
+
+        $repository = $entityManager->getRepository('App\Entity\Room');
+        $allSystem = $repository->findAll();
+
+        $repository = $entityManager->getRepository('App\Entity\Room');
+        $allSensor = $repository->findAll();
+
         return $this->render('admin/profil.html.twig', [
+            'countRoom' => sizeof($allRoom)-1,
+            'countSystem' => sizeof($allSystem),
+            'CountSensor' => sizeof($allSensor),
             'controller_name' => 'CONNEXION',
         ]);
     }

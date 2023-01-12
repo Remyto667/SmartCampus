@@ -102,6 +102,19 @@ class RoomRepository extends ServiceEntityRepository
         }
         return $allFloor;
     }
+
+    public function findAllCount() : array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = 'SELECT COUNT(r.id)
+            FROM room r
+            ';
+
+        $result = $conn->prepare($sql)->executeQuery()->fetchAllAssociative();
+
+        return $result;
+    }
 //    /**
 //     * @return Room[] Returns an array of Room objects
 //     */
