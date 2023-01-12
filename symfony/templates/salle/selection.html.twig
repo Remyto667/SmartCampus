@@ -147,7 +147,7 @@
                             <div class="item-salle cadre" onclick="window.location='{{ room.id }}';">
                                 {% if noData[room.getId] == 1 %}
                                     <a class="btn grey btn-danger" href="#">{{ room.name }}</a>
-                                {% elseif (room.getTempAlert.isAlert == true or room.getCo2Alert.isAlert==true or room.getHumAlert.isAlert==true) %}
+                                {% elseif (room.isAlert == true ) %}
                                     <a class="btn red btn-danger" href="{{room.id }}">{{ room.name }}</a>
                                 {% else %}
                                     <a class="btn btn-primary blue" href="{{ room.id }}">{{ room.name }}</a>
