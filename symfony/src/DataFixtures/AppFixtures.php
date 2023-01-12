@@ -360,7 +360,7 @@ class AppFixtures extends Fixture
         $manager->persist($system14);
 
         $system15=new System();
-        $system15->setName("systeme 14");
+        $system15->setName("systeme 15");
         $system15->setRoom($room16);
         $system15->setTag(15);
         $manager->persist($system15);
@@ -496,6 +496,213 @@ class AppFixtures extends Fixture
         $sensor17->setSystems($system6);
         $sensor17->setType("CO2");
         $manager->persist($sensor17);
+
+//    --------- System 7--------------------------------------
+
+        $sensor18=new Sensor();
+        $sensor18->setName("capteur 18");
+        $sensor18->setState("fonctionnel");
+        $sensor18->setSystems($system7);
+        $sensor18->setType("temperature");
+        $manager->persist($sensor18);
+
+        $sensor19=new Sensor();
+        $sensor19->setName("capteur 19");
+        $sensor19->setState("fonctionnel");
+        $sensor19->setSystems($system7);
+        $sensor19->setType("humidite    ");
+        $manager->persist($sensor19);
+
+        $sensor20=new Sensor();
+        $sensor20->setName("capteur 20");
+        $sensor20->setState("fonctionnel");
+        $sensor20->setSystems($system7);
+        $sensor20->setType("CO2");
+        $manager->persist($sensor20);
+
+//    --------- System 8--------------------------------------
+
+        $sensor21=new Sensor();
+        $sensor21->setName("capteur 21");
+        $sensor21->setState("fonctionnel");
+        $sensor21->setSystems($system8);
+        $sensor21->setType("temperature");
+        $manager->persist($sensor21);
+
+        $sensor22=new Sensor();
+        $sensor22->setName("capteur 22");
+        $sensor22->setState("fonctionnel");
+        $sensor22->setSystems($system8);
+        $sensor22->setType("humidite    ");
+        $manager->persist($sensor22);
+
+        $sensor23=new Sensor();
+        $sensor23->setName("capteur 23");
+        $sensor23->setState("fonctionnel");
+        $sensor23->setSystems($system8);
+        $sensor23->setType("CO2");
+        $manager->persist($sensor23);
+
+//    --------- System 9--------------------------------------
+
+        $sensor24=new Sensor();
+        $sensor24->setName("capteur 24");
+        $sensor24->setState("fonctionnel");
+        $sensor24->setSystems($system9);
+        $sensor24->setType("temperature");
+        $manager->persist($sensor24);
+
+        $sensor25=new Sensor();
+        $sensor25->setName("capteur 25");
+        $sensor25->setState("fonctionnel");
+        $sensor25->setSystems($system9);
+        $sensor25->setType("humidite    ");
+        $manager->persist($sensor25);
+
+        $sensor26=new Sensor();
+        $sensor26->setName("capteur 26");
+        $sensor26->setState("fonctionnel");
+        $sensor26->setSystems($system9);
+        $sensor26->setType("CO2");
+        $manager->persist($sensor26);
+
+//    --------- System 10--------------------------------------
+
+        $sensor27=new Sensor();
+        $sensor27->setName("capteur 27");
+        $sensor27->setState("fonctionnel");
+        $sensor27->setSystems($system10);
+        $sensor27->setType("temperature");
+        $manager->persist($sensor27);
+
+        $sensor28=new Sensor();
+        $sensor28->setName("capteur 28");
+        $sensor28->setState("fonctionnel");
+        $sensor28->setSystems($system10);
+        $sensor28->setType("humidite    ");
+        $manager->persist($sensor28);
+
+        $sensor29=new Sensor();
+        $sensor29->setName("capteur 29");
+        $sensor29->setState("fonctionnel");
+        $sensor29->setSystems($system10);
+        $sensor29->setType("CO2");
+        $manager->persist($sensor29);
+
+//    --------- System 11--------------------------------------
+
+        $sensor30=new Sensor();
+        $sensor30->setName("capteur 30");
+        $sensor30->setState("fonctionnel");
+        $sensor30->setSystems($system11);
+        $sensor30->setType("temperature");
+        $manager->persist($sensor30);
+
+        $sensor31=new Sensor();
+        $sensor31->setName("capteur 31");
+        $sensor31->setState("fonctionnel");
+        $sensor31->setSystems($system11);
+        $sensor31->setType("humidite    ");
+        $manager->persist($sensor31);
+
+        $sensor32=new Sensor();
+        $sensor32->setName("capteur 32");
+        $sensor32->setState("fonctionnel");
+        $sensor32->setSystems($system11);
+        $sensor32->setType("CO2");
+        $manager->persist($sensor32);
+
+//    --------- System 12--------------------------------------
+
+        $sensor33=new Sensor();
+        $sensor33->setName("capteur 33");
+        $sensor33->setState("fonctionnel");
+        $sensor33->setSystems($system12);
+        $sensor33->setType("temperature");
+        $manager->persist($sensor33);
+
+        $sensor34=new Sensor();
+        $sensor34->setName("capteur 34");
+        $sensor34->setState("fonctionnel");
+        $sensor34->setSystems($system12);
+        $sensor34->setType("humidite    ");
+        $manager->persist($sensor34);
+
+        $sensor35=new Sensor();
+        $sensor35->setName("capteur 35");
+        $sensor35->setState("fonctionnel");
+        $sensor35->setSystems($system12);
+        $sensor35->setType("CO2");
+        $manager->persist($sensor35);
+
+//    --------- System 13--------------------------------------
+
+        $sensor36=new Sensor();
+        $sensor36->setName("capteur 36");
+        $sensor36->setState("fonctionnel");
+        $sensor36->setSystems($system13);
+        $sensor36->setType("temperature");
+        $manager->persist($sensor36);
+
+        $sensor37=new Sensor();
+        $sensor37->setName("capteur 37");
+        $sensor37->setState("fonctionnel");
+        $sensor37->setSystems($system13);
+        $sensor37->setType("humidite    ");
+        $manager->persist($sensor37);
+
+        $sensor38=new Sensor();
+        $sensor38->setName("capteur 38");
+        $sensor38->setState("fonctionnel");
+        $sensor38->setSystems($system13);
+        $sensor38->setType("CO2");
+        $manager->persist($sensor38);
+
+//    --------- System 14--------------------------------------
+
+        $sensor39=new Sensor();
+        $sensor39->setName("capteur 39");
+        $sensor39->setState("fonctionnel");
+        $sensor39->setSystems($system14);
+        $sensor39->setType("temperature");
+        $manager->persist($sensor39);
+
+        $sensor40=new Sensor();
+        $sensor40->setName("capteur 40");
+        $sensor40->setState("fonctionnel");
+        $sensor40->setSystems($system14);
+        $sensor40->setType("humidite    ");
+        $manager->persist($sensor40);
+
+        $sensor41=new Sensor();
+        $sensor41->setName("capteur 41");
+        $sensor41->setState("fonctionnel");
+        $sensor41->setSystems($system14);
+        $sensor41->setType("CO2");
+        $manager->persist($sensor41);
+
+//    --------- System 15--------------------------------------
+
+        $sensor42=new Sensor();
+        $sensor42->setName("capteur 42");
+        $sensor42->setState("fonctionnel");
+        $sensor42->setSystems($system15);
+        $sensor42->setType("temperature");
+        $manager->persist($sensor42);
+
+        $sensor43=new Sensor();
+        $sensor43->setName("capteur 43");
+        $sensor43->setState("fonctionnel");
+        $sensor43->setSystems($system15);
+        $sensor43->setType("humidite    ");
+        $manager->persist($sensor43);
+
+        $sensor44=new Sensor();
+        $sensor44->setName("capteur 44");
+        $sensor44->setState("fonctionnel");
+        $sensor44->setSystems($system15);
+        $sensor44->setType("CO2");
+        $manager->persist($sensor44);
 
 // Les Conseils
         //rien

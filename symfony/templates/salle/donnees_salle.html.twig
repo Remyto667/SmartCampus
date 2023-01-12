@@ -4,13 +4,9 @@
 
 {% block body %}
     <style>
-            /*.example-wrapper { text-align: center; margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-            .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }*/
-            body{
-                background-color: #f7f9fa;
-            }
 
         .body{
+            background-color: #f7f9fa;
             height: 100%;
             font-family: arial;
             text-align: center;
@@ -141,7 +137,8 @@
             width: 250px;
         }
 
-        /*************************/
+        /************ DESCRIPTION *************/
+
         .description{
             display: flex;
             flex-wrap: wrap;
@@ -149,18 +146,7 @@
             margin-top: 100px;
         }
 
-        /********* EFFET *********/
-
-        @keyframes box{
-            0%,
-            100%{
-                transform: scale(1);
-            }
-            50%{
-                transform: scale(1.3);
-            }
-        }
-
+        /************ ALERTES *************/
 
             {% if temp > room.getType().getTempMax() or temp < room.getType().getTempMin() %}
             .Temp {color: white; border: 1px solid black; background-color: #B51b1b;}

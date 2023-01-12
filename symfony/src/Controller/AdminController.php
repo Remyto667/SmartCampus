@@ -86,7 +86,6 @@ class AdminController extends AbstractController
             }
         }
 
-        $rooms = $repository->findAll();
         return $this->render('admin/lister_salles.html.twig', [
             'ok' => $ok,
             'allRoom' => $allRoom,
@@ -274,7 +273,7 @@ class AdminController extends AbstractController
     }
 
     #[Route('admin/selection_salle', name: 'selectionSalle')]
-    public function selection_salle(Request $request, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
+    public function selection_salle(ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
@@ -284,7 +283,6 @@ class AdminController extends AbstractController
         {
             $handler->handle(new DonneesCapteursQuery($room, $doctrine));
         }
-
 
         return $this->render('admin/selection.html.twig', [
             'allRoom' => $allRoom,
@@ -367,7 +365,6 @@ class AdminController extends AbstractController
         {
             $handler->handle(new DonneesCapteursQuery($room, $doctrine));
         }
-
 
         return $this->render('admin/suivi_selection.html.twig', [
             'allRoom' => $allRoom,
@@ -496,51 +493,6 @@ class AdminController extends AbstractController
 
         ]);
     }
-
-    /*
-        #[Route('/admin/lister_alertes', name: 'listerAlertes')]
-        public function liste_alertes(Request $request, ?Room $room, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response{
-
-            $entityManager = $doctrine->getManager();
-            $repository = $entityManager->getRepository('App\Entity\Room');
-            $rooms = $repository->findAll();
-
-            foreach ($rooms as $aRoom)
-            {
-                $donnees=$handler->handle(new DonneesCapteursery($aRoom, $doctrine));
-
-                /*$alertT = $aRoom->getTempAlert()->getIsAlert();
-                $alertH = $aRoom->getHumAlert()->getIsAlert();
-                $alertC = $aRoom->getCo2Alert()->getIsAlert();
-
-                //$desc = "";
-                if($alertT == true)
-                {
-                    $descT = "a un pb de temperature";
-                }
-                if($alertH == true)
-                {
-                    $descH = "a un pb dhumidite";
-                }
-                if($alertC == true)
-                {
-                    $descC = "a un pb de CO2";
-                }
-
-        }
-
-
-        return $this->render('admin/lister_alertes.html.twig', [
-            'controller_name' => 'Liste des Alertes',
-            'rooms' => $rooms,
-            'room' => $room,
-            //'alert' => $alert,
-            //'desc' => $desc,
-            /*'descT' => $descT,
-            'descH' => $descH,
-            'descC' => $descC,
-        ]);
-    }*/
 
 }
 

@@ -86,16 +86,12 @@
             row-gap: 1px;
         }
         .item-ligne {
-            /*align-self: auto;*/
             display : flex;
-            /* align-items: center; */
-            /*text-align: center;*/
             justify-content: space-around;
             column-gap: 50px;
         }
 
         .item-salle {
-            /*align-self: center;*/
             width : 150px;
             height: 100px;
             display: flex;
@@ -140,12 +136,16 @@
 
     <div class="example-wrapper">
         <h1>Choisir une salle pour voir le détail de alertes</h1>
-        <h2>Vous pouvez voir le nombre d'alertes détéctées au cours du dernier mois</h2>
+        <h2>Vous pouvez voir le nombre d'alertes détectées au cours du dernier mois</h2>
         <br>
         <br>
         <div class="ligne">
             {% for floor in allFloor | reverse %}
-                <p class=""> Etage {{ floor }} : </p>
+                {% if floor=="0" %}
+                    <p> Rez-de-chaussée : </p>
+                {% else %}
+                    <p> Etage {{ floor }} : </p>
+                {% endif %}
                 <div class="item-ligne">
                     {% for room in allRoom %}
 

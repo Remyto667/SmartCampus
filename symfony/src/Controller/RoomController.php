@@ -57,25 +57,6 @@ class RoomController extends AbstractController
 
     }
 
-    /*#[Route('/salle/selection', name: 'selection')]
-    public function selection_salle_user(Request $request, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
-    {
-        $entityManager = $doctrine->getManager();
-        $repository = $entityManager->getRepository('App\Entity\Room');
-        $allRoom = $repository->findAll();
-
-        foreach($allRoom as $room)
-        {
-            $handler->handle(new DonneesCapteursQuery($room, $doctrine));
-        }
-
-        return $this->render('salle/selection.html.twig', [
-            'allRoom' => $allRoom,
-            'allFloor' => $repository->findAllFloor(),
-        ]);
-
-    }*/
-
     #[Route('/salle/{room?}', name: 'donneesSalle')]
     public function donnees_salle(Request $request, ?Room $room, ManagerRegistry $doctrine, DonneesCapteursHandler $handler,ConseilAlerteHandler $handler2): Response{
 
