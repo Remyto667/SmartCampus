@@ -48,19 +48,34 @@ class Room
     #[ORM\Column]
     private ?int $floor = null;
 
-    private Alert $tempAlert;
-    private Alert $humAlert;
-    private Alert $co2Alert;
+    private bool $isAlert;
+
+    /**
+     * @return mixed
+     */
+
+    public function getIsAlert() : bool
+    {
+        return $this->isAlert;
+    }
+
+    /**
+     * @param bool $isAlert
+     */
+    public function setIsAlert(bool $isAlert): void
+    {
+        $this->isAlert = $isAlert;
+    }
 
     #[ORM\ManyToOne(inversedBy: 'room')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Type $type = null;
 
-    /**
-     * @param Alert $tempAlert
-     * @param Alert $humAlert
-     * @param Alert $co2Alert
-     */
+        /**
+         * @param Alert $tempAlert
+         * @param Alert $humAlert
+         * @param Alert $co2Alert
+         *//*
     public function __construct()
     {
         $this->tempAlert = new Alert(false, '');
@@ -70,7 +85,7 @@ class Room
 
     /**
      * @return mixed
-     */
+     *
     public function getTempAlert() : Alert
     {
         return $this->tempAlert;
@@ -78,7 +93,7 @@ class Room
 
     /**
      * @param mixed $tempAlert
-     */
+     *
     public function setTempAlert(Alert $tempAlert): void
     {
         $this->tempAlert = $tempAlert;
@@ -86,7 +101,7 @@ class Room
 
     /**
      * @return mixed
-     */
+     *
     public function getHumAlert() : Alert
     {
         return $this->humAlert;
@@ -94,7 +109,7 @@ class Room
 
     /**
      * @param mixed $humAlert
-     */
+     *
     public function setHumAlert(Alert $humAlert): void
     {
         $this->humAlert = $humAlert;
@@ -102,7 +117,7 @@ class Room
 
     /**
      * @return mixed
-     */
+     *
     public function getCo2Alert() : Alert
     {
         return $this->co2Alert;
@@ -110,7 +125,7 @@ class Room
 
     /**
      * @param mixed $co2Alert
-     */
+     *
     public function setCo2Alert(Alert $co2Alert): void
     {
         $this->co2Alert = $co2Alert;
@@ -131,7 +146,7 @@ class Room
         }
         return $nb;
     }
-
+*/
     public function getId(): ?int
     {
         return $this->id;
