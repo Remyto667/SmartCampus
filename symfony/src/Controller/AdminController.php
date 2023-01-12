@@ -403,8 +403,9 @@ class AdminController extends AbstractController
         }
 
 
-        $dataDayTemp=$statTemp->PopulateDayAsLabel(11);
-        $moyTemp=json_encode($statTemp->PopulateMoy());                 // On calcule la moyenne de chaque mois et on structure en tableau
+        $dataDayTemp=$statTemp->PopulateDayAsLabel(date("j"));
+        $moyYearTemp=json_encode($statTemp->PopulateMonthMoy());                 // On calcule la moyenne de chaque mois et on structure en tableau sur une année
+        $moyMonthTemp=json_encode($statTemp->PopulateDayMoy());         // On calcule la moyenne de chaque jours et on structure en tableau sur un mois
 
         foreach($donnees["H"] as $hum){
 
@@ -414,8 +415,10 @@ class AdminController extends AbstractController
         }
 
 
-        $dataDayHum=$statHum->PopulateDayAsLabel(11);
-        $moyHum=json_encode($statHum->PopulateMoy());       // Hum
+        $dataDayHum=$statHum->PopulateDayAsLabel(date("j"));
+        $moyYearHum=json_encode($statHum->PopulateMonthMoy());       // Hum
+        $moyMonthHum=json_encode($statHum->PopulateDayMoy());
+
 
         foreach($donnees["C"] as $co2){
 
@@ -424,15 +427,19 @@ class AdminController extends AbstractController
 
         }
 
-        $dataDayCo2=$statCo2->PopulateDayAsLabel(11);
-        $moyCo2=json_encode($statCo2->PopulateMoy());       // Co2
+        $dataDayCo2=$statCo2->PopulateDayAsLabel(date("j"));
+        $moyYearCo2=json_encode($statCo2->PopulateMonthMoy());       // Co2
+        $moyMonthCo2=json_encode($statCo2->PopulateDayMoy());
 
 
         return $this->render('admin/graphique.html.twig', [
             'room' => $room,
-            'dataTemp' =>$moyTemp,
-            'dataHum' =>$moyHum,
-            'dataCo2' =>$moyCo2,
+            'moyYearTemp' =>$moyYearTemp,
+            'moyYearHum' =>$moyYearHum,
+            'moyYearCo2' =>$moyYearCo2,
+            'moyMonthTemp'=>$moyMonthTemp,
+            'moyMonthHum' =>$moyMonthHum,
+            'moyMonthCo2' =>$moyMonthCo2,
             'dataDayTemp'=>$dataDayTemp,
             'dataDayHum' =>$dataDayHum,
             'dataDayCo2' =>$dataDayCo2,

@@ -30,7 +30,6 @@
         }
 
         .btn {
-            margin: 20px;
             color: #fff;
             background-color: #00489a;
             border-color: #00489a;
@@ -51,6 +50,10 @@
             transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
         }
 
+        .marginbtn{
+            margin-left: 15px;
+        }
+
     </style>
     <div class="container">
 
@@ -62,19 +65,56 @@
             <canvas id="ChartCo2" width="2000" height="200"></canvas>
             <canvas id="ChartTemp" width="2000" height="200"></canvas>
 
-            <!--<button onclick="showChartData('jour')"> Jour</button>
-            <button onclick="showChartData('semaine')"> Semaine</button>
-            <button onclick="showChartData('mois')"> Année</button>-->
 
-            <!-- % for date in dateT %} { date.dateCapture }} % endfor %} -->
             <div class="btGraph">
+
+                <div class="btn-group">
+                    <a class="btn btn-primary blue" onclick="showChartData('annee')">Année</a>
+
+                    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Action</a>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <a class="btn btn-primary blue" onclick="showChartData('mois')">Mois</a>
+
+                    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Action</a>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <a class="btn btn-primary blue" onclick="showChartData('semaine')">Semaine</a>
+
+                    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Action</a>
+                    </div>
+                </div>
+
+                <div class="btn-group">
                 <a class="btn btn-primary blue" onclick="showChartData('jour')">Jour</a>
-                <a class="btn btn-primary blue" onclick="showChartData('semaine')">Semaine</a>
-                <a class="btn btn-primary blue" onclick="showChartData('annee')">Année</a>
+                    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Action</a>
+                    </div>
+                </div>
+
+
+
             </div>
         </div>
 
     </div>
+
+
 
 
 
@@ -86,10 +126,10 @@
 
         // Données du graphique
         var dataTemp = {
-            //labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Aout','Septembre','Novembre','Octobre','Decembre'],
+            labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Aout','Septembre','Novembre','Octobre','Decembre'],
             datasets: [{
                 label: 'Temperature 12 derniere mois',
-                data: {{dataTemp}},
+                data: {{moyYearTemp}},
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -146,7 +186,7 @@
             labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Aout','Septembre','Novembre','Octobre','Decembre'],
             datasets: [{
                 label: 'Humidite 12 derniere mois',
-                    data: {{ dataHum }},
+                    data: {{ moyYearHum }},
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -188,7 +228,7 @@
             labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Aout','Septembre','Novembre','Octobre','Decembre'],
             datasets: [{
                 label: 'Co2 12 derniere mois',
-                data: {{ dataCo2 }},
+                data: {{ moyYearCo2 }},
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -271,15 +311,18 @@
             const jourLabels=["1","2","3","4","5","6","7","8","9","10","11","12"];
             const semaineLabels=["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"];
             const anneeLabels=['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Aout','Septembre','Novembre','Octobre','Decembre'];
-                                //Utils.months({count: 12})
+            const moisLabels=["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"]
 
             const jourTemp = dataDayTempy;
             const jourHum = dataDayHumy;
             const jourCo2 = dataDayCo2y;
             const semaine = [10,20,30,40,50,60,70];
-            const anneeTemp = {{dataTemp}};
-            const anneeHum = {{ dataHum }};
-            const anneeCo2 = {{ dataCo2 }};
+            const anneeTemp = {{moyYearTemp}};
+            const anneeHum = {{ moyYearHum }};
+            const anneeCo2 = {{ moyYearCo2 }};
+            const moisTemp = {{ moyMonthTemp }};
+            const moisHum = {{ moyMonthHum }};
+            const moisCo2 = {{ moyMonthCo2 }};
 
 
             if(type === 'jour') {
@@ -319,18 +362,37 @@
             if(type === 'annee') {
                 myChartTemp.data.datasets[0].data = anneeTemp;
                 myChartTemp.data.labels = anneeLabels;
-                myChartTemp.data.datasets[0].label = 'Temperature 12 derniere mois '
+                myChartTemp.data.datasets[0].label = 'Temperature annee actuelle '
                 myChartTemp.update();
 
                 myChartHum.data.datasets[0].data = anneeHum;
                 myChartHum.data.labels = anneeLabels;
-                myChartHum.data.datasets[0].label = 'Humidite 12 derniere mois '
+                myChartHum.data.datasets[0].label = 'Humidite annee actuelle '
                 myChartHum.update();
 
                 myChartCo2.data.datasets[0].data = anneeCo2;
                 myChartCo2.data.labels = anneeLabels;
-                myChartCo2.data.datasets[0].label = 'Co2 12 derniere mois '
+                myChartCo2.data.datasets[0].label = 'Co2 annee actuelle '
                 myChartCo2.update();
+            }
+
+            if(type === 'mois'){
+
+                myChartTemp.data.datasets[0].data = moisTemp;
+                myChartTemp.data.labels = moisLabels;
+                myChartTemp.data.datasets[0].label = 'Temperature mois actuel '
+                myChartTemp.update();
+
+                myChartHum.data.datasets[0].data = moisHum;
+                myChartHum.data.labels = moisLabels;
+                myChartHum.data.datasets[0].label = 'Humidite mois actuel '
+                myChartHum.update();
+
+                myChartCo2.data.datasets[0].data = moisCo2;
+                myChartCo2.data.labels = moisLabels;
+                myChartCo2.data.datasets[0].label = 'Co2 mois actuel'
+                myChartCo2.update();
+
             }
         }
 
