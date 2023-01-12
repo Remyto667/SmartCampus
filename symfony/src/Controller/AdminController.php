@@ -36,7 +36,13 @@ class AdminController extends AbstractController
             'controller_name' => 'AdminController',
         ]);
     }
-
+    #[Route('/admin/guide', name: 'admin_guide')]
+    public function guide(): Response
+    {
+        return $this->render('admin/guide.html.twig', [
+            'controller_name' => 'AdminController',
+        ]);
+    }
     #[Route('/admin/profil', name: 'profil_admin')]
     public function connexion_admin(ManagerRegistry $doctrine): Response
     {
@@ -54,7 +60,6 @@ class AdminController extends AbstractController
             'countRoom' => sizeof($allRoom)-1,
             'countSystem' => sizeof($allSystem),
             'CountSensor' => sizeof($allSensor),
-            'controller_name' => 'CONNEXION',
         ]);
     }
 

@@ -5,18 +5,23 @@
 {% block body %}
     <style>
         .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+        .example-wrapper code { padding: 2px 6px; }
 
         h1 {
             text-align: center;
-            margin-top: 100px;
+            margin-top: 40px;
+            text-decoration: underline;
         }
         h2 {
             text-align: center;
-            margin-top: 30px;
+            margin-top: 40px;
+            font-size: 30px;
+        }
+        h3 {
+            text-align: center;
+            margin-top: 20px;
             font-size: 20px;
         }
-
         /************* BOUTONS ET COULEURS **************/
         .blue {
             color: #fff;
@@ -102,6 +107,7 @@
         .btn-div {
             justify-content: center;
             text-align: center;
+            margin-bottom: 40px;
         }
 
         .red:hover
@@ -136,6 +142,8 @@
 
     <div class="example-wrapper">
         <h1>Liste des salles</h1>
+        <h2>Choisissez une salle</h2>
+        <h3>Pour voir la température, le CO2 et l'humidité actuel</h3>
         <br>
         <br>
         <div class="ligne">
@@ -178,8 +186,9 @@
     </div>
 
     <div class="btn-div">
-        <a class="btn btn-primary" href="/accueil" role="button">Retour</a>
+        <a class="btn blue btn-primary" href="/accueil" role="button">Retour</a>
     </div>
+
 {% endblock %}
 
 
