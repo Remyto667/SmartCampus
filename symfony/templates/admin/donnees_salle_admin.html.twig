@@ -260,7 +260,11 @@
     <div class="ligne">
         {% for floor in allFloor %}
             <div class="item-ligne">
-                <p> Etage {{ floor }} : </p>
+                {% if floor=="0" %}
+                    <p> Rez-de-chaussée : </p>
+                {% else %}
+                    <p> Etage {{ floor }} : </p>
+                {% endif %}
                 {% for room in allRoom %}
                     {% if (room.isIsStock() != 1) and (room.floor == floor) %}
                         {% if (room.getTempAlert.isAlert == true or room.getCo2Alert.isAlert==true or room.getHumAlert.isAlert==true) %}

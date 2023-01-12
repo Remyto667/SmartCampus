@@ -140,7 +140,11 @@
         <br>
         <div class="ligne">
             {% for floor in allFloor | reverse %}
-                <p class=""> Etage {{ floor }} : </p>
+                {% if floor=="0" %}
+                    <p> Rez-de-chaussée : </p>
+                {% else %}
+                    <p> Etage {{ floor }} : </p>
+                {% endif %}
                 <div class="item-ligne">
                     {% for room in allRoom %}
                         {% if (room.isIsStock() != 1) and (room.floor == floor) %}
