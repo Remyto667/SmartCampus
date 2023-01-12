@@ -108,7 +108,7 @@
                     <i class="fas fa-chart-bar fa-fw me-3">&ensp; &ensp; Graphique</i>
                 </a>
                 <!-- Inventaire -->
-                <!-- CACHER la div inventaire si role admin : if (app.user.username == "admin")-->
+                <!-- CACHER la div inventaire si role = admin-->
                 {% if app.user.username == "admin" %}
                     <style> #menu1 {display: none;}</style>
                 {% endif %}
