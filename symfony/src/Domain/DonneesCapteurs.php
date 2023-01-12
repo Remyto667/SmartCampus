@@ -36,10 +36,8 @@ class DonneesCapteurs
         $this->donneesPourSalle = array();
         $this->donneesPourGraphique = array();
         $this->donneesPourInterval = array();
-
         $this->tags = array();
         $this->initTags();
-
     }
 
     public function getDonneesPourSalle(int $tag):array
@@ -87,7 +85,6 @@ class DonneesCapteurs
                     'headers' => [
                         'Accept' => 'application/ld+json',
                         'dbname' => $this->tags[$tag],
-                        //'dbname' => 'sae34bdx1eq1',
                         'username' => 'x1eq3',
                         'userpass' => 'bRepOh4UkiaM9c7R'
                     ],
@@ -95,12 +92,10 @@ class DonneesCapteurs
                 $content=json_decode($response->getContent());
                 if(sizeof($content) > 0)
                 {
-                    //var_dump($content);
                     foreach($content as $data => $array) {
                         $arrayMieux = json_decode(json_encode($array), true);
-                        if($arrayMieux["nom"]==$nom)
+                        if($arrayMieux["nom"]==$nom and $arrayMieux["tag"]==$tag)
                         {
-                            //var_dump($arrayMieux);
                             $this->donneesPourInterval[$type][$data] = $arrayMieux;
                         }
                     }
@@ -123,7 +118,6 @@ class DonneesCapteurs
         $client = HttpClient::create();
         foreach($types as $type => $nom)
         {
-            var_dump($tag);
             $response = $client->request('GET', 'http://sae34.k8s.iut-larochelle.fr/api/captures?nom='.$nom.'&tag='.$tag.'&page=1', [
                 'headers' => [
                     'Accept' => 'application/ld+json',

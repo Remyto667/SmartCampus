@@ -1,42 +1,233 @@
-{% extends 'base.html.twig' %}
+{% extends 'basewithnavbar.html.twig' %}
 
-{% block title %}Détails Alerte{% endblock %}
+{% block title %}Données d'une salle{% endblock %}
 
 {% block body %}
-<style>
-    .main {top:0;right:0; text-align: center; margin: 1em auto; max-width: 1200px; width: 95%; font: 18px/1.5 sans-serif;}
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    .main2{
-        top:0;
-        left:0;
-        width:100%;
-        text-align: center;
-    }
-    .advice{font-size: 60px; color: black;}
-    .alerte_main{font-size: 100px; color: white;background-color: #B51b1b;}
-    .secondary_text{font-size: 75px; color: #B51b1b;}
-    .advicetext{font-size: 50px; color: black;padding: 15px;border: 1px solid black;}
-    .btn{margin-top: 35px; background-color: black;color: white;}
-    body{
-        background-color: white;
-    }
-    ul{
-        list-style-type: none;
-    }
-</style>
-<div class="main2">
+    <style>
+        /*.example-wrapper { text-align: center; margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }*/
+        body{
+            background-color: #f7f9fa;
+        }
+        .text_center{
+            height: 100%;
+            font-family: arial;
+            text-align: center;
+        }
+
+        .title
+        {
+            position:absolute;
+            text-align:center;
+            width:100%;
+            font-size: 40px;
+        }
+
+        .titleEffect {
+            position: relative;
+            color: black;
+            text-decoration: none;
+        }
+
+        .titleEffect:after {
+            content: '';
+            display: block;
+            position: absolute;
+            bottom: 0px;
+            width: 0%;
+            left: 0px;
+            height: 3px;
+            transition: 0.25s cubic-bezier(0.72,-0.01, 0.19, 0.92);
+            background: #014898;
+        }
+
+        .titleEffect:hover:after {
+            width: 100%;
+        }
+        /************************* TITRE **************************/
+        .textSensor{
+            position : relative;
+            margin-top : 50px;
+        }
+
+        .salle:hover .shape {
+            stroke-width: 4px; /* Epaisseur du contour plus fine que avant */
+            stroke-dashoffset: 0;
+            stroke-dasharray: 800;
+        }
+
+        /************************* GRILLE **************************/
+        .data-container{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around; /* Espacé sans être collé aux bords */
+            /*margin: 100px;*/
+        }
+
+        .boxDesc{
+            border: 2px solid grey;
+            border-radius: 32px;
+            box-shadow: 2px 2px 5px grey;
+            padding-bottom: 30px;
+            padding-left: 20px;
+            padding-right: 30px;
+        }
+
+        .box{
+            border: 0.5px solid grey;
+            border-radius: 8px;
+            box-shadow: 2px 2px 5px grey;
+            padding: 20px;
+        }
+        .box:hover{
+            /*color: #014898;*/
+            /*font-size: 25px;*/
+            box-shadow: 5px 5px 5px grey;
+            text-shadow: 2px 2px 5px grey;
+        }
+
+        .titreDonnee{
+            font-size: 30px;
+            /*padding: 10px;*/
+        }
+
+        .donnee{
+            padding: 50px;
+            font-size: 35px;
+            border: 0.5px solid grey;
+            border-radius: 8px;
+            box-shadow: 2px 2px 5px grey;
+        }
+
+        /*************************/
+        .description{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            margin-top: 100px;
+        }
+        /********* EFFET *********/
+
+        @keyframes box{
+            0%,
+            100%{
+                transform: scale(1);
+            }
+            50%{
+                transform: scale(1.3);
+            }
+        }
+
+        .ligne{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            column-gap: 30px;
+            padding-top: 100px;
+        }
+        .item-ligne{
+            align-self: auto;
+        }
 
 
+        {% if nbAlert ["T"] >50 %}
+        .Temp {color: white; border: 1px solid black; background-color: #B51b1b;}
+        .box:nth-child(1){
+            transform: scale(1);
+            animation: box 1s linear infinite;
+        }
+        {% endif %}
+        {% if nbAlert ["H"] >50 %}
+        .Hum {color: white; border: 1px solid black; background-color: #B51b1b;}
+        .box:nth-child(2){
+            transform: scale(1);
+            animation: box 1s linear infinite;
+        }
+        {% endif %}
+        {% if nbAlert ["C"] >50 %}
+        .C02 {color: white; border: 1px solid black; background-color: #B51b1b;}
+        .box:nth-child(3){
+            transform: scale(1);
+            animation: box 1s linear infinite;
+        }
+        {% endif %}
 
-        <div class="alerte_main">
-            ALERTE
+        .red{margin-top: 15px; background-color: #B51b1b; color: white; max-width: 250px}
+        .blue{margin-top: 15px; background-color: #00489a;
+            border-color: #00489a; color: white; max-width: 250px}
+
+        .red:hover
+        {
+            background: #da0e0e;
+        }
+
+    </style>
+
+    <div class="text_center">
+        <br>
+        <div class="title">
+            <a class="titleEffect">{{ room.getName() }}</a>
+        </div>
+        <br>
+        <br><br><br><br><br>
+        <br>
+        <div class="container">
+            <div class="data-container">
+
+                <div class="bg-white box">
+                    <div class="titreDonnee">Température</div>
+                        <div class="Temp donnee">{{ nbAlert["T"] }} Alertes</div>
+                </div>
+
+                <div class="bg-white box">
+                    <div class="titreDonnee">Humidité</div>
+                    <div class="Hum donnee">{{ nbAlert["H"] }} Alertes </div>
+                </div>
+                <div class="bg-white box">
+                    <div class="titreDonnee">CO2</div>
+                    <div class="C02 donnee">{{ nbAlert["C"] }} Alertes</div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class = "container">
+        <div class = "data-container">
+            <div class="description">
+                <div class="boxDesc bg-white">
+                    <div class="descriptionRoom">
+                        <br><br>
+                        <ul><a style="border-bottom: 2px solid #014898;">La salle {{ room.getName() }}:</a>
+                            <li> a une superficie de : {{ room.getRoomSize() }} m2</li>
+                            <li> possède {{ room.getWindowsNumber() }} fenêtres,</li>
+                            {% if room.getFloor()==1 %}
+                                <li> est située au {{ room.getFloor() }}er étage </li>
+                            {% else %}
+                                <li> est située au {{ room.getFloor() }}ème étage </li>
+                            {% endif %}
+
+                            <li> est orientée au {{ room.getOrientationString() }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="description">
+                <div class="boxDesc bg-white">
+                    <div class="textSensor">
+                        <ul>Des conseils vous seront donnés si :
+                            <li> < {{ room.getType().getTempMin() }} °C ou > {{ room.getType().getTempMax() }} °C </li>
+                            <li> < {{ room.getType().getHumMin() }} % ou > {{ room.getType().getHumMax() }}% d'humidité </li>
+                            <li> < {{ room.getType().getCo2Min() }} PPM </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
 
+       //bouton retour
 
-
-        <a class="btn btn-lg" role="button" href="javascript:history.go(-1)">Retour</a>
     </div>
-
-</div>
-
 {% endblock %}
