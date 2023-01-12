@@ -160,7 +160,6 @@ class AppFixtures extends Fixture
         $room7->setRoomSize(45);
         $room7->setType($type1);
         $room7->setWindowsNumber(4);
-        $room7->setIsStock(false);
         $room7->setTempAlert(new Alert(false, ''));
         $room7->setHumAlert(new Alert(false, ''));
         $room7->setCo2Alert(new Alert(false, ''));
@@ -173,7 +172,6 @@ class AppFixtures extends Fixture
         $room8->setRoomSize(45);
         $room8->setType($type1);
         $room8->setWindowsNumber(4);
-        $room8->setIsStock(false);
         $room8->setTempAlert(new Alert(false, ''));
         $room8->setHumAlert(new Alert(false, ''));
         $room8->setCo2Alert(new Alert(false, ''));
@@ -186,7 +184,6 @@ class AppFixtures extends Fixture
         $room9->setRoomSize(55);
         $room9->setType($type2);
         $room9->setWindowsNumber(4);
-        $room9->setIsStock(false);
         $room9->setTempAlert(new Alert(false, ''));
         $room9->setHumAlert(new Alert(false, ''));
         $room9->setCo2Alert(new Alert(false, ''));
@@ -199,7 +196,6 @@ class AppFixtures extends Fixture
         $room10->setRoomSize(55);
         $room10->setType($type3);
         $room10->setWindowsNumber(5);
-        $room10->setIsStock(false);
         $room10->setTempAlert(new Alert(false, ''));
         $room10->setHumAlert(new Alert(false, ''));
         $room10->setCo2Alert(new Alert(false, ''));
@@ -212,7 +208,6 @@ class AppFixtures extends Fixture
         $room11->setRoomSize(55);
         $room11->setType($type3);
         $room11->setWindowsNumber(5);
-        $room11->setIsStock(false);
         $room11->setTempAlert(new Alert(false, ''));
         $room11->setHumAlert(new Alert(false, ''));
         $room11->setCo2Alert(new Alert(false, ''));
@@ -225,7 +220,6 @@ class AppFixtures extends Fixture
         $room12->setRoomSize(40);
         $room12->setType($type4);
         $room12->setWindowsNumber(2);
-        $room12->setIsStock(false);
         $room12->setTempAlert(new Alert(false, ''));
         $room12->setHumAlert(new Alert(false, ''));
         $room12->setCo2Alert(new Alert(false, ''));
@@ -238,7 +232,6 @@ class AppFixtures extends Fixture
         $room13->setRoomSize(60);
         $room13->setType($type1);
         $room13->setWindowsNumber(5);
-        $room13->setIsStock(false);
         $room13->setTempAlert(new Alert(false, ''));
         $room13->setHumAlert(new Alert(false, ''));
         $room13->setCo2Alert(new Alert(false, ''));
@@ -251,7 +244,6 @@ class AppFixtures extends Fixture
         $room14->setRoomSize(60);
         $room14->setType($type1);
         $room14->setWindowsNumber(5);
-        $room14->setIsStock(false);
         $room14->setTempAlert(new Alert(false, ''));
         $room14->setHumAlert(new Alert(false, ''));
         $room14->setCo2Alert(new Alert(false, ''));
@@ -264,7 +256,6 @@ class AppFixtures extends Fixture
         $room15->setRoomSize(60);
         $room15->setType($type1);
         $room15->setWindowsNumber(5);
-        $room15->setIsStock(false);
         $room15->setTempAlert(new Alert(false, ''));
         $room15->setHumAlert(new Alert(false, ''));
         $room15->setCo2Alert(new Alert(false, ''));
@@ -277,7 +268,6 @@ class AppFixtures extends Fixture
         $room16->setRoomSize(60);
         $room16->setType($type1);
         $room16->setWindowsNumber(5);
-        $room16->setIsStock(false);
         $room16->setTempAlert(new Alert(false, ''));
         $room16->setHumAlert(new Alert(false, ''));
         $room16->setCo2Alert(new Alert(false, ''));

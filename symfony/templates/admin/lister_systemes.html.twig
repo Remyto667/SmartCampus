@@ -91,11 +91,11 @@
                 "Ceci supprimera tous les capteurs de ce système \n" +
                 "Sinon annulez et changez les capteurs de système d'abord");
             if (dialog) {
-                document.location.href="/admin/inventaire/supprimer_systeme/"+id;
+                document.location.href="/inventaire/supprimer_systeme/"+id;
 
             }
             else {
-                document.location.href="/admin/inventaire/lister_systemes";
+                document.location.href="/inventaire/lister_systemes";
             }
         }
     </script>
@@ -131,13 +131,13 @@
                         {% endif %}
                     {% endfor %}
                     <td>
-                        <a class="btn btn-primary img update favorite" href="/admin/inventaire/modifier_systeme/{{ system.id }}" role="button" > </a> <input class="btn btn-primary img delete favorite" type=button onclick="openPopup({{ system.id }})"> </td>
+                        <a class="btn btn-primary img update favorite" href="/inventaire/modifier_systeme/{{ system.id }}" role="button" > </a> <input class="btn btn-primary img delete favorite" type=button onclick="openPopup({{ system.id }})"> </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
 
-        <a class="btn btn-primary favorite" href="/admin/inventaire/ajouter_systeme" role="button">Ajouter un Systeme</a>
+        <a class="btn btn-primary favorite" href="/inventaire/ajouter_systeme" role="button">Ajouter un Systeme</a>
 
     </div>
 {% endblock %}

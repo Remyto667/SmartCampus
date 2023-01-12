@@ -175,7 +175,7 @@
         <!--<div class="salle">
             <svg height="60" width="200" xmlns="http://www.w3.org/2000/svg">
               <rect class="shape" height="60" width="200" />
-                <div class="text">{{ room.getName() }}</div>
+                <div class="text">{/{ room.getName() }}</div>
             </svg>
         </div>-->
 
@@ -260,9 +260,9 @@
                 <div class="boxDesc bg-white">
                     <div class="textSensor">
                         <ul>Des conseils vous seront donnés si :
-                            <li>- {{ room.getType().getTempMin() }} °C / + {{ room.getType().getTempMax() }} °C </li>
-                            <li>-{{ room.getType().getHumMin() }} % / + {{ room.getType().getHumMax() }}% d'humidité </li>
-                            <li>- {{ room.getType().getCo2Min() }} PPM / +{{ room.getType().getCo2Max() }}PPM </li>
+                            <li> < {{ room.getType().getTempMin() }} °C ou > {{ room.getType().getTempMax() }} °C </li>
+                            <li> < {{ room.getType().getHumMin() }} % ou > {{ room.getType().getHumMax() }}% d'humidité </li>
+                            <li> < {{ room.getType().getCo2Min() }} PPM </li>
                         </ul>
                     </div>
                 </div>

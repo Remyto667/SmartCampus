@@ -45,7 +45,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/inventaire', name: 'inventaire')]
+    #[Route('/inventaire', name: 'inventaire')]
     public function inventaire(): Response
     {
         return $this->render('admin/inventaire.html.twig', [
@@ -53,7 +53,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/inventaire/lister_salles/{ok?1}', name: 'listerSalles')]
+    #[Route('/inventaire/lister_salles/{ok?1}', name: 'listerSalles')]
     public function lister_salles(ManagerRegistry $doctrine, ?int $ok, DonneesCapteursHandler $handler): Response
     {
         $entityManager = $doctrine->getManager();
@@ -83,7 +83,7 @@ class AdminController extends AbstractController
 
     }
 
-    #[Route('/admin/inventaire/lister_systemes', name: 'listerSystemes')]
+    #[Route('/inventaire/lister_systemes', name: 'listerSystemes')]
     public function lister_systemes(ManagerRegistry $doctrine): Response
     {
         $entityManager = $doctrine->getManager();
@@ -98,7 +98,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/inventaire/lister_capteurs', name: 'listerCapteurs')]
+    #[Route('/inventaire/lister_capteurs', name: 'listerCapteurs')]
     public function lister_capteurs(ManagerRegistry $doctrine): Response
     {
         $entityManager = $doctrine->getManager();
@@ -110,7 +110,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/inventaire/ajouter_capteur', name: 'ajouterCapteur')]
+    #[Route('/inventaire/ajouter_capteur', name: 'ajouterCapteur')]
     public function ajouter_capteur(Request $request, EntityManagerInterface $entityManager): Response
     {
         $sensor = new Sensor();
@@ -128,7 +128,7 @@ class AdminController extends AbstractController
 
     }
 
-    #[Route('/admin/inventaire/ajouter_salle', name: 'ajouter_salle')]
+    #[Route('/inventaire/ajouter_salle', name: 'ajouter_salle')]
     public function ajouter_salle(Request $request, ManagerRegistry $doctrine): Response
     {
         $room = new Room();
@@ -147,7 +147,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/inventaire/ajouter_systeme', name: 'ajouterSystemes')]
+    #[Route('/inventaire/ajouter_systeme', name: 'ajouterSystemes')]
     public function add_system(Request $request, EntityManagerInterface $entityManager): Response
     {
         $system = new System();
@@ -166,7 +166,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/inventaire/modifier_systeme/{id?}', name: 'modifierSystemes')]
+    #[Route('/inventaire/modifier_systeme/{id?}', name: 'modifierSystemes')]
     public function update_system(Request $request, ?int $id, ManagerRegistry $doctrine): Response
     {
         $entityManager = $doctrine->getManager();
@@ -188,7 +188,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/inventaire/modifier_salle/{id?}', name: 'modifierSalles')]
+    #[Route('/inventaire/modifier_salle/{id?}', name: 'modifierSalles')]
     public function update_room(Request $request, ?int $id, ManagerRegistry $doctrine): Response
     {
         $entityManager = $doctrine->getManager();
@@ -210,7 +210,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/inventaire/modifier_capteur/{id?}', name: 'modifierCapteurs')]
+    #[Route('/inventaire/modifier_capteur/{id?}', name: 'modifierCapteurs')]
     public function update_capteur(Request $request, ?int $id, ManagerRegistry $doctrine): Response{
         $entityManager =$doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Sensor');
@@ -229,7 +229,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/inventaire/supprimer_capteur/{id?}', name: 'supprimerCapteur')]
+    #[Route('/inventaire/supprimer_capteur/{id?}', name: 'supprimerCapteur')]
     public function supprimer_capteur(Request $request, ?int $id, ManagerRegistry $doctrine): Response{
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Sensor');
@@ -240,7 +240,7 @@ class AdminController extends AbstractController
 
 
     }
-    #[Route('/admin/inventaire/supprimer_systeme/{id?}', name: 'supprimerSysteme')]
+    #[Route('/inventaire/supprimer_systeme/{id?}', name: 'supprimerSysteme')]
     public function supprimer_systeme(Request $request, ?int $id, ManagerRegistry $doctrine): Response{
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\System');
@@ -251,7 +251,7 @@ class AdminController extends AbstractController
         return $this->redirect($this->generateUrl('listerSystemes'));
     }
 
-    #[Route('/admin/inventaire/supprimer_salle/{id?}', name: 'supprimerSalle')]
+    #[Route('/inventaire/supprimer_salle/{id?}', name: 'supprimerSalle')]
     public function supprimer_salle(Request $request, ?int $id, ManagerRegistry $doctrine): Response{
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
@@ -285,6 +285,7 @@ class AdminController extends AbstractController
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
 
+        //pour mettre les alertes
         foreach($allRoom as $rooms)
         {
             $handler->handle(new DonneesCapteursQuery($rooms, $doctrine));
@@ -386,25 +387,29 @@ class AdminController extends AbstractController
 
         }
 
-        $allDay=$statTemp->getAllDay();
-        dd($dataDay=json_encode($statTemp->PopulateDayAsLabel()));
 
+        $dataDayTemp=$statTemp->PopulateDayAsLabel(11);
         $moyTemp=json_encode($statTemp->PopulateMoy());                 // On calcule la moyenne de chaque mois et on structure en tableau
 
         foreach($donnees["H"] as $hum){
 
             $statHum->PushToArrayDateMonth($statHum->transformMonth($hum->dateCapture),doubleval($hum->valeur));        // Hum
+            $statHum->PushToArrayDateDay(($statHum->transformDay($hum->dateCapture)),doubleval($hum->valeur));
 
         }
 
+
+        $dataDayHum=$statHum->PopulateDayAsLabel(11);
         $moyHum=json_encode($statHum->PopulateMoy());       // Hum
 
         foreach($donnees["C"] as $co2){
 
             $statCo2->PushToArrayDateMonth($statCo2->transformMonth($co2->dateCapture),doubleval($co2->valeur));        // Co2
+            $statCo2->PushToArrayDateDay(($statCo2->transformDay($co2->dateCapture)),doubleval($co2->valeur));
 
         }
 
+        $dataDayCo2=$statCo2->PopulateDayAsLabel(11);
         $moyCo2=json_encode($statCo2->PopulateMoy());       // Co2
 
 
@@ -413,11 +418,71 @@ class AdminController extends AbstractController
             'dataTemp' =>$moyTemp,
             'dataHum' =>$moyHum,
             'dataCo2' =>$moyCo2,
-            //'allDay'=>$allDay,
+            'dataDayTemp'=>$dataDayTemp,
+            'dataDayHum' =>$dataDayHum,
+            'dataDayCo2' =>$dataDayCo2,
+
+
+
+            //'data'=>$dataDay,
 
         ]);
     }
 
+    #[Route('admin/alerte_selection', name: 'alerte_selection')]
+    public function alerte_selection_salle(Request $request, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
+    {
+        $entityManager = $doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\Room');
+        $allRoom = $repository->findAll();
+        $date1 = '2022-12-12';
+        $date2 = '2023-01-12';
+
+        $nbAlert = array();
+        foreach($allRoom as $rooms)
+        {
+            if($rooms->getName()!="Stock"){
+                //initialize
+                $handler->handle(new DonneesCapteursQuery($rooms, $doctrine));
+                $nbAlert[$rooms->getId()]["T"] = $handler->handleNbAlertTemp(new DonneesCapteursQuery($rooms, $doctrine),$date1,$date2);
+                $nbAlert[$rooms->getId()]["H"] = $handler->handleNbAlertHum(new DonneesCapteursQuery($rooms, $doctrine),$date1,$date2);
+                $nbAlert[$rooms->getId()]["C"] = $handler->handleNbAlertCo2(new DonneesCapteursQuery($rooms, $doctrine),$date1,$date2);
+            }
+        }
+        //var_dump($nbAlert);
+
+        return $this->render('admin/alerte_selection.html.twig', [
+            'allRoom' => $allRoom,
+            'allFloor' => $repository->findAllFloor(),
+            'nbAlert' =>$nbAlert,
+
+        ]);
+
+    }
+
+    #[Route('/admin/alerte_vision/{room?}', name: 'alerte_admin')]
+    public function alerte_vision(?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
+    {
+        $statTemp= new Stat\Stat();
+        $statHum= new Stat\Stat();
+        $statCo2= new Stat\Stat();
+        $entityManager = $doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\Room');
+        $allRoom = $repository->findAll();
+        // faire ca pour seulement une salle
+
+        $donnees=$handler->handleUneSalle(new DonneesCapteursQuery($room, $doctrine));             // Récupération de toutes les données de l'API
+
+
+
+        return $this->render('admin/alerteStat.html.twig', [
+            'room' => $room,
+            //'dataTemp' =>$moyTemp,
+            //'dataHum' =>$moyHum,
+            //'dataCo2' =>$moyCo2,
+
+        ]);
+    }
 
     /*
         #[Route('/admin/lister_alertes', name: 'listerAlertes')]
