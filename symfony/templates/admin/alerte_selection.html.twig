@@ -151,13 +151,14 @@
 
                         {% if (room.isIsStock() != 1) and (room.floor == floor) %}
                             <div class="item-salle cadre" onclick="window.location='/admin/alerte_vision/{{ room.id }}';">
-                                {% if nbAlert[room.getId()]["T"] + nbAlert[room.getId()]["H"] + nbAlert[room.getId()]["C"]  > 1000 %}
+                                {% if nbAlert[room.id]["T"] + nbAlert[room.id]["H"] + nbAlert[room.id]["C"]  > 1000 %}
                                     <a class="btn red btn-danger" href="/admin/alerte_vision/{{ room.id }}">{{ room.name }}</a>
                                 {% else %}
                                     <a class="btn btn-primary blue" href="/admin/alerte_vision/{{ room.id }}">{{ room.name }}</a>
                                 {% endif %}
-                                <p class="text">{{  nbAlert[room.getId()]["T"] + nbAlert[room.getId()]["H"] + nbAlert[room.getId()]["C"] }} alertes</p>
-                                <!--<p class="text">{/{  nbAlert[room.getId()]["T"]}} temp {/{ nbAlert[room.getId()]["H"]}} hum {/{ nbAlert[room.getId()]["C"] }}co2 alertes</p>-->
+                                <p>{{ room.id }}</p>
+                                <p class="text">{{  nbAlert[room.id]["T"] + nbAlert[room.id]["H"] + nbAlert[room.id]["C"] }} alertes</p>
+                                <p class="text">{{  nbAlert[room.getId()]["T"]}} temp {{ nbAlert[room.getId()]["H"]}} hum {{ nbAlert[room.getId()]["C"] }}co2 alertes</p>
                             </div>
 
                         {% endif %}

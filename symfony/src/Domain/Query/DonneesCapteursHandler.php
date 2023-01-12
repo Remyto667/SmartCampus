@@ -104,7 +104,10 @@ class DonneesCapteursHandler
 
     public function handleNbAlertTemp(DonneesCapteursQuery $requete,$date1,$date2):int
     {
+        var_dump($requete->getTag());
+        var_dump($requete->getRoom()->getName());
         $datas = $this->donneesCapteurs->getDonneesInterval($requete->getTag(),$date1,$date2);
+
         $nb=0;
 
         //faut n'envoyer que les donnees dans le array $datas qui sont dans ["T"]

@@ -435,12 +435,14 @@ class AdminController extends AbstractController
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
-        $date1 = '2022-12-12';
-        $date2 = '2023-01-12';
 
         $nbAlert = array();
         foreach($allRoom as $room)
         {
+            /* appel alerte_vision */
+            $nbAlert[$room->getId()] = $this->alerte_vision($room, $doctrine, $handler);
+
+            /*
             if($room->getName()!="Stock"){
                 //initialize
                 $handler->handle(new DonneesCapteursQuery($room, $doctrine));
@@ -448,7 +450,7 @@ class AdminController extends AbstractController
                 $nbAlert[$room->getId()]["T"] = $handler->handleNbAlertTemp(new DonneesCapteursQuery($room, $doctrine),$date1,$date2);
                 $nbAlert[$room->getId()]["H"] = $handler->handleNbAlertHum(new DonneesCapteursQuery($room, $doctrine),$date1,$date2);
                 $nbAlert[$room->getId()]["C"] = $handler->handleNbAlertCo2(new DonneesCapteursQuery($room, $doctrine),$date1,$date2);
-            }
+            }*/
         }
 
         return $this->render('admin/alerte_selection.html.twig', [
@@ -459,8 +461,8 @@ class AdminController extends AbstractController
 
     }
 
-    #[Route('/admin/alerte_vision/{room?}', name: 'alerte_admin')]
-    public function alerte_vision(?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
+    //#[Route('/admin/alerte_vision/{room?}', name: 'alerte_vision_admin')]
+    public function alerte_vision(?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): array
     {
         $date1 = '2022-12-12';
         $date2 = '2023-01-12';
@@ -475,56 +477,29 @@ class AdminController extends AbstractController
         }
         //var_dump($nbAlert);
 
+        return $nbAlert;
+        /*return $this->render('admin/alerteStat.html.twig', [
+            'room' => $room,
+            'nbAlert' =>$nbAlert,
+        ]);*/
+    }
+
+    #[Route('/admin/alerte_vision/{room?}', name: 'alerte_vision_admin')]
+    public function alerte_visionV2(?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
+    {
+        $nbAlert = array();
+
+        if($room->getName()!="Stock"){
+            //initialize
+            $handler->handle(new DonneesCapteursQuery($room, $doctrine));
+            $nbAlert=$this->alerte_vision($room, $doctrine, $handler);
+        }
+
         return $this->render('admin/alerteStat.html.twig', [
             'room' => $room,
             'nbAlert' =>$nbAlert,
         ]);
     }
-
-    /*
-        #[Route('/admin/lister_alertes', name: 'listerAlertes')]
-        public function liste_alertes(Request $request, ?Room $room, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response{
-
-            $entityManager = $doctrine->getManager();
-            $repository = $entityManager->getRepository('App\Entity\Room');
-            $rooms = $repository->findAll();
-
-            foreach ($rooms as $aRoom)
-            {
-                $donnees=$handler->handle(new DonneesCapteursery($aRoom, $doctrine));
-
-                /*$alertT = $aRoom->getTempAlert()->getIsAlert();
-                $alertH = $aRoom->getHumAlert()->getIsAlert();
-                $alertC = $aRoom->getCo2Alert()->getIsAlert();
-
-                //$desc = "";
-                if($alertT == true)
-                {
-                    $descT = "a un pb de temperature";
-                }
-                if($alertH == true)
-                {
-                    $descH = "a un pb dhumidite";
-                }
-                if($alertC == true)
-                {
-                    $descC = "a un pb de CO2";
-                }
-
-        }
-
-
-        return $this->render('admin/lister_alertes.html.twig', [
-            'controller_name' => 'Liste des Alertes',
-            'rooms' => $rooms,
-            'room' => $room,
-            //'alert' => $alert,
-            //'desc' => $desc,
-            /*'descT' => $descT,
-            'descH' => $descH,
-            'descC' => $descC,
-        ]);
-    }*/
 
 }
 
