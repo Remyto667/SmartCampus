@@ -6,8 +6,10 @@
     <style>
         /*.example-wrapper { text-align: center; margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
         .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }*/
-
-        .body{
+        body{
+            background-color: #f7f9fa;
+        }
+        .text_center{
             height: 100%;
             font-family: arial;
             text-align: center;
@@ -43,33 +45,6 @@
             width: 100%;
         }
         /************************* TITRE **************************/
-
-        .salle {
-            margin-top: 100px;
-            margin-left: 45%;
-            transform: translateY(-50%);
-            width: 200px;
-        }
-
-        .shape {
-            stroke-dasharray: 140 540;
-            stroke-dashoffset: -474;
-            stroke-width: 8px;
-            fill: transparent;
-            stroke: #014898;
-            transition: stroke-width 1s, stroke-dashoffset 1s, stroke-dasharray 1s;
-        }
-        .text {
-            display: block;
-            line-height: 32px;
-            letter-spacing: 7px;
-            top: -47px; /* Monter le text dans le rectangle plus haut */
-            position: relative;
-            text-align: center;
-            font-size: 50px;
-            justify-content: center;
-        }
-
         .textSensor{
             position : relative;
             margin-top : 50px;
@@ -124,19 +99,6 @@
             box-shadow: 2px 2px 5px grey;
         }
 
-        /****** BOUTONS ALERTE ******/
-
-        .boutonAlerte{
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            margin-top: 50px;
-        }
-
-        .boxBouton {
-            width: 250px;
-        }
-
         /*************************/
         .description{
             display: flex;
@@ -144,12 +106,6 @@
             justify-content: space-evenly;
             margin-top: 100px;
         }
-        .titrePage{
-            position: relative;
-            text-align: center;
-            font-size: 25px;
-        }
-
         /********* EFFET *********/
 
         @keyframes box{
@@ -207,8 +163,7 @@
 
     </style>
 
-
-    <div class="body">
+    <div class="text_center">
         <br>
         <div class="title">
             <a class="titleEffect">{{ room.getName() }}</a>
@@ -227,35 +182,35 @@
         <div class="container">
             <div class="data-container">
 
-                <div class="box">
+                <div class="bg-white box">
                     <div class="titreDonnee">Température</div>
                     {% if temp != "NULL"%}
 
                         <div class="Temp donnee">{{ temp }} °C</div>
                         Date de relevé : {{ dateT }}
                     {% else %}
-                        <div class="Temp donnee">Pas de<br>donnée</div>
+                        <div class="bg-white donnee">Pas de<br>donnée</div>
                     {% endif %}
                 </div>
 
-                <div class="box">
+                <div class="bg-white box">
                     <div class="titreDonnee">Humidité</div>
                     {% if hum != "NULL"%}
 
                     <div class="Hum donnee">{{ hum }} %</div>
                     Date de relevé : {{ dateH }}
                     {% else %}
-                        <div class="Temp donnee">Pas de<br>donnée</div>
+                        <div class="bg-white donnee">Pas de<br>donnée</div>
                     {% endif %}
                 </div>
-                <div class="box">
+                <div class="bg-white box">
                     <div class="titreDonnee">CO2</div>
                     {% if co2 != "NULL"%}
 
                     <div class="C02 donnee">{{ co2 }} PPM</div>
                     Date de relevé : {{ dateC }}
                     {% else %}
-                        <div class="Temp donnee">Pas de<br>donnée</div>
+                        <div class="bg-white donnee">Pas de<br>donnée</div>
                     {% endif %}
                 </div>
             </div>
@@ -266,7 +221,7 @@
     <div class = "container">
         <div class = "data-container">
             <div class="description">
-                <div class="boxDesc">
+                <div class="boxDesc bg-white">
                     <div class="descriptionRoom">
                         <br><br>
                         <ul><a style="border-bottom: 2px solid #014898;">La salle {{ room.getName() }}:</a>
@@ -284,7 +239,7 @@
                 </div>
             </div>
             {% if temp > room.getType().getTempMax() or temp < room.getType().getTempMin() or hum > room.getType().getHumMax() or hum < room.getType().getHumMin() or co2 < room.getType().getCo2Min()  or co2 >= room.getType().getCo2Max() %}
-                <div class = "description boxDesc ">
+                <div class = "description boxDesc bg-white">
                     <div class="descriptionRoom">
                         <br><br>
 
@@ -302,7 +257,7 @@
             {% endif %}
             
             <div class="description">
-                <div class="boxDesc">
+                <div class="boxDesc bg-white">
                     <div class="textSensor">
                         <ul>Des conseils vous seront donnés si :
                             <li> < {{ room.getType().getTempMin() }} °C ou > {{ room.getType().getTempMax() }} °C </li>
