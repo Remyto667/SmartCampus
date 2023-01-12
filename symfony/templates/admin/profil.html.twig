@@ -11,10 +11,12 @@
             display: flex;
             justify-content: end;
             align-items:end;
-            margin-top: 500px;
+            margin-top: 300px;
         }
         .text{
             text-align: center; margin: 1em auto; font: 28px/1.5 sans-serif;
+            text-decoration-line: underline;
+            text-decoration-color: #00489a;
         }
         body{
             background-image: url("../img/main_wallpaper.jpg");
@@ -27,15 +29,55 @@
             text-align: center;
             margin: 1em auto;
         }
+        .data-container{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly; /* Espacé sans être collé aux bords */
+            /*margin: 100px;*/
+        }
+
+        .boxDesc{
+            border: 2px solid grey;
+            border-radius: 32px;
+            box-shadow: 2px 2px 5px grey;
+            padding-bottom: 30px;
+            padding-left: 20px;
+            padding-right: 30px;
+        }
+
+
+        .username{
+            text-align: center;
+        }
     </style>
 
-    <div>
-    <img class="rounded mx-auto d-block img" src="{{ asset('img/profil.png') }}">
+    <div class="body">
+        <img class="rounded mx-auto d-block img" src="{{ asset('img/profil.png') }}">
 
-    <p class=" text"> Bonjour {{ app.user.username }} </p> <!--{/*{app.user.username}}-->
+        <p class="username h1 p-5 text-light"> Bonjour {{ app.user.username }} </p> <!--{/*{app.user.username}}-->
+
+        <br>
+
+        <div class="data-container">
+            <div class="boxDesc bg-light p-3 ">
+                <p class=" text" >Nombre de salles gérer :</p>
+                <br>
+                <p class="d-flex justify-content-center h1" >{{ countRoom }}</p>
+            </div>
+            <div class="boxDesc bg-light p-3 h1">
+                <p class=" text" >Nombre de capteurs gérer :</p>
+                <br>
+                <p class="d-flex justify-content-center h1" >{{ CountSensor }}</p>
+            </div>
+            <div class="boxDesc bg-light p-3 h1">
+                <p class=" text" >Nombre de systemes gérer :</p>
+                <br>
+                <p class="d-flex justify-content-center h1" >{{ countSystem }}</p>
+            </div>
+        </div>
     </div>
 
-    <div class="bottom col text-center bot form-group row gg">
+    <div class="bottom col text-center form-group row gg">
 
             <a class="btn btn-red btn-lg" href="/logout" role="button">Déconnexion</a>
 
