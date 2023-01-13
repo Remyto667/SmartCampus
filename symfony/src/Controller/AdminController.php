@@ -378,7 +378,7 @@ class AdminController extends AbstractController
 
     }
 
-    #[Route('/admin/suivi/graphique/{room?}', name: 'graph_admin')]
+    #[Route('/admin/suivi/graphique/{room?}', name: 'graph_admin')]         // Donnée actuelle
     public function graphique_admin(?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
     {
         $statTemp= new Stat\Stat();
@@ -398,20 +398,24 @@ class AdminController extends AbstractController
 
         foreach($donnees["T"] as $temp){
 
-            $statTemp->PushToArrayDateMonth($statTemp->transformMonth($temp->dateCapture),doubleval($temp->valeur));        // On classe les données en fonction de leur mois
-            $statTemp->PushToArrayDateDay(($statTemp->transformDay($temp->dateCapture)),doubleval($temp->valeur));
+            if($temp->localisation == $room->getName()){
 
+                $statTemp->PushToArrayDateMonth($statTemp->transformMonth($temp->dateCapture),doubleval($temp->valeur));        // On classe les données en fonction de leur mois
+                $statTemp->PushToArrayDateDay(($statTemp->transformDay($temp->dateCapture)),doubleval($temp->valeur));
+            }
         }
 
 
-        $dataDayTemp=$statTemp->PopulateDayAsLabel(date("j"));
+        $dataDayTemp=$statTemp->PopulateDayAsLabel(date("j")); //
         $moyYearTemp=json_encode($statTemp->PopulateMonthMoy());                 // On calcule la moyenne de chaque mois et on structure en tableau sur une année
         $moyMonthTemp=json_encode($statTemp->PopulateDayMoy());         // On calcule la moyenne de chaque jours et on structure en tableau sur un mois
 
         foreach($donnees["H"] as $hum){
 
-            $statHum->PushToArrayDateMonth($statHum->transformMonth($hum->dateCapture),doubleval($hum->valeur));        // Hum
-            $statHum->PushToArrayDateDay(($statHum->transformDay($hum->dateCapture)),doubleval($hum->valeur));
+            if($hum->localisation == $room->getName()) {
+                $statHum->PushToArrayDateMonth($statHum->transformMonth($hum->dateCapture), doubleval($hum->valeur));        // Hum
+                $statHum->PushToArrayDateDay(($statHum->transformDay($hum->dateCapture)), doubleval($hum->valeur));
+            }
 
         }
 
@@ -423,8 +427,10 @@ class AdminController extends AbstractController
 
         foreach($donnees["C"] as $co2){
 
-            $statCo2->PushToArrayDateMonth($statCo2->transformMonth($co2->dateCapture),doubleval($co2->valeur));        // Co2
-            $statCo2->PushToArrayDateDay(($statCo2->transformDay($co2->dateCapture)),doubleval($co2->valeur));
+            if($co2->localisation == $room->getName()) {
+                $statCo2->PushToArrayDateMonth($statCo2->transformMonth($co2->dateCapture), doubleval($co2->valeur));        // Co2
+                $statCo2->PushToArrayDateDay(($statCo2->transformDay($co2->dateCapture)), doubleval($co2->valeur));
+            }
 
         }
 
@@ -454,7 +460,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/suivi/graphique/{room?}/{annee?}', name: 'graph_annee_admin')]
+    #[Route('/admin/suivi/graphique/{room?}/{annee?}', name: 'graph_annee_admin')]               // Choix annee
     public function graphique_annne_admin($annee,?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
     {
         $statTemp= new Stat\Stat();
@@ -535,8 +541,11 @@ class AdminController extends AbstractController
         ]);
     }
 
+
+
+
     #[Route('/admin/suivi/graphique/{room?}/{annee?}/{month?}', name: 'graph_annee_month_admin')]
-    public function graphique_annne_month_admin($month,$annee,?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
+    public function graphique_annne_month_admin($month,$annee,?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response      // Choix mois
     {
         $statTemp= new Stat\Stat();
         $statHum= new Stat\Stat();
@@ -560,22 +569,20 @@ class AdminController extends AbstractController
 
         $donnees=$handler->handleInterval(new DonneesCapteursQuery($room, $doctrine),$date1,$date2);             // Récupération de toutes les données de l'API
 
-        /*      -------  Recupérations Temperature    ---------    */
+        /*      -------  Recupérations Temperature    --------- */
 
 
         foreach ($donnees["T"] as $temp) {
 
-            //dd($temp);
-            //dd($temp['dateCapture']);
-            //dd($temp['valeur']);
 
-            //$statTemp->PushToArrayDateMonth($statTemp->transformMonth($temp['dateCapture']), doubleval($temp['valeur']));        // On classe les données en fonction de leur mois
-            $statTemp->PushToArrayDateMonth($statTemp->transformMonth($temp['dateCapture']), doubleval($temp['valeur']));
+            $statTemp->PushToArrayDateMonth($statTemp->transformMonth($temp['dateCapture']), doubleval($temp['valeur']));  // On classe les données en fonction de leur mois
+            $statTemp->PushToArrayDateDay($statTemp->transformDay($temp['dateCapture']),doubleval($temp['valeur']));
         }
 
         //dd($donnees["T"]);
         $moyYearTemp = json_encode($statTemp->PopulateMonthMoy());                 // On calcule la moyenne de chaque mois et on structure en tableau sur une année
-        //dd($moyYearTemp =json_encode($statTemp->PopulateMonthMoy2()));
+        $moyMonthTemp=json_encode($statTemp->PopulateDayMoy());
+
 
 
         /*      -------  Recupérations Humidite    ---------    */
@@ -583,11 +590,13 @@ class AdminController extends AbstractController
         foreach ($donnees["H"] as $hum) {
 
             $statHum->PushToArrayDateMonth($statHum->transformMonth($hum['dateCapture']), doubleval($hum['valeur']));        // Hum
+            $statHum->PushToArrayDateDay($statHum->transformDay($hum['dateCapture']),doubleval($hum['valeur']));
 
         }
 
 
         $moyYearHum = json_encode($statHum->PopulateMonthMoy());       // Hum
+        $moyMonthHum=json_encode($statTemp->PopulateDayMoy());
 
 
 
@@ -596,10 +605,14 @@ class AdminController extends AbstractController
         foreach ($donnees["C"] as $co2) {
 
             $statCo2->PushToArrayDateMonth($statCo2->transformMonth($co2['dateCapture']), doubleval($co2['valeur']));        // Co2
+            $statCo2->PushToArrayDateDay($statCo2->transformDay($co2['dateCapture']),doubleval($co2['valeur']));
+
 
         }
 
         $moyYearCo2 = json_encode($statCo2->PopulateMonthMoy());       // Co2
+        $moyMonthCo2=json_encode($statCo2->PopulateDayMoy());
+
 
 
 
@@ -609,6 +622,9 @@ class AdminController extends AbstractController
             'moyYearTemp' =>$moyYearTemp,
             'moyYearHum' =>$moyYearHum,
             'moyYearCo2' =>$moyYearCo2,
+            'moyMonthTemp'=>$moyMonthTemp,
+            'moyMonthHum' =>$moyMonthHum,
+            'moyMonthCo2' =>$moyMonthCo2,
             'year' =>$year=date("Y"),
             'month' => 1,
             'annee_choisi' => $annee,

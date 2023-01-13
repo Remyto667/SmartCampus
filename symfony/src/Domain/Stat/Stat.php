@@ -117,7 +117,7 @@ class Stat
             $arrayTempo[] =$date[1];
             $arrayTempo[]=$valeur;
 
-            $this->allDay[$date[0]][] = $arrayTempo;
+            $this->allDay[(int)$date[0]][] = $arrayTempo;
 
         }
     }
@@ -131,6 +131,7 @@ class Stat
 
             $cpp+=$data;
         }
+
         if(sizeof($arrayMoy)>0 ) {
             $moy = ($cpp / sizeof($arrayMoy));
         }
@@ -138,31 +139,35 @@ class Stat
             $moy=0;
         }
 
-        return $moy;
+        return round($moy,1);
 
     }
 
     public function PushToArrayMonthMoy($arrayMoy):float              // Calcule la moyenne de toutes les données lors d'un mois et
-        // affichage sous forme de mois (avec la moyenne de chaque jour)
+                                                                        // affichage sous forme de mois (avec la moyenne de chaque jour)
     {
         $cpp=0;
 
-        //dd($arrayMoy);
 
         if($arrayMoy==0){
             $moy=0;
         }
 
         else{
-            dd($arrayMoy);
-            $cpp += $arrayMoy;
+            foreach($arrayMoy as $data){
+                $cpp += $data;
+            }
+
+            if(sizeof($arrayMoy)>1 ) {
+                $moy = ($cpp / (sizeof($arrayMoy)/2));
+            }
+            else{
+                $moy=0;
+            }
+
         }
-        if(sizeof($arrayMoy)>1 ) {
-            $moy = ($cpp / (sizeof($arrayMoy)/2));
-        }
-        else{
-            $moy=0;
-        }
+
+
 
 
         return $moy;
@@ -173,21 +178,33 @@ class Stat
                                                                     // affichage sous forme de mois (avec la moyenne de chaque jour)
     {
         $cpp=0;
+
         if($arrayMoy[0]==0){
             $moy=0;
         }
-        else{
-            $cpp += $arrayMoy[0][1];
+
+        else {
+            //dd($arrayMoy);
+
+            for($i=0;$i<sizeof($arrayMoy)-2;$i++){
+
+                $cpp +=$arrayMoy[$i][1];
+
+            }
+
+
+            if (sizeof($arrayMoy) > 1) {
+
+                //dd($arrayMoy[0]);
+
+                $moy = ($cpp / (sizeof($arrayMoy)-2));
+            } else {
+                $moy = 0;
+            }
         }
-            if(sizeof($arrayMoy)>1 ) {
-                $moy = ($cpp / (sizeof($arrayMoy[0])/2));
-            }
-            else{
-                $moy=0;
-            }
 
 
-        return $moy;
+        return round($moy,1);
 
     }
 
@@ -209,7 +226,6 @@ class Stat
         $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataNovembre));
         $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataDecembre));
 
-
         return $this->moyAllMonth;          // Renvoie un tableau regroupant les moyennes de chaques mois dans l'année
 
     }
@@ -222,7 +238,7 @@ class Stat
             $this->allMonth[$i][]=0;      // Et on insere un zero dans le cas ou il n'y aurait pas de données ce jour ci
             //(facilite le calcul de moyenne)
 
-            dd($this->allMonth);
+            //dd($this->allMonth);
             $this->moyAllMonth[]=($this->PushToArrayMonthMoy($this->allMonth[$i]));
         }
 
@@ -231,11 +247,12 @@ class Stat
 
     public function PopulateDayMoy() : array {
 
+        //dd($this->allDay);
 
-        for($i=1;$i<31;$i++){       // On tourne 31 fois
+        for($i=1;$i<32;$i++){       // On tourne 31 fois
 
             $this->allDay[$i][]=0;      // Et on insere un zero dans le cas ou il n'y aurait pas de données ce jour ci
-                                        //(facilite le calcul de moyenne)
+                                        // (facilite le calcul de moyenne)
 
             $this->moyAllDay[]=($this->PushToArrayDayMoy($this->allDay[$i]));
         }
@@ -244,23 +261,19 @@ class Stat
     }
 
 
-    public function PopulateDayAsLabel($NumberDay) : string{
+    public function PopulateDayAsLabel($NumberDay) : array{             // Creation d'un tableau composé de string pour les labels du graphique
 
         //dd($this->allDay[$NumberDay]);
 
-        $stringX="";
-        $stringY="";
-        $String="";
+        $String= array();
 
 
         foreach($this->allDay[$NumberDay] as $day){
 
-            $stringX= ";
-            $stringY=";
-            $String="{x: '".$day[0]."',y: ".$day[1]." }";
-
+            $String[]="{x: '".$day[0]."',y: ".$day[1]." }";
         }
-        return $String;
+
+        return $String  ;
 
         //"{x: '".$day."', y: ".$day[$i+1]." }"
 
