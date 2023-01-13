@@ -4,17 +4,16 @@
 
     <style>
         /************** CSS **************/
-        /**** General characteristics ****/
-        body{
-            background-image: url("../img/guide_superviseur.png");
+        img{
+            /*background-attachment: fixed;*/
             background-size: cover;
         }
     </style>
 
         {% if app.user.username == 'admin'%}
-
+            <img src="../img/guide_admin.png">
         {% elseif app.user.username == 'technicien'%}
-
+            <img src="../img/guide_technicien.png">
         {% else %}
 
         {% endif %}

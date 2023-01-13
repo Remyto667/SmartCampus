@@ -18,8 +18,7 @@
     </head>
     <body>
 
-
-    <!-- include navbar -->
+    <!-- css for navbar -->
     <style>
         body{
             background-color: #f7f9fa;
@@ -59,66 +58,42 @@
         .middle{
             text-align: center;
         }
-
-
     </style>
 
-    <!--
-
-     <i class="fas fa-chart-bar fa-fw me-3"></i>
-     -->
-
-    <nav
-            id="sidebarMenu"
-            class="col-md-auto collapse d-lg-block sidebar bg-white "
-    >
-
-
+    <nav id="sidebarMenu" class="col-md-auto collapse d-lg-block sidebar bg-white ">
 
         <div class="position-sticky pure-menu-list">
 
             <div class="list-group list-group-flush mx-3 mt-4">
 
-                <img class="rounded mx-auto d-block" src="{{ asset('img/logo.png') }}">
-                <i class="middle">Guide</i>
+                <!---------- GUIDE ---------->
+                <a href="/admin/guide" class="list-group-item list-group-item-action py-2 ripple">
+                    <img class="rounded mx-auto d-block" src="{{ asset('img/logo.png') }}">
+                    <i class="middle">Guide</i>
+                </a>
 
-
-                <!-- Dashboard -->
-                <a
-                        href="/admin/profil"
-                        class="list-group-item list-group-item-action py-2 ripple icons"
-                        aria-current="true"
-                >
+                <!---------- PROFIL ---------->
+                <a href="/admin/profil" class="list-group-item list-group-item-action py-2 ripple icons" aria-current="true">
                     <i class="fas fa-chart-bar fa-fw me-3"></i>
                     <img class="rounded mx-auto d-block" src="{{ asset('img/profil_logo.png') }}">
                     <i class="fas fa-chart-bar fa-fw me-3">&ensp; &ensp; &ensp;&ensp;Profil</i>
-
                 </a>
 
-
-
-                <!-- Classroom -->
-                <a
-                        href="/admin/selection_salle"
-                        class="list-group-item list-group-item-action py-2 ripple"
-                >
+                <!---------- INFOS SALLES ---------->
+                <a href="/admin/selection_salle" class="list-group-item list-group-item-action py-2 ripple">
                     <i class="fas fa-chart-bar fa-fw me-3"></i>
                     <img class="rounded mx-auto d-block" src="{{ asset('img/dashboard_logo.png') }}">
-
                     <i class="fas fa-chart-bar fa-fw me-3 d-flex justify-content-center"> &ensp; Info Salles </i>
                 </a>
 
-
-                <!-- gRAPHIQUE -->
-                <a
-                        href="/admin/suivi/selection_salle"
-                        class="list-group-item list-group-item-action py-2 ripple"
-                >
+                <!---------- GRAPHIQUE ---------->
+                <a href="/admin/suivi/selection_salle" class="list-group-item list-group-item-action py-2 ripple">
                     <i class="fas fa-chart-bar fa-fw me-3"></i>
                     <img class="rounded mx-auto d-block" src="{{ asset('img/graphique_logo.png') }}">
                     <i class="fas fa-chart-bar fa-fw me-3">&ensp; &ensp; Graphique</i>
                 </a>
-                <!-- Inventaire -->
+
+                <!---------- INVENTAIRE ---------->
                 <!-- CACHER la div inventaire si role = admin-->
                 {% if app.user.username == "admin" %}
                     <style> #menu1 {display: none;}</style>
@@ -126,27 +101,24 @@
 
                 <div>
                     <div class= menu id="menu1" onclick="afficheMenu(this)">
-                        <a
-                                href="#"
-                                class="menu list-group-item list-group-item-action py-2"
-
-                        >
-
+                        <a href="#" class="menu list-group-item list-group-item-action py-2">
                             <i class="fas fa-chart-bar fa-fw me-3"></i>
                             <img class="rounded mx-auto d-block" src="{{ asset('img/SGBD_logo.png') }}">
                             <i class="fas fa-chart-bar fa-fw me-3"> &ensp; &ensp; Inventaire</i>
                         </a>
 
                     </div>
-                    <div id="sousmenu1" style="display:none">
 
+                    <div id="sousmenu1" style="display:none">
+                        <!------- SALLES ------->
                         <div class="sousmenu ">
                             <a href="/inventaire/lister_salles"><i> Salles</i></a>
-
                         </div>
+                        <!------- SYSTEMES ------->
                         <div class="sousmenu">
                             <a href="/inventaire/lister_systemes">Systemes</a>
                         </div>
+                        <!------- CAPTEURS ------->
                         <div class="sousmenu">
                             <a href="/inventaire/lister_capteurs">Capteurs</a>
                         </div>
@@ -155,24 +127,20 @@
 
                 </div>
 
-                <!-- alerte-->
-                <a
-                        href="/admin/alerte_selection"
-                        class="list-group-item list-group-item-action py-2 ripple"
-                >
+                <!---------- ALERTES ---------->
+                <a href="/admin/alerte_selection" class="list-group-item list-group-item-action py-2 ripple">
                     <i class="fas fa-chart-bar fa-fw me-3"></i>
                     <img class="rounded mx-auto d-block" src="{{ asset('img/alerte_logo.png') }}">
                     <i class="fas fa-chart-bar fa-fw me-3"> &ensp; &ensp; &ensp; Alertes</i>
                 </a>
-                <!-- logout -->
-                <a
-                        href="/logout"
-                        class="list-group-item list-group-item-action py-2 ripple"
-                >
+
+                <!---------- LOGOUT ---------->
+                <a href="/logout" class="list-group-item list-group-item-action py-2 ripple">
                     <i class="fas fa-chart-bar fa-fw me-3"></i>
                     <img class="rounded mx-auto d-block" src="{{ asset('img/logout_logo.png') }}">
                     <i class="fas fa-chart-bar fa-fw me-3"> &ensp; &ensp;Deconnexion</i>
                 </a>
+
             </div>
         </div>
     </nav>
