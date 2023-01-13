@@ -395,6 +395,7 @@ class AdminController extends AbstractController
 
         $donnees=$handler->handleGraph(new DonneesCapteursQuery($room, $doctrine));             // Récupération de toutes les données de l'API
 
+
         foreach($donnees["T"] as $temp){
 
             $statTemp->PushToArrayDateMonth($statTemp->transformMonth($temp->dateCapture),doubleval($temp->valeur));        // On classe les données en fonction de leur mois
@@ -443,6 +444,8 @@ class AdminController extends AbstractController
             'dataDayTemp'=>$dataDayTemp,
             'dataDayHum' =>$dataDayHum,
             'dataDayCo2' =>$dataDayCo2,
+            'year' =>$year=date("Y"),
+
 
 
 
@@ -450,6 +453,176 @@ class AdminController extends AbstractController
 
         ]);
     }
+
+    #[Route('/admin/suivi/graphique/{room?}/{annee?}', name: 'graph_annee_admin')]
+    public function graphique_annne_admin($annee,?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
+    {
+        $statTemp= new Stat\Stat();
+        $statHum= new Stat\Stat();
+        $statCo2= new Stat\Stat();
+
+        $date1= date('Y-m-d',mktime(0,0,0,"01","01",$annee));
+        $date2= date('Y-m-d',mktime(0,0,0,"01","01",$annee+1));
+
+
+        $entityManager = $doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\Room');
+        $allRoom = $repository->findAll();
+
+        /*      -------  Recupérations données    ---------    */
+
+        foreach($allRoom as $rooms)
+        {
+            $handler->handle(new DonneesCapteursQuery($rooms, $doctrine));
+        }
+
+        $donnees=$handler->handleInterval(new DonneesCapteursQuery($room, $doctrine),$date1,$date2);             // Récupération de toutes les données de l'API
+
+        /*      -------  Recupérations Temperature    ---------    */
+
+
+            foreach ($donnees["T"] as $temp) {
+
+                //dd($temp);
+                //dd($temp['dateCapture']);
+                //dd($temp['valeur']);
+
+                //$statTemp->PushToArrayDateMonth($statTemp->transformMonth($temp['dateCapture']), doubleval($temp['valeur']));        // On classe les données en fonction de leur mois
+                $statTemp->PushToArrayDateMonth($statTemp->transformMonth($temp['dateCapture']), doubleval($temp['valeur']));
+            }
+
+            //dd($donnees["T"]);
+            $moyYearTemp = json_encode($statTemp->PopulateMonthMoy());                 // On calcule la moyenne de chaque mois et on structure en tableau sur une année
+            //dd($moyYearTemp =json_encode($statTemp->PopulateMonthMoy2()));
+
+
+            /*      -------  Recupérations Humidite    ---------    */
+
+        foreach ($donnees["H"] as $hum) {
+
+            $statHum->PushToArrayDateMonth($statHum->transformMonth($hum['dateCapture']), doubleval($hum['valeur']));        // Hum
+
+        }
+
+
+        $moyYearHum = json_encode($statHum->PopulateMonthMoy());       // Hum
+
+
+
+            /*      -------  Recupérations Co2    ---------    */
+
+        foreach ($donnees["C"] as $co2) {
+
+            $statCo2->PushToArrayDateMonth($statCo2->transformMonth($co2['dateCapture']), doubleval($co2['valeur']));        // Co2
+
+        }
+
+        $moyYearCo2 = json_encode($statCo2->PopulateMonthMoy());       // Co2
+
+
+
+
+        return $this->render('admin/graphique_year.html.twig', [
+            'room' => $room,
+            'moyYearTemp' =>$moyYearTemp,
+            'moyYearHum' =>$moyYearHum,
+            'moyYearCo2' =>$moyYearCo2,
+            'year' =>$year=date("Y"),
+            'month' => 1,
+            'annee_choisi' => $annee,
+            //'data'=>$dataDay,
+
+        ]);
+    }
+
+    #[Route('/admin/suivi/graphique/{room?}/{annee?}/{month?}', name: 'graph_annee_month_admin')]
+    public function graphique_annne_month_admin($month,$annee,?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
+    {
+        $statTemp= new Stat\Stat();
+        $statHum= new Stat\Stat();
+        $statCo2= new Stat\Stat();
+
+        $date1= date('Y-m-d',mktime(0,0,0,$month,"01",$annee));
+        $date2= date('Y-m-d',mktime(0,0,0,$month+1,"01",$annee));
+
+        //$date1;
+
+        $entityManager = $doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\Room');
+        $allRoom = $repository->findAll();
+
+        /*      -------  Recupérations données    ---------    */
+
+        foreach($allRoom as $rooms)
+        {
+            $handler->handle(new DonneesCapteursQuery($rooms, $doctrine));
+        }
+
+        $donnees=$handler->handleInterval(new DonneesCapteursQuery($room, $doctrine),$date1,$date2);             // Récupération de toutes les données de l'API
+
+        /*      -------  Recupérations Temperature    ---------    */
+
+
+        foreach ($donnees["T"] as $temp) {
+
+            //dd($temp);
+            //dd($temp['dateCapture']);
+            //dd($temp['valeur']);
+
+            //$statTemp->PushToArrayDateMonth($statTemp->transformMonth($temp['dateCapture']), doubleval($temp['valeur']));        // On classe les données en fonction de leur mois
+            $statTemp->PushToArrayDateMonth($statTemp->transformMonth($temp['dateCapture']), doubleval($temp['valeur']));
+        }
+
+        //dd($donnees["T"]);
+        $moyYearTemp = json_encode($statTemp->PopulateMonthMoy());                 // On calcule la moyenne de chaque mois et on structure en tableau sur une année
+        //dd($moyYearTemp =json_encode($statTemp->PopulateMonthMoy2()));
+
+
+        /*      -------  Recupérations Humidite    ---------    */
+
+        foreach ($donnees["H"] as $hum) {
+
+            $statHum->PushToArrayDateMonth($statHum->transformMonth($hum['dateCapture']), doubleval($hum['valeur']));        // Hum
+
+        }
+
+
+        $moyYearHum = json_encode($statHum->PopulateMonthMoy());       // Hum
+
+
+
+        /*      -------  Recupérations Co2    ---------    */
+
+        foreach ($donnees["C"] as $co2) {
+
+            $statCo2->PushToArrayDateMonth($statCo2->transformMonth($co2['dateCapture']), doubleval($co2['valeur']));        // Co2
+
+        }
+
+        $moyYearCo2 = json_encode($statCo2->PopulateMonthMoy());       // Co2
+
+
+
+
+        return $this->render('admin/graphique_year_month.html.twig', [
+            'room' => $room,
+            'moyYearTemp' =>$moyYearTemp,
+            'moyYearHum' =>$moyYearHum,
+            'moyYearCo2' =>$moyYearCo2,
+            'year' =>$year=date("Y"),
+            'month' => 1,
+            'annee_choisi' => $annee,
+            'mois_choisi' => $month,
+            //'data'=>$dataDay,
+
+        ]);
+    }
+
+
+
+
+
+
 
     #[Route('admin/alerte_selection', name: 'alerte_selection')]
     public function alerte_selection_salle(Request $request, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
@@ -479,7 +652,6 @@ class AdminController extends AbstractController
             'nbAlert' =>$nbAlert,
 
         ]);
-
     }
 
     #[Route('/admin/alerte_vision/{room?}', name: 'alerte_admin')]

@@ -98,6 +98,9 @@ class DonneesCapteurs
                         'userpass' => 'bRepOh4UkiaM9c7R'
                     ],
                 ]);
+
+
+
                 $content=json_decode($response->getContent());
                 if(sizeof($content) > 0)
                 {
@@ -158,4 +161,48 @@ class DonneesCapteurs
 
         return $this->donneesPourGraphique ;
     }
+
+
+    public function getDonneesIntervalGraph($tag,$date1,$date2):array
+    {
+        //date sous cette forme : 2023-01-08 YYYY-MM-DD
+        $types["T"] = "temp";
+        $types["H"] = "hum";
+        $types["C"] = "co2";
+        //tag défini par le dbname
+
+        $client = HttpClient::create();
+        foreach ($types as $type => $nom) {
+            $response = $client->request('GET', 'http://sae34.k8s.iut-larochelle.fr/api/captures/interval?nom='.$nom.'&date1='.$date1.'&date2='.$date2.'&page=1', [
+                'headers' => [
+                    'Accept' => 'application/ld+json',
+                    'dbname' => $this->tags[$tag],
+                    //'dbname' => 'sae34bdx1eq1',
+                    'username' => 'x1eq3',
+                    'userpass' => 'bRepOh4UkiaM9c7R'
+                ],
+            ]);
+
+
+
+            $content=json_decode($response->getContent());
+            if(sizeof($content) > 0)
+            {
+                //var_dump($content);
+                foreach($content as $data => $array) {
+                    $arrayMieux = json_decode(json_encode($array), true);
+                    if($arrayMieux["nom"]==$nom)
+                    {
+                        //var_dump($arrayMieux);
+                        $this->donneesPourInterval[$type][$data] = $arrayMieux;
+                    }
+                }
+            }
+            else{
+                $this->donneesPourInterval[$type] = [];
+            }
+        }
+        return $this->donneesPourInterval ;
+    }
 }
+
