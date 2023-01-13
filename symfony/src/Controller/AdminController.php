@@ -435,24 +435,16 @@ class AdminController extends AbstractController
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
-
         $nbAlert = array();
         foreach($allRoom as $room)
         {
             /* appel alerte_vision */
-            $nbAlert[$room->getId()] = $this->alerte_vision($room, $doctrine, $handler);
+            $resCount = $this->alerte_count($room, $doctrine, $handler);
+            $nbAlert[$room->getId()] = $resCount;
 
-            /*
-            if($room->getName()!="Stock"){
-                //initialize
-                $handler->handle(new DonneesCapteursQuery($room, $doctrine));
-                //count nb alert
-                $nbAlert[$room->getId()]["T"] = $handler->handleNbAlertTemp(new DonneesCapteursQuery($room, $doctrine),$date1,$date2);
-                $nbAlert[$room->getId()]["H"] = $handler->handleNbAlertHum(new DonneesCapteursQuery($room, $doctrine),$date1,$date2);
-                $nbAlert[$room->getId()]["C"] = $handler->handleNbAlertCo2(new DonneesCapteursQuery($room, $doctrine),$date1,$date2);
-            }*/
         }
 
+       // var_dump($nbAlert);
         return $this->render('admin/alerte_selection.html.twig', [
             'allRoom' => $allRoom,
             'allFloor' => $repository->findAllFloor(),
@@ -461,8 +453,7 @@ class AdminController extends AbstractController
 
     }
 
-    //#[Route('/admin/alerte_vision/{room?}', name: 'alerte_vision_admin')]
-    public function alerte_vision(?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): array
+    public function alerte_count(?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): array
     {
         $date1 = '2022-12-12';
         $date2 = '2023-01-12';
@@ -470,18 +461,14 @@ class AdminController extends AbstractController
 
         if($room->getName()!="Stock"){
             //initialize
-            $handler->handle(new DonneesCapteursQuery($room, $doctrine));
+            //$handler->handle(new DonneesCapteursQuery($room, $doctrine));
             $nbAlert["T"] = $handler->handleNbAlertTemp(new DonneesCapteursQuery($room, $doctrine),$date1,$date2);
             $nbAlert["H"] = $handler->handleNbAlertHum(new DonneesCapteursQuery($room, $doctrine),$date1,$date2);
             $nbAlert["C"] = $handler->handleNbAlertCo2(new DonneesCapteursQuery($room, $doctrine),$date1,$date2);
         }
-        //var_dump($nbAlert);
+       // var_dump($nbAlert);
 
         return $nbAlert;
-        /*return $this->render('admin/alerteStat.html.twig', [
-            'room' => $room,
-            'nbAlert' =>$nbAlert,
-        ]);*/
     }
 
     #[Route('/admin/alerte_vision/{room?}', name: 'alerte_vision_admin')]
@@ -492,7 +479,7 @@ class AdminController extends AbstractController
         if($room->getName()!="Stock"){
             //initialize
             $handler->handle(new DonneesCapteursQuery($room, $doctrine));
-            $nbAlert=$this->alerte_vision($room, $doctrine, $handler);
+            $nbAlert=$this->alerte_count($room, $doctrine, $handler);
         }
 
         return $this->render('admin/alerteStat.html.twig', [
