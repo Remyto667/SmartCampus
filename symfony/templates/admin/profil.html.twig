@@ -14,17 +14,12 @@
             display: flex;
             justify-content: end;
             align-items:end;
-            margin-top: 300px;
-        }
-        .text{
-            text-align: center; margin: 1em auto; font: 28px/1.5 sans-serif;
-            text-decoration-line: underline;
-            text-decoration-color: #00489a;
-            font-size: 20px;
+            margin-top: 200px;
         }
         body{
             background-image: url("../img/main_wallpaper.jpg");
             background-size: cover;
+            margin-left: 150px;
         }
         .btn{
             background-color: #FFFFFF;
@@ -37,18 +32,31 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: space-evenly; /* Espacé sans être collé aux bords */
-            margin-left: 50px;
+            margin-left: 20px;
         }
 
         .boxDesc{
+            height: 150px;
+            background-color: white;
+            text-align: center;
             border: 2px solid grey;
             border-radius: 32px;
             box-shadow: 2px 2px 5px grey;
-            padding-bottom: 30px;
-            padding-left: 20px;
-            padding-right: 30px;
+            margin-top: 50px;
+            padding: 20px 30px 30px 30px;
         }
 
+        .titleDesc{
+            text-decoration: underline;
+            color: #00489a;
+            padding-top: 10px;
+        }
+
+        .text{
+            text-decoration: none;
+            color: #75A307;
+            font-size: 20px;
+        }
 
         .username{
             text-align: center;
@@ -58,25 +66,22 @@
     <div class="body">
         <img class="rounded mx-auto d-block img" src="{{ asset('img/profil.png') }}">
 
-        <p class="username h1 p-5 text-light"> Bonjour {{ app.user.username }} </p> <!--{/*{app.user.username}}-->
+        <p class="username h1 p-5 text-light"> Bonjour {{ app.user.username }} </p>
 
         <br>
 
         <div class="data-container">
-            <div class="boxDesc bg-light p-3 ">
-                <p class=" text" >Nombre de salles gérées :</p>
-                <br>
-                <p class="d-flex justify-content-center h1" >{{ countRoom }}</p>
+            <div class="boxDesc">
+                <p class="titleDesc" >Nombre de salles gérées :</p>
+                <p class="text" >{{ countRoom }}</p>
             </div>
-            <div class="boxDesc bg-light p-3 h1">
-                <p class=" text" >Nombre de capteurs gérés :</p>
-                <br>
-                <p class="d-flex justify-content-center h1" >{{ CountSensor }}</p>
+            <div class="boxDesc">
+                <p class="titleDesc" >Nombre de capteurs gérés :</p>
+                <p class="text" >{{ CountSensor }}</p>
             </div>
-            <div class="boxDesc bg-light p-3 h1">
-                <p class=" text" >Nombre de systèmes gérés :</p>
-                <br>
-                <p class="d-flex justify-content-center h1" >{{ countSystem }}</p>
+            <div class="boxDesc">
+                <p class="titleDesc" >Nombre de systèmes gérés :</p>
+                <p class="text" >{{ countSystem }}</p>
             </div>
         </div>
     </div>
