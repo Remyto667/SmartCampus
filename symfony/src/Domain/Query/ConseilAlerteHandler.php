@@ -19,20 +19,19 @@ class ConseilAlerteHandler
     {
         $url = 'https://api.openweathermap.org/data/2.5/weather?q=La%20Rochelle&appid=3e754b09e95d904997b1f4c2a5597bc5';
         $ch = curl_init($url);
-        curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($ch);
         curl_close($ch);
 
         $weatherData = json_decode($response, true);
 
-        if(!array_key_exists('main',$weatherData))
-        {
+        if (!array_key_exists('main', $weatherData)) {
             return false ;
         }
 
         $temp_outside = $weatherData['main']['temp'];
 
-        return $temp_outside-273.15;
+        return $temp_outside - 273.15;
     }
 
     public function typeOfAlert($data, $requete, $temp_outside)
@@ -69,51 +68,44 @@ class ConseilAlerteHandler
         $temperature = $data['main']['temp'];
         */
 
-        if($temp > $roomType->getTempMax())
-        {
+        if ($temp > $roomType->getTempMax()) {
             $temp_alerte_sup = true;
         }
-        if($temp < $roomType->getTempMin())
-        {
+        if ($temp < $roomType->getTempMin()) {
             $temp_alerte_inf = true;
         }
-        if($hum > $roomType->getHumMax())
-        {
+        if ($hum > $roomType->getHumMax()) {
             $hum_alerte_sup = true;
         }
-        if($hum < $roomType->getHumMin())
-        {
+        if ($hum < $roomType->getHumMin()) {
             $hum_alerte_inf = true;
         }
-        if($co2 >= $roomType->getCo2Max())
-        {
+        if ($co2 >= $roomType->getCo2Max()) {
             $co2_alerte_sup = true;
         }
-        if($co2 < $roomType->getCo2Min())
-        {
+        if ($co2 < $roomType->getCo2Min()) {
             $co2_alerte_inf = true;
         }
-        if($temp_outside > $temp)
-        {
+        if ($temp_outside > $temp) {
             $temp_sup_outside = true;
         }
-        if($temp == 0 or $hum == 0 or $co2 == 0)
-        {
+        if ($temp == 0 or $hum == 0 or $co2 == 0) {
             $no_data = true;
         }
 
         //appel du repository et renvoie du conseil
-        return $requete->getAdvice($temp_alerte_sup,$temp_alerte_inf,$hum_alerte_sup,$hum_alerte_inf,$co2_alerte_sup,$co2_alerte_inf,$temp_sup_outside,$no_data);
+        return $requete->getAdvice($temp_alerte_sup, $temp_alerte_inf, $hum_alerte_sup, $hum_alerte_inf, $co2_alerte_sup, $co2_alerte_inf, $temp_sup_outside, $no_data);
     }
 
     public function handle(ConseilAlerteQuery $requete)
     {
         $data = $this->donneesCapteurs->getDonneesPourSalle($requete->getTag());
 
-        //récupere la donnée (donnée du repository)
-        //renvoie le conseil
-        $temp_outside = $this->getWeatherData();
-        return $this->typeOfAlert($data, $requete,$temp_outside);
 
+        //récupération des données de température de la rochelle
+        $temp_outside = $this->getWeatherData();
+        //renvoie le conseil
+        return $this->typeOfAlert($data, $requete, $temp_outside);
     }
+
 }

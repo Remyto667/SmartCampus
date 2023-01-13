@@ -9,8 +9,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SensorRepository::class)]
 #[UniqueEntity(
-        fields : 'name',
-        message: 'Ce nom est déjà utilisé',)]
+    fields : 'name',
+    message: 'Ce nom est déjà utilisé',
+)]
 class Sensor
 {
     #[ORM\Id]

@@ -13,7 +13,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: RoomRepository::class)]
 #[UniqueEntity(
     fields : 'name',
-    message: 'Ce nom est déjà utilisé',)]
+    message: 'Ce nom est déjà utilisé',
+)]
 class Room
 {
     #[ORM\Id]
@@ -241,16 +242,21 @@ class Room
 
     public function getTypeString(): ?string
     {
-        if ($this->type==0)
-            $type="Bureau";
-        elseif ($this->type==1)
-            $type="Salle de classe";
-        elseif ($this->type==2)
-            $type="Serveur";
-        elseif ($this->type==3)
-            $type="Secrétariat";
-        elseif ($this->type==4)
-            $type="Autres";
+        if ($this->type == 0){
+            $type = "Bureau";
+        }
+        elseif ($this->type == 1) {
+            $type = "Salle de classe";
+        }
+        elseif ($this->type == 2) {
+            $type = "Serveur";
+        }
+        elseif ($this->type == 3) {
+            $type = "Secrétariat";
+        }
+        elseif ($this->type == 4) {
+            $type = "Autres";
+        }
         return $type;
     }
 
@@ -268,16 +274,21 @@ class Room
 
     public function getOrientationString(): ?string
     {
-        if ($this->orientation=="N")
-            $orientation="Nord";
-        elseif ($this->orientation=="S")
-            $orientation="Sud";
-        elseif ($this->orientation=="E")
-            $orientation="Est";
-        elseif ($this->orientation=="O")
-            $orientation="Ouest";
-        else
-            $orientation="orientation non valide";
+        if ($this->orientation == "N") {
+            $orientation = "Nord";
+        }
+        elseif ($this->orientation == "S") {
+            $orientation = "Sud";
+        }
+        elseif ($this->orientation == "E") {
+            $orientation = "Est";
+        }
+        elseif ($this->orientation == "O") {
+            $orientation = "Ouest";
+        }
+        else {
+            $orientation = "orientation non valide";
+        }
         return $orientation;
     }
 
@@ -299,6 +310,5 @@ class Room
 
         return $this;
     }
-
 
 }

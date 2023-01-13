@@ -44,7 +44,7 @@ class AdminController extends AbstractController
         ]);
     }
     #[Route('/admin/profil', name: 'profil_admin')]
-    public function connexion_admin(ManagerRegistry $doctrine): Response
+    public function connectionAdmin(ManagerRegistry $doctrine): Response
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
@@ -57,14 +57,14 @@ class AdminController extends AbstractController
         $allSensor = $repository->findAll();
 
         return $this->render('admin/profil.html.twig', [
-            'countRoom' => sizeof($allRoom)-1,
+            'countRoom' => sizeof($allRoom) - 1,
             'countSystem' => sizeof($allSystem),
             'CountSensor' => sizeof($allSensor),
         ]);
     }
 
     #[Route('/inventaire', name: 'inventaire')]
-    public function inventaire(): Response
+    public function inventory(): Response
     {
         return $this->render('admin/inventaire.html.twig', [
             'controller_name' => 'AdminController',
@@ -72,19 +72,19 @@ class AdminController extends AbstractController
     }
 
     #[Route('/inventaire/lister_salles/{ok?1}', name: 'listerSalles')]
-    public function lister_salles(ManagerRegistry $doctrine, ?int $ok, DonneesCapteursHandler $handler): Response
+    public function listRooms(ManagerRegistry $doctrine, ?int $ok, DonneesCapteursHandler $handler): Response
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
 
         $noData = array();
-        foreach($allRoom as $room) {
+        foreach ($allRoom as $room) {
             $donnees = $handler->handle(new DonneesCapteursQuery($room, $doctrine));
             $temp = $donnees["T"]->valeur;
             $hum = $donnees["H"]->valeur;
             $co2 = $donnees["C"]->valeur;
-            if ($temp =="NULL" or $hum =="NULL" or $co2 =="NULL") {
+            if ($temp == "NULL" or $hum == "NULL" or $co2 == "NULL") {
                 $noData[$room->getId()] = 1;
             } else {
                 $noData[$room->getId()] = 0;
@@ -97,11 +97,10 @@ class AdminController extends AbstractController
             'allFloor' => $repository->findAllFloorClassroom(),
             'noData' => $noData,
         ]);
-
     }
 
     #[Route('/inventaire/lister_systemes', name: 'listerSystemes')]
-    public function lister_systemes(ManagerRegistry $doctrine): Response
+    public function listSystems(ManagerRegistry $doctrine): Response
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\System');
@@ -110,13 +109,13 @@ class AdminController extends AbstractController
         $nbSensor = $repository2->countSensorOfSystem();
 
         return $this->render('admin/lister_systemes.html.twig', [
-            'systems'=>$systems,
-            'nbsensor'=>$nbSensor,
+            'systems' => $systems,
+            'nbsensor' => $nbSensor,
         ]);
     }
 
     #[Route('/inventaire/lister_capteurs', name: 'listerCapteurs')]
-    public function lister_capteurs(ManagerRegistry $doctrine): Response
+    public function listSensor(ManagerRegistry $doctrine): Response
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Sensor');
@@ -128,35 +127,33 @@ class AdminController extends AbstractController
     }
 
     #[Route('/inventaire/ajouter_capteur', name: 'ajouterCapteur')]
-    public function ajouter_capteur(Request $request, EntityManagerInterface $entityManager): Response
+    public function addSensor(Request $request, EntityManagerInterface $entityManager): Response
     {
         $sensor = new Sensor();
         $form = $this->createForm(SensorType::class, $sensor);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid() ){
             $entityManager->persist($sensor);
             $entityManager->flush();
-            return $this->redirect($this->generateUrl('listerCapteurs',[]));
-
+            return $this->redirect($this->generateUrl('listerCapteurs', []));
         }
         return $this->render('admin/ajouter_capteur.html.twig', [
-            'form' =>$form->createView(),
+            'form' => $form->createView(),
         ]);
-
     }
 
     #[Route('/inventaire/ajouter_salle', name: 'ajouter_salle')]
-    public function ajouter_salle(Request $request, ManagerRegistry $doctrine): Response
+    public function addRoom(Request $request, ManagerRegistry $doctrine): Response
     {
         $room = new Room();
         $entityManager = $doctrine->getManager();
         $form = $this->createForm(RoomType::class, $room);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid() ){
             $entityManager->persist($room);
             $entityManager->flush();
-            return $this->redirect($this->generateUrl('listerSalles',[]));
+            return $this->redirect($this->generateUrl('listerSalles', []));
         }
 
         return $this->render('admin/ajouter_salle.html.twig', [
@@ -165,17 +162,17 @@ class AdminController extends AbstractController
     }
 
     #[Route('/inventaire/ajouter_systeme', name: 'ajouterSystemes')]
-    public function add_system(Request $request, EntityManagerInterface $entityManager): Response
+    public function addSystem(Request $request, EntityManagerInterface $entityManager): Response
     {
         $system = new System();
 
         $form = $this->createForm(SystemType::class, $system);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid() ){
             $entityManager->persist($system);
             $entityManager->flush();
-            return $this->redirect($this->generateUrl('listerSystemes',[]));
+            return $this->redirect($this->generateUrl('listerSystemes', []));
         }
 
         return $this->render('admin/ajouter_systeme.html.twig', [
@@ -184,7 +181,7 @@ class AdminController extends AbstractController
     }
 
     #[Route('/inventaire/modifier_systeme/{id?}', name: 'modifierSystemes')]
-    public function update_system(Request $request, ?int $id, ManagerRegistry $doctrine): Response
+    public function updateSystem(Request $request, ?int $id, ManagerRegistry $doctrine): Response
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\System');
@@ -228,14 +225,15 @@ class AdminController extends AbstractController
     }
 
     #[Route('/inventaire/modifier_capteur/{id?}', name: 'modifierCapteurs')]
-    public function update_capteur(Request $request, ?int $id, ManagerRegistry $doctrine): Response{
+    public function updateSensor(Request $request, ?int $id, ManagerRegistry $doctrine): Response
+    {
         $entityManager =$doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Sensor');
         $sensor = $repository->find($id);
         $form = $this->createForm(SensorType::class, $sensor);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid() ){
             $entityManager->persist($sensor);
             $entityManager->flush();
             return $this->redirect($this->generateUrl('listerCapteurs', []));
@@ -247,7 +245,8 @@ class AdminController extends AbstractController
     }
 
     #[Route('/inventaire/supprimer_capteur/{id?}', name: 'supprimerCapteur')]
-    public function supprimer_capteur(Request $request, ?int $id, ManagerRegistry $doctrine): Response{
+    public function deleteSensor(Request $request, ?int $id, ManagerRegistry $doctrine): Response
+    {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Sensor');
         $sensor = $repository->find($id);
@@ -258,7 +257,8 @@ class AdminController extends AbstractController
 
     }
     #[Route('/inventaire/supprimer_systeme/{id?}', name: 'supprimerSysteme')]
-    public function supprimer_systeme(Request $request, ?int $id, ManagerRegistry $doctrine): Response{
+    public function deleteSystem(Request $request, ?int $id, ManagerRegistry $doctrine): Response
+    {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\System');
         $system = $repository->find($id);
@@ -269,7 +269,8 @@ class AdminController extends AbstractController
     }
 
     #[Route('/inventaire/supprimer_salle/{id?}', name: 'supprimerSalle')]
-    public function supprimer_salle(Request $request, ?int $id, ManagerRegistry $doctrine): Response{
+    public function deleteRoom(Request $request, ?int $id, ManagerRegistry $doctrine): Response
+    {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
         $room = $repository->find($id);
@@ -278,13 +279,13 @@ class AdminController extends AbstractController
     }
 
     #[Route('admin/selection_salle', name: 'selectionSalle')]
-    public function selection_salle(ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
+    public function selectRoom(ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
 
-        foreach($allRoom as $room)
+        foreach ($allRoom as $room)
         {
             $handler->handle(new DonneesCapteursQuery($room, $doctrine));
         }
@@ -296,13 +297,14 @@ class AdminController extends AbstractController
 
     }
     #[Route('/admin/donnees_salle_admin/{room?}', name: 'donneesSalleAdmin')]
-    public function donnees_salle_admin(?Room $room, ManagerRegistry $doctrine, DonneesCapteursHandler $handler,ConseilAlerteHandler $handler2): Response{
+    public function dataRoomAdmin(?Room $room, ManagerRegistry $doctrine, DonneesCapteursHandler $handler, ConseilAlerteHandler $handler2): Response
+    {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
 
         //pour mettre les alertes
-        foreach($allRoom as $rooms)
+        foreach ($allRoom as $rooms)
         {
             $handler->handle(new DonneesCapteursQuery($rooms, $doctrine));
         }
@@ -320,9 +322,9 @@ class AdminController extends AbstractController
             'temp' => $donnees["T"]->valeur,
             'hum' => $donnees["H"]->valeur,
             'co2' => $donnees["C"]->valeur,
-            'dateT'=> $donnees["T"]->dateCapture,
-            'dateH'=> $donnees["H"]->dateCapture,
-            'dateC'=> $donnees["C"]->dateCapture,
+            'dateT' => $donnees["T"]->dateCapture,
+            'dateH' => $donnees["H"]->dateCapture,
+            'dateC' => $donnees["C"]->dateCapture,
         ]);    }
 /*
     #[Route('/admin/alerte/{roomId?}/{id?}', name: 'alerteAdmin')]
@@ -360,13 +362,13 @@ class AdminController extends AbstractController
 
 */
     #[Route('admin/suivi/selection_salle', name: 'suivi_selectionSalle')]
-    public function suivi_selection_salle(Request $request, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
+    public function selectRoomReview(Request $request, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
 
-        foreach($allRoom as $room)
+        foreach ($allRoom as $room)
         {
             $handler->handle(new DonneesCapteursQuery($room, $doctrine));
         }
@@ -379,7 +381,7 @@ class AdminController extends AbstractController
     }
 
     #[Route('/admin/suivi/graphique/{room?}', name: 'graph_admin')]
-    public function graphique_admin(?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
+    public function graphAdmin(?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
     {
         $statTemp= new Stat\Stat();
         $statHum= new Stat\Stat();
@@ -388,44 +390,39 @@ class AdminController extends AbstractController
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
 
-        foreach($allRoom as $rooms)
+        foreach ($allRoom as $rooms)
         {
             $handler->handle(new DonneesCapteursQuery($rooms, $doctrine));
         }
 
         $donnees=$handler->handleGraph(new DonneesCapteursQuery($room, $doctrine));             // Récupération de toutes les données de l'API
 
-        foreach($donnees["T"] as $temp){
-
-            $statTemp->PushToArrayDateMonth($statTemp->transformMonth($temp->dateCapture),doubleval($temp->valeur));        // On classe les données en fonction de leur mois
-            $statTemp->PushToArrayDateDay(($statTemp->transformDay($temp->dateCapture)),doubleval($temp->valeur));
-
+        foreach ($donnees["T"] as $temp)
+        {
+            $statTemp->pushToArrayDateMonth($statTemp->transformMonth($temp->dateCapture),doubleval($temp->valeur));        // On classe les données en fonction de leur mois
+            $statTemp->pushToArrayDateDay(($statTemp->transformDay($temp->dateCapture)),doubleval($temp->valeur));
         }
 
+        $dataDayTemp=$statTemp->populateDayAsLabel(11);
+        $moyTemp=json_encode($statTemp->populateMoy());                 // On calcule la moyenne de chaque mois et on structure en tableau
 
-        $dataDayTemp=$statTemp->PopulateDayAsLabel(11);
-        $moyTemp=json_encode($statTemp->PopulateMoy());                 // On calcule la moyenne de chaque mois et on structure en tableau
-
-        foreach($donnees["H"] as $hum){
-
-            $statHum->PushToArrayDateMonth($statHum->transformMonth($hum->dateCapture),doubleval($hum->valeur));        // Hum
-            $statHum->PushToArrayDateDay(($statHum->transformDay($hum->dateCapture)),doubleval($hum->valeur));
-
+        foreach ($donnees["H"] as $hum)
+        {
+            $statHum->pushToArrayDateMonth($statHum->transformMonth($hum->dateCapture),doubleval($hum->valeur));        // Hum
+            $statHum->pushToArrayDateDay(($statHum->transformDay($hum->dateCapture)),doubleval($hum->valeur));
         }
 
+        $dataDayHum=$statHum->populateDayAsLabel(11);
+        $moyHum=json_encode($statHum->populateMoy());       // Hum
 
-        $dataDayHum=$statHum->PopulateDayAsLabel(11);
-        $moyHum=json_encode($statHum->PopulateMoy());       // Hum
-
-        foreach($donnees["C"] as $co2){
-
-            $statCo2->PushToArrayDateMonth($statCo2->transformMonth($co2->dateCapture),doubleval($co2->valeur));        // Co2
-            $statCo2->PushToArrayDateDay(($statCo2->transformDay($co2->dateCapture)),doubleval($co2->valeur));
-
+        foreach ($donnees["C"] as $co2)
+        {
+            $statCo2->pushToArrayDateMonth($statCo2->transformMonth($co2->dateCapture),doubleval($co2->valeur));        // Co2
+            $statCo2->pushToArrayDateDay(($statCo2->transformDay($co2->dateCapture)),doubleval($co2->valeur));
         }
 
-        $dataDayCo2=$statCo2->PopulateDayAsLabel(11);
-        $moyCo2=json_encode($statCo2->PopulateMoy());       // Co2
+        $dataDayCo2=$statCo2->populateDayAsLabel(11);
+        $moyCo2=json_encode($statCo2->populateMoy());       // Co2
 
 
         return $this->render('admin/graphique.html.twig', [
@@ -436,11 +433,7 @@ class AdminController extends AbstractController
             'dataDayTemp'=>$dataDayTemp,
             'dataDayHum' =>$dataDayHum,
             'dataDayCo2' =>$dataDayCo2,
-
-
-
             //'data'=>$dataDay,
-
         ]);
     }
 

@@ -27,12 +27,10 @@ class DonneesCapteursQuery
         $entityManager = $this->doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\System');
         $systems = $repository->findBy(['room' => $this->room->getId()]);
-        if (sizeof($systems) > 0)
-        {
+        if (sizeof($systems) > 0) {
             return $systems[0]->getTag();
         }
-        else
-        {
+        else {
             return 0;
         }
 
@@ -43,4 +41,5 @@ class DonneesCapteursQuery
         $this->room = $room;
         $this->doctrine = $doctrine;
     }
+
 }

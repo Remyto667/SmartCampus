@@ -44,9 +44,8 @@ class RoomRepository extends ServiceEntityRepository
         $resultSet = $stmt->executeQuery();
         $result = $resultSet->fetchAllAssociative();
         $ok = 0;
-        foreach($result as $row)
-        {
-            if($entity->getId() == $row['id']) {
+        foreach ($result as $row) {
+            if ($entity->getId() == $row['id']) {
                 $this->getEntityManager()->remove($entity);
                 if ($flush) {
                     $this->getEntityManager()->flush();
@@ -55,19 +54,18 @@ class RoomRepository extends ServiceEntityRepository
             }
         }
         return $ok;
-
     }
 
     public function findRoomByName($value): ?Room
     {
-        $qd=$this->createQueryBuilder('r')
+        $qd = $this->createQueryBuilder('r')
             ->where('r.name = :val')
             ->setParameter('val', $value);
 
         return $qd->getQuery()->getOneOrNullResult();
     }
 
-    public function findAllFloor() : array
+    public function findAllFloor(): array
     {
         $conn = $this->getEntityManager()->getConnection();
 
@@ -77,14 +75,13 @@ class RoomRepository extends ServiceEntityRepository
             ';
 
         $result = $conn->prepare($sql)->executeQuery()->fetchAllAssociative();
-        foreach( $result as $floor)
-        {
+        foreach ($result as $floor) {
             $allFloor[] = $floor["floor"] ;
         }
         return $allFloor;
     }
 
-    public function findAllFloorClassroom() : array
+    public function findAllFloorClassroom(): array
     {
         $conn = $this->getEntityManager()->getConnection();
 
@@ -96,8 +93,7 @@ class RoomRepository extends ServiceEntityRepository
             ';
 
         $result = $conn->prepare($sql)->executeQuery()->fetchAllAssociative();
-        foreach( $result as $floor)
-        {
+        foreach ( $result as $floor) {
             $allFloor[] = $floor["floor"] ;
         }
         return $allFloor;
@@ -139,4 +135,5 @@ class RoomRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
 }
