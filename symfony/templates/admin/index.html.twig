@@ -4,11 +4,20 @@
 
 {% block body %}
 <style>
+    /************** CSS **************/
+    /**** General characteristics ****/
+    body{
+        background-image: url("img/main_wallpaper.jpg");
+        background-size: cover;
+    }
+    .container{
+        margin-top: 100px;
+    }
     .logo{
         margin-top: 10px;
     }
     .text_main{
-        margin-top:     70px;
+        margin-top: 70px;
         font-size: 110px;
 
     }
@@ -16,14 +25,8 @@
         margin-top: 30px;
         font-size: 60px;
     }
-    .container{
-        margin-top: 100px;
-    }
-    body{
-        background-image: url("img/main_wallpaper.jpg");
-        background-size: cover;
-    }
 
+    /**** Buttons ****/
     .btn-white {
         color: #000;
         background-color: #FFFFFF;
@@ -33,44 +36,23 @@
         border-style: solid;
         border-width: 0;
     }
-    .salle:hover {
-        background-color: #75A307;
-        color: #FFF;
-
-    }
-
-    .superviseur:hover {
-        background-color: #00489a;
-        color: #FFF;
-    }
-
 </style>
     <!-- main UX -->
     </br>
     <img class="rounded mx-auto d-block logo" src="{{ asset('img/logo_main.png') }}">
     <p class="text-light text-center align-middle text_main"><strong>La solution de demain</strong> </p>
     <p class="text-light text-center align-middle text_second"><strong>Smart Campus</strong></p>
-<!--
-    <div class="information">
-        <div class="p-5 mb-3 bg-light rounded-3">
-
-        </div>
-        <div class="p-5 mb-4 bg-light rounded-3">
-
-        </div>
-    </div>
--->
 
     <div class="container">
         <div class="col text-center form-group row">
             <div class="col">
-                <a class="btn btn-white btn-lg superviseur" href="/admin/selection_salle" role="button" style="width:300px">Connexion</a>
+                <a class="btn btn-white btn-lg" href="/admin/selection_salle" role="button" style="width:300px">Connexion Superviseur</a>
             </div>
             <div class="col-4">
 
             </div>
             <div class="col">
-                <a class="btn btn-white btn-lg salle" href="/salle/selection" role="button" style="width:300px">Sélection Salle</a>
+                <a class="btn btn-white btn-lg" href="/salle/selection" role="button" style="width:300px">Sélection Salle</a>
             </div>
         </div>
     </div>

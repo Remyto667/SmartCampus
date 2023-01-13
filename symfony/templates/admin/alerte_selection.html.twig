@@ -4,20 +4,28 @@
 
 {% block body %}
     <style>
+        /************** CSS **************/
+        /**** General characteristics ****/
         .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
         .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 
-        h1 {
+        body{
             text-align: center;
+            margin-left: 180px;
+        }
+        h1 {
             margin-top: 100px;
         }
         h2 {
-            text-align: center;
-            margin-top: 30px;
+            margin: 30px;
             font-size: 20px;
         }
 
-        /************* BOUTONS ET COULEURS **************/
+        /**** Buttons and colors ****/
+        .btn
+        {
+            align-items: center;
+        }
         .blue {
             color: #fff;
             background-color: #00489a;
@@ -58,40 +66,31 @@
             border-radius: 0.25rem;
             transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out
         }
-
-        .btn
+        .red:hover
         {
-            align-items: center;
+            background: #da0e0e;
         }
+
         a:hover {
             color : #FFFFFF;
         }
-        .cadre {
-            /*max-width: 500px;
-            margin-top: 100px;*/
-            padding: 10px;
-            border: 1px solid grey;
-            border-radius: 6px;
-            box-shadow: 2px 2px 5px grey;
-        }
 
-        .cadre:hover {
-            box-shadow: 4px 4px 7px grey;
-        }
-        .ligne {
+        /**** Organization of the page ****/
+        .content {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             column-gap: 5000px;
             row-gap: 1px;
         }
-        .item-ligne {
+        .line {
             display : flex;
             justify-content: space-around;
             column-gap: 50px;
         }
 
-        .item-salle {
+        /**** Outlines for each room ****/
+        .boxItem {
             width : 150px;
             height: 100px;
             display: flex;
@@ -100,31 +99,31 @@
             flex-wrap: wrap;
             column-gap: 500px;
             row-gap: 10px;
-        }
-        .btn-div {
-            justify-content: center;
-            text-align: center;
-        }
 
-        .red:hover
-        {
-            background: #da0e0e;
+            padding: 10px;
+            border: 1px solid grey;
+            border-radius: 6px;
+            box-shadow: 2px 2px 5px grey;
         }
 
-        /************* LEGENDES **************/
+        .boxItem:hover {
+            box-shadow: 4px 4px 7px grey;
+        }
 
-        .legende
+        /**** Legends ****/
+        .legend
         {
             display: flex;
             justify-content: space-around;
+            margin-top: 50px;
         }
-        .legendeBlue
+        .legendBlue
         {
             border-bottom: 3px solid blue;
             color: #00489a;
 
         }
-        .legendeRed
+        .legendRed
         {
             border-bottom: 3px solid red;
             color: #B51b1b;
@@ -132,6 +131,7 @@
         .text{
             text-align: center;
         }
+
     </style>
 
     <div class="example-wrapper">
@@ -141,40 +141,34 @@
         <br>
         <div class="ligne">
             {% for floor in allFloor | reverse %}
+                <!-- With an exception for floor 0 where we display : ground floor -->
                 {% if floor=="0" %}
-                    <p> Rez-de-chaussée : </p>
+                    <p style="margin-top: 20px;"> Rez-de-chaussée : </p>
                 {% else %}
-                    <p> Etage {{ floor }} : </p>
+                    <p style="margin-top: 20px;"> Etage {{ floor }} : </p>
                 {% endif %}
-                <div class="item-ligne">
+                <div class="line">
                     {% for room in allRoom %}
-
+                        <!-- All the rooms corresponding to the floor are displayed, without taking into account the stock -->
                         {% if (room.isIsStock() != 1) and (room.floor == floor) %}
-                            <div class="item-salle cadre" onclick="window.location='/admin/donnees_salle_admin/{{ room.id }}';">
-                                {% if nbAlert[room.getId()]["T"] + nbAlert[room.getId()]["H"] + nbAlert[room.getId()]["H"]  > 1000 %}
-                                    <a class="btn red btn-danger" href="/admin/donnees_salle_admin/{{ room.id }}">{{ room.name }}</a>
+                            <div class="item-salle cadre" onclick="window.location='/admin/alerte_vision/{{ room.id }}';">
+                                {% if nbAlert[room.id]["T"] + nbAlert[room.id]["H"] + nbAlert[room.id]["C"]  > 1000 %}
+                                    <a class="btn red btn-danger" href="/admin/alerte_vision/{{ room.id }}">{{ room.name }}</a>
                                 {% else %}
-                                    <a class="btn btn-primary blue" href="/admin/donnees_salle_admin/{{ room.id }}">{{ room.name }}</a>
+                                    <a class="btn btn-primary blue" href="/admin/alerte_vision/{{ room.id }}">{{ room.name }}</a>
                                 {% endif %}
-                                <p class="text">{{  nbAlert[room.getId()]["T"] + nbAlert[room.getId()]["H"] + nbAlert[room.getId()]["H"] }} alertes</p>
+                                <p class="text">{{  nbAlert[room.id]["T"] + nbAlert[room.id]["H"] + nbAlert[room.id]["C"] }} alertes</p>
                             </div>
-
                         {% endif %}
-
                     {% endfor %}
                 </div>
-                <br>
-                <br>
             {% endfor %}
-            <br>
-
         </div>
 
-        <div class="legende">
-            <p class="legendeBlue">Salle sans problèmes</p>
-            <p class="legendeRed">Salle avec Alerte(s)</p>
+        <div class="legend">
+            <p class="legendBlue">Salle sans problèmes</p>
+            <p class="legendRed">Salle avec Alerte(s)</p>
         </div>
-        <br>
 
     </div>
 {% endblock %}

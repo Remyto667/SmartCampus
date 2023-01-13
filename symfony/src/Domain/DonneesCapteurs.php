@@ -12,6 +12,14 @@ class DonneesCapteurs
     private $donneesPourSelection ;
     private $donneesPourGraphique ;
     private $donneesPourInterval ;
+
+    /**
+     * @param array $donneesPourInterval
+     */
+    public function setDonneesPourInterval(array $donneesPourInterval): void
+    {
+        $this->donneesPourInterval = $donneesPourInterval;
+    }
     private $tags ;
     private $stopwatch;
 
@@ -40,16 +48,14 @@ class DonneesCapteurs
         $this->donneesPourSalle = array();
         $this->donneesPourGraphique = array();
         $this->donneesPourInterval = array();
-        $this->donneesPourSelection = array();
-
         $this->tags = array();
         $this->initTags();
-        $this->stopwatch = $stopwatch;
     }
 
-    public function getDonneesPourSalle(int $tag): array
+
+    public function getDonneesPourSalle(int $tag):array
     {
-        if ($tag > 0)
+        if($tag >0)
         {
             $types["T"] = "temp";
             $types["H"] = "hum";
@@ -65,7 +71,7 @@ class DonneesCapteurs
                         'userpass' => 'bRepOh4UkiaM9c7R'
                     ],
                 ]);
-                $content = $response->getContent();
+                $content=$response->getContent();
                 if (sizeof(json_decode($content)) > 0) {
                     // rajouter maj de alert dans room
                     $this->donneesPourSalle[$type] = json_decode($content)[0];
@@ -77,52 +83,59 @@ class DonneesCapteurs
         return $this->donneesPourSalle ;
     }
 
-    public function getDonneesInterval($tag, $date1, $date2): array
+    public function  getDonneesInterval($tag,$date1,$date2):array
     {
-        //date sous cette forme : 2023-01-08 YYYY-MM-DD
-        $types["T"] = "temp";
-        $types["H"] = "hum";
-        $types["C"] = "co2";
-        //tag défini par le dbname
 
-        $client = HttpClient::create();
-        foreach ($types as $type => $nom) {
-            $response = $client->request('GET', 'http://sae34.k8s.iut-larochelle.fr/api/captures/interval?nom=' . $nom . '&date1=' . $date1 . '&date2=' . $date2 . '&page=1', [
-                'headers' => [
-                    'Accept' => 'application/ld+json',
-                    'dbname' => $this->tags[$tag],
-                    //'dbname' => 'sae34bdx1eq1',
-                    'username' => 'x1eq3',
-                    'userpass' => 'bRepOh4UkiaM9c7R'
-                ],
-            ]);
-            $content = json_decode($response->getContent());
-            if (sizeof($content) > 0) {
-                foreach($content as $data => $array) {
-                    $arrayMieux = json_decode(json_encode($array), true);
-                    if ($arrayMieux["nom"] == $nom) {
-                        $this->donneesPourInterval[$type][$data] = $arrayMieux;
+            //date sous cette forme : 2023-01-08 YYYY-MM-DD
+            $types["T"] = "temp";
+            $types["H"] = "hum";
+            $types["C"] = "co2";
+            //tag défini par le dbname
+
+            $client = HttpClient::create();
+            foreach ($types as $type => $nom)
+            {
+                //var_dump($nom);
+                $response = $client->request('GET', 'http://sae34.k8s.iut-larochelle.fr/api/captures/interval?nom='.$nom.'&date1='.$date1.'&date2='.$date2.'&page=1', [
+                    'headers' => [
+                        'Accept' => 'application/ld+json',
+                        'dbname' => $this->tags[$tag],
+                        'username' => 'x1eq3',
+                        'userpass' => 'bRepOh4UkiaM9c7R'
+                    ],
+                ]);
+                $content = json_decode($response->getContent());
+                //echo 'le content :' ;
+                if (sizeof($content) > 0 and $tag != 8)
+                {
+                    foreach ($content as $data => $array)
+                    {
+                        $arrayMieux = json_decode(json_encode($array), true);
+                        if ($arrayMieux["nom"] == $nom and $arrayMieux["tag"] == $tag)
+                        {
+                            $this->donneesPourInterval[$type][$data] = $arrayMieux;
+                        }
                     }
                 }
+                else{
+                    $this->donneesPourInterval[$type][0] = array("valeur" => "NULL", "dateCapture" => "NULL");
+                }
             }
-            else {
-                $this->donneesPourInterval[$type][0] = (object) array('valeur' => 'NULL', 'dateCapture' => 'NULL');
-            }
-        }
         return $this->donneesPourInterval ;
     }
 
-    public function getDonneesPourGraphique(int $tag): array
+    public function getDonneesPourGraphique(int $tag):array
     {
 
         $types["T"] = "temp";
         $types["H"] = "hum";
         $types["C"] = "co2";
+        $i=0;
 
         $client = HttpClient::create();
-        foreach ($types as $type => $nom) {
-            var_dump($tag);
-            $response = $client->request('GET', 'http://sae34.k8s.iut-larochelle.fr/api/captures?nom=' . $nom . '&tag=' . $tag . '&page=1', [
+        foreach($types as $type => $nom)
+        {
+            $response = $client->request('GET', 'http://sae34.k8s.iut-larochelle.fr/api/captures?nom='.$nom.'&tag='.$tag.'&page=1', [
                 'headers' => [
                     'Accept' => 'application/ld+json',
 
@@ -131,16 +144,23 @@ class DonneesCapteurs
                     'userpass' => 'bRepOh4UkiaM9c7R'
                 ],
             ]);
-            if (sizeof(json_decode($response->getContent())) > 0) {
+            if(sizeof(json_decode($response->getContent())) > 0)
+            {
+                //echo sizeof(json_decode($response->getContent()));
+
                 foreach(json_decode($response->getContent()) as $data => $array) {
+                    //var_dump(sizeof($array));
+
                     $this->donneesPourGraphique[$type][$data] = $array;
+                    //echo $data;
+
                 }
             }
-            else {
+            else{
                 $this->donneesPourGraphique[$type] = (object) array('valeur' => 'NULL', 'dateCapture' => 'NULL');
             }
         }
+
         return $this->donneesPourGraphique ;
     }
-
 }

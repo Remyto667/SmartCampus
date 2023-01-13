@@ -15,6 +15,7 @@ use App\Form\SensorType;
 use App\Form\SystemType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use PhpParser\Node\Scalar\String_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -438,57 +439,79 @@ class AdminController extends AbstractController
     }
 
     #[Route('admin/alerte_selection', name: 'alerte_selection')]
-    public function alerte_selection_salle(Request $request, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
+    public function alerte_selection_salle(ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
-        $date1 = '2022-12-12';
-        $date2 = '2023-01-12';
-
         $nbAlert = array();
-        foreach($allRoom as $rooms)
-        {
-            if($rooms->getName()!="Stock"){
-                //initialize
-                $handler->handle(new DonneesCapteursQuery($rooms, $doctrine));
-                $nbAlert[$rooms->getId()]["T"] = $handler->handleNbAlertTemp(new DonneesCapteursQuery($rooms, $doctrine),$date1,$date2);
-                $nbAlert[$rooms->getId()]["H"] = $handler->handleNbAlertHum(new DonneesCapteursQuery($rooms, $doctrine),$date1,$date2);
-                $nbAlert[$rooms->getId()]["C"] = $handler->handleNbAlertCo2(new DonneesCapteursQuery($rooms, $doctrine),$date1,$date2);
-            }
-        }
-        //var_dump($nbAlert);
 
+        //on récupères les deux dates
+        $month = date('m');
+        $year=date('y');
+        $date2 = '20'.$year.'-'.$month.'-'.date('j');
+        if($month==01){
+            $month=12;
+            $year--;
+        }
+        elseif ($month < 10){
+            $temp=$month-1;
+            $month= '0' . $temp;
+        }
+        else{
+            $month--;
+        }
+        $date1 = '20'.$year.'-'.$month.'-'.date('j');
+        foreach($allRoom as $room)
+        {
+            /* appel alerte_vision */
+            $nbAlert[$room->getId()] = $this->alerte_count($room, $doctrine, $handler,$date1,$date2);
+
+        }
         return $this->render('admin/alerte_selection.html.twig', [
             'allRoom' => $allRoom,
             'allFloor' => $repository->findAllFloor(),
             'nbAlert' =>$nbAlert,
-
         ]);
 
     }
 
-    #[Route('/admin/alerte_vision/{room?}', name: 'alerte_admin')]
-    public function alerte_vision(?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
+    public function alerte_count(?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler,String $date1, String $date2): array
     {
-        $statTemp= new Stat\Stat();
-        $statHum= new Stat\Stat();
-        $statCo2= new Stat\Stat();
-        $entityManager = $doctrine->getManager();
-        $repository = $entityManager->getRepository('App\Entity\Room');
-        $allRoom = $repository->findAll();
-        // faire ca pour seulement une salle
+        $nbAlert = array();
+        if($room->getName()!="Stock"){
+            $nbAlert= $handler->handleNbAlert(new DonneesCapteursQuery($room, $doctrine),$date1,$date2);
+        }
+        return $nbAlert;
+    }
 
-        $donnees=$handler->handleUneSalle(new DonneesCapteursQuery($room, $doctrine));             // Récupération de toutes les données de l'API
-
-
-
+    #[Route('/admin/alerte_vision/{room?}', name: 'alerte_vision_admin')]
+    public function alerte_visionV2(?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
+    {
+        //on récupères les deux dates
+        $month = date('m');
+        $year = date('y');
+        $date2 = '20'.$year.'-'.$month.'-'.date('j');
+        if($month == 01){
+            $month = 12;
+            $year --;
+        }
+        elseif ( $month < 10){
+            $temp=$month-1;
+            $month= '0' . $temp;
+        }
+        else{
+            $month --;
+        }
+        $date1 = '20' . $year . '-' . $month . '-' . date('j');
+        if($room->getName() != "Stock"){
+            //initialize
+            $handler->handle(new DonneesCapteursQuery($room, $doctrine));
+            $nbAlert=$this->alerte_count($room, $doctrine, $handler,$date1,$date2);
+        }
         return $this->render('admin/alerteStat.html.twig', [
             'room' => $room,
-            //'dataTemp' =>$moyTemp,
-            //'dataHum' =>$moyHum,
-            //'dataCo2' =>$moyCo2,
-
+            'nbAlert' =>$nbAlert,
         ]);
     }
 
