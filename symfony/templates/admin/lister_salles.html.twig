@@ -67,6 +67,7 @@
     </style>
 
     <script>
+        /** Iterate through all the elements of the array to find the same character or characters of the search **/
         function searchTable() {
             var input, filter, found, table, tr, td, i, j;
             input = document.getElementById("myInput");
@@ -134,6 +135,7 @@
             </thead>
             <tbody>
             {% for room in allRoom %}
+                <!-- Loop to show all rooms -->
                 <tr>
                     <td>
                         <!-- A warning is displayed only if there is a data recovery problem for each room -->
@@ -141,14 +143,16 @@
                             <img class="img warning" src="{{ asset('img/warning_rouge.png') }}">
                         {% endif %}
                     </td>
-                    <td>{{ room.name }}</td>
+                    <td>{{ room.name }}</td> <!-- View rooms in classic text -->
                     <td><a class="btn btn-primary img update favorite" href="/inventaire/modifier_salle/{{ room.id }}" role="button"></a></td>
                     <td><input class="btn btn-primary img delete favorite" type=button onclick="openPopup({{ room.id }})"></td>
                     <td>
                         {% if room.isIsStock() != 1 %}
-                                <a class="btn btn-primary" href="/admin/donnees_salle_admin/{{ room.id }}" role="button">{{ room.name }}</a>
+                            <!-- Display of a clickable button if it is a room -->
+                            <a class="btn btn-primary" href="/admin/donnees_salle_admin/{{ room.id }}" role="button">{{ room.name }}</a>
 
                         {% else %}
+                            <!-- Display of a simple text if it is: Stock -->
                             {{ room.name }}
                         {% endif %}
 

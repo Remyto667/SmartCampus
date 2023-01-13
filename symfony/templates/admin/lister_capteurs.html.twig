@@ -79,6 +79,7 @@
 
 <script language="JavaScript">
 
+    /** Iterate through all the elements of the array to find the same character or characters of the search **/
     function searchTable() {
         var input, filter, found, table, tr, td, i, j;
         input = document.getElementById("myInput");
@@ -132,6 +133,7 @@
         </thead>
         <tbody>
         {% for sensor in allSensor %}
+            <!-- Loop to show all sensors -->
             <tr>
                 <td>{{ sensor.name  }}</td>
                 <td>{{ sensor.type  }}</td>

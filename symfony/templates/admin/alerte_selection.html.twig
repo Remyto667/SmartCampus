@@ -21,7 +21,7 @@
             font-size: 20px;
         }
 
-        /************* Buttons and colors **************/
+        /**** Buttons and colors ****/
         .btn
         {
             align-items: center;
@@ -110,7 +110,7 @@
             box-shadow: 4px 4px 7px grey;
         }
 
-        /************* Legends **************/
+        /**** Legends ****/
         .legend
         {
             display: flex;
@@ -151,14 +151,15 @@
                         <!-- All the rooms corresponding to the floor are displayed, without taking into account the stock -->
                         {% if (room.isIsStock() != 1) and (room.floor == floor) %}
                             <div class="boxItem" onclick="window.location='/admin/alerteStat/{{ room.id }}';">
-                                <!-- Display the name of the room if : -->
                                 {% if nbAlert[room.getId()]["T"] + nbAlert[room.getId()]["H"] + nbAlert[room.getId()]["H"]  > 1000 %}
+                                    <!-- Display the name of the room in red -->
                                     <a class="btn red btn-danger" href="/admin/alerteStat/{{ room.id }}">{{ room.name }}</a>
                                 {% else %}
+                                    <!-- Display the name of the room in blue if currently there is no alert -->
                                     <a class="btn btn-primary blue" href="/admin/alerteStat/{{ room.id }}">{{ room.name }}</a>
                                 {% endif %}
                                 <!-- Display the total number of alerts corresponding to the room -->
-                                <p class="text">{{  nbAlert[room.getId()]["T"] + nbAlert[room.getId()]["H"] + nbAlert[room.getId()]["H"] }} alertes</p>
+                                <p class="text">{{ nbAlert[room.getId()]["T"] + nbAlert[room.getId()]["H"] + nbAlert[room.getId()]["H"] }} alertes</p>
                             </div>
                         {% endif %}
                     {% endfor %}

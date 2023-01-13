@@ -70,6 +70,7 @@
         }
     </style>
     <script>
+        /** Iterate through all the elements of the array to find the same character or characters of the search **/
         function searchTable() {
             var input, filter, found, table, tr, td, i, j;
             input = document.getElementById("myInput");
@@ -126,12 +127,13 @@
             </thead>
             <tbody>
             {% for system in systems %}
+                <!-- Loop to show all systems -->
                 <tr>
                     <td> {{ system.name }}</td>
                     <td> {{ system.tag }}</td>
                     <td> {{ system.room.name }} </td>
 
-
+                    <!-- Counts the number of sensors for each system -->
                     {% for key,value in nbsensor %}
                         {% if value.id == system.id %}
                             <td> {{ value.nb }}</td>
