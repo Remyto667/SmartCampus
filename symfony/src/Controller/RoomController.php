@@ -29,20 +29,28 @@ class RoomController extends AbstractController
     }
 
     #[Route('/salle/selection', name: 'selection')]
-    public function selection_salle(Request $request, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
+    public function selectRoom(Request $request, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
         $noData = array();
+        $temp = "NULL";
+        $hum = "NULL";
+        $co2 = "NULL";
         foreach($allRoom as $room) {
             $donnees = $handler->handle(new DonneesCapteursQuery($room, $doctrine));
             $temp = $donnees["T"]->valeur;
             $hum = $donnees["H"]->valeur;
             $co2 = $donnees["C"]->valeur;
-            if (($temp == "NULL" and $hum == "NULL") or ($hum == "NULL" and $co2 == "NULL") or ($temp == "NULL" and $co2 == "NULL") or ($temp == "NULL" and $hum == "NULL" and $co2 == "NULL")) {
+            if (($temp == "NULL" and $hum == "NULL") or ($hum == "NULL" and $co2 == "NULL")
+                or ($temp == "NULL" and $co2 == "NULL") or ($temp == "NULL" and $hum == "NULL"
+                    and $co2 == "NULL"))
+            {
                 $noData[$room->getId()] = 1;
-            } else {
+            }
+            else
+            {
                 $noData[$room->getId()] = 0;
             }
         }
@@ -58,8 +66,8 @@ class RoomController extends AbstractController
     }
 
     #[Route('/salle/{room?}', name: 'donneesSalle')]
-    public function donnees_salle(Request $request, ?Room $room, ManagerRegistry $doctrine, DonneesCapteursHandler $handler,ConseilAlerteHandler $handler2): Response{
-
+    public function roomData(Request $request, ?Room $room, ManagerRegistry $doctrine, DonneesCapteursHandler $handler,ConseilAlerteHandler $handler2): Response
+    {
         $donnees=$handler->handle(new DonneesCapteursQuery($room, $doctrine));
         $conseils=$handler2->handle(new ConseilAlerteQuery($room, $doctrine));
 
@@ -73,11 +81,12 @@ class RoomController extends AbstractController
             'dateT'=> $donnees["T"]->dateCapture,
             'dateH'=> $donnees["H"]->dateCapture,
             'dateC'=> $donnees["C"]->dateCapture,
-        ]);    }
+        ]);
+    }
 
     #[Route('/salle/alerte/{roomId?}/{id?}', name: 'alerte')]
-    public function alerte_salle(Request $request, ?int $roomId, ?int $id, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response{
-
+    public function alerte_salle(Request $request, ?int $roomId, ?int $id, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
+    {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
         $room = $repository->findOneBy(['id' => $roomId]);
@@ -90,6 +99,6 @@ class RoomController extends AbstractController
             'temp' => $donnees["T"]->valeur,
             'hum' => $donnees["H"]->valeur,
             'co2' => $donnees["C"]->valeur,
-        ]);    }
-
+        ]);
+    }
 }

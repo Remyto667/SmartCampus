@@ -27,7 +27,7 @@ class ConseilAlerteHandler
 
         if(!array_key_exists('main',$weatherData))
         {
-            return false ;
+            return 0 ;
         }
 
         $temp_outside = $weatherData['main']['temp'];
@@ -35,6 +35,10 @@ class ConseilAlerteHandler
         return $temp_outside-273.15;
     }
 
+    /**
+     * @return array<mixed>
+     * @param array<mixed> $data
+     */
     public function typeOfAlert(array $data,ConseilAlerteQuery $requete,float $temp_outside): array
     {
         //récupératoin des valeurs
@@ -90,6 +94,9 @@ class ConseilAlerteHandler
         return $requete->getAdvice($temp_alerte_sup,$temp_alerte_inf,$hum_alerte_sup,$hum_alerte_inf,$co2_alerte_sup,$co2_alerte_inf,$temp_sup_outside,$no_data);
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function handle(ConseilAlerteQuery $requete): array
     {
         $data = $this->donneesCapteurs->getDonneesPourSalle($requete->getTag());

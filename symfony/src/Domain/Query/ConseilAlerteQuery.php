@@ -33,23 +33,26 @@ class ConseilAlerteQuery
 
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function getAdvice(bool $temp_alerte_sup,bool $temp_alerte_inf,bool $hum_alerte_sup,bool $hum_alerte_inf,bool $co2_alerte_sup,bool $co2_alerte_inf,bool$temp_sup_outside,bool $no_data): array
     {
         $entityManager = $this->doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Conseil');
 
         $advice = $repository->findBy(
-        array('temp_alerte_sup' => (string)$temp_alerte_sup,
-            'temp_alerte_inf' => (string)$temp_alerte_inf,
-            'hum_alerte_sup' => (string)$hum_alerte_sup,
-            'hum_alerte_inf' => (string)$hum_alerte_inf,
-            'co2_alerte_sup' => (string)$co2_alerte_sup,
-           'co2_alerte_inf' => (string)$co2_alerte_inf,
-            'temp_sup_outside' => (string)$temp_sup_outside,
-            'no_data' => (string)$no_data)
+            array('temp_alerte_sup' => (string)$temp_alerte_sup,
+                'temp_alerte_inf' => (string)$temp_alerte_inf,
+                'hum_alerte_sup' => (string)$hum_alerte_sup,
+                'hum_alerte_inf' => (string)$hum_alerte_inf,
+                'co2_alerte_sup' => (string)$co2_alerte_sup,
+                'co2_alerte_inf' => (string)$co2_alerte_inf,
+                'temp_sup_outside' => (string)$temp_sup_outside,
+                'no_data' => (string)$no_data)
         );
 
-         return $advice;
+        return $advice;
 
     }
 

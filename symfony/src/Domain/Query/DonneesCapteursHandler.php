@@ -8,91 +8,99 @@ use Symfony\Component\Stopwatch\Stopwatch;
 
 class DonneesCapteursHandler
 {
-    private $donneesCapteurs;
-    private $stopwatch;
+    private DonneesCapteurs $donneesCapteurs;
 
-    public function __construct(DonneesCapteurs $donneesCapteurs, Stopwatch $stopwatch)
+    public function __construct(DonneesCapteurs $donneesCapteurs)
     {
         $this->donneesCapteurs = $donneesCapteurs;
-        $this->stopwatch = $stopwatch;
-
     }
 
-    public function isItAlert($data, $requete)
+    /**
+     * @param array<mixed> $data
+     * @param DonneesCapteursQuery $requete
+     */
+    public function isItAlert(array $data, DonneesCapteursQuery $requete): void
     {
         $temp = $data["T"]->valeur;
         $hum = $data["H"]->valeur;
         $co2 = $data["C"]->valeur;
         $roomType = $requete->getRoom()->getType();
 
-        if(($temp <= $roomType->getTempMin()) or ($temp > $roomType->getTempMax()) or $hum >= $roomType->getHumMax() or $hum < $roomType->getHumMin() or $co2 >= $roomType->getCo2Max() or $co2  < $roomType->getCo2Min())
-        {
+        if (($temp <= $roomType->getTempMin()) or ($temp > $roomType->getTempMax()) or $hum >= $roomType->getHumMax() or $hum < $roomType->getHumMin() or $co2 >= $roomType->getCo2Max() or $co2  < $roomType->getCo2Min()) {
             $requete->getRoom()->setIsAlert(true);
         }
-        else{
+        else {
             $requete->getRoom()->setIsAlert(false);
         }
     }
-
-    public function countAlertTemp($data, $requete):int
+    /**
+     * @param array<mixed> $data
+     * @param DonneesCapteursQuery $requete
+     */
+    public function countAlertTemp(array $data, DonneesCapteursQuery $requete): int
     {
-        $nb=0;
+        $nb = 0;
         $roomType = $requete->getRoom()->getType();
-        if ($data["nom"]=="temp"){
-            $temp = $data['valeur'];
-            if($temp < $roomType->getTempMin() or ($temp > $roomType->getTempMax()))
-            {
-                $nb+=1;
-            }
-        }
-//echo $nb;
-        return $nb;
-    }
-    public function countAlertCo2($data, $requete):int
-    {
-        $nb=0;
-        $roomType = $requete->getRoom()->getType();
-        if ($data["nom"]=="co2"){
-            $temp = $data['valeur'];
-            if($temp < $roomType->getCo2Min() or ($temp > $roomType->getCo2Max()))
-            {
-                $nb+=1;
-            }
+        $temp = $data['valeur'];
+        if ($temp < $roomType->getTempMin() or ($temp > $roomType->getTempMax())) {
+            $nb += 1;
         }
         return $nb;
     }
-    public function countAlertHum($data, $requete):int
+    /**
+     * @param array<mixed> $data
+     * @param DonneesCapteursQuery $requete
+     */
+    public function countAlertCo2(array $data, DonneesCapteursQuery $requete): int
     {
-        $nb=0;
+        $nb = 0;
         $roomType = $requete->getRoom()->getType();
-        if ($data["nom"]=="hum") {
-            $temp = $data['valeur'];
-            if ($temp < $roomType->getHumMin() or ($temp > $roomType->getHumMax())) {
-                $nb += 1;
-            }
+        $temp = $data['valeur'];
+        if($temp < $roomType->getCo2Min() or ($temp > $roomType->getCo2Max())) {
+            $nb += 1;
         }
         return $nb;
     }
 
-    public function handle(DonneesCapteursQuery $requete)
+    /**
+     * @param array<mixed> $data
+     * @param DonneesCapteursQuery $requete
+     */
+    public function countAlertHum(array $data, DonneesCapteursQuery $requete): int
     {
-        $this->stopwatch->start('export-data');
+        $nb = 0;
+        $roomType = $requete->getRoom()->getType();
+        $temp = $data['valeur'];
+        if($temp < $roomType->getHumMin() or ($temp > $roomType->getHumMax())) {
+            $nb += 1;
+        }
+        return $nb;
+    }
 
+    /**
+     * @return array<mixed>
+     */
+    public function handle(DonneesCapteursQuery $requete): array
+    {
         $data = $this->donneesCapteurs->getDonneesPourSalle($requete->getTag());
-        $this->stopwatch->stop('export-data');
 
         $this->isItAlert($data, $requete);
         return $data;
     }
 
-    public function handleGraph(DonneesCapteursQuery $requete)
+    /**
+     * @return array<mixed>
+     */
+    public function handleGraph(DonneesCapteursQuery $requete): array
     {
         $data = $this->donneesCapteurs->getDonneesPourGraphique($requete->getTag());
         return $data;
     }
 
-
-    public function handleNbAlert(DonneesCapteursQuery $requete,$date1,$date2):array
+    /**
+     * @return array<mixed>
+     */
+    public function handleNbAlert(DonneesCapteursQuery $requete,string $date1,string $date2):array
     {
         $tempArray = array() ;
         $this->donneesCapteurs->setDonneesPourInterval($tempArray);
@@ -136,5 +144,4 @@ class DonneesCapteursHandler
 
         return $nbAlert;
     }
-
 }

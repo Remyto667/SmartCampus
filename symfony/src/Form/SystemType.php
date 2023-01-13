@@ -22,7 +22,7 @@ class SystemType extends AbstractType
             ->add('Room', EntityType::class, array(
                 'class' => 'App\Entity\Room',
                 'query_builder' => function (EntityRepository $er) {
-                 return $er->createQueryBuilder('c');
+                    return $er->createQueryBuilder('c');
                 },
                 'choice_label' => 'name'
             ))

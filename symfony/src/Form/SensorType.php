@@ -16,19 +16,19 @@ class SensorType extends AbstractType
     {
         $builder
             ->add('Name')
-            ->add('type', ChoiceType::class,[
-                'label'=> 'Type',
-                'choices' =>[
+            ->add('type', ChoiceType::class, [
+                'label' => 'Type',
+                'choices' => [
                     'Humidite' => 'humidité',
                     'Temperature' => 'Temperature',
-                    'CO2'=> 'CO2'
+                    'CO2' => 'CO2'
                 ]
             ])
             ->add('state',ChoiceType::class, [
                 'label' => 'Etat',
                 'choices' => [
-                    'Fonctionnel' =>'fonctionnel',
-                    'Non-fonctionnel'=>'non-fonctionnel'
+                    'Fonctionnel' => 'fonctionnel',
+                    'Non-fonctionnel' => 'non-fonctionnel'
                 ]
             ])
             ->add('systems', EntityType::class, array(
