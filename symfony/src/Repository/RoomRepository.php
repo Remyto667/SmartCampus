@@ -30,7 +30,7 @@ class RoomRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Room $entity, bool $flush = false)
+    public function remove(Room $entity, bool $flush = false): int
     {
         $conn = $this->getEntityManager()->getConnection();
 
@@ -56,7 +56,7 @@ class RoomRepository extends ServiceEntityRepository
         return $ok;
     }
 
-    public function findRoomByName($value): ?Room
+    public function findRoomByName(?String $value): ?Room
     {
         $qd = $this->createQueryBuilder('r')
             ->where('r.name = :val')
@@ -65,6 +65,9 @@ class RoomRepository extends ServiceEntityRepository
         return $qd->getQuery()->getOneOrNullResult();
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function findAllFloor(): array
     {
         $conn = $this->getEntityManager()->getConnection();
@@ -74,6 +77,7 @@ class RoomRepository extends ServiceEntityRepository
             GROUP BY r.floor
             ';
 
+        $allFloor = array();
         $result = $conn->prepare($sql)->executeQuery()->fetchAllAssociative();
         foreach ($result as $floor) {
             $allFloor[] = $floor["floor"] ;
@@ -81,6 +85,9 @@ class RoomRepository extends ServiceEntityRepository
         return $allFloor;
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function findAllFloorClassroom(): array
     {
         $conn = $this->getEntityManager()->getConnection();
@@ -91,7 +98,7 @@ class RoomRepository extends ServiceEntityRepository
             and t.name = "Salle de classe"
             GROUP BY r.floor
             ';
-
+        $allFloor = array();
         $result = $conn->prepare($sql)->executeQuery()->fetchAllAssociative();
         foreach ( $result as $floor) {
             $allFloor[] = $floor["floor"] ;
@@ -99,6 +106,9 @@ class RoomRepository extends ServiceEntityRepository
         return $allFloor;
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function findAllCount() : array
     {
         $conn = $this->getEntityManager()->getConnection();

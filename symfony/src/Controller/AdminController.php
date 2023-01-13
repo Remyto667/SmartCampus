@@ -186,7 +186,7 @@ class AdminController extends AbstractController
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\System');
-        $system = $repository->find($id);
+        $system = $repository->findOneBy(['id' => $id]);
 
         $form = $this->createForm(SystemType::class, $system);
         $form->handleRequest($request);
@@ -476,6 +476,9 @@ class AdminController extends AbstractController
 
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function alerte_count(?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler,String $date1, String $date2): array
     {
         $nbAlert = array();
@@ -504,6 +507,7 @@ class AdminController extends AbstractController
             $month --;
         }
         $date1 = '20' . $year . '-' . $month . '-' . date('j');
+        $nbAlert = array();
         if($room->getName() != "Stock"){
             //initialize
             $handler->handle(new DonneesCapteursQuery($room, $doctrine));

@@ -35,6 +35,9 @@ class RoomController extends AbstractController
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
         $noData = array();
+        $temp = "NULL";
+        $hum = "NULL";
+        $co2 = "NULL";
         foreach($allRoom as $room) {
             $donnees = $handler->handle(new DonneesCapteursQuery($room, $doctrine));
             $temp = $donnees["T"]->valeur;

@@ -8,7 +8,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DonneesCapteursQuery
 {
-    private $room;
+    private Room $room;
+    private ManagerRegistry $doctrine;
 
     /**
      * @return Room
@@ -17,11 +18,7 @@ class DonneesCapteursQuery
     {
         return $this->room;
     }
-    private $doctrine;
 
-    /**
-     * @return Room
-     */
     public function getTag(): int
     {
         $entityManager = $this->doctrine->getManager();
@@ -33,7 +30,6 @@ class DonneesCapteursQuery
         else {
             return 0;
         }
-
     }
 
     public function __construct(Room &$room, ManagerRegistry $doctrine)

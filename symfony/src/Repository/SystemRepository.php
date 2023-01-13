@@ -30,16 +30,14 @@ class SystemRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(System $entity, bool $flush = false)
+    public function remove(System $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
         if ($flush) {
             $this->getEntityManager()->flush();
         }
-
-
-        }
+    }
 
 
 
