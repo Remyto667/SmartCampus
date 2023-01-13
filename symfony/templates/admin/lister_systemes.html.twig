@@ -3,13 +3,17 @@
 {% block title %}Inventaire des SA{% endblock %}
 
 {% block body %}
-<style>
+    <style>
+        /************** CSS **************/
+        /**** General characteristics ****/
         body{
             background-color: #f7f9fa;
         }
 
         .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
         .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+
+        /**** Table display ****/
         .table .thead-light th {
             color: #495057;
             background-color: #e9ecef;
@@ -21,6 +25,8 @@
             border-top: 1px solid #dee2e6;
             text-align: center;
         }
+
+        /**** Buttons ****/
         .btn:not(:disabled):not(.disabled) {
             cursor: pointer;
         }
@@ -30,6 +36,7 @@
             background-color: #00489a;
             border-color: #00489a;
         }
+
         .btn {
             display: inline-block;
             font-weight: 400;
@@ -47,7 +54,7 @@
             transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
         }
 
-    /************ ICONS *************/
+        /**** Icons ****/
         .img {
             background-repeat: no-repeat;
             background-size: 100% 100%;

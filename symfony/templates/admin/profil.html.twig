@@ -1,37 +1,29 @@
 {% extends 'basewithnavbar.html.twig' %}
 
 {% block body %}
-
-    <!-- A Faire :
-    -- centrer les elements entre eux et sans debordements -->
-
     <style>
-
-        .img{
-            margin-top: 8em;
-        }
-        .bottom{
-            display: flex;
-            justify-content: end;
-            align-items:end;
-            margin-top: 200px;
-        }
+        /************** CSS **************/
+        /**** General characteristics ****/
         body{
             background-image: url("../img/main_wallpaper.jpg");
             background-size: cover;
             margin-left: 150px;
         }
-        .btn{
-            background-color: #FFFFFF;
-            border:solid red;
-            width: 15%;
+
+        /**** Profil ****/
+        .username{
             text-align: center;
-            margin: 1em auto;
         }
+
+        .img{
+            margin-top: 8em;
+        }
+
+        /**** Display data ****/
         .data-container{
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-evenly; /* Espacé sans être collé aux bords */
+            justify-content: space-evenly;
             margin-left: 20px;
         }
 
@@ -58,16 +50,27 @@
             font-size: 20px;
         }
 
-        .username{
-            text-align: center;
+        /**** Button ****/
+        .bottom{
+            display: flex;
+            justify-content: end;
+            align-items:end;
+            margin-top: 200px;
         }
+
+        .btn{
+            background-color: #FFFFFF;
+            border:solid red;
+            width: 15%;
+            text-align: center;
+            margin: 1em auto;
+        }
+
     </style>
 
     <div class="body">
         <img class="rounded mx-auto d-block img" src="{{ asset('img/profil.png') }}">
-
-        <p class="username h1 p-5 text-light"> Bonjour {{ app.user.username }} </p>
-
+        <p class="username h1 p-5 text-light"> Bonjour {{ app.user.username }}</p>
         <br>
 
         <div class="data-container">
@@ -87,12 +90,8 @@
     </div>
 
     <div class="bottom col text-center form-group row gg">
-
-            <a class="btn btn-red btn-lg" href="/logout" role="button">Déconnexion</a>
-
+        <a class="btn btn-red btn-lg" href="/logout" role="button">Déconnexion</a>
     </div>
-
-
 
 {% endblock %}
 
