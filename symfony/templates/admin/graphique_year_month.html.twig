@@ -87,8 +87,8 @@
                     <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     </button>
                     <div class="dropdown-menu">
-                        {% for i in 0..11 %}
-                            <a class="dropdown-item" href="/admin/suivi/graphique/{{ room.getId() }}/{{ annee_choisi }}/{{ month+i }}">{{ month +i }}</a>
+                        {% for i in 1..12 %}
+                            <a class="dropdown-item" href="/admin/suivi/graphique/{{ room.getId() }}/{{ annee_choisi }}/{{ i }}">{{ i }}</a>
                         {% endfor %}
                     </div>
                 </div>
@@ -99,7 +99,9 @@
                     <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     </button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Action</a>
+                        {% for i in 1..nb_jours %}
+                        <a class="dropdown-item" href="/admin/suivi/graphique/{{ room.getId() }}/{{ annee_choisi }}/{{ mois_choisi }}/{{ i }}">{{  i }}</a>
+                        {% endfor %}
                     </div>
                 </div>
 
