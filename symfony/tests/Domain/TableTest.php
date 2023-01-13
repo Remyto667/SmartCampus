@@ -2,6 +2,7 @@
 
 namespace App\Tests\Domain;
 
+use App\Entity\Conseil;
 use App\Entity\Room;
 use App\Entity\Sensor;
 use App\Entity\System;
@@ -104,4 +105,67 @@ class TableTest extends TestCase
         $this->assertEquals("fonctionnel",$sensor->getState());
         $this->assertEquals($system,$sensor->getSystems());
     }
+
+    public function test_conseil()
+    {
+        $conseil = new Conseil();
+        $conseil->setConseil("Ceci est un conseil");
+        $conseil->setTempAlerteSup(false);
+        $conseil->setTempAlerteInf(false);
+        $conseil->setHumAlerteSup(false);
+        $conseil->setHumAlerteInf(false);
+        $conseil->setCo2AlerteSup(false);
+        $conseil->setCo2AlerteInf(false);
+        $conseil->setTempSupOutside(false);
+        $conseil->setNoData(false);
+
+
+
+        $this->assertEquals("Ceci est un conseil",$conseil->getConseil());
+        $this->assertEquals(false,$conseil->isTempAlerteSup());
+        $this->assertEquals(false,$conseil->isTempAlerteInf());
+        $this->assertEquals(false,$conseil->isHumAlerteSup());
+        $this->assertEquals(false,$conseil->isHumAlerteInf());
+        $this->assertEquals(false,$conseil->isCo2AlerteSup());
+        $this->assertEquals(false,$conseil->isCo2AlerteInf());
+        $this->assertEquals(false,$conseil->isTempSupOutside());
+        $this->assertEquals(false,$conseil->isNoData());
+    }
+
+    public function test_type()
+    {
+        $type = new Type();
+        $type->setName("Chambre");
+        $type->setTempMax(21);
+        $type->setTempMin(19);
+        $type->setHumMax(60);
+        $type->setHumMin(40);
+        $type->setCo2Max(800);
+        $type->setCo2Min(400);
+
+        $this->assertEquals("Chambre",$type->getName());
+        $this->assertEquals(21,$type->getTempMax());
+        $this->assertEquals(19,$type->getTempMin());
+        $this->assertEquals(60,$type->getHumMax());
+        $this->assertEquals(40,$type->getHumMin());
+        $this->assertEquals(800,$type->getCo2Max());
+        $this->assertEquals(400,$type->getCo2Min());
+    }
+
+/*
+    public function test_lister_les_films_a_l_affiche_sollicite_le_programme(){
+        // Arrange
+        $cinema =$this->createMock(Cinema::class);
+        $query = new ProgrammationCinemaQuery($cinema);
+        $programme=$this->createMock(ProgrammeDeCinema::class);
+        // Assert (préparation)
+        $programme->expects($this->once())->method("getFilmsPourCinema");
+        //Arrange
+        $handler=new ProgrammationCinemaHandler($programme);
+        //Act
+        $resultat=$handler->handle($query);
+        //Assert
+        $this->assertIsIterable($resultat);
+        }
+*/
 }

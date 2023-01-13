@@ -267,7 +267,7 @@
                 {% endif %}
                 {% for room in allRoom %}
                     {% if (room.isIsStock() != 1) and (room.floor == floor) %}
-                        {% if (room.getTempAlert.isAlert == true or room.getCo2Alert.isAlert==true or room.getHumAlert.isAlert==true) %}
+                        {% if (room.isAlert == true ) %}
                             <a class="btn red btn-danger" href="{{ room.id }}" role="button">{{ room.name }}</a>
                         {% else %}
                             <a class="btn blue btn-primary" href="{{ room.id }}" role="button">{{ room.name }}</a>

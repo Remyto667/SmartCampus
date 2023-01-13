@@ -8,14 +8,14 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class ConseilAlerteHandler
 {
-    private $donneesCapteurs;
+    private DonneesCapteurs $donneesCapteurs;
 
     public function __construct(DonneesCapteurs $donneesCapteurs)
     {
         $this->donneesCapteurs = $donneesCapteurs;
     }
 
-    public function getWeatherData()
+    public function getWeatherData(): float
     {
         $url = 'https://api.openweathermap.org/data/2.5/weather?q=La%20Rochelle&appid=3e754b09e95d904997b1f4c2a5597bc5';
         $ch = curl_init($url);
@@ -35,7 +35,7 @@ class ConseilAlerteHandler
         return $temp_outside-273.15;
     }
 
-    public function typeOfAlert($data, $requete, $temp_outside)
+    public function typeOfAlert(array $data,ConseilAlerteQuery $requete,float $temp_outside): array
     {
         //récupératoin des valeurs
         $temp = $data["T"]->valeur;
@@ -52,22 +52,6 @@ class ConseilAlerteHandler
         $co2_alerte_inf = false;
         $temp_sup_outside = false;
         $no_data = false;
-
-
-
-        /*
-        // Création de l'instance HttpClient
-        $client = HttpClient::create();
-
-        // Envoi de la requête à l'API OpenWeather
-        $response = $client->request('GET',https://api.openweathermap.org/data/2.5/weather?q=London&appid=3e754b09e95d904997b1f4c2a5597bc5);
-
-        // Récupérez la réponse sous forme de tableau PHP
-        $data = json_decode($response->getBody(), true);
-
-        // Récupérez la température à partir du tableau de données
-        $temperature = $data['main']['temp'];
-        */
 
         if($temp > $roomType->getTempMax())
         {
@@ -106,7 +90,7 @@ class ConseilAlerteHandler
         return $requete->getAdvice($temp_alerte_sup,$temp_alerte_inf,$hum_alerte_sup,$hum_alerte_inf,$co2_alerte_sup,$co2_alerte_inf,$temp_sup_outside,$no_data);
     }
 
-    public function handle(ConseilAlerteQuery $requete)
+    public function handle(ConseilAlerteQuery $requete): array
     {
         $data = $this->donneesCapteurs->getDonneesPourSalle($requete->getTag());
 
