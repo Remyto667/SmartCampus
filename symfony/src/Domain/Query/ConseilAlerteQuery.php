@@ -8,22 +8,15 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class ConseilAlerteQuery
 {
+    private ManagerRegistry $doctrine;
 
-    private $doctrine;
+    private Room $room;
 
-    private $room;
-
-    /**
-     * @return Room
-     */
     public function getRoom(): Room
     {
         return $this->room;
     }
 
-    /**
-     * @return Room
-     */
     public function getTag(): int
     {
         $entityManager = $this->doctrine->getManager();
@@ -40,9 +33,6 @@ class ConseilAlerteQuery
 
     }
 
-    /**
-     * @return Conseil
-     */
     public function getAdvice(bool $temp_alerte_sup,bool $temp_alerte_inf,bool $hum_alerte_sup,bool $hum_alerte_inf,bool $co2_alerte_sup,bool $co2_alerte_inf,bool$temp_sup_outside,bool $no_data): array
     {
         $entityManager = $this->doctrine->getManager();
