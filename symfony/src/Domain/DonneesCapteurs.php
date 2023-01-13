@@ -4,10 +4,12 @@ namespace App\Domain;
 
 use App\Entity\Room;
 use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\Stopwatch\Stopwatch;
 
 class DonneesCapteurs
 {
     private $donneesPourSalle ;
+    private $donneesPourSelection ;
     private $donneesPourGraphique ;
     private $donneesPourInterval ;
 
@@ -19,6 +21,8 @@ class DonneesCapteurs
         $this->donneesPourInterval = $donneesPourInterval;
     }
     private $tags ;
+    private $stopwatch;
+
 
     private function initTags()
     {
@@ -39,7 +43,7 @@ class DonneesCapteurs
         $this->tags[15] = 'sae34bdz1eq3';
     }
 
-    public function __construct()
+    public function __construct(Stopwatch $stopwatch)
     {
         $this->donneesPourSalle = array();
         $this->donneesPourGraphique = array();
@@ -47,6 +51,7 @@ class DonneesCapteurs
         $this->tags = array();
         $this->initTags();
     }
+
 
     public function getDonneesPourSalle(int $tag):array
     {
@@ -58,7 +63,7 @@ class DonneesCapteurs
 
             $client = HttpClient::create();
             foreach ($types as $type => $nom) {
-                $response = $client->request('GET', 'http://sae34.k8s.iut-larochelle.fr/api/captures/last?nom=' . $nom . '&tag=' . $tag . '&page=1', [
+                $response = $client->request('GET', 'http://sae34.k8s.iut-larochelle.fr/api/captures/last?nom=' . $nom . '&page=1', [
                     'headers' => [
                         'Accept' => 'application/ld+json',
                         'dbname' => $this->tags[$tag],
@@ -75,7 +80,6 @@ class DonneesCapteurs
                 }
             }
         }
-
         return $this->donneesPourSalle ;
     }
 

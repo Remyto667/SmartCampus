@@ -1,0 +1,22 @@
+{% extends 'basewithnavbar.html.twig' %}
+
+{% block body %}
+
+    <style>
+        /************** CSS **************/
+        /**** General characteristics ****/
+        body{
+            background-image: url("../img/guide_superviseur.png");
+            background-size: cover;
+        }
+    </style>
+
+        {% if app.user.username == 'admin'%}
+
+        {% elseif app.user.username == 'technicien'%}
+
+        {% else %}
+
+        {% endif %}
+{% endblock %}
+

@@ -37,12 +37,30 @@ class AdminController extends AbstractController
             'controller_name' => 'AdminController',
         ]);
     }
-
-    #[Route('/admin/profil', name: 'profil_admin')]
-    public function connexion_admin(): Response
+    #[Route('/admin/guide', name: 'admin_guide')]
+    public function guide(): Response
     {
+        return $this->render('admin/guide.html.twig', [
+            'controller_name' => 'AdminController',
+        ]);
+    }
+    #[Route('/admin/profil', name: 'profil_admin')]
+    public function connexion_admin(ManagerRegistry $doctrine): Response
+    {
+        $entityManager = $doctrine->getManager();
+        $repository = $entityManager->getRepository('App\Entity\Room');
+        $allRoom = $repository->findAll();
+
+        $repository = $entityManager->getRepository('App\Entity\Room');
+        $allSystem = $repository->findAll();
+
+        $repository = $entityManager->getRepository('App\Entity\Room');
+        $allSensor = $repository->findAll();
+
         return $this->render('admin/profil.html.twig', [
-            'controller_name' => 'CONNEXION',
+            'countRoom' => sizeof($allRoom)-1,
+            'countSystem' => sizeof($allSystem),
+            'CountSensor' => sizeof($allSensor),
         ]);
     }
 
@@ -74,7 +92,6 @@ class AdminController extends AbstractController
             }
         }
 
-        $rooms = $repository->findAll();
         return $this->render('admin/lister_salles.html.twig', [
             'ok' => $ok,
             'allRoom' => $allRoom,
@@ -262,7 +279,7 @@ class AdminController extends AbstractController
     }
 
     #[Route('admin/selection_salle', name: 'selectionSalle')]
-    public function selection_salle(Request $request, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
+    public function selection_salle(ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
@@ -272,7 +289,6 @@ class AdminController extends AbstractController
         {
             $handler->handle(new DonneesCapteursQuery($room, $doctrine));
         }
-
 
         return $this->render('admin/selection.html.twig', [
             'allRoom' => $allRoom,
@@ -355,7 +371,6 @@ class AdminController extends AbstractController
         {
             $handler->handle(new DonneesCapteursQuery($room, $doctrine));
         }
-
 
         return $this->render('admin/suivi_selection.html.twig', [
             'allRoom' => $allRoom,

@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Domain\Alert;
+use App\Domain\Query\ConseilAlerteHandler;
+use App\Domain\Query\ConseilAlerteQuery;
 use App\Domain\Query\DonneesCapteursHandler;
 use App\Domain\Query\DonneesCapteursQuery;
 use App\Entity\Room;
@@ -55,31 +57,14 @@ class RoomController extends AbstractController
 
     }
 
-    /*#[Route('/salle/selection', name: 'selection')]
-    public function selection_salle_user(Request $request, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
-    {
-        $entityManager = $doctrine->getManager();
-        $repository = $entityManager->getRepository('App\Entity\Room');
-        $allRoom = $repository->findAll();
-
-        foreach($allRoom as $room)
-        {
-            $handler->handle(new DonneesCapteursQuery($room, $doctrine));
-        }
-
-        return $this->render('salle/selection.html.twig', [
-            'allRoom' => $allRoom,
-            'allFloor' => $repository->findAllFloor(),
-        ]);
-
-    }*/
-
     #[Route('/salle/{room?}', name: 'donneesSalle')]
-    public function donnees_salle(Request $request, ?Room $room, ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response{
+    public function donnees_salle(Request $request, ?Room $room, ManagerRegistry $doctrine, DonneesCapteursHandler $handler,ConseilAlerteHandler $handler2): Response{
 
         $donnees=$handler->handle(new DonneesCapteursQuery($room, $doctrine));
+        $conseils=$handler2->handle(new ConseilAlerteQuery($room, $doctrine));
 
         return $this->render('salle/donnees_salle.html.twig', [
+            'conseil' => $conseils[0],
             'room' => $room,
             'id' => $room->getId(),
             'temp' => $donnees["T"]->valeur,

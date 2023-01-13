@@ -4,14 +4,18 @@ namespace App\Domain\Query;
 
 use App\Domain\Alert;
 use App\Domain\DonneesCapteurs;
+use Symfony\Component\Stopwatch\Stopwatch;
 
 class DonneesCapteursHandler
 {
     private $donneesCapteurs;
+    private $stopwatch;
 
-    public function __construct(DonneesCapteurs $donneesCapteurs)
+    public function __construct(DonneesCapteurs $donneesCapteurs, Stopwatch $stopwatch)
     {
         $this->donneesCapteurs = $donneesCapteurs;
+        $this->stopwatch = $stopwatch;
+
     }
 
     public function isItAlert($data, $requete)
@@ -19,32 +23,14 @@ class DonneesCapteursHandler
         $temp = $data["T"]->valeur;
         $hum = $data["H"]->valeur;
         $co2 = $data["C"]->valeur;
-        $tempDate = $data["T"]->dateCapture;
-        $humDate = $data["H"]->dateCapture;
-        $co2Date = $data["C"]->dateCapture;
         $roomType = $requete->getRoom()->getType();
 
-        if(($temp <= $roomType->getTempMin()) or ($temp > $roomType->getTempMax()))
+        if(($temp <= $roomType->getTempMin()) or ($temp > $roomType->getTempMax()) or $hum >= $roomType->getHumMax() or $hum < $roomType->getHumMin() or $co2 >= $roomType->getCo2Max() or $co2  < $roomType->getCo2Min())
         {
-            $requete->getRoom()->setTempAlert(new Alert(true, $tempDate));
-            $requete->getRoom()->getTempAlert()->setIsAlert(true);
+            $requete->getRoom()->setIsAlert(true);
         }
         else{
-            $requete->getRoom()->setTempAlert(new Alert(false, ''));
-        }
-        if($hum >= $roomType->getHumMax() or $hum < $roomType->getHumMin())
-        {
-            $requete->getRoom()->setHumAlert(new Alert(true, $humDate));
-        }
-        else{
-            $requete->getRoom()->setHumAlert(new Alert(false, ''));
-        }
-        if($co2 >= $roomType->getCo2Max() or $co2  < $roomType->getCo2Min())
-        {
-            $requete->getRoom()->setCo2Alert(new Alert(true, $co2Date));
-        }
-        else{
-            $requete->getRoom()->setCo2Alert(new Alert(false, ''));
+            $requete->getRoom()->setIsAlert(false);
         }
     }
 
@@ -90,7 +76,10 @@ class DonneesCapteursHandler
 
     public function handle(DonneesCapteursQuery $requete)
     {
+        $this->stopwatch->start('export-data');
+
         $data = $this->donneesCapteurs->getDonneesPourSalle($requete->getTag());
+        $this->stopwatch->stop('export-data');
 
         $this->isItAlert($data, $requete);
         return $data;

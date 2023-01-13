@@ -1,25 +1,63 @@
 {% extends 'basewithnavbar.html.twig' %}
 
 {% block body %}
-
     <style>
+        /************** CSS **************/
+        /**** General characteristics ****/
+        body{
+            background-image: url("../img/main_wallpaper.jpg");
+            background-size: cover;
+            margin-left: 150px;
+        }
+
+        /**** Profil ****/
+        .username{
+            text-align: center;
+        }
 
         .img{
             margin-top: 8em;
         }
+
+        /**** Display data ****/
+        .data-container{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            margin-left: 20px;
+        }
+
+        .boxDesc{
+            height: 150px;
+            background-color: white;
+            text-align: center;
+            border: 2px solid grey;
+            border-radius: 32px;
+            box-shadow: 2px 2px 5px grey;
+            margin-top: 50px;
+            padding: 20px 30px 30px 30px;
+        }
+
+        .titleDesc{
+            text-decoration: underline;
+            color: #00489a;
+            padding-top: 10px;
+        }
+
+        .text{
+            text-decoration: none;
+            color: #75A307;
+            font-size: 20px;
+        }
+
+        /**** Button ****/
         .bottom{
             display: flex;
             justify-content: end;
             align-items:end;
-            margin-top: 500px;
+            margin-top: 200px;
         }
-        .text{
-            text-align: center; margin: 1em auto; font: 28px/1.5 sans-serif;
-        }
-        body{
-            background-image: url("../img/main_wallpaper.jpg");
-            background-size: cover;
-        }
+
         .btn{
             background-color: #FFFFFF;
             border:solid red;
@@ -27,21 +65,33 @@
             text-align: center;
             margin: 1em auto;
         }
+
     </style>
 
-    <div>
-    <img class="rounded mx-auto d-block img" src="{{ asset('img/profil.png') }}">
+    <div class="body">
+        <img class="rounded mx-auto d-block img" src="{{ asset('img/profil.png') }}">
+        <p class="username h1 p-5 text-light"> Bonjour {{ app.user.username }}</p> <!-- Display of the name of the active user (technicien or admin) -->
+        <br>
 
-    <p class=" text"> Bonjour {{ app.user.username }} </p> <!--{/*{app.user.username}}-->
+        <div class="data-container">
+            <div class="boxDesc">
+                <p class="titleDesc" >Nombre de salles gérées :</p>
+                <p class="text" >{{ countRoom }}</p>
+            </div>
+            <div class="boxDesc">
+                <p class="titleDesc" >Nombre de capteurs gérés :</p>
+                <p class="text" >{{ CountSensor }}</p>
+            </div>
+            <div class="boxDesc">
+                <p class="titleDesc" >Nombre de systèmes gérés :</p>
+                <p class="text" >{{ countSystem }}</p>
+            </div>
+        </div>
     </div>
 
-    <div class="bottom col text-center bot form-group row gg">
-
-            <a class="btn btn-red btn-lg" href="/logout" role="button">Déconnexion</a>
-
+    <div class="bottom col text-center form-group row gg">
+        <a class="btn btn-red btn-lg" href="/logout" role="button">Déconnexion</a>
     </div>
-
-
 
 {% endblock %}
 

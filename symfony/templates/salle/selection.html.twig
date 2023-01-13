@@ -5,19 +5,34 @@
 {% block body %}
     <style>
         .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+        .example-wrapper code { padding: 2px 6px; }
 
-        h1 {
+        body{
             text-align: center;
-            margin-top: 100px;
+        }
+        h1 {
+            margin-top: 40px;
+            text-decoration: underline;
         }
         h2 {
-            text-align: center;
-            margin-top: 30px;
+            margin-top: 40px;
+            font-size: 30px;
+        }
+        h3 {
+            margin-top: 20px;
             font-size: 20px;
         }
 
-        /************* BOUTONS ET COULEURS **************/
+        /**** Buttons and colors ****/
+        .btn
+        {
+            align-items: center;
+        }
+        .btn-div {
+            justify-content: center;
+            text-align: center;
+            margin-bottom: 40px;
+        }
         .blue {
             color: #fff;
             background-color: #00489a;
@@ -58,44 +73,16 @@
             border-radius: 0.25rem;
             transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out
         }
-
-        .btn
+        .red:hover
         {
-            align-items: center;
+            background: #da0e0e;
         }
+
+
         a:hover {
             color : #FFFFFF;
         }
-        .cadre {
-            /*max-width: 500px;
-            margin-top: 100px;*/
-            padding: 10px;
-            border: 1px solid grey;
-            border-radius: 6px;
-            box-shadow: 2px 2px 5px grey;
-        }
-
-        .cadre:hover {
-            box-shadow: 4px 4px 7px grey;
-        }
-        .ligne {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            column-gap: 5000px;
-            row-gap: 1px;
-        }
-        .item-ligne {
-            /*align-self: auto;*/
-            display : flex;
-            /* align-items: center; */
-            /*text-align: center;*/
-            justify-content: space-around;
-            column-gap: 50px;
-        }
-
-        .item-salle {
-            /*align-self: center;*/
+        .boxItem {
             width : 150px;
             height: 100px;
             display: flex;
@@ -104,61 +91,82 @@
             flex-wrap: wrap;
             column-gap: 500px;
             row-gap: 10px;
+
+            padding: 10px;
+            border: 1px solid grey;
+            border-radius: 6px;
+            box-shadow: 2px 2px 5px grey;
         }
-        .btn-div {
+
+        .boxItem:hover {
+            box-shadow: 4px 4px 7px grey;
+        }
+        .content {
+            display: flex;
+            flex-wrap: wrap;
             justify-content: center;
-            text-align: center;
+            column-gap: 5000px;
+            row-gap: 1px;
+        }
+        .line {
+            display : flex;
+            justify-content: space-around;
+            column-gap: 50px;
         }
 
-        .red:hover
-        {
-            background: #da0e0e;
-        }
 
-        /************* LEGENDES **************/
-
-        .legende
+        /**** Legends ****/
+        .legend
         {
             display: flex;
             justify-content: space-around;
         }
-        .legendeBlue
+        .legendBlue
         {
             border-bottom: 3px solid blue;
             color: #00489a;
 
         }
-        .legendeRed
+        .legendRed
         {
             border-bottom: 3px solid red;
             color: #B51b1b;
         }
-        .legendeGrey
+        .legendGrey
         {
             border-bottom: 3px solid grey;
             color : grey;
-        }
-        .text{
-            text-align: center;
         }
     </style>
 
     <div class="example-wrapper">
         <h1>Liste des salles</h1>
+        <h2>Choisissez une salle</h2>
+        <h3>Pour voir la température, le CO2 et l'humidité actuel</h3>
         <br>
         <br>
-        <div class="ligne">
+        <div class="content">
+            <!-- Loop for show all floors -->
             {% for floor in allFloor | reverse %}
-                <p class=""> Etage {{ floor }} : </p>
-                <div class="item-ligne">
+                <!-- With an exception for floor 0 where we display : ground floor -->
+                {% if floor=="0" %}
+                    <p style="margin-top: 20px;"> Rez-de-chaussée : </p>
+                {% else %}
+                    <p style="margin-top: 20px;"> Etage {{ floor }} : </p>
+                {% endif %}
+                <div class="line">
                     {% for room in allRoom %}
+                        <!-- All the rooms corresponding to the floor are displayed, without taking into account the stock -->
                         {% if (room.isIsStock() != 1) and (room.floor == floor) %}
-                            <div class="item-salle cadre" onclick="window.location='{{ room.id }}';">
+                            <div class="boxItem" onclick="window.location='{{ room.id }}';">
                                 {% if noData[room.getId] == 1 %}
+                                    <!-- Show the room in grey if there are no data -->
                                     <a class="btn grey btn-danger" href="#">{{ room.name }}</a>
-                                {% elseif (room.getTempAlert.isAlert == true or room.getCo2Alert.isAlert==true or room.getHumAlert.isAlert==true) %}
+                                {% elseif (room.isAlert == true ) %}
+                                    <!-- Show the room in red if there are one or more alerts -->
                                     <a class="btn red btn-danger" href="{{room.id }}">{{ room.name }}</a>
                                 {% else %}
+                                    <!-- Show the room in blue if there are no alert -->
                                     <a class="btn btn-primary blue" href="{{ room.id }}">{{ room.name }}</a>
                                 {% endif %}
                             </div>
@@ -173,18 +181,19 @@
 
         </div>
 
-        <div class="legende">
-            <p class="legendeBlue">Salle sans problèmes</p>
-            <p class="legendeGrey">Salle aux données non disponibles</p>
-            <p class="legendeRed">Salle avec Alerte(s)</p>
+        <div class="legend">
+            <p class="legendBlue">Salle sans problèmes</p>
+            <p class="legendGrey">Salle aux données non disponibles</p>
+            <p class="legendRed">Salle avec Alerte(s)</p>
         </div>
         <br>
 
     </div>
 
     <div class="btn-div">
-        <a class="btn btn-primary" href="/accueil" role="button">Retour</a>
+        <a class="btn blue btn-primary" href="/accueil" role="button">Retour</a>
     </div>
+
 {% endblock %}
 
 

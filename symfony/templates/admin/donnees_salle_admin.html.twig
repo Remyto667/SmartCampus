@@ -4,8 +4,8 @@
 
 {% block body %}
     <style>
-        /*.example-wrapper { text-align: center; margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }*/
+        /************** CSS **************/
+        /**** General characteristics ****/
         body{
             background-color: #f7f9fa;
         }
@@ -15,6 +15,7 @@
             text-align: center;
         }
 
+        /************ Title ************/
         .title
         {
             position:absolute;
@@ -44,24 +45,12 @@
         .titleEffect:hover:after {
             width: 100%;
         }
-        /************************* TITRE **************************/
-        .textSensor{
-            position : relative;
-            margin-top : 50px;
-        }
 
-        .salle:hover .shape {
-            stroke-width: 4px; /* Epaisseur du contour plus fine que avant */
-            stroke-dashoffset: 0;
-            stroke-dasharray: 800;
-        }
-
-        /************************* GRILLE **************************/
+        /************************* Grid **************************/
         .data-container{
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-around; /* Espacé sans être collé aux bords */
-            /*margin: 100px;*/
+            justify-content: space-around;
         }
 
         .boxDesc{
@@ -80,18 +69,15 @@
             padding: 20px;
         }
         .box:hover{
-            /*color: #014898;*/
-            /*font-size: 25px;*/
             box-shadow: 5px 5px 5px grey;
             text-shadow: 2px 2px 5px grey;
         }
 
-        .titreDonnee{
+        .titleData{
             font-size: 30px;
-            /*padding: 10px;*/
         }
 
-        .donnee{
+        .data{
             padding: 50px;
             font-size: 35px;
             border: 0.5px solid grey;
@@ -99,15 +85,15 @@
             box-shadow: 2px 2px 5px grey;
         }
 
-        /*************************/
+        /************ Description *************/
         .description{
             display: flex;
             flex-wrap: wrap;
             justify-content: space-evenly;
             margin-top: 100px;
         }
-        /********* EFFET *********/
 
+        /********* Effect *********/
         @keyframes box{
             0%,
             100%{
@@ -118,18 +104,7 @@
             }
         }
 
-        .ligne{
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            column-gap: 30px;
-            padding-top: 100px;
-        }
-        .item-ligne{
-            align-self: auto;
-        }
-
-
+        /**** Effect for alerts when the threshold is exceeded ****/
         {% if temp > room.getType().getTempMax() or temp < room.getType().getTempMin() %}
         .Temp {color: white; border: 1px solid black; background-color: #B51b1b;}
         .box:nth-child(1){
@@ -161,6 +136,22 @@
             background: #da0e0e;
         }
 
+        .textSensor{
+            position : relative;
+            margin-top : 50px;
+        }
+
+        .line{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            column-gap: 30px;
+            padding-top: 100px;
+        }
+        .item-line{
+            align-self: auto;
+        }
+
     </style>
 
     <div class="text_center">
@@ -172,45 +163,38 @@
         <br><br><br><br><br>
         <br>
 
-        <!--<div class="salle">
-            <svg height="60" width="200" xmlns="http://www.w3.org/2000/svg">
-              <rect class="shape" height="60" width="200" />
-                <div class="text">{/{ room.getName() }}</div>
-            </svg>
-        </div>-->
-
         <div class="container">
             <div class="data-container">
-
+                <!-- If the values of a sensor are NULL it is displayed in another way -->
                 <div class="bg-white box">
-                    <div class="titreDonnee">Température</div>
+                    <div class="titleData">Température</div>
                     {% if temp != "NULL"%}
 
-                        <div class="Temp donnee">{{ temp }} °C</div>
+                        <div class="Temp data">{{ temp }} °C</div>
                         Date de relevé : {{ dateT }}
                     {% else %}
-                        <div class="bg-white donnee">Pas de<br>donnée</div>
+                        <div class="bg-white data">Pas de<br>donnée</div>
                     {% endif %}
                 </div>
 
                 <div class="bg-white box">
-                    <div class="titreDonnee">Humidité</div>
+                    <div class="titleData">Humidité</div>
                     {% if hum != "NULL"%}
 
-                    <div class="Hum donnee">{{ hum }} %</div>
+                    <div class="Hum data">{{ hum }} %</div>
                     Date de relevé : {{ dateH }}
                     {% else %}
-                        <div class="bg-white donnee">Pas de<br>donnée</div>
+                        <div class="bg-white data">Pas de<br>donnée</div>
                     {% endif %}
                 </div>
                 <div class="bg-white box">
-                    <div class="titreDonnee">CO2</div>
+                    <div class="titleData">CO2</div>
                     {% if co2 != "NULL"%}
 
-                    <div class="C02 donnee">{{ co2 }} PPM</div>
+                    <div class="C02 data">{{ co2 }} PPM</div>
                     Date de relevé : {{ dateC }}
                     {% else %}
-                        <div class="bg-white donnee">Pas de<br>donnée</div>
+                        <div class="bg-white data">Pas de<br>donnée</div>
                     {% endif %}
                 </div>
             </div>
@@ -224,6 +208,7 @@
                 <div class="boxDesc bg-white">
                     <div class="descriptionRoom">
                         <br><br>
+                        <!-- The description of the room -->
                         <ul><a style="border-bottom: 2px solid #014898;">La salle {{ room.getName() }}:</a>
                             <li> a une superficie de : {{ room.getRoomSize() }} m2</li>
                             <li> possède {{ room.getWindowsNumber() }} fenêtres,</li>
@@ -242,8 +227,8 @@
                 <div class = "description boxDesc bg-white">
                     <div class="descriptionRoom">
                         <br><br>
-
-                            <p class ="font-weight-bold h5" style="border-bottom: 2px solid #014898; color : red;">Conseil</p>
+                            <!-- Typical advice if there is a problem -->
+                            <p class ="font-weight-bold h5" style="border-bottom: 2px solid #014898; color : #B51b1b;">Conseil</p>
                             <p>{{ conseil.conseil }}</p>
                             <p>{{ conseil.getNoData() }}</p>
                             {% if conseil.getNoData() %}
@@ -259,6 +244,7 @@
             <div class="description">
                 <div class="boxDesc bg-white">
                     <div class="textSensor">
+                        <!-- Display of thresholds -->
                         <ul>Des conseils vous seront donnés si :
                             <li> < {{ room.getType().getTempMin() }} °C ou > {{ room.getType().getTempMax() }} °C </li>
                             <li> < {{ room.getType().getHumMin() }} % ou > {{ room.getType().getHumMax() }}% d'humidité </li>
@@ -269,10 +255,15 @@
             </div>
         </div>
 
-    <div class="ligne">
+    <div class="line">
+        <!-- Access to data from other rooms quickly, for each floor -->
         {% for floor in allFloor %}
-            <div class="item-ligne">
-                <p> Etage {{ floor }} : </p>
+            <div class="item-line">
+                {% if floor=="0" %}
+                    <p style="margin-top: 20px;"> Rez-de-chaussée : </p>
+                {% else %}
+                    <p style="margin-top: 20px;"> Etage {{ floor }} : </p>
+                {% endif %}
                 {% for room in allRoom %}
                     {% if (room.isIsStock() != 1) and (room.floor == floor) %}
                         {% if (room.getTempAlert.isAlert == true or room.getCo2Alert.isAlert==true or room.getHumAlert.isAlert==true) %}

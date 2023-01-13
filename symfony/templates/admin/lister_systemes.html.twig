@@ -3,33 +3,40 @@
 {% block title %}Inventaire des SA{% endblock %}
 
 {% block body %}
-<style>
-    body{
-        background-color: #f7f9fa;
-    }
+    <style>
+        /************** CSS **************/
+        /**** General characteristics ****/
+        body{
+            background-color: #f7f9fa;
+        }
 
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    .table .thead-light th {
-        color: #495057;
-        background-color: #e9ecef;
-        border-color: #dee2e6;
-    }
-    .table td, .table th {
-        padding: 0.75rem;
-        vertical-align: top;
-        border-top: 1px solid #dee2e6;
-        text-align: center;
-    }
-    .btn:not(:disabled):not(.disabled) {
-        cursor: pointer;
-    }
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+
+        /**** Table display ****/
+        .table .thead-light th {
+            color: #495057;
+            background-color: #e9ecef;
+            border-color: #dee2e6;
+        }
+        .table td, .table th {
+            padding: 0.75rem;
+            vertical-align: top;
+            border-top: 1px solid #dee2e6;
+            text-align: center;
+        }
+
+        /**** Buttons ****/
+        .btn:not(:disabled):not(.disabled) {
+            cursor: pointer;
+        }
 
         .btn-primary {
             color: #fff;
             background-color: #00489a;
             border-color: #00489a;
         }
+
         .btn {
             display: inline-block;
             font-weight: 400;
@@ -47,7 +54,7 @@
             transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
         }
 
-
+        /**** Icons ****/
         .img {
             background-repeat: no-repeat;
             background-size: 100% 100%;
@@ -63,6 +70,7 @@
         }
     </style>
     <script>
+        /** Iterate through all the elements of the array to find the same character or characters of the search **/
         function searchTable() {
             var input, filter, found, table, tr, td, i, j;
             input = document.getElementById("myInput");
@@ -119,12 +127,13 @@
             </thead>
             <tbody>
             {% for system in systems %}
+                <!-- Loop to show all systems -->
                 <tr>
                     <td> {{ system.name }}</td>
                     <td> {{ system.tag }}</td>
                     <td> {{ system.room.name }} </td>
 
-
+                    <!-- Counts the number of sensors for each system -->
                     {% for key,value in nbsensor %}
                         {% if value.id == system.id %}
                             <td> {{ value.nb }}</td>
