@@ -9,7 +9,7 @@
 
         h1 {
             text-align: center;
-            margin-top: 100px;
+            margin-top: 10px;
         }
         h2 {
             text-align: center;
@@ -156,9 +156,7 @@
                                 {% else %}
                                     <a class="btn btn-primary blue" href="/admin/alerte_vision/{{ room.id }}">{{ room.name }}</a>
                                 {% endif %}
-                                <p>{{ room.id }}</p>
                                 <p class="text">{{  nbAlert[room.id]["T"] + nbAlert[room.id]["H"] + nbAlert[room.id]["C"] }} alertes</p>
-                                <p class="text">{{  nbAlert[room.getId()]["T"]}} temp {{ nbAlert[room.getId()]["H"]}} hum {{ nbAlert[room.getId()]["C"] }}co2 alertes</p>
                             </div>
 
                         {% endif %}

@@ -102,43 +102,27 @@ class DonneesCapteursHandler
         return $data;
     }
 
-    public function handleNbAlertTemp(DonneesCapteursQuery $requete,$date1,$date2):int
+
+    public function handleNbAlert(DonneesCapteursQuery $requete,$date1,$date2):array
     {
-        //var_dump($requete->getTag());
-        //var_dump($requete->getRoom()->getName());
-        echo $requete->getTag() . '     ';
         $tempArray = array() ;
         $this->donneesCapteurs->setDonneesPourInterval($tempArray);
         $datas = $this->donneesCapteurs->getDonneesInterval($requete->getTag(),$date1,$date2);
-
-        if ($requete->getTag() == 11)
-        {
-            echo "La on passe un tour !!!!!!!!! \n \n \n \n" ;
-            //var_dump($datas["T"]);
-        }
+        $nbAlert=array();
         $nb=0;
 
         //faut n'envoyer que les donnees dans le array $datas qui sont dans ["T"]
         if ($datas["T"][0]["valeur"] != "NULL")
         {
-//var_dump(sizeof($datas["T"]));
             foreach ($datas["T"] as $data)
             {
-                //echo $nb."<br/>";
                 if($this->countAlertTemp($data, $requete)==1)
-                $nb++ ;
+                    $nb++ ;
 
             }
-        }
 
-        return $nb;
-    }
-    public function handleNbAlertHum(DonneesCapteursQuery $requete,$date1,$date2):int
-    {
-        echo $requete->getTag() . '     ';
-        $tempArray = array() ;
-        $this->donneesCapteurs->setDonneesPourInterval($tempArray);
-        $datas = $this->donneesCapteurs->getDonneesInterval($requete->getTag(),$date1,$date2);
+        }
+        $nbAlert["T"] =$nb;
         $nb=0;
         //faut n'envoyer que les donnees dans le array $datas qui sont dans ["H"]
         if($datas["H"][0]["valeur"] != "NULL")
@@ -147,37 +131,21 @@ class DonneesCapteursHandler
             {
                 $nb += $this->countAlertHum($data, $requete);
             }
-        }
-        return $nb;
-    }
-    public function handleNbAlertCo2(DonneesCapteursQuery $requete,$date1,$date2):int
-    {
-        echo $requete->getTag() . '     ';
-        $tempArray = array() ;
-        $this->donneesCapteurs->setDonneesPourInterval($tempArray);
-        $datas = $this->donneesCapteurs->getDonneesInterval($requete->getTag(),$date1,$date2);
 
-        if ($requete->getTag() == 3)
-        {
-            echo "La on passe un tour !!!!!!!!! \n \n \n \n" ;
-            //var_dump($datas["C"][0]);
         }
+        $nbAlert["H"] =$nb;
         $nb=0;
         //faut n'envoyer que les donnees dans le array $datas qui sont dans ["C"]
         if($datas["C"][0]["valeur"] != "NULL")
         {
             foreach ($datas["C"] as $data)
             {
-                if ($requete->getTag() == 3)
-                {
-                    echo "La on passe un tour !!!!!!!!! \n \n \n \n" ;
-                    var_dump($data);
-                }
                 $nb += $this->countAlertCo2($data, $requete);
             }
         }
-        return $nb;
-    }
+        $nbAlert["C"] =$nb;
 
+        return $nbAlert;
+    }
 
 }

@@ -15,6 +15,7 @@ use App\Form\SensorType;
 use App\Form\SystemType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use PhpParser\Node\Scalar\String_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -421,9 +422,6 @@ class AdminController extends AbstractController
             'dataDayTemp'=>$dataDayTemp,
             'dataDayHum' =>$dataDayHum,
             'dataDayCo2' =>$dataDayCo2,
-
-
-
             //'data'=>$dataDay,
 
         ]);
@@ -436,15 +434,29 @@ class AdminController extends AbstractController
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
         $nbAlert = array();
+
+        //on récupères les deux dates
+        $month = date('m');
+        $year=date('y');
+        $date2 = '20'.$year.'-'.$month.'-'.date('j');
+        if($month==01){
+            $month=12;
+            $year--;
+        }
+        elseif ($month < 10){
+            $temp=$month-1;
+            $month= '0' . $temp;
+        }
+        else{
+            $month--;
+        }
+        $date1 = '20'.$year.'-'.$month.'-'.date('j');
         foreach($allRoom as $room)
         {
             /* appel alerte_vision */
-            $resCount = $this->alerte_count($room, $doctrine, $handler);
-            $nbAlert[$room->getId()] = $resCount;
+            $nbAlert[$room->getId()] = $this->alerte_count($room, $doctrine, $handler,$date1,$date2);
 
         }
-
-       // var_dump($nbAlert);
         return $this->render('admin/alerte_selection.html.twig', [
             'allRoom' => $allRoom,
             'allFloor' => $repository->findAllFloor(),
@@ -453,35 +465,39 @@ class AdminController extends AbstractController
 
     }
 
-    public function alerte_count(?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): array
+    public function alerte_count(?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler,String $date1, String $date2): array
     {
-        $date1 = '2022-12-12';
-        $date2 = '2023-01-12';
         $nbAlert = array();
-
         if($room->getName()!="Stock"){
-            //initialize
-            //$handler->handle(new DonneesCapteursQuery($room, $doctrine));
-            $nbAlert["T"] = $handler->handleNbAlertTemp(new DonneesCapteursQuery($room, $doctrine),$date1,$date2);
-            $nbAlert["H"] = $handler->handleNbAlertHum(new DonneesCapteursQuery($room, $doctrine),$date1,$date2);
-            $nbAlert["C"] = $handler->handleNbAlertCo2(new DonneesCapteursQuery($room, $doctrine),$date1,$date2);
+            $nbAlert= $handler->handleNbAlert(new DonneesCapteursQuery($room, $doctrine),$date1,$date2);
         }
-       // var_dump($nbAlert);
-
         return $nbAlert;
     }
 
     #[Route('/admin/alerte_vision/{room?}', name: 'alerte_vision_admin')]
     public function alerte_visionV2(?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
     {
-        $nbAlert = array();
-
-        if($room->getName()!="Stock"){
+        //on récupères les deux dates
+        $month = date('m');
+        $year = date('y');
+        $date2 = '20'.$year.'-'.$month.'-'.date('j');
+        if($month == 01){
+            $month = 12;
+            $year --;
+        }
+        elseif ( $month < 10){
+            $temp=$month-1;
+            $month= '0' . $temp;
+        }
+        else{
+            $month --;
+        }
+        $date1 = '20' . $year . '-' . $month . '-' . date('j');
+        if($room->getName() != "Stock"){
             //initialize
             $handler->handle(new DonneesCapteursQuery($room, $doctrine));
-            $nbAlert=$this->alerte_count($room, $doctrine, $handler);
+            $nbAlert=$this->alerte_count($room, $doctrine, $handler,$date1,$date2);
         }
-
         return $this->render('admin/alerteStat.html.twig', [
             'room' => $room,
             'nbAlert' =>$nbAlert,
