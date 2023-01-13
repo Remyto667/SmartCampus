@@ -4,34 +4,37 @@
 
 {% block body %}
 <style>
+    /************** CSS **************/
+    /**** General characteristics ****/
     .main {top:0;right:0; text-align: center; margin: 1em auto; max-width: 1200px; width: 95%; font: 18px/1.5 sans-serif;}
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    .main2{
+    .container{
         top:0;
         left:0;
         width:100%;
         text-align: center;
     }
-    .advice{font-size: 60px; color: black;}
-    .alerte_main{font-size: 100px; color: white;background-color: #B51b1b;}
-    .secondary_text{font-size: 75px; color: #B51b1b;}
-    .advicetext{font-size: 50px; color: black;padding: 15px;border: 1px solid black;}
-    .btn{margin-top: 35px; background-color: black;color: white;}
+
     body{
         background-color: white;
     }
     ul{
         list-style-type: none;
     }
+
+    /**** Text ****/
+    .advice{font-size: 60px; color: black;}
+    .alerte{font-size: 100px; color: white;background-color: #B51b1b;}
+    .secondary_text{font-size: 75px; color: #B51b1b;}
+    .advicetext{font-size: 50px; color: black;padding: 15px;border: 1px solid black;}
+    .btn{margin-top: 35px; background-color: black;color: white;}
+
 </style>
-<div class="main2">
+<div class="container">
 
+        <div class="alerte">ALERTE</div>
 
-
-        <div class="alerte_main">
-            ALERTE
-        </div>
-
+        <!-- Advice based on values -->
         {% if id == 1 and temp > 24%}
             <div class="secondary_text">
                 Temperature trop élévé
@@ -125,8 +128,7 @@
             </div>
         {% endif %}
 
-
-
+        <!-- Back button returning to the previous page -->
         <a class="btn btn-lg" role="button" href="javascript:history.go(-1)">Retour</a>
     </div>
 
