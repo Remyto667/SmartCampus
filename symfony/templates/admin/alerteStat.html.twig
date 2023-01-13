@@ -130,21 +130,21 @@
         }
 
 
-        {% if nbAlert ["T"] >50 %}
+        {% if nbAlert ["T"] >250 %}
         .Temp {color: white; border: 1px solid black; background-color: #B51b1b;}
         .box:nth-child(1){
             transform: scale(1);
             animation: box 1s linear infinite;
         }
         {% endif %}
-        {% if nbAlert ["H"] >50 %}
+        {% if nbAlert ["H"] >250 %}
         .Hum {color: white; border: 1px solid black; background-color: #B51b1b;}
         .box:nth-child(2){
             transform: scale(1);
             animation: box 1s linear infinite;
         }
         {% endif %}
-        {% if nbAlert ["C"] >50 %}
+        {% if nbAlert ["C"] >250 %}
         .C02 {color: white; border: 1px solid black; background-color: #B51b1b;}
         .box:nth-child(3){
             transform: scale(1);

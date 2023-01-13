@@ -83,44 +83,52 @@ class DonneesCapteurs
         return $this->donneesPourSalle ;
     }
 
-    public function  getDonneesInterval($tag,$date1,$date2):array
+    //return all data under this form : array[["T"][datas]["H"][datas]["C"][datas]]
+    public function  getDonneesInterval(int $tag,String $date1,String $date2):array
     {
+        //date like this : 2023-01-08 YYYY-MM-DD
+        //types array
+        $types=array();
+        $types["T"] = "temp";
+        $types["H"] = "hum";
+        $types["C"] = "co2";
+        //tag defined by dbname
 
-            //date sous cette forme : 2023-01-08 YYYY-MM-DD
-            $types["T"] = "temp";
-            $types["H"] = "hum";
-            $types["C"] = "co2";
-            //tag défini par le dbname
-
-            $client = HttpClient::create();
-            foreach ($types as $type => $nom)
+        $client = HttpClient::create();
+        //for each type
+        foreach ($types as $type => $nom)
+        {
+            //get datas from the API
+            $response = $client->request('GET', 'http://sae34.k8s.iut-larochelle.fr/api/captures/interval?nom='.$nom.'&date1='.$date1.'&date2='.$date2.'&page=1', [
+                'headers' => [
+                    'Accept' => 'application/ld+json',
+                    'dbname' => $this->tags[$tag],
+                    'username' => 'x1eq3',
+                    'userpass' => 'bRepOh4UkiaM9c7R'
+                ],
+            ]);
+            $content = json_decode($response->getContent());
+            //if there is data and this is not the team 8
+            if (sizeof($content) > 0 and $tag != 8)
             {
-                //var_dump($nom);
-                $response = $client->request('GET', 'http://sae34.k8s.iut-larochelle.fr/api/captures/interval?nom='.$nom.'&date1='.$date1.'&date2='.$date2.'&page=1', [
-                    'headers' => [
-                        'Accept' => 'application/ld+json',
-                        'dbname' => $this->tags[$tag],
-                        'username' => 'x1eq3',
-                        'userpass' => 'bRepOh4UkiaM9c7R'
-                    ],
-                ]);
-                $content = json_decode($response->getContent());
-                //echo 'le content :' ;
-                if (sizeof($content) > 0 and $tag != 8)
+                foreach ($content as $data => $array)
                 {
-                    foreach ($content as $data => $array)
+                    //transform the data from StdClass to array
+                    $arrayMieux = json_decode(json_encode($array), true);
+                    //verification just to be sure
+                    if ($arrayMieux["nom"] == $nom and $arrayMieux["tag"] == $tag)
                     {
-                        $arrayMieux = json_decode(json_encode($array), true);
-                        if ($arrayMieux["nom"] == $nom and $arrayMieux["tag"] == $tag)
-                        {
-                            $this->donneesPourInterval[$type][$data] = $arrayMieux;
-                        }
+                        //put data in array
+                        $this->donneesPourInterval[$type][$data] = $arrayMieux;
                     }
                 }
-                else{
-                    $this->donneesPourInterval[$type][0] = array("valeur" => "NULL", "dateCapture" => "NULL");
-                }
             }
+            else{
+                //put data with no value in array
+                $this->donneesPourInterval[$type][0] = array("valeur" => "NULL", "dateCapture" => "NULL");
+            }
+        }
+        //return the array
         return $this->donneesPourInterval ;
     }
 

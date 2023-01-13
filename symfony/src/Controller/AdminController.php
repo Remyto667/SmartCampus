@@ -445,6 +445,7 @@ class AdminController extends AbstractController
     #[Route('admin/alerte_selection', name: 'alerte_selection')]
     public function alerte_selection_salle(ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
     {
+        //initialization
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
@@ -466,9 +467,11 @@ class AdminController extends AbstractController
             $month--;
         }
         $date1 = '20'.$year.'-'.$month.'-'.date('j');
+
+        //for all room
         foreach($allRoom as $room)
         {
-            /* appel alerte_vision */
+            /* appel alerte_count */
             $nbAlert[$room->getId()] = $this->alerte_count($room, $doctrine, $handler,$date1,$date2);
 
         }
@@ -480,17 +483,21 @@ class AdminController extends AbstractController
 
     }
 
+    //take two dates and count the number of alert of all type for a specific room and stock them into an array of ["T"], ["C"], ["H"]
     public function alerte_count(?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler,String $date1, String $date2): array
     {
+        //the array we return
         $nbAlert = array();
+        //to avoid the room without data in it
         if($room->getName()!="Stock"){
+            //effective call to the function with all parameter
             $nbAlert= $handler->handleNbAlert(new DonneesCapteursQuery($room, $doctrine),$date1,$date2);
         }
         return $nbAlert;
     }
 
-    #[Route('/admin/alerte_vision/{room?}', name: 'alerte_vision_admin')]
-    public function alerte_visionV2(?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
+    #[Route('/admin/alerte_detail/{room?}', name: 'alerte_vision_admin')]
+    public function alerte_detail(?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
     {
         //on récupères les deux dates
         $month = date('m');
@@ -508,9 +515,10 @@ class AdminController extends AbstractController
             $month --;
         }
         $date1 = '20' . $year . '-' . $month . '-' . date('j');
+        $nbAlert=array();
+
         if($room->getName() != "Stock"){
             //initialize
-            $handler->handle(new DonneesCapteursQuery($room, $doctrine));
             $nbAlert=$this->alerte_count($room, $doctrine, $handler,$date1,$date2);
         }
         return $this->render('admin/alerteStat.html.twig', [

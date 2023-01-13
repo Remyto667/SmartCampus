@@ -150,11 +150,11 @@
                     {% for room in allRoom %}
                         <!-- All the rooms corresponding to the floor are displayed, without taking into account the stock -->
                         {% if (room.isIsStock() != 1) and (room.floor == floor) %}
-                            <div class="boxItem" onclick="window.location='/admin/alerte_vision/{{ room.id }}';">
+                            <div class="boxItem" onclick="window.location='/admin/alerte_detail/{{ room.id }}';">
                                 {% if nbAlert[room.id]["T"] + nbAlert[room.id]["H"] + nbAlert[room.id]["C"]  > 1000 %}
-                                    <a class="btn red btn-danger" href="/admin/alerte_vision/{{ room.id }}">{{ room.name }}</a>
+                                    <a class="btn red btn-danger" href="/admin/alerte_detail/{{ room.id }}">{{ room.name }}</a>
                                 {% else %}
-                                    <a class="btn btn-primary blue" href="/admin/alerte_vision/{{ room.id }}">{{ room.name }}</a>
+                                    <a class="btn btn-primary blue" href="/admin/alerte_detail/{{ room.id }}">{{ room.name }}</a>
                                 {% endif %}
                                 <p class="text">{{  nbAlert[room.id]["T"] + nbAlert[room.id]["H"] + nbAlert[room.id]["C"] }} alertes</p>
                             </div>
