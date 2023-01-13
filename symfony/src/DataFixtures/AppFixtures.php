@@ -87,9 +87,7 @@ class AppFixtures extends Fixture
         $room1->setRoomSize(45);
         $room1->setType($type1);
         $room1->setWindowsNumber(4);
-        $room1->setTempAlert(new Alert(false, ''));
-        $room1->setHumAlert(new Alert(false, ''));
-        $room1->setCo2Alert(new Alert(false, ''));
+        $room1->setIsAlert(false);
         $manager->persist($room1);
 
         $room2=new Room();
@@ -99,9 +97,7 @@ class AppFixtures extends Fixture
         $room2->setRoomSize(44);
         $room2->setType($type1);
         $room2->setWindowsNumber(5);
-        $room2->setTempAlert(new Alert(false, ''));
-        $room2->setHumAlert(new Alert(false, ''));
-        $room2->setCo2Alert(new Alert(false, ''));
+        $room2->setIsAlert(false);
         $manager->persist($room2);
 
         $room3=new Room();
@@ -111,9 +107,7 @@ class AppFixtures extends Fixture
         $room3->setRoomSize(50);
         $room3->setType($type1);
         $room3->setWindowsNumber(3);
-        $room3->setTempAlert(new Alert(false, ''));
-        $room3->setHumAlert(new Alert(false, ''));
-        $room3->setCo2Alert(new Alert(false, ''));
+        $room3->setIsAlert(false);
         $manager->persist($room3);
 
         $room4=new Room();
@@ -123,9 +117,7 @@ class AppFixtures extends Fixture
         $room4->setRoomSize(45);
         $room4->setType($type1);
         $room4->setWindowsNumber(4);
-        $room4->setTempAlert(new Alert(false, ''));
-        $room4->setHumAlert(new Alert(false, ''));
-        $room4->setCo2Alert(new Alert(false, ''));
+        $room4->setIsAlert(false);
         $manager->persist($room4);
 
         $room5=new Room();
@@ -135,9 +127,7 @@ class AppFixtures extends Fixture
         $room5->setRoomSize(53);
         $room5->setType($type1);
         $room5->setWindowsNumber(6);
-        $room5->setTempAlert(new Alert(false, ''));
-        $room5->setHumAlert(new Alert(false, ''));
-        $room5->setCo2Alert(new Alert(false, ''));
+        $room5->setIsAlert(false);
         $manager->persist($room5);
 
         $room6=new Room();
@@ -148,9 +138,7 @@ class AppFixtures extends Fixture
         $room6->setType($type3);
         $room6->setWindowsNumber(2);
         $room6->setIsStock(true);
-        $room6->setTempAlert(new Alert(false, ''));
-        $room6->setHumAlert(new Alert(false, ''));
-        $room6->setCo2Alert(new Alert(false, ''));
+        $room6->setIsAlert(false);
         $manager->persist($room6);
 
         $room7=new Room();
@@ -160,9 +148,7 @@ class AppFixtures extends Fixture
         $room7->setRoomSize(45);
         $room7->setType($type1);
         $room7->setWindowsNumber(4);
-        $room7->setTempAlert(new Alert(false, ''));
-        $room7->setHumAlert(new Alert(false, ''));
-        $room7->setCo2Alert(new Alert(false, ''));
+        $room7->setIsAlert(false);
         $manager->persist($room7);
 
         $room8=new Room();
@@ -172,9 +158,7 @@ class AppFixtures extends Fixture
         $room8->setRoomSize(45);
         $room8->setType($type1);
         $room8->setWindowsNumber(4);
-        $room8->setTempAlert(new Alert(false, ''));
-        $room8->setHumAlert(new Alert(false, ''));
-        $room8->setCo2Alert(new Alert(false, ''));
+        $room8->setIsAlert(false);
         $manager->persist($room8);
 
         $room9=new Room();
@@ -184,9 +168,7 @@ class AppFixtures extends Fixture
         $room9->setRoomSize(55);
         $room9->setType($type2);
         $room9->setWindowsNumber(4);
-        $room9->setTempAlert(new Alert(false, ''));
-        $room9->setHumAlert(new Alert(false, ''));
-        $room9->setCo2Alert(new Alert(false, ''));
+        $room9->setIsAlert(false);
         $manager->persist($room9);
 
         $room10=new Room();
@@ -196,9 +178,7 @@ class AppFixtures extends Fixture
         $room10->setRoomSize(55);
         $room10->setType($type3);
         $room10->setWindowsNumber(5);
-        $room10->setTempAlert(new Alert(false, ''));
-        $room10->setHumAlert(new Alert(false, ''));
-        $room10->setCo2Alert(new Alert(false, ''));
+        $room10->setIsAlert(false);
         $manager->persist($room10);
 
         $room11=new Room();
@@ -208,9 +188,7 @@ class AppFixtures extends Fixture
         $room11->setRoomSize(55);
         $room11->setType($type3);
         $room11->setWindowsNumber(5);
-        $room11->setTempAlert(new Alert(false, ''));
-        $room11->setHumAlert(new Alert(false, ''));
-        $room11->setCo2Alert(new Alert(false, ''));
+        $room11->setIsAlert(false);
         $manager->persist($room11);
 
         $room12=new Room();
@@ -220,9 +198,7 @@ class AppFixtures extends Fixture
         $room12->setRoomSize(40);
         $room12->setType($type4);
         $room12->setWindowsNumber(2);
-        $room12->setTempAlert(new Alert(false, ''));
-        $room12->setHumAlert(new Alert(false, ''));
-        $room12->setCo2Alert(new Alert(false, ''));
+        $room12->setIsAlert(false);
         $manager->persist($room12);
 
         $room13=new Room();
@@ -232,9 +208,7 @@ class AppFixtures extends Fixture
         $room13->setRoomSize(60);
         $room13->setType($type1);
         $room13->setWindowsNumber(5);
-        $room13->setTempAlert(new Alert(false, ''));
-        $room13->setHumAlert(new Alert(false, ''));
-        $room13->setCo2Alert(new Alert(false, ''));
+        $room13->setIsAlert(false);
         $manager->persist($room13);
 
         $room14=new Room();
@@ -244,9 +218,7 @@ class AppFixtures extends Fixture
         $room14->setRoomSize(60);
         $room14->setType($type1);
         $room14->setWindowsNumber(5);
-        $room14->setTempAlert(new Alert(false, ''));
-        $room14->setHumAlert(new Alert(false, ''));
-        $room14->setCo2Alert(new Alert(false, ''));
+        $room14->setIsAlert(false);
         $manager->persist($room14);
 
         $room15=new Room();
@@ -256,9 +228,7 @@ class AppFixtures extends Fixture
         $room15->setRoomSize(60);
         $room15->setType($type1);
         $room15->setWindowsNumber(5);
-        $room15->setTempAlert(new Alert(false, ''));
-        $room15->setHumAlert(new Alert(false, ''));
-        $room15->setCo2Alert(new Alert(false, ''));
+        $room15->setIsAlert(false);
         $manager->persist($room15);
 
         $room16=new Room();
@@ -268,9 +238,7 @@ class AppFixtures extends Fixture
         $room16->setRoomSize(60);
         $room16->setType($type1);
         $room16->setWindowsNumber(5);
-        $room16->setTempAlert(new Alert(false, ''));
-        $room16->setHumAlert(new Alert(false, ''));
-        $room16->setCo2Alert(new Alert(false, ''));
+        $room16->setIsAlert(false);
         $manager->persist($room16);
 
 //Les systemes
