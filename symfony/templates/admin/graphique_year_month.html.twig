@@ -95,17 +95,27 @@
 
 
                 <div class="btn-group">
-                <a class="btn btn-primary blue" onclick="showChartData('jour')">Jour</a>
+                <a class="btn btn-primary blue">Jour</a>
                     <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     </button>
                     <div class="dropdown-menu">
-                        {% for i in 1..nb_jours %}
-                        <a class="dropdown-item" href="/admin/suivi/graphique/{{ room.getId() }}/{{ annee_choisi }}/{{ mois_choisi }}/{{ i }}">{{  i }}</a>
-                        {% endfor %}
+
+                        {% if mois_choisi == mois %}
+
+                            {% for i in 1..nb_jours-nb_jours_valide %}
+                                <a class="dropdown-item" href="/admin/suivi/graphique/{{ room.getId() }}/{{ annee_choisi }}/{{ mois_choisi }}/{{ i }}">{{  i }}</a>
+                            {% endfor %}
+
+                        {% else %}
+
+                            {% for i in 1..nb_jours %}
+                                <a class="dropdown-item" href="/admin/suivi/graphique/{{ room.getId() }}/{{ annee_choisi }}/{{ mois_choisi }}/{{ i }}">{{  i }}</a>
+                            {% endfor %}
+
+                        {% endif %}
+
                     </div>
                 </div>
-
-
 
             </div>
         </div>
@@ -279,6 +289,58 @@
             data: dataTemp,
             options: optionsTemp
         });
+
+        function showChartData(type){
+
+            const anneeLabels=['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Aout','Septembre','Novembre','Octobre','Decembre'];
+            const moisLabels=["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"]
+
+            const anneeTemp = {{moyYearTemp}};
+            const anneeHum = {{ moyYearHum }};
+            const anneeCo2 = {{ moyYearCo2 }};
+
+            const moisTemp = {{ moyMonthTemp }};
+            const moisHum = {{ moyMonthHum }};
+            const moisCo2 = {{ moyMonthCo2 }};
+
+
+
+            if(type === 'annee') {
+                myChartTemp.data.datasets[0].data = anneeTemp;
+                myChartTemp.data.labels = anneeLabels;
+                myChartTemp.data.datasets[0].label = 'Temperature annee actuelle '
+                myChartTemp.update();
+
+                myChartHum.data.datasets[0].data = anneeHum;
+                myChartHum.data.labels = anneeLabels;
+                myChartHum.data.datasets[0].label = 'Humidite annee actuelle '
+                myChartHum.update();
+
+                myChartCo2.data.datasets[0].data = anneeCo2;
+                myChartCo2.data.labels = anneeLabels;
+                myChartCo2.data.datasets[0].label = 'Co2 annee actuelle '
+                myChartCo2.update();
+            }
+
+            if(type === 'mois'){
+
+                myChartTemp.data.datasets[0].data = moisTemp;
+                myChartTemp.data.labels = moisLabels;
+                myChartTemp.data.datasets[0].label = 'Temperature mois actuel '
+                myChartTemp.update();
+
+                myChartHum.data.datasets[0].data = moisHum;
+                myChartHum.data.labels = moisLabels;
+                myChartHum.data.datasets[0].label = 'Humidite mois actuel '
+                myChartHum.update();
+
+                myChartCo2.data.datasets[0].data = moisCo2;
+                myChartCo2.data.labels = moisLabels;
+                myChartCo2.data.datasets[0].label = 'Co2 mois actuel'
+                myChartCo2.update();
+
+            }
+        }
 
     </script>
 

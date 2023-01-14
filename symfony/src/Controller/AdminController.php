@@ -407,6 +407,7 @@ class AdminController extends AbstractController
 
 
         $dataDayTemp=$statTemp->PopulateDayAsLabel(date("j")); //
+
         $moyYearTemp=json_encode($statTemp->PopulateMonthMoy());                 // On calcule la moyenne de chaque mois et on structure en tableau sur une année
         $moyMonthTemp=json_encode($statTemp->PopulateDayMoy());         // On calcule la moyenne de chaque jours et on structure en tableau sur un mois
 
@@ -535,7 +536,6 @@ class AdminController extends AbstractController
             'year' =>$year=date("Y"),
             'month' => 1,
             'annee_choisi' => $annee,
-            //'data'=>$dataDay,
 
         ]);
     }
@@ -575,11 +575,13 @@ class AdminController extends AbstractController
 
             if($temp['localisation'] == $room->getName()) {
                 $statTemp->PushToArrayDateDay($statTemp->transformDay($temp['dateCapture']), doubleval($temp['valeur']));       // Temp
+                $statTemp->PushToArrayDateMonth($statTemp->transformMonth($temp['dateCapture']), doubleval($temp['valeur']));
+
             }
         }
 
         $moyMonthTemp=json_encode($statTemp->PopulateDayMoy()); // On calcule la moyenne de chaque jours et on structure en tableau sur un mois
-
+        $moyYearTemp = json_encode($statTemp->PopulateMonthMoy());
 
         /*      -------  Recupérations Humidite    ---------    */
 
@@ -587,12 +589,13 @@ class AdminController extends AbstractController
 
             if($hum['localisation'] == $room->getName()) {
                 $statHum->PushToArrayDateDay($statHum->transformDay($hum['dateCapture']), doubleval($hum['valeur']));       // Hum
+                $statHum->PushToArrayDateMonth($statHum->transformMonth($hum['dateCapture']), doubleval($hum['valeur']));
             }
 
         }
 
         $moyMonthHum=json_encode($statHum->PopulateDayMoy());// Hum
-
+        $moyYearHum = json_encode($statHum->PopulateMonthMoy());
 
         /*      -------  Recupérations Co2    ---------    */
 
@@ -600,24 +603,35 @@ class AdminController extends AbstractController
 
             if($co2['localisation'] == $room->getName()) {
                 $statCo2->PushToArrayDateDay($statCo2->transformDay($co2['dateCapture']), doubleval($co2['valeur']));       // Co2
+                $statCo2->PushToArrayDateMonth($statCo2->transformMonth($co2['dateCapture']), doubleval($co2['valeur']));
+
             }
         }
 
 
         $moyMonthCo2=json_encode($statCo2->PopulateDayMoy());   // Co2
+        $moyYearCo2 = json_encode($statCo2->PopulateMonthMoy());
 
+        $this->get('session')->start();
 
+        $this->get('session')->set('moyYearTemp', $moyYearTemp);
+        $this->get('session')->set('moyYearHum', $moyYearHum);              // Utile pour récupérer la moyenne de l'année dans la route lié aux jours
+        $this->get('session')->set('moyYearCo2', $moyYearCo2);
 
         return $this->render('admin/graphique_year_month.html.twig', [
             'room' => $room,
             'moyMonthTemp'=>$moyMonthTemp,
             'moyMonthHum' =>$moyMonthHum,
             'moyMonthCo2' =>$moyMonthCo2,
+            'moyYearTemp' =>$moyYearTemp,
+            'moyYearHum' =>$moyYearHum,
+            'moyYearCo2' =>$moyYearCo2,
             'year' =>$year=date("Y"),
             'annee_choisi' => $annee,
             'mois_choisi' => $month,
              'nb_jours'=>date('t', strtotime($annee . '-' . $month . '-01')),
-
+            'nb_jours_valide'=>date('t', strtotime($annee . '-' . $month . '-01'))-date("j"),
+            'mois'=>date("m"),
 
 
         ]);
@@ -655,12 +669,13 @@ class AdminController extends AbstractController
 
             if($temp['localisation'] == $room->getName()) {
                 $statTemp->PushToArrayDateDay($statTemp->transformDay($temp['dateCapture']), doubleval($temp['valeur']));
+                $statTemp->PushToArrayDateMonth($statTemp->transformMonth($temp['dateCapture']), doubleval($temp['valeur']));
                 // On sort les captures de chaque jours et on affiche
             }
         }
 
         $dataDayTemp=$statTemp->PopulateDayAsLabel($day);  // Temp
-
+        $moyMonthTemp=json_encode($statTemp->PopulateDayMoy());
 
 
 
@@ -670,11 +685,12 @@ class AdminController extends AbstractController
 
             if($hum['localisation'] == $room->getName()) {
                 $statHum->PushToArrayDateDay($statHum->transformDay($hum['dateCapture']), doubleval($hum['valeur']));
+                $statHum->PushToArrayDateMonth($statHum->transformMonth($hum['dateCapture']), doubleval($hum['valeur']));
             }
 
         }
         $dataDayHum=$statHum->PopulateDayAsLabel($day);      // Hum
-
+        $moyMonthHum=json_encode($statHum->PopulateDayMoy());
 
 
         /*      -------  Recupérations Co2    ---------    */
@@ -683,10 +699,13 @@ class AdminController extends AbstractController
 
             if($co2['localisation'] == $room->getName()) {
                 $statCo2->PushToArrayDateDay($statCo2->transformDay($co2['dateCapture']), doubleval($co2['valeur']));
+                $statCo2->PushToArrayDateMonth($statCo2->transformMonth($co2['dateCapture']), doubleval($co2['valeur']));
             }
         }
 
         $dataDayCo2=$statCo2->PopulateDayAsLabel($day);       // Co2
+        $moyMonthCo2=json_encode($statCo2->PopulateDayMoy());
+        $this->get('session')->get('moyYearTemp');
 
         return $this->render('admin/graphique_year_month_day.html.twig', [
             'room' => $room,
@@ -694,11 +713,17 @@ class AdminController extends AbstractController
             'dataDayTemp'=>$dataDayTemp,
             'dataDayHum' =>$dataDayHum,
             'dataDayCo2' =>$dataDayCo2,
+            'moyMonthTemp'=>$moyMonthTemp,
+            'moyMonthHum' =>$moyMonthHum,
+            'moyMonthCo2' =>$moyMonthCo2,
+            'moyYearTemp' =>$this->get('session')->get('moyYearTemp'),
+            'moyYearHum' =>$this->get('session')->get('moyYearHum'),
+            'moyYearCo2' =>$this->get('session')->get('moyYearCo2'),
             'annee_choisi' => $annee,
             'mois_choisi' => $month,
             'nb_jours'=>date('t', strtotime($annee . '-' . $month . '-01')),
-
-
+            'nb_jours_valide'=>date('t', strtotime($annee . '-' . $month . '-01'))-date("j"),
+            'mois'=>date("m"),
         ]);
     }
 

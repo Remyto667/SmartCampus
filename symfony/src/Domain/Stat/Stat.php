@@ -95,7 +95,7 @@ class Stat
 
     public function PushToArrayDateMonth2($date, $valeur): void            // On insere dans un tableau regroupant tous les jours d'un mois
     {                                                               // En premiere position, des tableaux sous la forme / 0:date , 1:valeur /
-
+// Optimisation debut
         //dd($date);
         //dd($valeur);
 
@@ -145,7 +145,7 @@ class Stat
 
     public function PushToArrayMonthMoy($arrayMoy):float              // Calcule la moyenne de toutes les données lors d'un mois et
                                                                         // affichage sous forme de mois (avec la moyenne de chaque jour)
-    {
+    {// Optimisation debut
         $cpp=0;
 
 
@@ -179,15 +179,15 @@ class Stat
     {
         $cpp=0;
 
-        if($arrayMoy[0]==0){
+        if($arrayMoy[0]==0){            // Si la premiere donnée est un 0 alors le tableau est vide
             $moy=0;
         }
 
         else {
             //dd($arrayMoy);
 
-            for($i=0;$i<sizeof($arrayMoy)-2;$i++){
-
+            for($i=0;$i<sizeof($arrayMoy)-2;$i++){          // Sinon il ya des donneés, on parcourt la taille du tableau -2
+                                                            // a cause du 0 ajouté a la fin
                 $cpp +=$arrayMoy[$i][1];
 
             }
@@ -230,7 +230,7 @@ class Stat
 
     }
 
-    public function PopulateMonthMoy2() : array {
+    public function PopulateMonthMoy2() : array {       // Optimisation debut
 
 
         for($i=1;$i<12;$i++){       // On tourne 31 fois
@@ -263,16 +263,25 @@ class Stat
 
     public function PopulateDayAsLabel($NumberDay) : array{             // Creation d'un tableau composé de string pour les labels du graphique
 
-        //dd($this->allDay[$NumberDay]);
-
+        $this->allDay[$NumberDay][]=0;          // On insere un zero dans le cas ou il n'y aurait pas de données ce aujourd'hui
         $String= array();
 
+        if ($this->allDay[$NumberDay][0]==0){       // Si la premiere valeur du tableau vaut 0 == pas de donnée (sinon il serait en derniere position)
 
-        foreach($this->allDay[$NumberDay] as $day){
-
-            $String[]="{x: '".$day[0]."',y: ".$day[1]." }";
+            $String[] = "{x: '" . "Pas de donnée" . "',y: " . 0 . " }";
         }
+        else {
 
+            $day=$this->allDay[$NumberDay];
+
+            for($i=0;$i<sizeof($day)-2;$i++){       // Sinon il a des données et on extrait sous la forme d'un tableau JS
+
+
+                $String[] = "{x: '" . $day[$i][0] . "',y: " . $day[$i][1] . " }";
+
+            }
+
+        }
         return $String  ;
 
         //"{x: '".$day."', y: ".$day[$i+1]." }"
