@@ -122,8 +122,8 @@ class DonneesCapteurs
                 'headers' => [
                     'Accept' => 'application/ld+json',
                     'dbname' => $this->tags[$tag],
-                    'username' => 'x1eq3',
-                    'userpass' => 'bRepOh4UkiaM9c7R'
+                    'username' => $_ENV['USERNAME'],
+                    'userpass' => $_ENV['USERPASS']
                 ],
             ]);
             $content = json_decode($response->getContent());
@@ -164,8 +164,8 @@ class DonneesCapteurs
                     'Accept' => 'application/ld+json',
 
                     'dbname' => $this->tags[$tag],
-                    'username' => 'x1eq3',
-                    'userpass' => 'bRepOh4UkiaM9c7R'
+                    'username' => $_ENV['USERNAME'],
+                    'userpass' => $_ENV['USERPASS']
                 ],
             ]);
             if (sizeof(json_decode($response->getContent())) > 0) {
