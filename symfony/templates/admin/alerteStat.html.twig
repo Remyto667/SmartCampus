@@ -79,6 +79,7 @@
             border-radius: 8px;
             box-shadow: 2px 2px 5px grey;
             padding: 20px;
+            margin-bottom: 140px;
         }
         .box:hover{
             /*color: #014898;*/
@@ -119,51 +120,55 @@
             }
         }
 
-        .ligne{
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            column-gap: 30px;
-            padding-top: 100px;
-        }
-        .item-ligne{
-            align-self: auto;
-        }
 
 
-        {% if nbAlert ["T"] >50 %}
-        .Temp {color: white; border: 1px solid black; background-color: #B51b1b;}
+        {% if nbAlert ["T"]["More"] >50 %}
+        .TempMore {color: white; border: 1px solid black; background-color: #B51b1b;}
         .box:nth-child(1){
             transform: scale(1);
             animation: box 1s linear infinite;
         }
         {% endif %}
-        {% if nbAlert ["H"] >50 %}
-        .Hum {color: white; border: 1px solid black; background-color: #B51b1b;}
+        {% if nbAlert ["T"]["Less"] >50 %}
+        .TempLess {color: white; border: 1px solid black; background-color: #B51b1b;}
+        .box:nth-child(1){
+            transform: scale(1);
+            animation: box 1s linear infinite;
+        }
+        {% endif %}
+        {% if nbAlert ["H"]["More"] >50 %}
+        .HumMore {color: white; border: 1px solid black; background-color: #B51b1b;}
         .box:nth-child(2){
             transform: scale(1);
             animation: box 1s linear infinite;
         }
         {% endif %}
-        {% if nbAlert ["C"] >50 %}
-        .C02 {color: white; border: 1px solid black; background-color: #B51b1b;}
+        {% if nbAlert ["H"]["Less"] >50 %}
+        .HumLess {color: white; border: 1px solid black; background-color: #B51b1b;}
+        .box:nth-child(2){
+            transform: scale(1);
+            animation: box 1s linear infinite;
+        }
+        {% endif %}
+        {% if nbAlert ["C"]["More"] >50 %}
+        .C02More {color: white; border: 1px solid black; background-color: #B51b1b;}
+        .box:nth-child(3){
+            transform: scale(1);
+            animation: box 1s linear infinite;
+        }
+        {% endif %}
+        {% if nbAlert ["C"]["Less"] >50 %}
+        .C02Less {color: white; border: 1px solid black; background-color: #B51b1b;}
         .box:nth-child(3){
             transform: scale(1);
             animation: box 1s linear infinite;
         }
         {% endif %}
 
-        .red{margin-top: 15px; background-color: #B51b1b; color: white; max-width: 250px}
-        .blue{margin-top: 15px; background-color: #00489a;
-            border-color: #00489a; color: white; max-width: 250px}
-
-        .red:hover
-        {
-            background: #da0e0e;
+        .justify{
+            justify-content: center;
         }
-
     </style>
-
     <div class="text_center">
         <br>
         <div class="title">
@@ -174,61 +179,23 @@
         <br>
         <div class="container">
             <div class="data-container">
-
                 <div class="bg-white box">
                     <div class="titreDonnee">Température</div>
-                        <div class="Temp donnee">{{ nbAlert["T"] }} Alertes</div>
+                        <div class="TempMore donnee">{{ nbAlert["T"]["More"] }} Alertes supérieure</div>
+                        <div class="TempLess donnee">{{ nbAlert["T"]["Less"] }} Alertes inférieure</div>
                 </div>
-
                 <div class="bg-white box">
                     <div class="titreDonnee">Humidité</div>
-                    <div class="Hum donnee">{{ nbAlert["H"] }} Alertes </div>
+                    <div class="HumMore donnee">{{ nbAlert["H"]["More"] }} Alertes supérieure</div>
+                    <div class="HumLess donnee">{{ nbAlert["H"]["Less"] }} Alertes inférieure</div>
                 </div>
                 <div class="bg-white box">
                     <div class="titreDonnee">CO2</div>
-                    <div class="C02 donnee">{{ nbAlert["C"] }} Alertes</div>
-
+                    <div class="C02More donnee">{{ nbAlert["C"]["More"] }} Alertes supérieure</div>
+                    <div class="C02Less donnee">{{ nbAlert["C"]["Less"] }} Alertes inférieure</div>
                 </div>
             </div>
-
-
-        </div>
-    </div>
-    <div class = "container">
-        <div class = "data-container">
-            <div class="description">
-                <div class="boxDesc bg-white">
-                    <div class="descriptionRoom">
-                        <br><br>
-                        <ul><a style="border-bottom: 2px solid #014898;">La salle {{ room.getName() }}:</a>
-                            <li> a une superficie de : {{ room.getRoomSize() }} m2</li>
-                            <li> possède {{ room.getWindowsNumber() }} fenêtres,</li>
-                            {% if room.getFloor()==1 %}
-                                <li> est située au {{ room.getFloor() }}er étage </li>
-                            {% else %}
-                                <li> est située au {{ room.getFloor() }}ème étage </li>
-                            {% endif %}
-
-                            <li> est orientée au {{ room.getOrientationString() }}</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="description">
-                <div class="boxDesc bg-white">
-                    <div class="textSensor">
-                        <ul>Des conseils vous seront donnés si :
-                            <li> < {{ room.getType().getTempMin() }} °C ou > {{ room.getType().getTempMax() }} °C </li>
-                            <li> < {{ room.getType().getHumMin() }} % ou > {{ room.getType().getHumMax() }}% d'humidité </li>
-                            <li> < {{ room.getType().getCo2Min() }} PPM </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <a class="btn jus btn-primary" href="/admin/alerte_selection" role="button">Retour</a>
-
+        <div class ="justify"><a class="btn btn-primary" href="/admin/alerte_selection" role="button">Retour</a></div>
+            <br><br><br><br>
     </div>
 {% endblock %}

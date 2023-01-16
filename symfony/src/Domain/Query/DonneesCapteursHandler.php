@@ -37,26 +37,12 @@ class DonneesCapteursHandler
      * @param array<mixed> $data
      * @param DonneesCapteursQuery $requete
      */
-    public function countAlertTemp(array $data, DonneesCapteursQuery $requete): int
+    public function countAlertTempMore(array $data, DonneesCapteursQuery $requete): int
     {
         $nb = 0;
         $roomType = $requete->getRoom()->getType();
         $temp = $data['valeur'];
-        if ($temp < $roomType->getTempMin() or ($temp > $roomType->getTempMax())) {
-            $nb += 1;
-        }
-        return $nb;
-    }
-    /**
-     * @param array<mixed> $data
-     * @param DonneesCapteursQuery $requete
-     */
-    public function countAlertCo2(array $data, DonneesCapteursQuery $requete): int
-    {
-        $nb = 0;
-        $roomType = $requete->getRoom()->getType();
-        $temp = $data['valeur'];
-        if($temp < $roomType->getCo2Min() or ($temp > $roomType->getCo2Max())) {
+        if ($temp > $roomType->getTempMax()) {
             $nb += 1;
         }
         return $nb;
@@ -66,12 +52,74 @@ class DonneesCapteursHandler
      * @param array<mixed> $data
      * @param DonneesCapteursQuery $requete
      */
-    public function countAlertHum(array $data, DonneesCapteursQuery $requete): int
+    public function countAlertTempLess(array $data, DonneesCapteursQuery $requete): int
     {
         $nb = 0;
         $roomType = $requete->getRoom()->getType();
         $temp = $data['valeur'];
-        if($temp < $roomType->getHumMin() or ($temp > $roomType->getHumMax())) {
+        if ($temp < $roomType->getTempMin()) {
+            $nb += 1;
+        }
+        return $nb;
+    }
+
+    /**
+     * @param array<mixed> $data
+     * @param DonneesCapteursQuery $requete
+     */
+    public function countAlertCo2More(array $data, DonneesCapteursQuery $requete): int
+    {
+        $nb = 0;
+        $roomType = $requete->getRoom()->getType();
+        $temp = $data['valeur'];
+        if($temp > $roomType->getCo2Max()) {
+            $nb += 1;
+        }
+        return $nb;
+    }
+
+    /**
+     * @param array<mixed> $data
+     * @param DonneesCapteursQuery $requete
+     */
+    public function countAlertCo2Less(array $data, DonneesCapteursQuery $requete): int
+    {
+        $nb = 0;
+        $roomType = $requete->getRoom()->getType();
+        $temp = $data['valeur'];
+        if($temp < $roomType->getCo2Min()) {
+            $nb += 1;
+        }
+        return $nb;
+    }
+
+
+
+    /**
+     * @param array<mixed> $data
+     * @param DonneesCapteursQuery $requete
+     */
+    public function countAlertHumMore(array $data, DonneesCapteursQuery $requete): int
+    {
+        $nb = 0;
+        $roomType = $requete->getRoom()->getType();
+        $temp = $data['valeur'];
+        if($temp > $roomType->getHumMax()) {
+            $nb += 1;
+        }
+        return $nb;
+    }
+
+    /**
+     * @param array<mixed> $data
+     * @param DonneesCapteursQuery $requete
+     */
+    public function countAlertHumLess(array $data, DonneesCapteursQuery $requete): int
+    {
+        $nb = 0;
+        $roomType = $requete->getRoom()->getType();
+        $temp = $data['valeur'];
+        if($temp < $roomType->getHumMin()) {
             $nb += 1;
         }
         return $nb;
@@ -112,46 +160,66 @@ class DonneesCapteursHandler
      */
     public function handleNbAlert(DonneesCapteursQuery $requete,string $date1,string $date2):array
     {
+        $nbAlert=array();
         $tempArray = array() ;
         $this->donneesCapteurs->setDonneesPourInterval($tempArray);
-        $datas = $this->donneesCapteurs->getDonneesInterval($requete->getTag(),$date1,$date2);
-        $nbAlert=array();
-        $nb=0;
+        if ($requete->getTag()!=0){
+            $datas = $this->donneesCapteurs->getDonneesInterval($requete->getTag(),$date1,$date2);
+        }
 
-        //faut n'envoyer que les donnees dans le array $datas qui sont dans ["T"]
-        if ($datas["T"][0]["valeur"] != "NULL")
-        {
-            foreach ($datas["T"] as $data)
+
+        $nb=0;
+        $nb2=0;
+
+        //if no system has been affected to the room yet
+        if ($requete->getTag()!=0){
+            //faut n'envoyer que les donnees dans le array $datas qui sont dans ["T"]
+            if ($datas["T"][0]["valeur"] != "NULL")
             {
-                if($this->countAlertTemp($data, $requete)==1)
-                    $nb++ ;
+                foreach ($datas["T"] as $data)
+                {
+                    $nb += $this->countAlertTempMore($data, $requete);
+                    $nb2 += $this->countAlertTempLess($data, $requete);
+                }
 
             }
-
         }
-        $nbAlert["T"] =$nb;
-        $nb=0;
-        //faut n'envoyer que les donnees dans le array $datas qui sont dans ["H"]
-        if($datas["H"][0]["valeur"] != "NULL")
-        {
-            foreach ($datas["H"] as $data)
+        $nbAlert["T"]["More"] =$nb;
+        $nbAlert["T"]["Less"] =$nb2;
+        $nb=0;$nb2=0;
+        //if no system has been affected to the room yet
+        if ($requete->getTag()!=0){
+            //faut n'envoyer que les donnees dans le array $datas qui sont dans ["H"]
+            if($datas["H"][0]["valeur"] != "NULL")
             {
-                $nb += $this->countAlertHum($data, $requete);
-            }
+                foreach ($datas["H"] as $data)
+                {
+                    $nb += $this->countAlertHumMore($data, $requete);
+                    $nb2 += $this->countAlertHumLess($data, $requete);
+                }
 
-        }
-        $nbAlert["H"] =$nb;
-        $nb=0;
-        //faut n'envoyer que les donnees dans le array $datas qui sont dans ["C"]
-        if($datas["C"][0]["valeur"] != "NULL")
-        {
-            foreach ($datas["C"] as $data)
-            {
-                $nb += $this->countAlertCo2($data, $requete);
             }
         }
-        $nbAlert["C"] =$nb;
 
+        $nbAlert["H"]["More"] =$nb;
+        $nbAlert["H"]["Less"] =$nb2;
+        $nb=0;
+        $nb2=0;
+        //if no system has been affected to the room yet
+        if ($requete->getTag()!=0){
+            //faut n'envoyer que les donnees dans le array $datas qui sont dans ["C"]
+            if($datas["C"][0]["valeur"] != "NULL")
+            {
+                foreach ($datas["C"] as $data)
+                {
+                    $nb += $this->countAlertCo2More($data, $requete);
+                    $nb2 += $this->countAlertCo2Less($data, $requete);
+                }
+            }
+        }
+
+        $nbAlert["C"]["More"] =$nb;
+        $nbAlert["C"]["Less"] =$nb2;
         return $nbAlert;
     }
 }
