@@ -97,4 +97,5 @@ Quand je pense avoir fini le dev d'une issue je regarde si elle est DONE
   * je regarde si toutes les taches de l'issu ont été faites
   * est ce que toutes les règles métier sont respéctées
   * Est-ce que la fonctionnalité voulu par le client est opérationnel (je vérifie le "en tant que" + "je veux" + "afin de")
-  * je la met en à tester, elle ne sera fini qu'après la fin du sprint
+  * Tests unitaires
+  * Validation de la story par le PO et durant la revue de sprint
