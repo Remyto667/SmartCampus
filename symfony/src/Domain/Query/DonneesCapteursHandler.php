@@ -160,49 +160,61 @@ class DonneesCapteursHandler
      */
     public function handleNbAlert(DonneesCapteursQuery $requete,string $date1,string $date2):array
     {
+        $nbAlert=array();
         $tempArray = array() ;
         $this->donneesCapteurs->setDonneesPourInterval($tempArray);
-        $datas = $this->donneesCapteurs->getDonneesInterval($requete->getTag(),$date1,$date2);
-        $nbAlert=array();
+        if ($requete->getTag()!=0){
+            $datas = $this->donneesCapteurs->getDonneesInterval($requete->getTag(),$date1,$date2);
+        }
+
+
         $nb=0;
         $nb2=0;
 
         //faut n'envoyer que les donnees dans le array $datas qui sont dans ["T"]
-        if ($datas["T"][0]["valeur"] != "NULL")
-        {
-            foreach ($datas["T"] as $data)
+        if ($requete->getTag()!=0){
+            if ($datas["T"][0]["valeur"] != "NULL")
             {
-                $nb += $this->countAlertTempMore($data, $requete);
-                $nb2 += $this->countAlertTempLess($data, $requete);
-            }
+                foreach ($datas["T"] as $data)
+                {
+                    $nb += $this->countAlertTempMore($data, $requete);
+                    $nb2 += $this->countAlertTempLess($data, $requete);
+                }
 
+            }
         }
         $nbAlert["T"]["More"] =$nb;
         $nbAlert["T"]["Less"] =$nb2;
         $nb=0;$nb2=0;
         //faut n'envoyer que les donnees dans le array $datas qui sont dans ["H"]
-        if($datas["H"][0]["valeur"] != "NULL")
-        {
-            foreach ($datas["H"] as $data)
+        if ($requete->getTag()!=0){
+            if($datas["H"][0]["valeur"] != "NULL")
             {
-                $nb += $this->countAlertHumMore($data, $requete);
-                $nb2 += $this->countAlertHumLess($data, $requete);
-            }
+                foreach ($datas["H"] as $data)
+                {
+                    $nb += $this->countAlertHumMore($data, $requete);
+                    $nb2 += $this->countAlertHumLess($data, $requete);
+                }
 
+            }
         }
+
         $nbAlert["H"]["More"] =$nb;
         $nbAlert["H"]["Less"] =$nb2;
         $nb=0;
         $nb2=0;
         //faut n'envoyer que les donnees dans le array $datas qui sont dans ["C"]
-        if($datas["C"][0]["valeur"] != "NULL")
-        {
-            foreach ($datas["C"] as $data)
+        if ($requete->getTag()!=0){
+            if($datas["C"][0]["valeur"] != "NULL")
             {
-                $nb += $this->countAlertCo2More($data, $requete);
-                $nb2 += $this->countAlertCo2Less($data, $requete);
+                foreach ($datas["C"] as $data)
+                {
+                    $nb += $this->countAlertCo2More($data, $requete);
+                    $nb2 += $this->countAlertCo2Less($data, $requete);
+                }
             }
         }
+
         $nbAlert["C"]["More"] =$nb;
         $nbAlert["C"]["Less"] =$nb2;
         return $nbAlert;

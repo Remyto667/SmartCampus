@@ -754,6 +754,7 @@ class AdminController extends AbstractController
             $month--;
         }
         $date1 = '20'.$year.'-'.$month.'-'.date('j');
+
         foreach($allRoom as $room)
         {
             /* appel alerte_count */
@@ -774,7 +775,7 @@ class AdminController extends AbstractController
     {
         $nbAlert = array();
         if($room->getName()!="Stock"){
-            $nbAlert= $handler->handleNbAlert(new DonneesCapteursQuery($room, $doctrine),$date1,$date2);
+            $nbAlert = $handler->handleNbAlert(new DonneesCapteursQuery($room, $doctrine),$date1,$date2);
         }
         return $nbAlert;
     }
