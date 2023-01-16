@@ -21,10 +21,10 @@ class RoomType extends AbstractType
             ->add('orientation', ChoiceType::class, [
                 'label' => 'Orientation',
                 'choices' => [
-                    'Nord' => 0,
-                    'Sud' => 1,
-                    'Est' => 2,
-                    'Ouest' => 3
+                    'Nord' => "N",
+                    'Sud' => "S",
+                    'Est' => "E",
+                    'Ouest' => "O"
                 ]
             ])
             ->add('floor')

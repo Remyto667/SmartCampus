@@ -93,6 +93,11 @@
             margin-top: 100px;
         }
 
+
+        .conseil-box {
+            width: 500px ;
+        }
+
         /********* Effect *********/
         @keyframes box{
             0%,
@@ -214,17 +219,19 @@
                             <li> possède {{ room.getWindowsNumber() }} fenêtres,</li>
                             {% if room.getFloor()==1 %}
                                 <li> est située au {{ room.getFloor() }}er étage </li>
+                            {% elseif room.getFloor() == 0 %}
+                                <li> est située au rez de chaussée </li>
                             {% else %}
                                 <li> est située au {{ room.getFloor() }}ème étage </li>
                             {% endif %}
 
-                            <li> est orientée au {{ room.getOrientationString() }}</li>
+                            <li> orientation : {{ room.getOrientationString() }}</li>
                         </ul>
                     </div>
                 </div>
             </div>
             {% if temp > room.getType().getTempMax() or temp < room.getType().getTempMin() or hum > room.getType().getHumMax() or hum < room.getType().getHumMin() or co2 < room.getType().getCo2Min()  or co2 >= room.getType().getCo2Max() %}
-                <div class = "description boxDesc bg-white">
+                <div class = "description boxDesc bg-white conseil-box">
                     <div class="descriptionRoom">
                         <br><br>
                             <!-- Typical advice if there is a problem -->
