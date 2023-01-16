@@ -735,7 +735,6 @@ class AdminController extends AbstractController
     {
         $entityManager = $doctrine->getManager();
         $repository = $entityManager->getRepository('App\Entity\Room');
-        $repository2 = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
         $nbAlert = array();
 
