@@ -4,16 +4,19 @@
 
     <style>
         /************** CSS **************/
-        img{
-            /*background-attachment: fixed;*/
-            background-size: cover;
+        .img{
+            /*background-attachment: fixed;
+            top: 0;
+            left: 0;*/
+            width: auto;
+            height: 1000px;
         }
     </style>
 
         {% if app.user.username == 'admin'%}
-            <img src="../img/guide_admin.png">
+            <img class="img" src="../img/guide_admin.png">
         {% elseif app.user.username == 'technicien'%}
-            <img src="../img/guide_technicien.png">
+            <img class="img" src="../img/guide_technicien.png">
         {% else %}
 
         {% endif %}
