@@ -48,9 +48,9 @@ Mot de passe root : `sae`.
 Par ailleurs, un utilisateur "standard" nommé `sae` a les droits d'accès sur une base de données nommée `sae`
 avec le mot de passe `sae`
 
-## 3. Wiki d'unification de devellopement
+## 3. Wiki d'unification de developpement
 
-### **Le développeurr**
+### **Le développeur**
 
 ### Le code
 
