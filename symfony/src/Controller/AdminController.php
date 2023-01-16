@@ -403,16 +403,13 @@ class AdminController extends AbstractController
 
             if($temp->localisation == $room->getName()){
 
+                //dd(gettype($temp->dateCapture));
                 $statTemp->PushToArrayDateMonth($statTemp->transformMonth($temp->dateCapture),doubleval($temp->valeur));        // On classe les données en fonction de leur mois
-                $statTemp->PushToArrayDateDay(($statTemp->transformDay($temp->dateCapture)),doubleval($temp->valeur));
+                $statTemp->PushToArrayDateDay($statTemp->transformDay($temp->dateCapture),doubleval($temp->valeur));
             }
         }
 
-        $dataDayTemp=$statTemp->populateDayAsLabel(11);
-        $moyTemp=json_encode($statTemp->populateMoy());                 // On calcule la moyenne de chaque mois et on structure en tableau
-
         $dataDayTemp=$statTemp->PopulateDayAsLabel(date("j")); //
-
         $moyYearTemp=json_encode($statTemp->PopulateMonthMoy());                 // On calcule la moyenne de chaque mois et on structure en tableau sur une année
         $moyMonthTemp=json_encode($statTemp->PopulateDayMoy());         // On calcule la moyenne de chaque jours et on structure en tableau sur un mois
 
@@ -425,8 +422,6 @@ class AdminController extends AbstractController
 
         }
 
-        $dataDayHum=$statHum->populateDayAsLabel(11);
-        $moyHum=json_encode($statHum->populateMoy());       // Hum
 
         $dataDayHum=$statHum->PopulateDayAsLabel(date("j"));
         $moyYearHum=json_encode($statHum->PopulateMonthMoy());       // Hum
@@ -468,14 +463,14 @@ class AdminController extends AbstractController
     }
 
     #[Route('/admin/suivi/graphique/{room?}/{annee?}', name: 'graph_annee_admin')]               // Choix annee
-    public function graphique_annne_admin($annee,?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
+    public function graphique_annne_admin(int $annee,?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
     {
         $statTemp= new Stat\Stat();
         $statHum= new Stat\Stat();
         $statCo2= new Stat\Stat();
 
-        $date1= date('Y-m-d',mktime(0,0,0,"01","01",$annee));
-        $date2= date('Y-m-d',mktime(0,0,0,"01","01",$annee+1));
+        $date1= date('Y-m-d',mktime(0,0,0,01,01,$annee));
+        $date2= date('Y-m-d',mktime(0,0,0,01,01,$annee+1));
 
 
         $entityManager = $doctrine->getManager();
@@ -532,8 +527,6 @@ class AdminController extends AbstractController
         $moyYearCo2 = json_encode($statCo2->PopulateMonthMoy());       // Co2
 
 
-
-
         return $this->render('admin/graphique_year.html.twig', [
             'room' => $room,
             'moyYearTemp' =>$moyYearTemp,
@@ -550,14 +543,14 @@ class AdminController extends AbstractController
 
 
     #[Route('/admin/suivi/graphique/{room?}/{annee?}/{month?}', name: 'graph_annee_month_admin')]
-    public function graphique_annne_month_admin($month,$annee,?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response      // Choix mois
+    public function graphique_annne_month_admin(int $month,int $annee,?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response      // Choix mois
     {
         $statTemp= new Stat\Stat();
         $statHum= new Stat\Stat();
         $statCo2= new Stat\Stat();
 
-        $date1= date('Y-m-d',mktime(0,0,0,$month,"01",$annee));
-        $date2= date('Y-m-d',mktime(0,0,0,$month+1,"01",$annee));
+        $date1= date('Y-m-d',mktime(0,0,0,$month,01,$annee));
+        $date2= date('Y-m-d',mktime(0,0,0,$month+1,01,$annee));
 
         //$date1;
 
@@ -619,7 +612,6 @@ class AdminController extends AbstractController
         $moyYearCo2 = json_encode($statCo2->PopulateMonthMoy());
 
         $this->get('session')->start();
-
         $this->get('session')->set('moyYearTemp', $moyYearTemp);
         $this->get('session')->set('moyYearHum', $moyYearHum);              // Utile pour récupérer la moyenne de l'année dans la route lié aux jours
         $this->get('session')->set('moyYearCo2', $moyYearCo2);
@@ -644,7 +636,7 @@ class AdminController extends AbstractController
     }
 
     #[Route('/admin/suivi/graphique/{room?}/{annee?}/{month?}/{day?}', name: 'graph_annee_month_day_admin')]
-    public function graphique_annne_month_day_admin($day,$month,$annee,?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response      // Choix mois
+    public function graphique_annne_month_day_admin(int $day,int $month,int $annee,?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response      // Choix mois
     {
         $statTemp= new Stat\Stat();
         $statHum= new Stat\Stat();
@@ -711,7 +703,6 @@ class AdminController extends AbstractController
 
         $dataDayCo2=$statCo2->PopulateDayAsLabel($day);       // Co2
         $moyMonthCo2=json_encode($statCo2->PopulateDayMoy());
-        $this->get('session')->get('moyYearTemp');
 
         return $this->render('admin/graphique_year_month_day.html.twig', [
             'room' => $room,

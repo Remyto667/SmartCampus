@@ -3,25 +3,78 @@
 namespace App\Domain\Stat;
 class Stat
 {
+    /**
+     * @var array<float>
+     */
     private $moyAllMonth = array();
-    private $allDay = array();
-    private $moyAllDay = array();
-    private $allMonth = array();
 
+    /**
+     * @var array<array<array<mixed>>>
+     */
+    private $allDay = array();
+
+    /**
+     * @var array<float>
+     */
+    private $moyAllDay = array();
+
+    /**
+     * @var array<array<float>>
+     */
+    private $allMonth = array();
+    /**
+     * @var array<float>
+     */
     private $dataJanvier = array();
+    /**
+     * @var array<float>
+     */
     private $dataFevrier = array();
+    /**
+     * @var array<float>
+     */
     private $dataMars = array();
+    /**
+     * @var array<float>
+     */
     private $dataAvril = array();
+    /**
+     * @var array<float>
+     */
     private $dataMai = array();
+    /**
+     * @var array<float>
+     */
     private $dataJuin = array();
+    /**
+     * @var array<float>
+     */
     private $dataJuillet = array();
+    /**
+     * @var array<float>
+     */
     private $dataAout = array();
+    /**
+     * @var array<float>
+     */
     private $dataSeptembre = array();
+    /**
+     * @var array<float>
+     */
     private $dataOctobre = array();
+    /**
+     * @var array<float>
+     */
     private $dataNovembre = array();
+    /**
+     * @var array<float>
+     */
     private $dataDecembre = array();
 
 
+    /**
+     * @return string|null
+     */
 
     public function transformMonth($dateCapture): ?string           // A partir d'une date donnée, on récupere le mois
     {
@@ -32,10 +85,13 @@ class Stat
         return $arrayDate[1];
     }
 
+    /**
+     * @return array<string>|null
+     */
     public function transformDay($dateCapture): ?array          // A partir d'une date donnée, on récupere le jour et l'heure
     {
+        $arrayResult=array();
         $arrayDateCapture = explode(" ", $dateCapture);
-
         $arrayDate = explode('-', $arrayDateCapture[0]);
 
         $arrayResult[] = $arrayDate[2];
@@ -45,8 +101,7 @@ class Stat
     }
 
 
-
-    public function PushToArrayDateMonth($date, $valeur): void      // On insere dans un tableau les données du mois associé
+    public function PushToArrayDateMonth(int $date, float $valeur): void      // On insere dans un tableau les données du mois associé
     {
         switch ($date) {
             case 1:
@@ -100,7 +155,12 @@ class Stat
         }
     }
 
-    public function PushToArrayDateDay($date, $valeur): void            // On insere dans un tableau regroupant tous les jours d'un mois
+    /**
+     * @param array<string> $date
+     * @param float $valeur
+     * @return void
+     */
+    public function PushToArrayDateDay(array $date, float $valeur): void            // On insere dans un tableau regroupant tous les jours d'un mois
     {                                                               // En premiere position, des tableaux sous la forme / 0:date , 1:valeur /
 
         //dd($date);
@@ -116,7 +176,12 @@ class Stat
         }
     }
 
-    public function PushToArrayMoy($arrayMoy):float     // Calcule la moyenne de toutes les données lors d'un mois et affichage
+    /**
+     * @param array<float> $arrayMoy
+     * @return float
+     */
+
+    public function PushToArrayYearMoy(array $arrayMoy):float     // Calcule la moyenne de toutes les données lors d'un mois et affichage
                                                         // sous forme d'année
     {
         $cpp=0;
@@ -137,7 +202,12 @@ class Stat
 
     }
 
-    public function PushToArrayMonthMoy($arrayMoy):float              // Calcule la moyenne de toutes les données lors d'un mois et
+    /**
+     * @param array<float> $arrayMoy
+     * @return float
+     */
+
+    public function PushToArrayMonthMoy(array $arrayMoy):float              // Calcule la moyenne de toutes les données lors d'un mois et
                                                                         // affichage sous forme de mois (avec la moyenne de chaque jour)
     {// Optimisation debut
         $cpp=0;
@@ -161,16 +231,14 @@ class Stat
 
         }
 
-
-
-
         return $moy;
 
     }
 
-    public function PushToArrayDayMoy($arrayMoy):float              // Calcule la moyenne de toutes les données lors d'un mois et
+    public function PushToArrayDayMoy(array $arrayMoy):float              // Calcule la moyenne de toutes les données lors d'un mois et
                                                                     // affichage sous forme de mois (avec la moyenne de chaque jour)
     {
+
         $cpp=0;
 
         if($arrayMoy[0]==0){            // Si la premiere donnée est un 0 alors le tableau est vide
@@ -203,22 +271,26 @@ class Stat
     }
 
 
+    /**
+     * @return array<float>
+     */
+
     public function PopulateMonthMoy() : array { // Applique dans un tableau le calcul de moyenne sur toutes les données de chaque mois
 
         //dd($this->dataJanvier);
 
-        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataJanvier));
-        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataFevrier));
-        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataMars));
-        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataAvril));
-        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataMai));
-        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataJuin));
-        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataJuillet));
-        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataAout));
-        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataSeptembre));
-        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataOctobre));
-        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataNovembre));
-        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataDecembre));
+        $this->moyAllMonth[]=($this->PushToArrayYearMoy($this->dataJanvier));
+        $this->moyAllMonth[]=($this->PushToArrayYearMoy($this->dataFevrier));
+        $this->moyAllMonth[]=($this->PushToArrayYearMoy($this->dataMars));
+        $this->moyAllMonth[]=($this->PushToArrayYearMoy($this->dataAvril));
+        $this->moyAllMonth[]=($this->PushToArrayYearMoy($this->dataMai));
+        $this->moyAllMonth[]=($this->PushToArrayYearMoy($this->dataJuin));
+        $this->moyAllMonth[]=($this->PushToArrayYearMoy($this->dataJuillet));
+        $this->moyAllMonth[]=($this->PushToArrayYearMoy($this->dataAout));
+        $this->moyAllMonth[]=($this->PushToArrayYearMoy($this->dataSeptembre));
+        $this->moyAllMonth[]=($this->PushToArrayYearMoy($this->dataOctobre));
+        $this->moyAllMonth[]=($this->PushToArrayYearMoy($this->dataNovembre));
+        $this->moyAllMonth[]=($this->PushToArrayYearMoy($this->dataDecembre));
 
         return $this->moyAllMonth;          // Renvoie un tableau regroupant les moyennes de chaques mois dans l'année
 
@@ -239,6 +311,10 @@ class Stat
         return $this->moyAllDay;            // Renvoie un tableau regroupant les moyennes de chaques jours dans un mois
     }
 
+    /**
+     * @return array[]
+     */
+
     public function PopulateDayMoy() : array {
 
         //dd($this->allDay);
@@ -254,8 +330,13 @@ class Stat
         return $this->moyAllDay;            // Renvoie un tableau regroupant les moyennes de chaques jours dans un mois
     }
 
+    /**
+     * @param int $NumberDay
+     * @return array<array<string,float>>
+     */
 
-    public function PopulateDayAsLabel($NumberDay) : array{             // Creation d'un tableau composé de string pour les labels du graphique
+
+    public function PopulateDayAsLabel(int $NumberDay) : array{             // Creation d'un tableau composé de string pour les labels du graphique
 
         $this->allDay[$NumberDay][]=0;          // On insere un zero dans le cas ou il n'y aurait pas de données ce aujourd'hui
         $String= array();
@@ -283,7 +364,7 @@ class Stat
     }
 
     /**
-     * @return array
+     * @return array<array<array<mixed>>>
      */
     public function getAllDay(): array
     {
