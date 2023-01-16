@@ -142,7 +142,7 @@
                     {% for room in allRoom %}
                         <!-- All the rooms corresponding to the floor are displayed, without taking into account the stock -->
                         {% if (room.isIsStock() != 1) and (room.floor == floor) %}
-                            <div class="boxItem" onclick="window.location='/admin/donnees_salle_admin/{{ room.id }}';">
+                            <div class="boxItem" onclick="window.location='graphique/{{ room.id }}';">
 
                                 <!-- Show the room in blue if there are no alert -->
                                 <a class="btn btn-primary green" href="graphique/{{ room.id }}">{{ room.name }}</a>

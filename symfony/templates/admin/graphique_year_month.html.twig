@@ -123,9 +123,9 @@
                     {% for room in allRoom %}
                         {% if (room.isIsStock() != 1) and (room.floor == floor) %}
                             {% if (room.isAlert == true ) %}
-                                <a class="btn red btn-danger" href="{{ room.id }}" role="button">{{ room.name }}</a>
+                                <a class="btn red btn-danger" href="/admin/suivi/graphique/{{ room.id }}/{{annee_choisi}}/{{mois_choisi}}" role="button">{{ room.name }}</a>
                             {% else %}
-                                <a class="btn blue btn-primary" href="{{ room.id }}" role="button">{{ room.name }}</a>
+                                <a class="btn blue btn-primary" href="/admin/suivi/graphique/{{ room.id }}/{{annee_choisi}}/{{mois_choisi}}" role="button">{{ room.name }}</a>
                             {% endif %}
                         {% endif %}
                     {% endfor %}
