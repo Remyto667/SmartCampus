@@ -43,7 +43,10 @@
         .item-line{
             align-self: auto;
         }
-
+        .color:hover {
+            background-color: #FFF;
+            border-color: #00489a;
+        }
     </style>
     <div class="container">
 
@@ -64,7 +67,7 @@
 
                     <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     </button>
-                    <div class="dropdown-menu">
+                    <div class="dropdown-menu color">
                         {% for i in 0..4 %}
                             <a class="dropdown-item" href="/admin/suivi/graphique/{{ room.getId() }}/{{ year -i }}">{{ year -i }}</a>
                         {% endfor %}

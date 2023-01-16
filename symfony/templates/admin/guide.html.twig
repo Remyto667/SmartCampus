@@ -9,14 +9,14 @@
             top: 0;
             left: 0;*/
             width: auto;
-            height: 970px;
+            height: 1050px;
         }
     </style>
 
         {% if app.user.username == 'admin'%}
-            <img class="img" src="../img/guide_admin.png">
+            <img class="img" src="../img/guide_sup.png">
         {% elseif app.user.username == 'technicien'%}
-            <img class="img" src="../img/guide_technicien.png">
+            <img class="img" src="../img/guide_tech.png">
         {% else %}
 
         {% endif %}
