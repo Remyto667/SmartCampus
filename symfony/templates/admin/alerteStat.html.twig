@@ -1,4 +1,4 @@
-                                                                                                   {% extends 'basewithnavbar.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}Données d'une salle{% endblock %}
 
@@ -119,12 +119,10 @@
             }
         }
 
-        .ligne{
-            display: flex;
-            flex-wrap: wrap;
+        .jus{
+
             justify-content: center;
-            column-gap: 30px;
-            padding-top: 100px;
+
         }
         .item-ligne{
             align-self: auto;
@@ -226,9 +224,13 @@
                     </div>
                 </div>
             </div>
+
+        </div>
+        <div class="bg-danger">
+            <a class="btn btn-primary justify-content-center" href="/admin/alerte_selection" role="button">Retour</a>
         </div>
 
-        <a class="btn jus btn-primary" href="/admin/alerte_selection" role="button">Retour</a>
-
     </div>
+
+
 {% endblock %}

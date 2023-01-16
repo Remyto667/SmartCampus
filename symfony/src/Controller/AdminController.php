@@ -51,10 +51,10 @@ class AdminController extends AbstractController
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
 
-        $repository = $entityManager->getRepository('App\Entity\Room');
+        $repository = $entityManager->getRepository('App\Entity\System');
         $allSystem = $repository->findAll();
 
-        $repository = $entityManager->getRepository('App\Entity\Room');
+        $repository = $entityManager->getRepository('App\Entity\Sensor');
         $allSensor = $repository->findAll();
 
         return $this->render('admin/profil.html.twig', [
