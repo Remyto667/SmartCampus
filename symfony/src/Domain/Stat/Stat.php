@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Domain\Stat;
-namespace App\Domain\Stat;
-
 class Stat
 {
     private $moyAllMonth = array();
     private $allDay = array();
+    private $moyAllDay = array();
+    private $allMonth = array();
 
     private $dataJanvier = array();
     private $dataFevrier = array();
@@ -23,7 +23,7 @@ class Stat
 
 
 
-    public function transformMonth($dateCapture): ?string
+    public function transformMonth($dateCapture): ?string           // A partir d'une date donnée, on récupere le mois
     {
         $arrayDateCapture = explode(" ", $dateCapture);
 
@@ -32,7 +32,7 @@ class Stat
         return $arrayDate[1];
     }
 
-    public function transformDay($dateCapture): ?array
+    public function transformDay($dateCapture): ?array          // A partir d'une date donnée, on récupere le jour et l'heure
     {
         $arrayDateCapture = explode(" ", $dateCapture);
 
@@ -44,25 +44,9 @@ class Stat
         return $arrayResult;
     }
 
-    public function pushToArrayMoy($arrayMoy):float
-    {
-        $cpp = 0;
-
-        foreach ($arrayMoy as $data){
-            $cpp += $data;
-        }
-        if (sizeof($arrayMoy) > 0 ) {
-            $moy = ($cpp / sizeof($arrayMoy));
-        }
-        else {
-            $moy = 0;
-        }
-
-        return $moy;
-    }
 
 
-    public function pushToArrayDateMonth($date, $valeur): void
+    public function PushToArrayDateMonth($date, $valeur): void      // On insere dans un tableau les données du mois associé
     {
         switch ($date) {
             case 1:
@@ -103,214 +87,199 @@ class Stat
         }
     }
 
-    public function pushToArrayDateDay($date, $valeur): void
-    {
+    public function PushToArrayDateMonth2($date, $valeur): void            // On insere dans un tableau regroupant tous les jours d'un mois
+    {                                                               // En premiere position, des tableaux sous la forme / 0:date , 1:valeur /
+// Optimisation debut
+        //dd($date);
+        //dd($valeur);
+
+        if($date>0 and $date<13){
+
+            $this->allMonth[$date][] = $valeur;
+
+        }
+    }
+
+    public function PushToArrayDateDay($date, $valeur): void            // On insere dans un tableau regroupant tous les jours d'un mois
+    {                                                               // En premiere position, des tableaux sous la forme / 0:date , 1:valeur /
 
         //dd($date);
         //dd($valeur);
 
-        switch($date[0]){
+        if($date[0]>0 and $date[0]<32){
 
-            case 1:
-                $this->allDay[1][] = $date[1];
-                $this->allDay[1][] = $valeur;
-                break;
+            $arrayTempo[] =$date[1];
+            $arrayTempo[]=$valeur;
 
-            case 2:
-                $this->allDay[2][] = $date[1];
-                $this->allDay[2][] = $valeur;
-                break;
+            $this->allDay[(int)$date[0]][] = $arrayTempo;
 
-            case 3:
-                $this->allDay[3][] = $date[1];
-                $this->allDay[3][] = $valeur;
-                break;
-
-            case 4:
-                $this->allDay[4][] = $date[1];
-                $this->allDay[4][] = $valeur;
-
-                break;
-
-            case 5:
-                $this->allDay[5][] = $date[1];
-                $this->allDay[5][] = $valeur;
-                break;
-
-            case 6:
-                $this->allDay[6][] = $date[1];
-                $this->allDay[6][] = $valeur;
-                break;
-
-            case 7:
-                $this->allDay[7][] = $date[1];
-                $this->allDay[7][] = $valeur;
-                break;
-
-            case 8:
-                $this->allDay[8][] = $date[1];
-                $this->allDay[8][] = $valeur;
-                break;
-
-            case 9:
-                $this->allDay[9][] = $date[1];
-                $this->allDay[9][] = $valeur;
-                break;
-
-            case 10:
-                $this->allDay[10][] = $date[1];
-                $this->allDay[10][] = $valeur;
-                break;
-
-            case 11:
-                $this->allDay[11][] = $date[1];
-                $this->allDay[11][] = $valeur;
-                break;
-
-            case 12:
-                $this->allDay[12][] = $date[1];
-                $this->allDay[12][] = $valeur;
-                break;
-
-            case 13:
-                $this->allDay[13][] = $date[1];
-                $this->allDay[13][] = $valeur;
-                break;
-
-            case 14:
-                $this->allDay[14][] = $date[1];
-                $this->allDay[14][] = $valeur;
-                break;
-
-            case 15:
-                $this->allDay[15][] = $date[1];
-                $this->allDay[15][] = $valeur;
-
-                break;
-
-            case 16:
-                $this->allDay[16][] = $date[1];
-                $this->allDay[16][] = $valeur;
-                break;
-
-            case 17: $this->allDay[17][] = $date[1];
-                $this->allDay[17][] = $valeur;
-                break;
-
-            case 18:
-                $this->allDay[18][] = $date[1];
-                $this->allDay[18][] = $valeur;
-                break;
-
-            case 19:
-                $this->allDay[19][] = $date[1];
-                $this->allDay[19][] = $valeur;
-                break;
-
-            case 20:
-                $this->allDay[20][] = $date[1];
-                $this->allDay[20][] = $valeur;
-                break;
-
-            case 21:
-                $this->allDay[21][] = $date[1];
-                $this->allDay[21][] = $valeur;
-                break;
-
-            case 22:
-                $this->allDay[22][] = $date[1];
-                $this->allDay[22][] = $valeur;
-                break;
-
-            case 23:
-                $this->allDay[23][] = $date[1];
-                $this->allDay[23][] = $valeur;
-                break;
-
-            case 24:
-                $this->allDay[24][] = $date[1];
-                $this->allDay[24][] = $valeur;
-                break;
-
-            case 25:
-                $this->allDay[25][] = $date[1];
-                $this->allDay[25][] = $valeur;
-                break;
-
-            case 26:
-                $this->allDay[26][] = $date[1];
-                $this->allDay[26][] = $valeur;
-                break;
-
-            case 27:
-                $this->allDay[27][] = $date[1];
-                $this->allDay[27][] = $valeur;
-                break;
-
-            case 28:
-                $this->allDay[28][] = $date[1];
-                $this->allDay[28][] = $valeur;
-                break;
-
-            case 29:
-                $this->allDay[29][] = $date[1];
-                $this->allDay[29][] = $valeur;
-                break;
-
-            case 30:
-                $this->allDay[30][] = $date[1];
-                $this->allDay[30][] = $valeur;
-                break;
-
-            case 31:
-                $this->allDay[31][] = $date[1];
-                $this->allDay[31][] = $valeur;
-                break;
         }
     }
 
+    public function PushToArrayMoy($arrayMoy):float     // Calcule la moyenne de toutes les données lors d'un mois et affichage
+                                                        // sous forme d'année
+    {
+        $cpp=0;
 
-    public function populateMoy() : array {
-        $this->moyAllMonth[] = ($this->pushToArrayMoy($this->dataJanvier));
-        $this->moyAllMonth[] = ($this->pushToArrayMoy($this->dataFevrier));
-        $this->moyAllMonth[] = ($this->pushToArrayMoy($this->dataMars));
-        $this->moyAllMonth[] = ($this->pushToArrayMoy($this->dataAvril));
-        $this->moyAllMonth[] = ($this->pushToArrayMoy($this->dataMai));
-        $this->moyAllMonth[] = ($this->pushToArrayMoy($this->dataJuin));
-        $this->moyAllMonth[] = ($this->pushToArrayMoy($this->dataJuillet));
-        $this->moyAllMonth[] = ($this->pushToArrayMoy($this->dataAout));
-        $this->moyAllMonth[] = ($this->pushToArrayMoy($this->dataSeptembre));
-        $this->moyAllMonth[] = ($this->pushToArrayMoy($this->dataOctobre));
-        $this->moyAllMonth[] = ($this->pushToArrayMoy($this->dataNovembre));
-        $this->moyAllMonth[] = ($this->pushToArrayMoy($this->dataDecembre));
+        foreach($arrayMoy as $data){
 
-        return $this->moyAllMonth;
+            $cpp+=$data;
+        }
+
+        if(sizeof($arrayMoy)>0 ) {
+            $moy = ($cpp / sizeof($arrayMoy));
+        }
+        else{
+            $moy=0;
+        }
+
+        return round($moy,1);
+
     }
 
-    public function populateDayAsLabel($NumberDay) : string{
-        $stringX = "";
-        $stringY = "";
-        $String = "";
-        $i = 0;
+    public function PushToArrayMonthMoy($arrayMoy):float              // Calcule la moyenne de toutes les données lors d'un mois et
+                                                                        // affichage sous forme de mois (avec la moyenne de chaque jour)
+    {// Optimisation debut
+        $cpp=0;
 
-        foreach ($this->allDay[$NumberDay] as $day){
-            if ($i == sizeof($this->allDay[$NumberDay]) - 1 ){
-                    $stringY = "y: " . $day . " }";
-                    $String = $String . $stringX . $stringY;
-                    // à l'echelle mois, mettre en parametre un jour pour choisir un jour en particulier et mettre To date pour aujourd'hui
-            }
-            else {
-                if (is_string($day) == true) {
-                    $stringX = "{x: '" . $day . "', ";
-                }
-                else {
-                    $stringY="y: " . $day . " },";
-                    $String = $String . $stringX . $stringY;
-                }
-            }
-                $i++;
+
+        if($arrayMoy==0){
+            $moy=0;
         }
-        return $String;
+
+        else{
+            foreach($arrayMoy as $data){
+                $cpp += $data;
+            }
+
+            if(sizeof($arrayMoy)>1 ) {
+                $moy = ($cpp / (sizeof($arrayMoy)/2));
+            }
+            else{
+                $moy=0;
+            }
+
+        }
+
+
+
+
+        return $moy;
+
+    }
+
+    public function PushToArrayDayMoy($arrayMoy):float              // Calcule la moyenne de toutes les données lors d'un mois et
+                                                                    // affichage sous forme de mois (avec la moyenne de chaque jour)
+    {
+        $cpp=0;
+
+        if($arrayMoy[0]==0){            // Si la premiere donnée est un 0 alors le tableau est vide
+            $moy=0;
+        }
+
+        else {
+            //dd($arrayMoy);
+
+            for($i=0;$i<sizeof($arrayMoy)-2;$i++){          // Sinon il ya des donneés, on parcourt la taille du tableau -2
+                                                            // a cause du 0 ajouté a la fin
+                $cpp +=$arrayMoy[$i][1];
+
+            }
+
+
+            if (sizeof($arrayMoy) > 1) {
+
+                //dd($arrayMoy[0]);
+
+                $moy = ($cpp / (sizeof($arrayMoy)-2));
+            } else {
+                $moy = 0;
+            }
+        }
+
+
+        return round($moy,1);
+
+    }
+
+
+    public function PopulateMonthMoy() : array { // Applique dans un tableau le calcul de moyenne sur toutes les données de chaque mois
+
+        //dd($this->dataJanvier);
+
+        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataJanvier));
+        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataFevrier));
+        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataMars));
+        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataAvril));
+        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataMai));
+        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataJuin));
+        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataJuillet));
+        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataAout));
+        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataSeptembre));
+        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataOctobre));
+        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataNovembre));
+        $this->moyAllMonth[]=($this->PushToArrayMoy($this->dataDecembre));
+
+        return $this->moyAllMonth;          // Renvoie un tableau regroupant les moyennes de chaques mois dans l'année
+
+    }
+
+    public function PopulateMonthMoy2() : array {       // Optimisation debut
+
+
+        for($i=1;$i<12;$i++){       // On tourne 31 fois
+
+            $this->allMonth[$i][]=0;      // Et on insere un zero dans le cas ou il n'y aurait pas de données ce jour ci
+            //(facilite le calcul de moyenne)
+
+            //dd($this->allMonth);
+            $this->moyAllMonth[]=($this->PushToArrayMonthMoy($this->allMonth[$i]));
+        }
+
+        return $this->moyAllDay;            // Renvoie un tableau regroupant les moyennes de chaques jours dans un mois
+    }
+
+    public function PopulateDayMoy() : array {
+
+        //dd($this->allDay);
+
+        for($i=1;$i<32;$i++){       // On tourne 31 fois
+
+            $this->allDay[$i][]=0;      // Et on insere un zero dans le cas ou il n'y aurait pas de données ce jour ci
+                                        // (facilite le calcul de moyenne)
+
+            $this->moyAllDay[]=($this->PushToArrayDayMoy($this->allDay[$i]));
+        }
+
+        return $this->moyAllDay;            // Renvoie un tableau regroupant les moyennes de chaques jours dans un mois
+    }
+
+
+    public function PopulateDayAsLabel($NumberDay) : array{             // Creation d'un tableau composé de string pour les labels du graphique
+
+        $this->allDay[$NumberDay][]=0;          // On insere un zero dans le cas ou il n'y aurait pas de données ce aujourd'hui
+        $String= array();
+
+        if ($this->allDay[$NumberDay][0]==0){       // Si la premiere valeur du tableau vaut 0 == pas de donnée (sinon il serait en derniere position)
+
+            $String[] = "{x: '" . "Pas de donnée" . "',y: " . 0 . " }";
+        }
+        else {
+
+            $day=$this->allDay[$NumberDay];
+
+            for($i=0;$i<sizeof($day)-2;$i++){       // Sinon il a des données et on extrait sous la forme d'un tableau JS
+
+
+                $String[] = "{x: '" . $day[$i][0] . "',y: " . $day[$i][1] . " }";
+
+            }
+
+        }
+        return $String  ;
+
+        //"{x: '".$day."', y: ".$day[$i+1]." }"
+
     }
 
     /**
