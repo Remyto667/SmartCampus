@@ -750,9 +750,10 @@ class AdminController extends AbstractController
             $month--;
         }
         $date1 = '20'.$year.'-'.$month.'-'.date('j');
+
         foreach($allRoom as $room)
         {
-            /* appel alerte_vision */
+            /* appel alerte_count */
             $nbAlert[$room->getId()] = $this->alerte_count($room, $doctrine, $handler,$date1,$date2);
 
         }
@@ -770,13 +771,13 @@ class AdminController extends AbstractController
     {
         $nbAlert = array();
         if($room->getName()!="Stock"){
-            $nbAlert= $handler->handleNbAlert(new DonneesCapteursQuery($room, $doctrine),$date1,$date2);
+            $nbAlert = $handler->handleNbAlert(new DonneesCapteursQuery($room, $doctrine),$date1,$date2);
         }
         return $nbAlert;
     }
 
-    #[Route('/admin/alerte_vision/{room?}', name: 'alerte_vision_admin')]
-    public function alerte_visionV2(?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
+    #[Route('/admin/alerte_stat/{room?}', name: 'alerte_stat_admin')]
+    public function alerte_stat(?Room $room,ManagerRegistry $doctrine, DonneesCapteursHandler $handler): Response
     {
         //on récupères les deux dates
         $month = date('m');

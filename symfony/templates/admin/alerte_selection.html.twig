@@ -132,7 +132,7 @@
     </style>
 
     <div class="example-wrapper">
-        <h1>Choisir une salle pour voir le détail de alertes</h1>
+        <h1>Choisir une salle pour voir le détail des alertes</h1>
         <h2>Vous pouvez voir le nombre d'alertes détectées au cours du dernier mois</h2>
         <br>
         <div class="content">
@@ -147,13 +147,13 @@
                     {% for room in allRoom %}
                         <!-- All the rooms corresponding to the floor are displayed, without taking into account the stock -->
                         {% if (room.isIsStock() != 1) and (room.floor == floor) %}
-                            <div class="boxItem" onclick="window.location='/admin/alerte_vision/{{ room.id }}';">
-                                {% if nbAlert[room.id]["T"] + nbAlert[room.id]["H"] + nbAlert[room.id]["C"]  > 1000 %}
-                                    <a class="btn red btn-danger" href="/admin/alerte_vision/{{ room.id }}">{{ room.name }}</a>
+                            <div class="boxItem" onclick="window.location='/admin/alerte_stat/{{ room.id }}';">
+                                {% if nbAlert[room.id]["T"]["More"] + nbAlert[room.id]["T"]["Less"] + nbAlert[room.id]["H"]["More"] + nbAlert[room.id]["H"]["Less"] + nbAlert[room.id]["C"]["More"]+ nbAlert[room.id]["C"]["Less"]  > 1000 %}
+                                    <a class="btn red btn-danger" href="/admin/alerte_stat/{{ room.id }}">{{ room.name }}</a>
                                 {% else %}
-                                    <a class="btn btn-primary blue" href="/admin/alerte_vision/{{ room.id }}">{{ room.name }}</a>
+                                    <a class="btn btn-primary blue" href="/admin/alerte_stat/{{ room.id }}">{{ room.name }}</a>
                                 {% endif %}
-                                <p class="text">{{  nbAlert[room.id]["T"] + nbAlert[room.id]["H"] + nbAlert[room.id]["C"] }} alertes</p>
+                                <p class="text">{{  nbAlert[room.id]["T"]["More"] + nbAlert[room.id]["T"]["Less"] + nbAlert[room.id]["H"]["More"] + nbAlert[room.id]["H"]["Less"] + nbAlert[room.id]["C"]["More"]+ nbAlert[room.id]["C"]["Less"] }} alertes</p>
                             </div>
                         {% endif %}
                     {% endfor %}
@@ -162,8 +162,8 @@
         </div>
 
         <div class="legend">
-            <p class="legendBlue">Salle sans problèmes</p>
-            <p class="legendRed">Salle avec Alerte(s)</p>
+            <p class="legendBlue">Salle avec moins de 1000 alertes</p>
+            <p class="legendRed">Salle avec 1000 alertes ou plus</p>
         </div>
 
     </div>
