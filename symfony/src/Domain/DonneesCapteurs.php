@@ -80,8 +80,8 @@ class DonneesCapteurs
                     'headers' => [
                         'Accept' => 'application/ld+json',
                         'dbname' => $this->tags[$tag],
-                        'username' => 'x1eq3',
-                        'userpass' => 'bRepOh4UkiaM9c7R'
+                        'username' => $_ENV['USERNAME'],
+                        'userpass' => $_ENV['USERPASS']
                     ],
                 ]);
                 $content = $response->getContent();
@@ -92,6 +92,13 @@ class DonneesCapteurs
                     $this->donneesPourSalle[$type] = (object)array('valeur' => 'NULL', 'dateCapture' => 'NULL');
                 }
             }
+        }
+        else
+        {
+            $this->donneesPourSalle["T"] = (object)array('valeur' => 'NULL', 'dateCapture' => 'NULL');
+            $this->donneesPourSalle["H"] = (object)array('valeur' => 'NULL', 'dateCapture' => 'NULL'); ;
+            $this->donneesPourSalle["C"] = (object)array('valeur' => 'NULL', 'dateCapture' => 'NULL'); ;
+
         }
         return $this->donneesPourSalle ;
     }

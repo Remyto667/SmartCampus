@@ -136,7 +136,7 @@
             <tbody>
             {% for room in allRoom %}
                 <!-- Loop to show all rooms -->
-                <tr>
+                <tr>{% if room.isIsStock() != 1 %}
                     <td>
                         <!-- A warning is displayed only if there is a data recovery problem for each room -->
                         {% if (noData[room.getId] == 1) %}
@@ -147,13 +147,10 @@
                     <td><a class="btn btn-primary img update favorite" href="/inventaire/modifier_salle/{{ room.id }}" role="button"></a></td>
                     <td><input class="btn btn-primary img delete favorite" type=button onclick="openPopup({{ room.id }})"></td>
                     <td>
-                        {% if room.isIsStock() != 1 %}
+
                             <!-- Display of a clickable button if it is a room -->
                             <a class="btn btn-primary" href="/admin/donnees_salle_admin/{{ room.id }}" role="button">{{ room.name }}</a>
 
-                        {% else %}
-                            <!-- Display of a simple text if it is: Stock -->
-                            {{ room.name }}
                         {% endif %}
 
                     </td>

@@ -145,9 +145,16 @@
         var ctxTemp = document.getElementById('ChartTemp').getContext('2d');
         //const moisLabels=["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"];
 
+        var labelsMonth = [];
+
+        for(let i=1; i<= {{ nb_jours }};i++){
+
+            labelsMonth.push(i.toString());
+        }
+
         // Données du graphique
         var dataTemp = {
-            labels: ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"],
+            labels: labelsMonth,
             datasets: [{
                 label: 'Temperature du mois ' + {{mois_choisi}} + ' de l\'année ' + {{annee_choisi}},
                 data: {{moyMonthTemp}},
@@ -204,7 +211,7 @@
 
         // Données du graphique
         var dataHum = {
-            labels: ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"],
+            labels: labelsMonth,
             datasets: [{
                 label: 'Humidite du mois ' + {{mois_choisi}} + ' de l\'année ' + {{annee_choisi}},
                 data: {{ moyMonthHum }},
@@ -246,7 +253,7 @@
 
         // Données du graphique
         var dataCo2 = {
-            labels: ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"],
+            labels: labelsMonth,
             datasets: [{
                 label: 'Co2 du mois ' + {{mois_choisi}} + ' de l\'année ' + {{annee_choisi}},
                 data: {{ moyMonthCo2 }},
@@ -305,7 +312,7 @@
         function showChartData(type){
 
             const anneeLabels=['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Aout','Septembre','Novembre','Octobre','Decembre'];
-            const moisLabels=["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"]
+            const moisLabels=labelsMonth;
 
             const anneeTemp = {{moyYearTemp}};
             const anneeHum = {{ moyYearHum }};
