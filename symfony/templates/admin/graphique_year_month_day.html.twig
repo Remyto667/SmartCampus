@@ -75,7 +75,7 @@
                     </button>
                     <div class="dropdown-menu">
                         {% for i in 0..4 %}
-                            <a class="dropdown-item" href="/admin/suivi/graphique/{{ room.getId() }}/{{ year-i }}">{{ year -i }}</a>
+                            <a class="dropdown-item" href="/admin/suivi/graphique/{{ room.getId() }}/{{ year -i }}">{{ year -i }}</a>
                         {% endfor %}
 
                     </div>
@@ -87,20 +87,35 @@
                     <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     </button>
                     <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#"></a>
-
+                        {% for i in 1..12 %}
+                            <a class="dropdown-item" href="/admin/suivi/graphique/{{ room.getId() }}/{{ annee_choisi }}/{{ i }}">{{ i }}</a>
+                        {% endfor %}
                     </div>
                 </div>
+
 
                 <div class="btn-group">
                 <a class="btn btn-primary blue" onclick="showChartData('jour')">Jour</a>
                     <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     </button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#"></a>
+
+                        {% if mois_choisi == mois %}
+
+                            {% for i in 1..nb_jours-nb_jours_valide %}
+                                <a class="dropdown-item" href="/admin/suivi/graphique/{{ room.getId() }}/{{ annee_choisi }}/{{ mois_choisi }}/{{ i }}">{{  i }}</a>
+                            {% endfor %}
+
+                        {% else %}
+
+                            {% for i in 1..nb_jours %}
+                                <a class="dropdown-item" href="/admin/suivi/graphique/{{ room.getId() }}/{{ annee_choisi }}/{{ mois_choisi }}/{{ i }}">{{  i }}</a>
+                            {% endfor %}
+
+                        {% endif %}
+
                     </div>
                 </div>
-
 
 
             </div>
@@ -114,16 +129,41 @@
 
     <!-- Script pour créer le graphique -->
     <script>
+        // Initialisation des données
+
+        var inputTemp = [{{ dataDayTemp |join(', ') | raw }}]
+
+        var dataDayTempx = inputTemp.map(function(item) {
+            return item.x});
+
+        var dataDayTempy = inputTemp.map(function(item) {
+            return item.y});
+
+        var inputHum = [{{ dataDayHum |join(', ')  | raw }}]
+
+        var dataDayHumx = inputHum.map(function(item) {
+            return item.x});
+
+        var dataDayHumy = inputHum.map(function(item) {
+            return item.y});
+
+        var inputCo2= [{{ dataDayCo2 |join(', ')  | raw }}]
+
+        var dataDayCo2x = inputCo2.map(function(item) {
+            return item.x});
+
+        var dataDayCo2y = inputCo2.map(function(item) {
+            return item.y});
 
         // Récupération du canvas
         var ctxTemp = document.getElementById('ChartTemp').getContext('2d');
 
         // Données du graphique
         var dataTemp = {
-            labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Aout','Septembre','Novembre','Octobre','Decembre'],
+            labels: dataDayTempx ,
             datasets: [{
-                label: 'Temperature 12 derniere mois',
-                data: {{moyYearTemp}},
+                label: "Temp",
+                data: dataDayTempy,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -177,10 +217,10 @@
 
         // Données du graphique
         var dataHum = {
-            labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Aout','Septembre','Novembre','Octobre','Decembre'],
+            labels: dataDayHumx,
             datasets: [{
-                label: 'Humidite 12 derniere mois',
-                    data: {{ moyYearHum }},
+                label: "Hum" ,
+                data: dataDayHumy,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -219,10 +259,10 @@
 
         // Données du graphique
         var dataCo2 = {
-            labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Aout','Septembre','Novembre','Octobre','Decembre'],
+            labels: dataDayCo2x,
             datasets: [{
-                label: 'Co2 12 derniere mois',
-                data: {{ moyYearCo2 }},
+                label: "Co2" ,
+                data: dataDayCo2y,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -274,31 +314,6 @@
             data: dataTemp,
             options: optionsTemp
         });
-
-        var inputTemp = [{{ dataDayTemp |join(', ') | raw }}]
-
-        var dataDayTempx = inputTemp.map(function(item) {
-            return item.x});
-
-        var dataDayTempy = inputTemp.map(function(item) {
-            return item.y});
-
-        var inputHum = [{{ dataDayHum |join(', ')  | raw }}]
-
-        var dataDayHumx = inputHum.map(function(item) {
-            return item.x});
-
-        var dataDayHumy = inputHum.map(function(item) {
-            return item.y});
-
-        var inputCo2= [{{ dataDayCo2 |join(', ')  | raw }}]
-
-        var dataDayCo2x = inputCo2.map(function(item) {
-            return item.x});
-
-        var dataDayCo2y = inputCo2.map(function(item) {
-            return item.y});
-
 
         function showChartData(type){
 
@@ -372,14 +387,7 @@
             }
         }
 
-
-
     </script>
-
-
-
-
-
 
 
 {% endblock %}

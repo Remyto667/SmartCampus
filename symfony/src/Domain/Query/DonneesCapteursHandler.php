@@ -97,10 +97,18 @@ class DonneesCapteursHandler
         return $data;
     }
 
+<<<<<<< symfony/src/Domain/Query/DonneesCapteursHandler.php
+    public function handleInterval(DonneesCapteursQuery $requete,$date1,$date2){
+        $data = $this->donneesCapteurs->getDonneesIntervalGraph($requete->getTag(),$date1,$date2);
+        return $data;
+    }
+
+
     /**
      * @return array<mixed>
      */
     public function handleNbAlert(DonneesCapteursQuery $requete,string $date1,string $date2):array
+>>>>>>> symfony/src/Domain/Query/DonneesCapteursHandler.php
     {
         $tempArray = array() ;
         $this->donneesCapteurs->setDonneesPourInterval($tempArray);
