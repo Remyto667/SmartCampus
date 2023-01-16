@@ -13,9 +13,7 @@
             text-align: center;
             margin-left: 180px;
         }
-        h1 {
-            margin-top: 100px;
-        }
+
         h2 {
             margin-top: 30px;
             font-size: 20px;
@@ -134,7 +132,6 @@
         <h1>Choisir une salle</h1>
         <h2>Pour voir la température, le CO2 et l'humidité actuel</h2>
         <br>
-        <br>
         <div class="content">
             <!-- For each floor, we display each room -->
             {% for floor in allFloor | reverse %}
@@ -165,7 +162,6 @@
                 <br>
                 <br>
             {% endfor %}
-            <br>
 
         </div>
 
