@@ -93,6 +93,13 @@ class DonneesCapteurs
                 }
             }
         }
+        else
+        {
+            $this->donneesPourSalle["T"] = (object)array('valeur' => 'NULL', 'dateCapture' => 'NULL');
+            $this->donneesPourSalle["H"] = (object)array('valeur' => 'NULL', 'dateCapture' => 'NULL'); ;
+            $this->donneesPourSalle["C"] = (object)array('valeur' => 'NULL', 'dateCapture' => 'NULL'); ;
+
+        }
         return $this->donneesPourSalle ;
     }
     /**

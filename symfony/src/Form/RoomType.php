@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Room;
+use App\Entity\Type;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -26,16 +28,13 @@ class RoomType extends AbstractType
                 ]
             ])
             ->add('floor')
-            ->add('type', ChoiceType::class, [
+            ->add('type', EntityType::class, array(
+                // looks for choices from this entity
+                'class' => Type::class,
                 'label' => 'Type',
-                'choices' => [
-                    'Bureau' => 0,
-                    'Salle de classe' => 1,
-                    'Serveur ' => 2,
-                    'Secrétariat' => 3,
-                    'Autres' => 4
-                ]
-            ])
+                // uses the User.username property as the visible option string
+                'choice_label' => 'name',
+            ))
         ;
     }
 
