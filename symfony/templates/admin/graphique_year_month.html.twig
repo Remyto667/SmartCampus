@@ -109,7 +109,9 @@
                     </div>
                 </div>
 
-                <a class="btn btn-primary blue" onclick="showSeuil()">Seuil</a>
+                <a class="btn btn-primary blue" onclick="showSeuilMax()">Seuil Max</a>
+
+                <a class="btn btn-primary blue" onclick="showSeuilMin()">Seuil Min</a>
 
             </div>
         </div>
@@ -147,6 +149,10 @@
         var ctxTemp = document.getElementById('ChartTemp').getContext('2d');
 
         var labelsMonth = [];
+        const dataSeuil = [];
+        const labelSeuil = "Seuil ";
+        let seuilMin = true;
+        let seuilMax = true;
 
         for(let i=1; i<= {{ nb_jours }};i++){
 
@@ -160,23 +166,34 @@
                 label: 'Temperature du mois ' + {{mois_choisi}} + ' de l\'année ' + {{annee_choisi}},
                 data: {{moyMonthTemp}},
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
+                    'rgba(229, 13, 236, 0.5)',
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
+
                 ],
                 borderWidth: 1
-            }]
+            },
+                {
+                    label: labelSeuil,
+                    data: dataSeuil,
+                    fill:false,
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                ],
+                borderWidth: 1,
+                pointRadius :0
+            },
+                {
+                    label: labelSeuil,
+                    data: dataSeuil,
+                    fill:true,
+                    borderColor: [
+                        'rgb(75, 192, 192)',
+                    ],
+                    borderWidth: 1,
+                    pointRadius :0
+                }]
         };
 
         // Options du graphique
@@ -217,23 +234,33 @@
                 label: 'Humidite du mois ' + {{mois_choisi}} + ' de l\'année ' + {{annee_choisi}},
                 data: {{ moyMonthHum }},
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
+                    'rgba(229, 13, 236, 0.5)',
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
                 ],
                 borderWidth: 1
-            }]
+            },
+                {
+                    label:labelSeuil,
+                    data: dataSeuil,
+                    fill:false,
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                    ],
+                    borderWidth: 1,
+                    pointRadius :0
+                },
+                {
+                    label: labelSeuil,
+                    data: dataSeuil,
+                    fill:true,
+                    borderColor: [
+                        'rgb(75, 192, 192)',
+                    ],
+                    borderWidth: 1,
+                    pointRadius :0
+                }]
         };
 
         // Options du graphique
@@ -255,27 +282,37 @@
         // Données du graphique
         var dataCo2 = {
             labels: labelsMonth,
-            datasets: [{
+            datasets: [ {
                 label: 'Co2 du mois ' + {{mois_choisi}} + ' de l\'année ' + {{annee_choisi}},
                 data: {{ moyMonthCo2 }},
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
+                    'rgba(229, 13, 236, 0.5)',
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
                 ],
-                borderWidth: 1
-            }]
+                borderWidth: 1,
+            },
+                {
+                    label:labelSeuil,
+                    data: dataSeuil,
+                    fill:false,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 1)',
+                    ],
+                    borderWidth: 1,
+                    pointRadius :0
+                },
+                {
+                    label: labelSeuil,
+                    data: dataSeuil,
+                    fill:true,
+                    borderColor: [
+                        'rgb(75, 192, 192)',
+                    ],
+                    borderWidth: 1,
+                    pointRadius :0
+                }]
         };
 
         // Options du graphique
@@ -310,8 +347,7 @@
             options: optionsTemp
         });
 
-        let seuilAnnee = false;
-        let seuilMois = false;
+
 
         function showChartData(type){
 
@@ -328,7 +364,7 @@
 
             var seuilTemp = [];
 
-            for(let i=1;i< 32;i++){
+            for(let i=1;i<= {{ nb_jours }};i++){
 
                 seuilTemp.push(21);
             }
@@ -350,8 +386,7 @@
                 myChartCo2.data.labels = anneeLabels;
                 myChartCo2.data.datasets[0].label = 'Co2 de l\'année ' + {{ annee_choisi}}
                 myChartCo2.update();
-                seuilAnnee=true;
-                seuilMois=false;
+
             }
 
             if(type === 'mois'){
@@ -370,46 +405,119 @@
                 myChartCo2.data.labels = moisLabels;
                 myChartCo2.data.datasets[0].label = 'Co2 du mois ' + {{mois_choisi}} + ' de l\'année ' + {{annee_choisi}}
                 myChartCo2.update();
-                seuilAnnee=false;
-                seuilMois=true;
-
-
-
 
             }
-
 
         }
 
-        function showSeuil(){
+        function showSeuilMax(){
 
             var seuilTemp = [];
+            var seuilHum = [];
+            var seuilCo2 = [];
 
-            for(let i=1;i< 32;i++){
+            for(let i=1;i< {{ nb_jours+1 }};i++){
 
-                seuilTemp.push(21);
+                seuilTemp.push({{ tempMax }});
+                seuilHum.push({{ humMax }});
+                seuilCo2.push({{ co2Max }});
             }
 
-            if(seuilAnnee){
-
-            }
-            if(seuilMois){
+            if(seuilMax){
 
                 myChartTemp.data.datasets[1].data = seuilTemp;
                 myChartTemp.data.labels = labelsMonth;
+                myChartTemp.data.datasets[1].label = "Seuil de Température maximum 21°C";
                 myChartTemp.update();
 
-                /*
                 myChartHum.data.datasets[1].data = seuilHum;
-                myChartHum.data.labels = moisLabels;
-                myChartHum.data.datasets[1].label = 'Humidite mois actuel '
+                myChartHum.data.labels = labelsMonth;
+                myChartHum.data.datasets[1].label="Seuil d'Humidité maximum 60%";
                 myChartHum.update();
 
                 myChartCo2.data.datasets[1].data = seuilCo2;
-                myChartCo2.data.labels = moisLabels;
-                myChartCo2.data.datasets[1].label = 'Co2 mois actuel'
+                myChartCo2.data.labels = labelsMonth;
+                myChartCo2.data.datasets[1].label="Seuil de Co2 maximum 800 ppm";
                 myChartCo2.update();
-                */
+
+                seuilMax=false;
+
+            }
+
+            else{
+
+                myChartTemp.data.datasets[1].data = dataSeuil;
+                myChartTemp.data.labels = labelsMonth;
+                myChartTemp.data.datasets[1].label = labelSeuil;
+                myChartTemp.update();
+
+                myChartHum.data.datasets[1].data = dataSeuil;
+                myChartHum.data.labels = labelsMonth;
+                myChartHum.data.datasets[1].label=labelSeuil;
+                myChartHum.update();
+
+                myChartCo2.data.datasets[1].data = dataSeuil;
+                myChartCo2.data.labels = labelsMonth;
+                myChartCo2.data.datasets[1].label =labelSeuil;
+                myChartCo2.update();
+
+                seuilMax=true;
+
+            }
+        }
+
+        function showSeuilMin(){
+
+            var seuilTemp = [];
+            var seuilHum = [];
+            var seuilCo2 = [];
+
+            for(let i=1;i< {{ nb_jours+1 }};i++){
+
+                seuilTemp.push({{ tempMin }});
+                seuilHum.push({{ humMin }});
+                seuilCo2.push({{ co2Min }});
+            }
+
+            if(seuilMin){
+
+                myChartTemp.data.datasets[2].data = seuilTemp;
+                myChartTemp.data.labels = labelsMonth;
+                myChartTemp.data.datasets[2].label = "Seuil de Température minimum 19°C";
+                myChartTemp.update();
+
+                myChartHum.data.datasets[2].data = seuilHum;
+                myChartHum.data.labels = labelsMonth;
+                myChartHum.data.datasets[2].label="Seuil d'Humidité minimum 40%";
+                myChartHum.update();
+
+                myChartCo2.data.datasets[2].data = seuilCo2;
+                myChartCo2.data.labels = labelsMonth;
+                myChartCo2.data.datasets[2].label ="Seuil de Co2 minimum 400 ppm";
+                myChartCo2.update();
+
+                seuilMin=false;
+
+            }
+
+            else{
+
+                myChartTemp.data.datasets[2].data = dataSeuil;
+                myChartTemp.data.labels = labelsMonth;
+                myChartTemp.data.datasets[2].label = labelSeuil;
+                myChartTemp.update();
+
+                myChartHum.data.datasets[2].data = dataSeuil;
+                myChartHum.data.labels = labelsMonth;
+                myChartHum.data.datasets[2].label=labelSeuil;
+                myChartHum.update();
+
+                myChartCo2.data.datasets[2].data = dataSeuil;
+                myChartCo2.data.labels = labelsMonth;
+                myChartCo2.data.datasets[2].label =labelSeuil;
+                myChartCo2.update();
+
+                seuilMin=true;
 
             }
         }
