@@ -55,6 +55,9 @@ class AdminController extends AbstractController
         $repository = $entityManager->getRepository('App\Entity\System');
         $allSystem = $repository->findAll();
 
+        $repository = $entityManager->getRepository('App\Entity\Sensor');
+        $allSensor = $repository->findAll();
+
         return $this->render('admin/profil.html.twig', [
             'countRoom' => sizeof($allRoom) - 1, //because we don't want to count the stock
             'countSystem' => sizeof($allSystem),
@@ -450,6 +453,8 @@ class AdminController extends AbstractController
             'dataDayTemp'=>$dataDayTemp,
             'dataDayHum' =>$dataDayHum,
             'dataDayCo2' =>$dataDayCo2,
+            'allRoom' => $allRoom,
+            'allFloor' => $repository->findAllFloor(),
             'year' =>$year=date("Y"),
 
 
@@ -533,6 +538,8 @@ class AdminController extends AbstractController
             'year' =>$year=date("Y"),
             'month' => 1,
             'annee_choisi' => $annee,
+            'allRoom' => $allRoom,
+            'allFloor' => $repository->findAllFloor(),
 
         ]);
     }
@@ -620,6 +627,22 @@ class AdminController extends AbstractController
             $this->get('session')->set('moyYearHum', $moyYearHum);              // Utile pour récupérer la moyenne de l'année dans la route lié aux jours
             $this->get('session')->set('moyYearCo2', $moyYearCo2);
 
+        return $this->render('admin/graphique_year_month.html.twig', [
+            'room' => $room,
+            'moyMonthTemp'=>$moyMonthTemp,
+            'moyMonthHum' =>$moyMonthHum,
+            'moyMonthCo2' =>$moyMonthCo2,
+            'moyYearTemp' =>$moyYearTemp,
+            'moyYearHum' =>$moyYearHum,
+            'moyYearCo2' =>$moyYearCo2,
+            'allRoom' => $allRoom,
+            'allFloor' => $repository->findAllFloor(),
+            'year' =>$year=date("Y"),
+            'annee_choisi' => $annee,
+            'mois_choisi' => $month,
+             'nb_jours'=>date('t', strtotime($annee . '-' . $month . '-01')),
+            'nb_jours_valide'=>date('t', strtotime($annee . '-' . $month . '-01'))-date("j"),
+            'mois'=>date("m"),
 
             return $this->render('admin/graphique_year_month.html.twig', [
                 'room' => $room,
@@ -707,38 +730,27 @@ class AdminController extends AbstractController
             $moyMonthHum = json_encode($statHum->PopulateDayMoy());
 
 
-            /*      -------  Recupérations Co2    ---------    */
-
-            foreach ($donnees["C"] as $co2) {
-
-                if ($co2['localisation'] == $room->getName()) {
-                    $statCo2->PushToArrayDateDay($statCo2->transformDay($co2['dateCapture']), doubleval($co2['valeur']));
-                    $statCo2->PushToArrayDateMonth($statCo2->transformMonth($co2['dateCapture']), doubleval($co2['valeur']));
-                }
-            }
-
-            $dataDayCo2 = $statCo2->PopulateDayAsLabel($day);       // Co2
-            $moyMonthCo2 = json_encode($statCo2->PopulateDayMoy());
-
-            return $this->render('admin/graphique_year_month_day.html.twig', [
-                'room' => $room,
-                'year' => date("Y"),
-                'dataDayTemp' => $dataDayTemp,
-                'dataDayHum' => $dataDayHum,
-                'dataDayCo2' => $dataDayCo2,
-                'moyMonthTemp' => $moyMonthTemp,
-                'moyMonthHum' => $moyMonthHum,
-                'moyMonthCo2' => $moyMonthCo2,
-                'moyYearTemp' => $this->get('session')->get('moyYearTemp'),
-                'moyYearHum' => $this->get('session')->get('moyYearHum'),
-                'moyYearCo2' => $this->get('session')->get('moyYearCo2'),
-                'annee_choisi' => $annee,
-                'mois_choisi' => $month,
-                'nb_jours' => $nb_jours,
-                'nb_jours_valide' => date('t', strtotime($annee . '-' . $month . '-01')) - date("j"),
-                'mois' => date("m"),
-            ]);
-        }
+        return $this->render('admin/graphique_year_month_day.html.twig', [
+            'room' => $room,
+            'day' => $day,
+            'year' =>date("Y"),
+            'dataDayTemp'=>$dataDayTemp,
+            'dataDayHum' =>$dataDayHum,
+            'dataDayCo2' =>$dataDayCo2,
+            'moyMonthTemp'=>$moyMonthTemp,
+            'moyMonthHum' =>$moyMonthHum,
+            'moyMonthCo2' =>$moyMonthCo2,
+            'moyYearTemp' =>$this->get('session')->get('moyYearTemp'),
+            'moyYearHum' =>$this->get('session')->get('moyYearHum'),
+            'moyYearCo2' =>$this->get('session')->get('moyYearCo2'),
+            'annee_choisi' => $annee,
+            'mois_choisi' => $month,
+            'allRoom' => $allRoom,
+            'allFloor' => $repository->findAllFloor(),
+            'nb_jours'=>date('t', strtotime($annee . '-' . $month . '-01')),
+            'nb_jours_valide'=>date('t', strtotime($annee . '-' . $month . '-01'))-date("j"),
+            'mois'=>date("m"),
+        ]);
     }
 
 

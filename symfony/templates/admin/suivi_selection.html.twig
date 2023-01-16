@@ -13,9 +13,6 @@
             text-align: center;
             margin-left: 180px;
         }
-        h1 {
-            margin-top: 100px;
-        }
         h2 {
             margin-top: 30px;
             font-size: 20px;
@@ -27,10 +24,10 @@
             align-items: center;
         }
 
-        .blue {
+        .green {
             color: #fff;
-            background-color: #00489a;
-            border-color: #00489a;
+            background-color: #75A307;
+            border-color: #75A307;
             text-decoration: none;
             display: inline-block;
             font-weight: 400;
@@ -114,10 +111,10 @@
             justify-content: space-around;
             margin-top: 50px;
         }
-        .legendBlue
+        .legendGreen
         {
-            border-bottom: 3px solid blue;
-            color: #00489a;
+            border-bottom: 3px solid #75A307;
+            color: #75A307;
 
         }
         .legendRed
@@ -129,6 +126,7 @@
 
     <div class="example-wrapper">
         <h1>Choisir une salle </h1>
+        <h2>Pour afficher son graphique</h2>
         <br>
         <br>
         <div class="content">
@@ -145,13 +143,10 @@
                         <!-- All the rooms corresponding to the floor are displayed, without taking into account the stock -->
                         {% if (room.isIsStock() != 1) and (room.floor == floor) %}
                             <div class="boxItem" onclick="window.location='/admin/donnees_salle_admin/{{ room.id }}';">
-                                {% if (room.isAlert == true) %}
-                                    <!-- Show the room in red if there are one or more alerts -->
-                                    <a class="btn red btn-danger" href="graphique/{{ room.id }}">{{ room.name }}</a>
-                                {% else %}
-                                    <!-- Show the room in blue if there are no alert -->
-                                    <a class="btn btn-primary blue" href="graphique/{{ room.id }}">{{ room.name }}</a>
-                                {% endif %}
+
+                                <!-- Show the room in blue if there are no alert -->
+                                <a class="btn btn-primary green" href="graphique/{{ room.id }}">{{ room.name }}</a>
+
                             </div>
 
                         {% endif %}
@@ -164,12 +159,6 @@
             <br>
 
         </div>
-
-        <div class="legend">
-            <p class="legendBlue">Salle sans problèmes</p>
-            <p class="legendRed">Salle avec Alerte(s)</p>
-        </div>
         <br>
-
     </div>
 {% endblock %}
