@@ -79,6 +79,7 @@
             border-radius: 8px;
             box-shadow: 2px 2px 5px grey;
             padding: 20px;
+            margin-bottom: 140px;
         }
         .box:hover{
             /*color: #014898;*/
@@ -194,45 +195,7 @@
                     <div class="C02Less donnee">{{ nbAlert["C"]["Less"] }} Alertes inférieure</div>
                 </div>
             </div>
-
-
-        </div>
-    </div>
-    <div class = "container">
-        <div class = "data-container">
-            <div class="description">
-                <div class="boxDesc bg-white">
-                    <div class="descriptionRoom">
-                        <br><br>
-                        <ul><a style="border-bottom: 2px solid #014898;">La salle {{ room.getName() }}:</a>
-                            <li> a une superficie de : {{ room.getRoomSize() }} m2</li>
-                            <li> possède {{ room.getWindowsNumber() }} fenêtres,</li>
-                            {% if room.getFloor()==1 %}
-                                <li> est située au {{ room.getFloor() }}er étage </li>
-                            {% else %}
-                                <li> est située au {{ room.getFloor() }}ème étage </li>
-                            {% endif %}
-
-                            <li> est orientée au {{ room.getOrientationString() }}</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="description">
-                <div class="boxDesc bg-white">
-                    <div class="textSensor">
-                        <ul>Des conseils vous seront donnés si :
-                            <li> < {{ room.getType().getTempMin() }} °C ou > {{ room.getType().getTempMax() }} °C </li>
-                            <li> < {{ room.getType().getHumMin() }} % ou > {{ room.getType().getHumMax() }}% d'humidité </li>
-                            <li> < {{ room.getType().getCo2Min() }} PPM </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div class ="justify"><a class="btn btn-primary" href="/admin/alerte_selection" role="button">Retour</a></div>
-
+            <br><br><br><br>
     </div>
 {% endblock %}
