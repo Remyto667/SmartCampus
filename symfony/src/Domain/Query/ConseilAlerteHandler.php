@@ -35,7 +35,7 @@ class ConseilAlerteHandler
         return $temp_outside-273.15;
     }
 
-    /** 
+    /**
      * @return array<mixed>
      * @param array<mixed> $data
      */

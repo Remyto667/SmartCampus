@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'basewithnavbar.html.twig' %}
 
 {% block title %}Données d'une salle{% endblock %}
 
@@ -119,13 +119,10 @@
             }
         }
 
-        .jus{
+        .return_button{
 
-            justify-content: center;
+            text-align: center;
 
-        }
-        .item-ligne{
-            align-self: auto;
         }
 
 
@@ -226,7 +223,7 @@
             </div>
 
         </div>
-        <div class="bg-danger">
+        <div class="return_button">
             <a class="btn btn-primary justify-content-center" href="/admin/alerte_selection" role="button">Retour</a>
         </div>
 
