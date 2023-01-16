@@ -25,10 +25,10 @@
             align-items: center;
         }
 
-        .blue {
+        .green {
             color: #fff;
-            background-color: #00489a;
-            border-color: #00489a;
+            background-color: #75A307;
+            border-color: #75A307;
             text-decoration: none;
             display: inline-block;
             font-weight: 400;
@@ -115,10 +115,10 @@
             justify-content: space-around;
             margin-top: 50px;
         }
-        .legendBlue
+        .legendGreen
         {
-            border-bottom: 3px solid blue;
-            color: #00489a;
+            border-bottom: 3px solid #75A307;
+            color: #75A307;
 
         }
         .legendRed
@@ -151,7 +151,7 @@
                                     <a class="btn red btn-danger" href="/admin/donnees_salle_admin/{{ room.id }}">{{ room.name }}</a>
                                 {% else %}
                                     <!-- Show the room in blue if there are no alert -->
-                                    <a class="btn btn-primary blue" href="/admin/donnees_salle_admin/{{ room.id }}">{{ room.name }}</a>
+                                    <a class="btn btn-primary green" href="/admin/donnees_salle_admin/{{ room.id }}">{{ room.name }}</a>
                                 {% endif %}
                             </div>
 
@@ -166,7 +166,7 @@
         </div>
 
         <div class="legend">
-            <p class="legendBlue">Salle sans problèmes</p>
+            <p class="legendGreen">Salle sans problèmes</p>
             <p class="legendRed">Salle avec Alerte(s)</p>
         </div>
         <br>

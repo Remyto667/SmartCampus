@@ -1,4 +1,4 @@
-                                                                                                   {% extends 'basewithnavbar.html.twig' %}
+{% extends 'basewithnavbar.html.twig' %}
 
 {% block title %}Données d'une salle{% endblock %}
 
@@ -120,6 +120,11 @@
             }
         }
 
+        .return_button{
+
+            text-align: center;
+
+        }
 
 
         {% if nbAlert ["T"]["More"] >200 %}
@@ -195,7 +200,13 @@
                     <div class="C02Less donnee">{{ nbAlert["C"]["Less"] }} Alertes inférieure</div>
                 </div>
             </div>
-        <div class ="justify"><a class="btn btn-primary" href="/admin/alerte_selection" role="button">Retour</a></div>
-            <br><br><br><br>
+
+        </div>
+        <div class="return_button">
+            <a class="btn btn-primary justify-content-center" href="/admin/alerte_selection" role="button">Retour</a>
+        </div>
+
     </div>
+
+
 {% endblock %}

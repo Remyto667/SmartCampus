@@ -7,19 +7,12 @@
             background-color: #f7f9fa;
         }
 
+        .container { text-align: center; }
+
         h1{
             font-family: sans-serif;
             font-size: 40px;
             margin: 40px;
-        }
-
-        .graph{
-            display: flex;
-            flex-direction:column;
-            justify-content: center ;
-            align-items:center ;
-            height: 500px;
-            width :1000px
         }
 
         .btGraph
@@ -33,25 +26,22 @@
             color: #fff;
             background-color: #00489a;
             border-color: #00489a;
-            text-decoration: none;
-            display: inline-block;
-            font-weight: 400;
-            text-align: center;
-            white-space: nowrap;
-            vertical-align: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            padding: 0.375rem 0.75rem;
-            font-size: 1rem;
-            line-height: 1.5;
-            border-radius: 0.25rem;
-            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+
         }
 
         .marginbtn{
             margin-left: 15px;
+        }
+        .line{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            column-gap: 30px;
+            padding-top: 70px;
+        }
+
+        .item-line{
+            align-self: auto;
         }
 
     </style>
@@ -60,16 +50,17 @@
         <div class="graph" id="canvasWrapper" style=" ">
 
             <h1>{{ room.getName() }}</h1>
+            <h2>Données de l'année {{annee_choisi}}</h2>
 
-            <canvas id="ChartHum" width="2000" height="200"></canvas>
-            <canvas id="ChartCo2" width="2000" height="200"></canvas>
-            <canvas id="ChartTemp" width="2000" height="200"></canvas>
+            <canvas id="ChartHum" width="3000" height="500"></canvas>
+            <canvas id="ChartCo2" width="3000" height="500"></canvas>
+            <canvas id="ChartTemp" width="3000" height="500"></canvas>
 
 
             <div class="btGraph">
 
                 <div class="btn-group">
-                    <a class="btn btn-primary blue" onclick="showChartData('annee')">Année</a>
+                    <a class="btn btn-primary blue marginbtn" onclick="showChartData('annee')">Année</a>
 
                     <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     </button>
@@ -82,7 +73,7 @@
                 </div>
 
                 <div class="btn-group">
-                    <a class="btn btn-primary blue" onclick="showChartData('mois')">Mois</a>
+                    <a class="btn btn-primary blue marginbtn" onclick="showChartData('mois')">Mois</a>
 
                     <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     </button>
@@ -95,19 +86,36 @@
 
 
                 <div class="btn-group">
-                <a class="btn btn-primary blue" onclick="showChartData('jour')">Jour</a>
+                <a class="btn btn-primary blue marginbtn" onclick="showChartData('jour')">Jour</a>
                     <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     </button>
                     <div class="dropdown-menu">
 
                     </div>
                 </div>
-
-
-
             </div>
         </div>
-
+        <div class="line">
+            <!-- Access to data from other rooms quickly, for each floor -->
+            {% for floor in allFloor %}
+                <div class="item-line">
+                    {% if floor=="0" %}
+                        <p style="margin-top: 20px;"> Rez-de-chaussée : </p>
+                    {% else %}
+                        <p style="margin-top: 20px;"> Etage {{ floor }} : </p>
+                    {% endif %}
+                    {% for room in allRoom %}
+                        {% if (room.isIsStock() != 1) and (room.floor == floor) %}
+                            {% if (room.isAlert == true ) %}
+                                <a class="btn red btn-danger" href="{{ room.id }}" role="button">{{ room.name }}</a>
+                            {% else %}
+                                <a class="btn blue btn-primary" href="{{ room.id }}" role="button">{{ room.name }}</a>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
     </div>
 
 
@@ -124,7 +132,7 @@
         var dataTemp = {
             labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Aout','Septembre','Novembre','Octobre','Decembre'],
             datasets: [{
-                label: 'Temperature 12 derniere mois',
+                label: 'Temperature de l\'année ' + {{annee_choisi}},
                 data: {{moyYearTemp}},
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
@@ -181,7 +189,7 @@
         var dataHum = {
             labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Aout','Septembre','Novembre','Octobre','Decembre'],
             datasets: [{
-                label: 'Humidite 12 derniere mois',
+                label: 'Humidite de l\'année ' + {{ annee_choisi}},
                     data: {{ moyYearHum }},
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
@@ -223,7 +231,7 @@
         var dataCo2 = {
             labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Aout','Septembre','Novembre','Octobre','Decembre'],
             datasets: [{
-                label: 'Co2 12 derniere mois',
+                label: 'Co2 de l\'année ' + {{ annee_choisi}},
                 data: {{ moyYearCo2 }},
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
