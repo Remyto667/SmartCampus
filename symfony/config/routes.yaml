@@ -1,6 +1,8 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+#imports:
+#  - {resource :routes/redirect.yaml}
 
 app_logout:
   path: /logout

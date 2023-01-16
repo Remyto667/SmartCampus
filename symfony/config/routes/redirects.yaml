@@ -1,0 +1,8 @@
+
+#
+#redirect_route_name:
+#  path: /admin/suivi/graphique/{room}/{annee}/{month}
+#  requirements:
+#    month: '>12'
+#  redirectToPath: '/admin/suivi/graphique/{room}/{annee}/12'
+

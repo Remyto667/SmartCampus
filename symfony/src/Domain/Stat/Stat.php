@@ -101,7 +101,7 @@ class Stat
     }
 
 
-    public function PushToArrayDateMonth(int $date, float $valeur): void      // On insere dans un tableau les données du mois associé
+    public function PushToArrayDateMonth(string $date, float $valeur): void      // On insere dans un tableau les données du mois associé
     {
         switch ($date) {
             case 1:
@@ -346,12 +346,12 @@ class Stat
     }
 
     /**
-     * @param int $NumberDay
+     * @param string $NumberDay
      * @return array<int,string>
      */
 
 
-    public function PopulateDayAsLabel(int $NumberDay) : array{             // Creation d'un tableau composé de string pour les labels du graphique
+    public function PopulateDayAsLabel(string $NumberDay) : array{             // Creation d'un tableau composé de string pour les labels du graphique
 
         $this->allDay[$NumberDay][]=0;          // On insere un zero dans le cas ou il n'y aurait pas de données ce aujourd'hui
         $String= array();
