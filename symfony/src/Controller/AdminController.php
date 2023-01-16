@@ -51,16 +51,12 @@ class AdminController extends AbstractController
         $repository = $entityManager->getRepository('App\Entity\Room');
         $allRoom = $repository->findAll();
 
-        $repository = $entityManager->getRepository('App\Entity\Room');
+        $repository = $entityManager->getRepository('App\Entity\System');
         $allSystem = $repository->findAll();
 
-        $repository = $entityManager->getRepository('App\Entity\Room');
-        $allSensor = $repository->findAll();
-
         return $this->render('admin/profil.html.twig', [
-            'countRoom' => sizeof($allRoom) - 1,
+            'countRoom' => sizeof($allRoom) - 1, //because we don't want to count the stock
             'countSystem' => sizeof($allSystem),
-            'CountSensor' => sizeof($allSensor),
         ]);
     }
 
