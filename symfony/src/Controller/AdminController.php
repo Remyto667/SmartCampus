@@ -453,6 +453,8 @@ class AdminController extends AbstractController
             'dataDayTemp'=>$dataDayTemp,
             'dataDayHum' =>$dataDayHum,
             'dataDayCo2' =>$dataDayCo2,
+            'allRoom' => $allRoom,
+            'allFloor' => $repository->findAllFloor(),
             'year' =>$year=date("Y"),
 
 
@@ -535,6 +537,8 @@ class AdminController extends AbstractController
             'year' =>$year=date("Y"),
             'month' => 1,
             'annee_choisi' => $annee,
+            'allRoom' => $allRoom,
+            'allFloor' => $repository->findAllFloor(),
 
         ]);
     }
@@ -624,6 +628,8 @@ class AdminController extends AbstractController
             'moyYearTemp' =>$moyYearTemp,
             'moyYearHum' =>$moyYearHum,
             'moyYearCo2' =>$moyYearCo2,
+            'allRoom' => $allRoom,
+            'allFloor' => $repository->findAllFloor(),
             'year' =>$year=date("Y"),
             'annee_choisi' => $annee,
             'mois_choisi' => $month,
@@ -706,6 +712,7 @@ class AdminController extends AbstractController
 
         return $this->render('admin/graphique_year_month_day.html.twig', [
             'room' => $room,
+            'day' => $day,
             'year' =>date("Y"),
             'dataDayTemp'=>$dataDayTemp,
             'dataDayHum' =>$dataDayHum,
@@ -718,6 +725,8 @@ class AdminController extends AbstractController
             'moyYearCo2' =>$this->get('session')->get('moyYearCo2'),
             'annee_choisi' => $annee,
             'mois_choisi' => $month,
+            'allRoom' => $allRoom,
+            'allFloor' => $repository->findAllFloor(),
             'nb_jours'=>date('t', strtotime($annee . '-' . $month . '-01')),
             'nb_jours_valide'=>date('t', strtotime($annee . '-' . $month . '-01'))-date("j"),
             'mois'=>date("m"),
