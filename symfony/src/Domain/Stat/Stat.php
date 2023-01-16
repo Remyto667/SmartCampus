@@ -9,7 +9,7 @@ class Stat
     private $moyAllMonth = array();
 
     /**
-     * @var array<array<array<mixed>>>
+     * @var array<array<array>>
      */
     private $allDay = array();
 
@@ -76,7 +76,7 @@ class Stat
      * @return string|null
      */
 
-    public function transformMonth($dateCapture): ?string           // A partir d'une date donnée, on récupere le mois
+    public function transformMonth(string $dateCapture): ?string           // A partir d'une date donnée, on récupere le mois
     {
         $arrayDateCapture = explode(" ", $dateCapture);
 
@@ -88,7 +88,7 @@ class Stat
     /**
      * @return array<string>|null
      */
-    public function transformDay($dateCapture): ?array          // A partir d'une date donnée, on récupere le jour et l'heure
+    public function transformDay(string $dateCapture): ?array          // A partir d'une date donnée, on récupere le jour et l'heure
     {
         $arrayResult=array();
         $arrayDateCapture = explode(" ", $dateCapture);
@@ -235,11 +235,16 @@ class Stat
 
     }
 
+    /**
+     * @param array<float> $arrayMoy
+     * @return float
+     */
     public function PushToArrayDayMoy(array $arrayMoy):float              // Calcule la moyenne de toutes les données lors d'un mois et
                                                                     // affichage sous forme de mois (avec la moyenne de chaque jour)
     {
 
         $cpp=0;
+
 
         if($arrayMoy[0]==0){            // Si la premiere donnée est un 0 alors le tableau est vide
             $moy=0;
@@ -255,11 +260,21 @@ class Stat
             }
 
 
-            if (sizeof($arrayMoy) > 1) {
+            if (sizeof($arrayMoy) > 1) {        // Si il y a des donneés on calcule
 
                 //dd($arrayMoy[0]);
 
-                $moy = ($cpp / (sizeof($arrayMoy)-2));
+                if (sizeof($arrayMoy)-2==0){        // Si il y a qu'une seule valeur
+
+                    $moy = $cpp;
+
+                }
+
+                else{
+                    $moy = ($cpp / (sizeof($arrayMoy)-2));  // Sinon
+                }
+
+
             } else {
                 $moy = 0;
             }
@@ -312,7 +327,7 @@ class Stat
     }
 
     /**
-     * @return array[]
+     * @return array<float>
      */
 
     public function PopulateDayMoy() : array {
@@ -332,7 +347,7 @@ class Stat
 
     /**
      * @param int $NumberDay
-     * @return array<array<string,float>>
+     * @return array<int,string>
      */
 
 
