@@ -23,7 +23,7 @@ class AppFixtures extends Fixture
     {
 // Admin
         $admin = new User();
-        $hash='$2y$13$nsVjukfaWtKD7JXsy1AUS.Ye0xn.9Ofet/7Db9ucxHQsc6CmxTkuq'; //admin
+        $hash ='$2y$13$nsVjukfaWtKD7JXsy1AUS.Ye0xn.9Ofet/7Db9ucxHQsc6CmxTkuq'; //admin
         $admin->setPassword($hash);
         $admin->setUsername("admin");
         $admin->SetRoles(array('ROLE_ADMIN'));
@@ -31,14 +31,15 @@ class AppFixtures extends Fixture
 
 // Technicien
         $tech = new User();
-        $hash='$2y$13$57i6DzDxoYj7x9MU4JfurOzAhAawvQeJ1Hx0i8rwJA8f2Y1uulZ2C'; //tech $2y$13$Gru6EdJc//C7NqYiqzg2jezgJbfacqcYV0QComjCohtsLHYCDiaxu
+        $hash ='$2y$13$57i6DzDxoYj7x9MU4JfurOzAhAawvQeJ1Hx0i8rwJA8f2Y1uulZ2C';
+        //tech $2y$13$Gru6EdJc//C7NqYiqzg2jezgJbfacqcYV0QComjCohtsLHYCDiaxu
         $tech->setPassword($hash);
         $tech->setUsername("technicien");
         $tech->SetRoles(array('ROLE_TECH'));
         $manager->persist($tech);
 
 // type de salle pour les seuils
-        $type1= new Type();
+        $type1 = new Type();
         $type1->setName("Salle de classe");
         $type1->setTempMin(19);
         $type1->setTempMax(21);
@@ -48,7 +49,7 @@ class AppFixtures extends Fixture
         $type1->setHumMin(40);
         $manager->persist($type1);
 
-        $type2= new Type();
+        $type2 = new Type();
         $type2->setName("Serveur");
         $type2->setTempMin(16);
         $type2->setTempMax(19);
@@ -58,7 +59,7 @@ class AppFixtures extends Fixture
         $type2->setHumMin(40);
         $manager->persist($type2);
 
-        $type3= new Type();
+        $type3 = new Type();
         $type3->setName("Bureau");
         $type3->setTempMin(19);
         $type3->setTempMax(21);
@@ -68,7 +69,7 @@ class AppFixtures extends Fixture
         $type3->setHumMin(40);
         $manager->persist($type3);
 
-        $type4= new Type();
+        $type4 = new Type();
         $type4->setName("Secrétariat");
         $type4->setTempMin(19);
         $type4->setTempMax(21);
@@ -80,67 +81,57 @@ class AppFixtures extends Fixture
 
 
 // Les salles
-        $room1=new Room();
+        $room1 = new Room();
         $room1->setName("D207");
         $room1->setFloor(2);
         $room1->setOrientation("N");
         $room1->setRoomSize(45);
         $room1->setType($type1);
         $room1->setWindowsNumber(4);
-        $room1->setTempAlert(new Alert(false, ''));
-        $room1->setHumAlert(new Alert(false, ''));
-        $room1->setCo2Alert(new Alert(false, ''));
+        $room1->setIsAlert(false);
         $manager->persist($room1);
 
-        $room2=new Room();
+        $room2 = new Room();
         $room2->setName("D206");
         $room2->setFloor(2);
         $room2->setOrientation("N");
         $room2->setRoomSize(44);
         $room2->setType($type1);
         $room2->setWindowsNumber(5);
-        $room2->setTempAlert(new Alert(false, ''));
-        $room2->setHumAlert(new Alert(false, ''));
-        $room2->setCo2Alert(new Alert(false, ''));
+        $room2->setIsAlert(false);
         $manager->persist($room2);
 
-        $room3=new Room();
+        $room3 = new Room();
         $room3->setName("D304");
         $room3->setFloor(3);
         $room3->setOrientation("S");
         $room3->setRoomSize(50);
         $room3->setType($type1);
         $room3->setWindowsNumber(3);
-        $room3->setTempAlert(new Alert(false, ''));
-        $room3->setHumAlert(new Alert(false, ''));
-        $room3->setCo2Alert(new Alert(false, ''));
+        $room3->setIsAlert(false);
         $manager->persist($room3);
 
-        $room4=new Room();
+        $room4 = new Room();
         $room4->setName("D303");
         $room4->setFloor(3);
         $room4->setOrientation("N");
         $room4->setRoomSize(45);
         $room4->setType($type1);
         $room4->setWindowsNumber(4);
-        $room4->setTempAlert(new Alert(false, ''));
-        $room4->setHumAlert(new Alert(false, ''));
-        $room4->setCo2Alert(new Alert(false, ''));
+        $room4->setIsAlert(false);
         $manager->persist($room4);
 
-        $room5=new Room();
+        $room5 = new Room();
         $room5->setName("D002");
         $room5->setFloor(0);
         $room5->setOrientation("N");
         $room5->setRoomSize(53);
         $room5->setType($type1);
         $room5->setWindowsNumber(6);
-        $room5->setTempAlert(new Alert(false, ''));
-        $room5->setHumAlert(new Alert(false, ''));
-        $room5->setCo2Alert(new Alert(false, ''));
+        $room5->setIsAlert(false);
         $manager->persist($room5);
 
-        $room6=new Room();
+        $room6 = new Room();
         $room6->setName("Stock");
         $room6->setFloor(0);
         $room6->setOrientation("S");
@@ -148,218 +139,196 @@ class AppFixtures extends Fixture
         $room6->setType($type3);
         $room6->setWindowsNumber(2);
         $room6->setIsStock(true);
-        $room6->setTempAlert(new Alert(false, ''));
-        $room6->setHumAlert(new Alert(false, ''));
-        $room6->setCo2Alert(new Alert(false, ''));
+        $room6->setIsAlert(false);
         $manager->persist($room6);
 
-        $room7=new Room();
+        $room7 = new Room();
         $room7->setName("D205");
         $room7->setFloor(2);
         $room7->setOrientation("S");
         $room7->setRoomSize(45);
         $room7->setType($type1);
         $room7->setWindowsNumber(4);
-        $room7->setTempAlert(new Alert(false, ''));
-        $room7->setHumAlert(new Alert(false, ''));
-        $room7->setCo2Alert(new Alert(false, ''));
+        $room7->setIsAlert(false);
         $manager->persist($room7);
 
-        $room8=new Room();
+        $room8 = new Room();
         $room8->setName("D204");
         $room8->setFloor(2);
         $room8->setOrientation("N");
         $room8->setRoomSize(45);
         $room8->setType($type1);
         $room8->setWindowsNumber(4);
-        $room8->setTempAlert(new Alert(false, ''));
-        $room8->setHumAlert(new Alert(false, ''));
-        $room8->setCo2Alert(new Alert(false, ''));
+        $room8->setIsAlert(false);
         $manager->persist($room8);
 
-        $room9=new Room();
+        $room9 = new Room();
         $room9->setName("D203");
         $room9->setFloor(2);
         $room9->setOrientation("S");
         $room9->setRoomSize(55);
         $room9->setType($type2);
         $room9->setWindowsNumber(4);
-        $room9->setTempAlert(new Alert(false, ''));
-        $room9->setHumAlert(new Alert(false, ''));
-        $room9->setCo2Alert(new Alert(false, ''));
+        $room9->setIsAlert(false);
         $manager->persist($room9);
 
-        $room10=new Room();
+        $room10 = new Room();
         $room10->setName("C101");
         $room10->setFloor(1);
         $room10->setOrientation("S");
         $room10->setRoomSize(55);
         $room10->setType($type3);
         $room10->setWindowsNumber(5);
-        $room10->setTempAlert(new Alert(false, ''));
-        $room10->setHumAlert(new Alert(false, ''));
-        $room10->setCo2Alert(new Alert(false, ''));
+        $room10->setIsAlert(false);
         $manager->persist($room10);
 
-        $room11=new Room();
+        $room11 = new Room();
         $room11->setName("C109");
         $room11->setFloor(1);
         $room11->setOrientation("S");
         $room11->setRoomSize(55);
         $room11->setType($type3);
         $room11->setWindowsNumber(5);
-        $room11->setTempAlert(new Alert(false, ''));
-        $room11->setHumAlert(new Alert(false, ''));
-        $room11->setCo2Alert(new Alert(false, ''));
+        $room11->setIsAlert(false);
         $manager->persist($room11);
 
-        $room12=new Room();
+        $room12 = new Room();
         $room12->setName("Secrétariat");
         $room12->setFloor(1);
         $room12->setOrientation("N");
         $room12->setRoomSize(40);
         $room12->setType($type4);
         $room12->setWindowsNumber(2);
-        $room12->setTempAlert(new Alert(false, ''));
-        $room12->setHumAlert(new Alert(false, ''));
-        $room12->setCo2Alert(new Alert(false, ''));
+        $room12->setIsAlert(false);
         $manager->persist($room12);
 
-        $room13=new Room();
+        $room13 = new Room();
         $room13->setName("D001");
         $room13->setFloor(0);
         $room13->setOrientation("N");
         $room13->setRoomSize(60);
         $room13->setType($type1);
         $room13->setWindowsNumber(5);
-        $room13->setTempAlert(new Alert(false, ''));
-        $room13->setHumAlert(new Alert(false, ''));
-        $room13->setCo2Alert(new Alert(false, ''));
+        $room13->setIsAlert(false);
         $manager->persist($room13);
 
-        $room14=new Room();
+        $room14 = new Room();
         $room14->setName("D004");
         $room14->setFloor(0);
         $room14->setOrientation("S");
         $room14->setRoomSize(60);
         $room14->setType($type1);
         $room14->setWindowsNumber(5);
-        $room14->setTempAlert(new Alert(false, ''));
-        $room14->setHumAlert(new Alert(false, ''));
-        $room14->setCo2Alert(new Alert(false, ''));
+        $room14->setIsAlert(false);
         $manager->persist($room14);
 
-        $room15=new Room();
+        $room15 = new Room();
         $room15->setName("C003");
         $room15->setFloor(0);
         $room15->setOrientation("N");
         $room15->setRoomSize(60);
         $room15->setType($type1);
         $room15->setWindowsNumber(5);
-        $room15->setTempAlert(new Alert(false, ''));
-        $room15->setHumAlert(new Alert(false, ''));
-        $room15->setCo2Alert(new Alert(false, ''));
+        $room15->setIsAlert(false);
         $manager->persist($room15);
 
-        $room16=new Room();
+        $room16 = new Room();
         $room16->setName("C007");
         $room16->setFloor(0);
         $room16->setOrientation("N");
         $room16->setRoomSize(60);
         $room16->setType($type1);
         $room16->setWindowsNumber(5);
-        $room16->setTempAlert(new Alert(false, ''));
-        $room16->setHumAlert(new Alert(false, ''));
-        $room16->setCo2Alert(new Alert(false, ''));
+        $room16->setIsAlert(false);
         $manager->persist($room16);
 
 //Les systemes
 
-        $system1=new System();
+        $system1 = new System();
         $system1->setName("systeme 1");
         $system1->setRoom($room1);
         $system1->setTag(3);
         $manager->persist($system1);
 
-        $system2=new System();
+        $system2 = new System();
         $system2->setName("systeme 2");
         $system2->setRoom($room2);
         $system2->setTag(2);
         $manager->persist($system2);
 
-        $system3=new System();
+        $system3 = new System();
         $system3->setName("systeme 3");
         $system3->setRoom($room3);
         $system3->setTag(7);
         $manager->persist($system3);
 
-        $system4=new System();
+        $system4 = new System();
         $system4->setName("systeme 4");
         $system4->setRoom($room4);
         $system4->setTag(6);
         $manager->persist($system4);
 
-        $system5=new System();
+        $system5 = new System();
         $system5->setName("systeme 5");
         $system5->setRoom($room5);
         $system5->setTag(12);
         $manager->persist($system5);
 
-        $system6=new System();
+        $system6 = new System();
         $system6->setName("systeme 6");
         $system6->setRoom($room10);
         $system6->setTag(8);
         $manager->persist($system6);
 
-        $system7=new System();
+        $system7 = new System();
         $system7->setName("systeme 7");
         $system7->setRoom($room7);
         $system7->setTag(1);
         $manager->persist($system7);
 
-        $system8=new System();
+        $system8 = new System();
         $system8->setName("systeme 8");
         $system8->setRoom($room8);
         $system8->setTag(4);
         $manager->persist($system8);
 
-        $system9=new System();
+        $system9 = new System();
         $system9->setName("systeme 9");
         $system9->setRoom($room9);
         $system9->setTag(5);
         $manager->persist($system9);
 
-        $system10=new System();
+        $system10 = new System();
         $system10->setName("systeme 10");
         $system10->setRoom($room11);
         $system10->setTag(9);
         $manager->persist($system10);
 
-        $system11=new System();
+        $system11 = new System();
         $system11->setName("systeme 11");
         $system11->setRoom($room12);
         $system11->setTag(10);
         $manager->persist($system11);
 
-        $system12=new System();
+        $system12 = new System();
         $system12->setName("systeme 12");
         $system12->setRoom($room13);
         $system12->setTag(11);
         $manager->persist($system12);
 
-        $system13=new System();
+        $system13 = new System();
         $system13->setName("systeme 13");
         $system13->setRoom($room14);
         $system13->setTag(13);
         $manager->persist($system13);
 
-        $system14=new System();
+        $system14 = new System();
         $system14->setName("systeme 14");
         $system14->setRoom($room15);
         $system14->setTag(14);
         $manager->persist($system14);
 
-        $system15=new System();
+        $system15 = new System();
         $system15->setName("systeme 15");
         $system15->setRoom($room16);
         $system15->setTag(15);
@@ -369,21 +338,21 @@ class AppFixtures extends Fixture
 
 //      -----------System 1--------------------------------
 
-        $sensor1=new Sensor();
+        $sensor1 = new Sensor();
         $sensor1->setName("capteur 1");
         $sensor1->setState("fonctionnel");
         $sensor1->setSystems($system1);
         $sensor1->setType("temperature");
         $manager->persist($sensor1);
 
-        $sensor2=new Sensor();
+        $sensor2 = new Sensor();
         $sensor2->setName("capteur 2");
         $sensor2->setState("fonctionnel");
         $sensor2->setSystems($system1);
         $sensor2->setType("humidite");
         $manager->persist($sensor2);
 
-        $sensor3=new Sensor();
+        $sensor3 = new Sensor();
         $sensor3->setName("capteur 3");
         $sensor3->setState("fonctionnel");
         $sensor3->setSystems($system1);
@@ -392,21 +361,21 @@ class AppFixtures extends Fixture
 
 //    --------- System 2-----------------------------------
 
-        $sensor4=new Sensor();
+        $sensor4 = new Sensor();
         $sensor4->setName("capteur 4");
         $sensor4->setState("fonctionnel");
         $sensor4->setSystems($system2);
         $sensor4->setType("temperature");
         $manager->persist($sensor4);
 
-        $sensor5=new Sensor();
+        $sensor5 = new Sensor();
         $sensor5->setName("capteur 5");
         $sensor5->setState("fonctionnel");
         $sensor5->setSystems($system2);
         $sensor5->setType("humidite");
         $manager->persist($sensor5);
 
-        $sensor6=new Sensor();
+        $sensor6 = new Sensor();
         $sensor6->setName("capteur 6");
         $sensor6->setState("fonctionnel");
         $sensor6->setSystems($system2);
@@ -415,21 +384,21 @@ class AppFixtures extends Fixture
 
 //    --------- System 3----------------------------------
 
-        $sensor7=new Sensor();
+        $sensor7 = new Sensor();
         $sensor7->setName("capteur 7");
         $sensor7->setState("fonctionnel");
         $sensor7->setSystems($system3);
         $sensor7->setType("temperature");
         $manager->persist($sensor7);
 
-        $sensor8=new Sensor();
+        $sensor8 = new Sensor();
         $sensor8->setName("capteur 8");
         $sensor8->setState("fonctionnel");
         $sensor8->setSystems($system3);
         $sensor8->setType("humidite");
         $manager->persist($sensor8);
 
-        $sensor9=new Sensor();
+        $sensor9 = new Sensor();
         $sensor9->setName("capteur 9");
         $sensor9->setState("fonctionnel");
         $sensor9->setSystems($system3);
@@ -438,21 +407,21 @@ class AppFixtures extends Fixture
 
 //    --------- System 4--------------------------------------
 
-        $sensor10=new Sensor();
+        $sensor10 = new Sensor();
         $sensor10->setName("capteur 10");
         $sensor10->setState("fonctionnel");
         $sensor10->setSystems($system4);
         $sensor10->setType("temperature");
         $manager->persist($sensor10);
 
-        $sensor11=new Sensor();
+        $sensor11 = new Sensor();
         $sensor11->setName("capteur 11");
         $sensor11->setState("fonctionnel");
         $sensor11->setSystems($system4);
         $sensor11->setType("humidite");
         $manager->persist($sensor11);
 
-        $sensor12=new Sensor();
+        $sensor12 = new Sensor();
         $sensor12->setName("capteur 12");
         $sensor12->setState("fonctionnel");
         $sensor12->setSystems($system4);
@@ -461,21 +430,21 @@ class AppFixtures extends Fixture
 
 //    --------- System 5--------------------------------------
 
-        $sensor13=new Sensor();
+        $sensor13 = new Sensor();
         $sensor13->setName("capteur 13");
         $sensor13->setState("fonctionnel");
         $sensor13->setSystems($system5);
         $sensor13->setType("temperature");
         $manager->persist($sensor13);
 
-        $sensor14=new Sensor();
+        $sensor14 = new Sensor();
         $sensor14->setName("capteur 14");
         $sensor14->setState("fonctionnel");
         $sensor14->setSystems($system5);
         $sensor14->setType("humidite    ");
         $manager->persist($sensor14);
 
-        $sensor15=new Sensor();
+        $sensor15 = new Sensor();
         $sensor15->setName("capteur 15");
         $sensor15->setState("fonctionnel");
         $sensor15->setSystems($system5);
@@ -483,14 +452,14 @@ class AppFixtures extends Fixture
         $manager->persist($sensor15);
         //    --------- System 6--------------------------------------
 
-        $sensor16=new Sensor();
+        $sensor16 = new Sensor();
         $sensor16->setName("capteur 16");
         $sensor16->setState("fonctionnel");
         $sensor16->setSystems($system6);
         $sensor16->setType("temperature");
         $manager->persist($sensor16);
 
-        $sensor17=new Sensor();
+        $sensor17 = new Sensor();
         $sensor17->setName("capteur 17");
         $sensor17->setState("fonctionnel");
         $sensor17->setSystems($system6);
@@ -499,21 +468,21 @@ class AppFixtures extends Fixture
 
 //    --------- System 7--------------------------------------
 
-        $sensor18=new Sensor();
+        $sensor18 = new Sensor();
         $sensor18->setName("capteur 18");
         $sensor18->setState("fonctionnel");
         $sensor18->setSystems($system7);
         $sensor18->setType("temperature");
         $manager->persist($sensor18);
 
-        $sensor19=new Sensor();
+        $sensor19 = new Sensor();
         $sensor19->setName("capteur 19");
         $sensor19->setState("fonctionnel");
         $sensor19->setSystems($system7);
         $sensor19->setType("humidite    ");
         $manager->persist($sensor19);
 
-        $sensor20=new Sensor();
+        $sensor20 = new Sensor();
         $sensor20->setName("capteur 20");
         $sensor20->setState("fonctionnel");
         $sensor20->setSystems($system7);
@@ -522,21 +491,21 @@ class AppFixtures extends Fixture
 
 //    --------- System 8--------------------------------------
 
-        $sensor21=new Sensor();
+        $sensor21 = new Sensor();
         $sensor21->setName("capteur 21");
         $sensor21->setState("fonctionnel");
         $sensor21->setSystems($system8);
         $sensor21->setType("temperature");
         $manager->persist($sensor21);
 
-        $sensor22=new Sensor();
+        $sensor22 = new Sensor();
         $sensor22->setName("capteur 22");
         $sensor22->setState("fonctionnel");
         $sensor22->setSystems($system8);
         $sensor22->setType("humidite    ");
         $manager->persist($sensor22);
 
-        $sensor23=new Sensor();
+        $sensor23 = new Sensor();
         $sensor23->setName("capteur 23");
         $sensor23->setState("fonctionnel");
         $sensor23->setSystems($system8);
@@ -545,21 +514,21 @@ class AppFixtures extends Fixture
 
 //    --------- System 9--------------------------------------
 
-        $sensor24=new Sensor();
+        $sensor24 = new Sensor();
         $sensor24->setName("capteur 24");
         $sensor24->setState("fonctionnel");
         $sensor24->setSystems($system9);
         $sensor24->setType("temperature");
         $manager->persist($sensor24);
 
-        $sensor25=new Sensor();
+        $sensor25 = new Sensor();
         $sensor25->setName("capteur 25");
         $sensor25->setState("fonctionnel");
         $sensor25->setSystems($system9);
         $sensor25->setType("humidite    ");
         $manager->persist($sensor25);
 
-        $sensor26=new Sensor();
+        $sensor26 = new Sensor();
         $sensor26->setName("capteur 26");
         $sensor26->setState("fonctionnel");
         $sensor26->setSystems($system9);
@@ -568,21 +537,21 @@ class AppFixtures extends Fixture
 
 //    --------- System 10--------------------------------------
 
-        $sensor27=new Sensor();
+        $sensor27 = new Sensor();
         $sensor27->setName("capteur 27");
         $sensor27->setState("fonctionnel");
         $sensor27->setSystems($system10);
         $sensor27->setType("temperature");
         $manager->persist($sensor27);
 
-        $sensor28=new Sensor();
+        $sensor28 = new Sensor();
         $sensor28->setName("capteur 28");
         $sensor28->setState("fonctionnel");
         $sensor28->setSystems($system10);
         $sensor28->setType("humidite    ");
         $manager->persist($sensor28);
 
-        $sensor29=new Sensor();
+        $sensor29 = new Sensor();
         $sensor29->setName("capteur 29");
         $sensor29->setState("fonctionnel");
         $sensor29->setSystems($system10);
@@ -591,21 +560,21 @@ class AppFixtures extends Fixture
 
 //    --------- System 11--------------------------------------
 
-        $sensor30=new Sensor();
+        $sensor30 = new Sensor();
         $sensor30->setName("capteur 30");
         $sensor30->setState("fonctionnel");
         $sensor30->setSystems($system11);
         $sensor30->setType("temperature");
         $manager->persist($sensor30);
 
-        $sensor31=new Sensor();
+        $sensor31 = new Sensor();
         $sensor31->setName("capteur 31");
         $sensor31->setState("fonctionnel");
         $sensor31->setSystems($system11);
         $sensor31->setType("humidite    ");
         $manager->persist($sensor31);
 
-        $sensor32=new Sensor();
+        $sensor32 = new Sensor();
         $sensor32->setName("capteur 32");
         $sensor32->setState("fonctionnel");
         $sensor32->setSystems($system11);
@@ -614,21 +583,21 @@ class AppFixtures extends Fixture
 
 //    --------- System 12--------------------------------------
 
-        $sensor33=new Sensor();
+        $sensor33 = new Sensor();
         $sensor33->setName("capteur 33");
         $sensor33->setState("fonctionnel");
         $sensor33->setSystems($system12);
         $sensor33->setType("temperature");
         $manager->persist($sensor33);
 
-        $sensor34=new Sensor();
+        $sensor34 = new Sensor();
         $sensor34->setName("capteur 34");
         $sensor34->setState("fonctionnel");
         $sensor34->setSystems($system12);
         $sensor34->setType("humidite    ");
         $manager->persist($sensor34);
 
-        $sensor35=new Sensor();
+        $sensor35 = new Sensor();
         $sensor35->setName("capteur 35");
         $sensor35->setState("fonctionnel");
         $sensor35->setSystems($system12);
@@ -637,21 +606,21 @@ class AppFixtures extends Fixture
 
 //    --------- System 13--------------------------------------
 
-        $sensor36=new Sensor();
+        $sensor36 = new Sensor();
         $sensor36->setName("capteur 36");
         $sensor36->setState("fonctionnel");
         $sensor36->setSystems($system13);
         $sensor36->setType("temperature");
         $manager->persist($sensor36);
 
-        $sensor37=new Sensor();
+        $sensor37 = new Sensor();
         $sensor37->setName("capteur 37");
         $sensor37->setState("fonctionnel");
         $sensor37->setSystems($system13);
         $sensor37->setType("humidite    ");
         $manager->persist($sensor37);
 
-        $sensor38=new Sensor();
+        $sensor38 = new Sensor();
         $sensor38->setName("capteur 38");
         $sensor38->setState("fonctionnel");
         $sensor38->setSystems($system13);
@@ -660,21 +629,21 @@ class AppFixtures extends Fixture
 
 //    --------- System 14--------------------------------------
 
-        $sensor39=new Sensor();
+        $sensor39 = new Sensor();
         $sensor39->setName("capteur 39");
         $sensor39->setState("fonctionnel");
         $sensor39->setSystems($system14);
         $sensor39->setType("temperature");
         $manager->persist($sensor39);
 
-        $sensor40=new Sensor();
+        $sensor40 = new Sensor();
         $sensor40->setName("capteur 40");
         $sensor40->setState("fonctionnel");
         $sensor40->setSystems($system14);
         $sensor40->setType("humidite    ");
         $manager->persist($sensor40);
 
-        $sensor41=new Sensor();
+        $sensor41 = new Sensor();
         $sensor41->setName("capteur 41");
         $sensor41->setState("fonctionnel");
         $sensor41->setSystems($system14);
@@ -683,21 +652,21 @@ class AppFixtures extends Fixture
 
 //    --------- System 15--------------------------------------
 
-        $sensor42=new Sensor();
+        $sensor42 = new Sensor();
         $sensor42->setName("capteur 42");
         $sensor42->setState("fonctionnel");
         $sensor42->setSystems($system15);
         $sensor42->setType("temperature");
         $manager->persist($sensor42);
 
-        $sensor43=new Sensor();
+        $sensor43 = new Sensor();
         $sensor43->setName("capteur 43");
         $sensor43->setState("fonctionnel");
         $sensor43->setSystems($system15);
         $sensor43->setType("humidite    ");
         $manager->persist($sensor43);
 
-        $sensor44=new Sensor();
+        $sensor44 = new Sensor();
         $sensor44->setName("capteur 44");
         $sensor44->setState("fonctionnel");
         $sensor44->setSystems($system15);
@@ -856,7 +825,8 @@ class AppFixtures extends Fixture
         $manager->persist($conseil12);
 
         $conseil13 = new Conseil();
-        $conseil13->setConseil("Fermer les fenêtres + chauffage et utiliser un humidificateur d'air, si vous n'en avez pas : aérer la pièce quelques minutes puis augmenter le chauffage");
+        $conseil13->setConseil("Fermer les fenêtres + chauffage et utiliser un humidificateur d'air, si vous 
+                                        n'en avez pas : aérer la pièce quelques minutes puis augmenter le chauffage");
         $conseil13->setTempAlerteSup(false);
         $conseil13->setTempAlerteInf(true);
         $conseil13->setHumAlerteSup(false);
@@ -880,7 +850,8 @@ class AppFixtures extends Fixture
         $manager->persist($conseil14);
 
         $conseil15 = new Conseil();
-        $conseil15->setConseil("Fermer les fenêtres + chauffage et utiliser un humidificateur d'air, si vous n'en avez pas : aérer la pièce quelques minutes puis augmenter le chauffage");
+        $conseil15->setConseil("Fermer les fenêtres + chauffage et utiliser un humidificateur d'air, si vous 
+                                        n'en avez pas : aérer la pièce quelques minutes puis augmenter le chauffage");
         $conseil15->setTempAlerteSup(false);
         $conseil15->setTempAlerteInf(true);
         $conseil15->setHumAlerteSup(false);
@@ -917,7 +888,9 @@ class AppFixtures extends Fixture
         $manager->persist($conseil17);
 
         $conseil18 = new Conseil();
-        $conseil18->setConseil("Fermer les fenêtres et augmenter le chauffage et utiliser un déshumidificateur d'air, si vous n'en avez pas : Aérer la pièce quelques minutes puis augmenter le chauffage");
+        $conseil18->setConseil("Fermer les fenêtres et augmenter le chauffage et utiliser un déshumidificateur 
+                                        d'air, si vous n'en avez pas : Aérer la pièce quelques minutes puis augmenter 
+                                        le chauffage");
         $conseil18->setTempAlerteSup(false);
         $conseil18->setTempAlerteInf(true);
         $conseil18->setHumAlerteSup(true);
@@ -943,7 +916,9 @@ class AppFixtures extends Fixture
 
 
         $conseil20 = new Conseil();
-        $conseil20->setConseil("Fermer les fenêtres et augmenter le chauffage et utiliser un déshumidificateur d'air, si vous n'en avez pas : Aérer la pièce quelques minutes puis augmenter le chauffage");
+        $conseil20->setConseil("Fermer les fenêtres et augmenter le chauffage et utiliser un déshumidificateur 
+                                        d'air, si vous n'en avez pas : Aérer la pièce quelques minutes puis augmenter 
+                                        le chauffage");
         $conseil20->setTempAlerteSup(false);
         $conseil20->setTempAlerteInf(true);
         $conseil20->setHumAlerteSup(true);
@@ -956,7 +931,8 @@ class AppFixtures extends Fixture
 
 
         $conseil21 = new Conseil();
-        $conseil21->setConseil("Fermer les fenêtres + chauffage et utiliser un humidificateur d'air, si vous n'en avez pas : aérer la pièce quelques minutes puis augmenter le chauffage");
+        $conseil21->setConseil("Fermer les fenêtres + chauffage et utiliser un humidificateur d'air, si vous 
+                                        n'en avez pas : aérer la pièce quelques minutes puis augmenter le chauffage");
         $conseil21->setTempAlerteSup(false);
         $conseil21->setTempAlerteInf(true);
         $conseil21->setHumAlerteSup(false);
@@ -1081,7 +1057,8 @@ class AppFixtures extends Fixture
         $manager->persist($conseil30);
 
         $conseil31 = new Conseil();
-        $conseil31->setConseil(" Fermer les fenêtres + chauffage et utiliser un humidificateur d'air, si vous n'en avez pas : aérer la pièce quelques minutes puis augmenter le chauffage");
+        $conseil31->setConseil(" Fermer les fenêtres + chauffage et utiliser un humidificateur d'air, si vous 
+                                        n'en avez pas : aérer la pièce quelques minutes puis augmenter le chauffage");
         $conseil31->setTempAlerteSup(false);
         $conseil31->setTempAlerteInf(true);
         $conseil31->setHumAlerteSup(false);
@@ -1105,7 +1082,9 @@ class AppFixtures extends Fixture
         $manager->persist($conseil32);
 
         $conseil33 = new Conseil();
-        $conseil33->setConseil("Fermer les fenêtres et augmenter le chauffage et utiliser un déshumidificateur d'air, si vous n'en avez pas : Aérer la pièce quelques minutes puis augmenter le chauffage");
+        $conseil33->setConseil("Fermer les fenêtres et augmenter le chauffage et utiliser un déshumidificateur 
+                                        d'air, si vous n'en avez pas : Aérer la pièce quelques minutes puis augmenter 
+                                        le chauffage");
         $conseil33->setTempAlerteSup(false);
         $conseil33->setTempAlerteInf(true);
         $conseil33->setHumAlerteSup(true);
@@ -1305,7 +1284,8 @@ class AppFixtures extends Fixture
         $manager->persist($conseil49);
 
         $conseil50 = new Conseil();
-        $conseil50->setConseil("Ouvrir les fenêtres la nuit, ouvrir les portes et fermez les volets, éteindre le chauffage");
+        $conseil50->setConseil("Ouvrir les fenêtres la nuit, ouvrir les portes et fermez les volets, éteindre 
+                                        le chauffage");
         $conseil50->setTempAlerteSup(true);
         $conseil50->setTempAlerteInf(false);
         $conseil50->setHumAlerteSup(false);
@@ -1330,7 +1310,8 @@ class AppFixtures extends Fixture
 
         //2inferieur 1 supérieur
         $conseil52 = new Conseil();
-        $conseil52->setConseil("Ouvrir les fenêtres la nuit, ouvrir les portes et fermez les volets, éteindre le chauffage");
+        $conseil52->setConseil("Ouvrir les fenêtres la nuit, ouvrir les portes et fermez les volets, éteindre 
+                                        le chauffage");
         $conseil52->setTempAlerteSup(true);
         $conseil52->setTempAlerteInf(false);
         $conseil52->setHumAlerteSup(false);
@@ -1493,7 +1474,8 @@ class AppFixtures extends Fixture
         $manager->persist($conseil64);
 
         $conseil65 = new Conseil();
-        $conseil65->setConseil("Ouvrir les fenêtres la nuit, ouvrir les portes et fermez les volets, éteindre le chauffage");
+        $conseil65->setConseil("Ouvrir les fenêtres la nuit, ouvrir les portes et fermez les volets, éteindre 
+                                        le chauffage");
         $conseil65->setTempAlerteSup(true);
         $conseil65->setTempAlerteInf(false);
         $conseil65->setHumAlerteSup(false);

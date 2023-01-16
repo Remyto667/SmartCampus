@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Domain\Stat;
 class Stat
 {
@@ -9,18 +8,18 @@ class Stat
     private $moyAllDay = array();
     private $allMonth = array();
 
-    private $dataJanvier= array();
-    private $dataFevrier= array();
-    private $dataMars= array();
-    private $dataAvril= array();
-    private $dataMai= array();
-    private $dataJuin= array();
-    private $dataJuillet= array();
-    private $dataAout= array();
-    private $dataSeptembre= array();
-    private $dataOctobre= array();
-    private $dataNovembre= array();
-    private $dataDecembre= array();
+    private $dataJanvier = array();
+    private $dataFevrier = array();
+    private $dataMars = array();
+    private $dataAvril = array();
+    private $dataMai = array();
+    private $dataJuin = array();
+    private $dataJuillet = array();
+    private $dataAout = array();
+    private $dataSeptembre = array();
+    private $dataOctobre = array();
+    private $dataNovembre = array();
+    private $dataDecembre = array();
 
 
 
@@ -37,60 +36,55 @@ class Stat
     {
         $arrayDateCapture = explode(" ", $dateCapture);
 
-        $arrayDate =  explode('-', $arrayDateCapture[0]);
+        $arrayDate = explode('-', $arrayDateCapture[0]);
 
-        $arrayResult[]=$arrayDate[2];
-        $arrayResult[]=$arrayDateCapture[1];
+        $arrayResult[] = $arrayDate[2];
+        $arrayResult[] = $arrayDateCapture[1];
 
         return $arrayResult;
-
     }
 
 
 
     public function PushToArrayDateMonth($date, $valeur): void      // On insere dans un tableau les données du mois associé
     {
+        switch ($date) {
+            case 1:
+                $this->dataJanvier[] = $valeur; break;
 
-        switch($date){
+            case 2:
+                $this->dataFevrier[] = $valeur; break;
 
-            case 1: $this->dataJanvier[] = $valeur;
-            break;
+            case 3:
+                $this->dataMars[] = $valeur; break;
 
-            case 2: $this->dataFevrier[] = $valeur;
-            break;
+            case 4:
+                $this->dataAvril[] = $valeur; break;
 
-            case 3: $this->dataMars[] = $valeur;
-            break;
+            case 5:
+                $this->dataMai[] = $valeur; break;
 
-            case 4: $this->dataAvril[] = $valeur;
-            break;
+            case 6:
+                $this->dataJuin[] = $valeur; break;
 
-            case 5: $this->dataMai[] = $valeur;
-            break;
+            case 7:
+                $this->dataJuillet[] = $valeur; break;
 
-            case 6: $this->dataJuin[] = $valeur;
-            break;
+            case 8:
+                $this->dataAout[] = $valeur; break;
 
-            case 7: $this->dataJuillet[] = $valeur;
-            break;
+            case 9:
+                $this->dataSeptembre[] = $valeur; break;
 
-            case 8: $this->dataAout[] = $valeur;
-            break;
+            case 10:
+                $this->dataOctobre[] = $valeur; break;
 
-            case 9: $this->dataSeptembre[] = $valeur;
-            break;
+            case 11:
+                $this->dataNovembre[] = $valeur; break;
 
-            case 10: $this->dataOctobre[] = $valeur;
-            break;
-
-            case 11: $this->dataNovembre[] = $valeur;
-            break;
-
-            case 12: $this->dataDecembre[] = $valeur;
-            break;
+            case 12:
+                $this->dataDecembre[] = $valeur; break;
         }
-
-        //dd($dataJanvier);
     }
 
     public function PushToArrayDateMonth2($date, $valeur): void            // On insere dans un tableau regroupant tous les jours d'un mois

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Repository\RoomRepository;
 use App\Repository\TypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

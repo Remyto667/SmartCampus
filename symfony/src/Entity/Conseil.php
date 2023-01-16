@@ -122,7 +122,7 @@ class Conseil
         return $this->co2_alerte_inf;
     }
 
-    public function getCo2AlerteInf(): ?bool
+    public function getCo2AlerteInf(): ?string
     {
         return (string)$this->co2_alerte_inf;
     }
@@ -151,7 +151,7 @@ class Conseil
         return $this->no_data;
     }
 
-    public function getNoData(): ?bool
+    public function getNoData(): ?string
     {
         return (string)$this->no_data;
     }

@@ -12,10 +12,12 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[ORM\Entity(repositoryClass: SystemRepository::class)]
 #[UniqueEntity(
     fields : 'tag',
-    message: 'Ce tag est déjà utilisé',)]
+    message: 'Ce tag est déjà utilisé',
+)]
 #[UniqueEntity(
     fields : 'name',
-    message: 'Ce nom est déjà utilisé',)]
+    message: 'Ce nom est déjà utilisé',
+)]
 class System
 {
     #[ORM\Id]

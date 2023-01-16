@@ -3,13 +3,16 @@
 
 {% block body %}
     <style>
+        /************** CSS **************/
+        /**** General characteristics ****/
         body{
             background-color: #f7f9fa;
         }
 
         .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
         .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-        /* BOUTONS */
+
+        /**** Buttons ****/
         .btn {
             color: #fff;
             background-color: #00489a;
@@ -33,6 +36,8 @@
         .btn:not(:disabled):not(.disabled) {
             cursor: pointer;
         }
+
+        /**** Table display ****/
         .table .thead-light th {
             color: #495057;
             background-color: #e9ecef;
@@ -44,6 +49,8 @@
             border-top: 1px solid #dee2e6;
             text-align: center;
         }
+
+        /**** Icons ****/
         .img {
             background-repeat: no-repeat;
             background-size: 100% 100%;
@@ -60,6 +67,7 @@
     </style>
 
     <script>
+        /** Iterate through all the elements of the array to find the same character or characters of the search **/
         function searchTable() {
             var input, filter, found, table, tr, td, i, j;
             input = document.getElementById("myInput");
@@ -127,20 +135,24 @@
             </thead>
             <tbody>
             {% for room in allRoom %}
+                <!-- Loop to show all rooms -->
                 <tr>
                     <td>
-                        {% if (noData[room.getId] == 1) %} <!-- Un warning s'affiche uniquement s'il y a un pb de recuperation des données pour chaque salle -->
+                        <!-- A warning is displayed only if there is a data recovery problem for each room -->
+                        {% if (noData[room.getId] == 1) %}
                             <img class="img warning" src="{{ asset('img/warning_rouge.png') }}">
                         {% endif %}
                     </td>
-                    <td>{{ room.name }}</td>
+                    <td>{{ room.name }}</td> <!-- View rooms in classic text -->
                     <td><a class="btn btn-primary img update favorite" href="/inventaire/modifier_salle/{{ room.id }}" role="button"></a></td>
                     <td><input class="btn btn-primary img delete favorite" type=button onclick="openPopup({{ room.id }})"></td>
                     <td>
                         {% if room.isIsStock() != 1 %}
-                                <a class="btn btn-primary" href="/admin/donnees_salle_admin/{{ room.id }}" role="button">{{ room.name }}</a>
+                            <!-- Display of a clickable button if it is a room -->
+                            <a class="btn btn-primary" href="/admin/donnees_salle_admin/{{ room.id }}" role="button">{{ room.name }}</a>
 
                         {% else %}
+                            <!-- Display of a simple text if it is: Stock -->
                             {{ room.name }}
                         {% endif %}
 
@@ -150,7 +162,6 @@
             </tbody>
         </table>
         <br><br>
-        <!-- Ajouter Salle -->
         <a class="btn btn-primary" href="/inventaire/ajouter_salle" role="button">Ajouter une salle</a>
     </div>
 

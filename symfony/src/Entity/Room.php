@@ -13,7 +13,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: RoomRepository::class)]
 #[UniqueEntity(
     fields : 'name',
-    message: 'Ce nom est déjà utilisé',)]
+    message: 'Ce nom est déjà utilisé',
+)]
 class Room
 {
     #[ORM\Id]
@@ -51,7 +52,7 @@ class Room
     private bool $isAlert;
 
     /**
-     * @return mixed
+     * @return bool
      */
 
     public function getIsAlert() : bool
@@ -71,82 +72,6 @@ class Room
     #[ORM\JoinColumn(nullable: false)]
     private ?Type $type = null;
 
-        /**
-         * @param Alert $tempAlert
-         * @param Alert $humAlert
-         * @param Alert $co2Alert
-         */
-    public function __construct()
-    {
-        $this->tempAlert = new Alert(false, '');
-        $this->humAlert = new Alert(false, '');
-        $this->co2Alert = new Alert(false, '');
-    }
-
-    /**
-     * @return mixed
-     */
-
-    public function getTempAlert() : Alert
-    {
-        return $this->tempAlert;
-    }
-
-    /**
-     * @param mixed $tempAlert
-     */
-    public function setTempAlert(Alert $tempAlert): void
-    {
-        $this->tempAlert = $tempAlert;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getHumAlert() : Alert
-    {
-        return $this->humAlert;
-    }
-
-    /**
-     * @param mixed $humAlert
-     */
-    public function setHumAlert(Alert $humAlert): void
-    {
-        $this->humAlert = $humAlert;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCo2Alert() : Alert
-    {
-        return $this->co2Alert;
-    }
-
-    /**
-     * @param mixed $co2Alert
-     */
-    public function setCo2Alert(Alert $co2Alert): void
-    {
-        $this->co2Alert = $co2Alert;
-    }
-
-
-    public function getNbAlert(): ?int
-    {
-        $nb=0;
-        if($this->tempAlert==true){
-            $nb++;
-        }
-        if($this->humAlert==true){
-            $nb++;
-        }
-        if($this->co2Alert==true){
-            $nb++;
-        }
-        return $nb;
-    }
 
     public function getId(): ?int
     {
@@ -158,17 +83,6 @@ class Room
         return $this->name;
     }
 
-    public function setAlert(string $type, Boolean $isAlert): self
-    {
-        $this->alert[$type] = $isAlert;
-
-        return $this;
-    }
-
-    public function getAlert(string $type): self
-    {
-        return $this->alert[$type];
-    }
 
     public function setName(string $name): self
     {
@@ -177,26 +91,6 @@ class Room
         return $this;
     }
 
-    public function addRoom(Room $room): self
-    {
-        if (!$this->room->contains($room)) {
-            $this->room->add($room);
-            $room->setRooms($this);
-        }
-
-        return $this;
-    }
-    public function removeRoom(Room $room): self
-    {
-        if ($this->room->removeElement($room)) {
-            // set the owning side to null (unless already changed)
-            if ($room->getRooms() === $this) {
-                $room->setRooms(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function isIsStock(): ?bool
     {
@@ -242,20 +136,26 @@ class Room
 
     public function getTypeString(): ?string
     {
-        if ($this->type==0)
-            $type="Bureau";
-        elseif ($this->type==1)
-            $type="Salle de classe";
-        elseif ($this->type==2)
-            $type="Serveur";
-        elseif ($this->type==3)
-            $type="Secrétariat";
-        elseif ($this->type==4)
-            $type="Autres";
+        $type = "";
+        if ($this->type->getId() == 0){
+            $type = "Bureau";
+        }
+        elseif ($this->type->getId() == 1) {
+            $type = "Salle de classe";
+        }
+        elseif ($this->type->getId() == 2) {
+            $type = "Serveur";
+        }
+        elseif ($this->type->getId() == 3) {
+            $type = "Secrétariat";
+        }
+        elseif ($this->type->getId() == 4) {
+            $type = "Autres";
+        }
         return $type;
     }
 
-    public function setType(Type $type): self
+    public function setType(?Type $type): self
     {
         $this->type = $type;
 
@@ -269,16 +169,21 @@ class Room
 
     public function getOrientationString(): ?string
     {
-        if ($this->orientation=="N")
-            $orientation="Nord";
-        elseif ($this->orientation=="S")
-            $orientation="Sud";
-        elseif ($this->orientation=="E")
-            $orientation="Est";
-        elseif ($this->orientation=="O")
-            $orientation="Ouest";
-        else
-            $orientation="orientation non valide";
+        if ($this->orientation == "N") {
+            $orientation = "Nord";
+        }
+        elseif ($this->orientation == "S") {
+            $orientation = "Sud";
+        }
+        elseif ($this->orientation == "E") {
+            $orientation = "Est";
+        }
+        elseif ($this->orientation == "O") {
+            $orientation = "Ouest";
+        }
+        else {
+            $orientation = "orientation non valide";
+        }
         return $orientation;
     }
 
@@ -300,6 +205,5 @@ class Room
 
         return $this;
     }
-
 
 }

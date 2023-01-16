@@ -17,8 +17,8 @@ class RoomType extends AbstractType
             ->add('windows_number')
             ->add('room_size')
             ->add('orientation', ChoiceType::class, [
-                'label'=> 'Orientation',
-                'choices' =>[
+                'label' => 'Orientation',
+                'choices' => [
                     'Nord' => 0,
                     'Sud' => 1,
                     'Est' => 2,
@@ -26,14 +26,14 @@ class RoomType extends AbstractType
                 ]
             ])
             ->add('floor')
-            ->add('type', ChoiceType::class,[
-                'label'=> 'Type',
-                'choices' =>[
+            ->add('type', ChoiceType::class, [
+                'label' => 'Type',
+                'choices' => [
                     'Bureau' => 0,
                     'Salle de classe' => 1,
                     'Serveur ' => 2,
                     'Secrétariat' => 3,
-                    'Autres'=> 4
+                    'Autres' => 4
                 ]
             ])
         ;

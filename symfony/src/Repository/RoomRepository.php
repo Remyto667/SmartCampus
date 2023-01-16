@@ -30,7 +30,7 @@ class RoomRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Room $entity, bool $flush = false)
+    public function remove(Room $entity, bool $flush = false): int
     {
         $conn = $this->getEntityManager()->getConnection();
 
@@ -44,9 +44,8 @@ class RoomRepository extends ServiceEntityRepository
         $resultSet = $stmt->executeQuery();
         $result = $resultSet->fetchAllAssociative();
         $ok = 0;
-        foreach($result as $row)
-        {
-            if($entity->getId() == $row['id']) {
+        foreach ($result as $row) {
+            if ($entity->getId() == $row['id']) {
                 $this->getEntityManager()->remove($entity);
                 if ($flush) {
                     $this->getEntityManager()->flush();
@@ -55,19 +54,21 @@ class RoomRepository extends ServiceEntityRepository
             }
         }
         return $ok;
-
     }
 
-    public function findRoomByName($value): ?Room
+    public function findRoomByName(?String $value): ?Room
     {
-        $qd=$this->createQueryBuilder('r')
+        $qd = $this->createQueryBuilder('r')
             ->where('r.name = :val')
             ->setParameter('val', $value);
 
         return $qd->getQuery()->getOneOrNullResult();
     }
 
-    public function findAllFloor() : array
+    /**
+     * @return array<mixed>
+     */
+    public function findAllFloor(): array
     {
         $conn = $this->getEntityManager()->getConnection();
 
@@ -76,15 +77,18 @@ class RoomRepository extends ServiceEntityRepository
             GROUP BY r.floor
             ';
 
+        $allFloor = array();
         $result = $conn->prepare($sql)->executeQuery()->fetchAllAssociative();
-        foreach( $result as $floor)
-        {
+        foreach ($result as $floor) {
             $allFloor[] = $floor["floor"] ;
         }
         return $allFloor;
     }
 
-    public function findAllFloorClassroom() : array
+    /**
+     * @return array<mixed>
+     */
+    public function findAllFloorClassroom(): array
     {
         $conn = $this->getEntityManager()->getConnection();
 
@@ -94,15 +98,17 @@ class RoomRepository extends ServiceEntityRepository
             and t.name = "Salle de classe"
             GROUP BY r.floor
             ';
-
+        $allFloor = array();
         $result = $conn->prepare($sql)->executeQuery()->fetchAllAssociative();
-        foreach( $result as $floor)
-        {
+        foreach ( $result as $floor) {
             $allFloor[] = $floor["floor"] ;
         }
         return $allFloor;
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function findAllCount() : array
     {
         $conn = $this->getEntityManager()->getConnection();
@@ -139,4 +145,5 @@ class RoomRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
 }
