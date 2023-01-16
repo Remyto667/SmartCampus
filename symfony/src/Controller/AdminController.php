@@ -403,7 +403,6 @@ class AdminController extends AbstractController
 
             if($temp->localisation == $room->getName()){
 
-                dd($temp);
                 //dd(gettype($temp->dateCapture));
                 $statTemp->PushToArrayDateMonth($statTemp->transformMonth($temp->dateCapture),doubleval($temp->valeur));        // On classe les données en fonction de leur mois
                 $statTemp->PushToArrayDateDay($statTemp->transformDay($temp->dateCapture),doubleval($temp->valeur));
