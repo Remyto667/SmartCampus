@@ -109,6 +109,8 @@
                     </div>
                 </div>
 
+                <a class="btn btn-primary blue" onclick="showSeuil()">Seuil</a>
+
             </div>
         </div>
         <div class="line">
@@ -143,7 +145,6 @@
 
         // Récupération du canvas
         var ctxTemp = document.getElementById('ChartTemp').getContext('2d');
-        //const moisLabels=["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"];
 
         var labelsMonth = [];
 
@@ -309,6 +310,9 @@
             options: optionsTemp
         });
 
+        let seuilAnnee = false;
+        let seuilMois = false;
+
         function showChartData(type){
 
             const anneeLabels=['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Aout','Septembre','Novembre','Octobre','Decembre'];
@@ -321,6 +325,13 @@
             const moisTemp = {{ moyMonthTemp }};
             const moisHum = {{ moyMonthHum }};
             const moisCo2 = {{ moyMonthCo2 }};
+
+            var seuilTemp = [];
+
+            for(let i=1;i< 32;i++){
+
+                seuilTemp.push(21);
+            }
 
 
 
@@ -339,6 +350,8 @@
                 myChartCo2.data.labels = anneeLabels;
                 myChartCo2.data.datasets[0].label = 'Co2 de l\'année ' + {{ annee_choisi}}
                 myChartCo2.update();
+                seuilAnnee=true;
+                seuilMois=false;
             }
 
             if(type === 'mois'){
@@ -357,6 +370,46 @@
                 myChartCo2.data.labels = moisLabels;
                 myChartCo2.data.datasets[0].label = 'Co2 du mois ' + {{mois_choisi}} + ' de l\'année ' + {{annee_choisi}}
                 myChartCo2.update();
+                seuilAnnee=false;
+                seuilMois=true;
+
+
+
+
+            }
+
+
+        }
+
+        function showSeuil(){
+
+            var seuilTemp = [];
+
+            for(let i=1;i< 32;i++){
+
+                seuilTemp.push(21);
+            }
+
+            if(seuilAnnee){
+
+            }
+            if(seuilMois){
+
+                myChartTemp.data.datasets[1].data = seuilTemp;
+                myChartTemp.data.labels = labelsMonth;
+                myChartTemp.update();
+
+                /*
+                myChartHum.data.datasets[1].data = seuilHum;
+                myChartHum.data.labels = moisLabels;
+                myChartHum.data.datasets[1].label = 'Humidite mois actuel '
+                myChartHum.update();
+
+                myChartCo2.data.datasets[1].data = seuilCo2;
+                myChartCo2.data.labels = moisLabels;
+                myChartCo2.data.datasets[1].label = 'Co2 mois actuel'
+                myChartCo2.update();
+                */
 
             }
         }
