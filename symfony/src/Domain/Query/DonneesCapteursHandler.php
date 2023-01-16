@@ -171,8 +171,9 @@ class DonneesCapteursHandler
         $nb=0;
         $nb2=0;
 
-        //faut n'envoyer que les donnees dans le array $datas qui sont dans ["T"]
+        //if no system has been affected to the room yet
         if ($requete->getTag()!=0){
+            //faut n'envoyer que les donnees dans le array $datas qui sont dans ["T"]
             if ($datas["T"][0]["valeur"] != "NULL")
             {
                 foreach ($datas["T"] as $data)
@@ -186,8 +187,9 @@ class DonneesCapteursHandler
         $nbAlert["T"]["More"] =$nb;
         $nbAlert["T"]["Less"] =$nb2;
         $nb=0;$nb2=0;
-        //faut n'envoyer que les donnees dans le array $datas qui sont dans ["H"]
+        //if no system has been affected to the room yet
         if ($requete->getTag()!=0){
+            //faut n'envoyer que les donnees dans le array $datas qui sont dans ["H"]
             if($datas["H"][0]["valeur"] != "NULL")
             {
                 foreach ($datas["H"] as $data)
@@ -203,8 +205,9 @@ class DonneesCapteursHandler
         $nbAlert["H"]["Less"] =$nb2;
         $nb=0;
         $nb2=0;
-        //faut n'envoyer que les donnees dans le array $datas qui sont dans ["C"]
+        //if no system has been affected to the room yet
         if ($requete->getTag()!=0){
+            //faut n'envoyer que les donnees dans le array $datas qui sont dans ["C"]
             if($datas["C"][0]["valeur"] != "NULL")
             {
                 foreach ($datas["C"] as $data)
