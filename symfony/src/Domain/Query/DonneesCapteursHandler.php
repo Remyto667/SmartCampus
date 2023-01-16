@@ -97,7 +97,11 @@ class DonneesCapteursHandler
         return $data;
     }
 
-    public function handleInterval(DonneesCapteursQuery $requete,$date1,$date2){
+    /**
+     * @return array<mixed>
+     */
+    public function handleInterval(DonneesCapteursQuery $requete, String $date1, String $date2):array
+    {
         $data = $this->donneesCapteurs->getDonneesIntervalGraph($requete->getTag(),$date1,$date2);
         return $data;
     }
