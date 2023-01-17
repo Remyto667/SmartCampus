@@ -54,12 +54,24 @@
 
             <h1>{{ room.getName() }}</h1>
             <h2>Données de l'année {{annee_choisi}}</h2>
+            <div class="d-flex justify-content-evenly">
+                <div>
+                    <a href="/admin/suivi/graphique/{{ room.id }}/{{annee_choisi - 1 }}" class="list-group-item list-group-item-action py-2 ripple">
+                        <img class="rounded mx-auto d-block img" src="{{ asset('img/arrow_left.png') }}">
+                    </a>
+                </div>
 
-            <canvas id="ChartHum" width="3000" height="500"></canvas>
-            <canvas id="ChartCo2" width="3000" height="500"></canvas>
-            <canvas id="ChartTemp" width="3000" height="500"></canvas>
-
-
+                <div>
+                    <canvas id="ChartHum" width="1500" height="250"></canvas>
+                    <canvas id="ChartCo2" width="1500" height="250"></canvas>
+                    <canvas id="ChartTemp" width="1500" height="250"></canvas>
+                </div>
+                <div>
+                    <a href="/admin/suivi/graphique/{{ room.id }}/{{annee_choisi + 1 }}" class="list-group-item list-group-item-action py-2 ripple">
+                        <img class="rounded mx-auto d-block img" src="{{ asset('img/arrow_right.png') }}">
+                    </a>
+                </div>
+            </div>
             <div class="btGraph">
 
                 <div class="btn-group">
