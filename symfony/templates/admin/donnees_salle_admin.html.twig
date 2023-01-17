@@ -230,10 +230,11 @@
                     </div>
                 </div>
             </div>
-            {% if temp > room.getType().getTempMax() or temp < room.getType().getTempMin() or hum > room.getType().getHumMax() or hum < room.getType().getHumMin() or co2 < room.getType().getCo2Min()  or co2 >= room.getType().getCo2Max() %}
-                <div class = "description boxDesc bg-white conseil-box">
-                    <div class="descriptionRoom">
-                        <br><br>
+            {% if co2 != "NULL" or temp != "NULL" or hum != "NULL" %}
+                {% if temp > room.getType().getTempMax() or temp < room.getType().getTempMin() or hum > room.getType().getHumMax() or hum < room.getType().getHumMin() or co2 < room.getType().getCo2Min()  or co2 >= room.getType().getCo2Max() %}
+                    <div class = "description boxDesc bg-white conseil-box">
+                        <div class="descriptionRoom">
+                            <br><br>
                             <!-- Typical advice if there is a problem -->
                             <p class ="font-weight-bold h5" style="border-bottom: 2px solid #014898; color : #B51b1b;">Conseil</p>
                             <p>{{ conseil.conseil }}</p>
@@ -244,9 +245,21 @@
                             {% if conseil.getCo2AlerteInf() %}
                                 <p>Il semblerait que le capteur est défaillant, veuillez alerter le service technique ou un supérieur</p>
                             {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class = "description boxDesc bg-white conseil-box">
+                    <div class="descriptionRoom">
+                        <br><br>
+                        <!-- Typical advice if there is a problem -->
+                        <p class ="font-weight-bold h5" style="border-bottom: 2px solid #014898; color : #B51b1b;">Problemes</p>
+                        <p>Il n'y a pas de données sur l'un des capteurs</p>
+
                     </div>
                 </div>
             {% endif %}
+
             
             <div class="description">
                 <div class="boxDesc bg-white">
