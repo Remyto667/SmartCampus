@@ -9,7 +9,7 @@ class Stat
     private $moyAllMonth = array();
 
     /**
-     * @var array<array<array>>
+     * @var array<array<mixed>>
      */
     private $allDay = array();
 
@@ -17,11 +17,12 @@ class Stat
      * @var array<float>
      */
     private $moyAllDay = array();
-
-    /**
-     * @var array<array<float>>
-     */
+/*
+    futur optimisation
     private $allMonth = array();
+    /*
+ *
+ */
     /**
      * @var array<float>
      */
@@ -142,9 +143,11 @@ class Stat
         }
     }
 
+    // Optimisation debut
+    /*
     public function PushToArrayDateMonth2($date, $valeur): void            // On insere dans un tableau regroupant tous les jours d'un mois
     {                                                               // En premiere position, des tableaux sous la forme / 0:date , 1:valeur /
-// Optimisation debut
+
         //dd($date);
         //dd($valeur);
 
@@ -154,7 +157,7 @@ class Stat
 
         }
     }
-
+*/
     /**
      * @param array<string> $date
      * @param float $valeur
@@ -203,7 +206,7 @@ class Stat
     }
 
     /**
-     * @param array<float> $arrayMoy
+     * @param array<mixed> $arrayMoy
      * @return float
      */
 
@@ -311,7 +314,9 @@ class Stat
 
     }
 
-    public function PopulateMonthMoy2() : array {       // Optimisation debut
+    // Optimisation debut
+    /*
+    public function PopulateMonthMoy2() : array {
 
 
         for($i=1;$i<12;$i++){       // On tourne 31 fois
@@ -325,6 +330,7 @@ class Stat
 
         return $this->moyAllDay;            // Renvoie un tableau regroupant les moyennes de chaques jours dans un mois
     }
+    */
 
     /**
      * @return array<float>
@@ -386,20 +392,4 @@ class Stat
         return $this->allDay;
     }
 
-
-
-
-
-
 }
-
-
-
-
-// Je montre la moyenne sur 2h (8 captures pour 1 jours) et j'affiche 8 points (8h-10h-12h-14h-16h-18h-20h-22h) tous les semaines
-
-// moyenne de 8h sur un mois (8 captures pour 1 mois) et j'affiche 8 points (8h -16h -24h)
-
-// Je montre une capture toutes les 15 minutes (sur un jours)
-
-// 96 data

@@ -2,7 +2,7 @@ parameters:
     paths:
         - app
         - tests
-    level: 7
+    level: 6
     checkGenericClassInNonGenericObjectType: false
 
 

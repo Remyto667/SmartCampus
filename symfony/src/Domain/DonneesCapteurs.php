@@ -180,8 +180,13 @@ class DonneesCapteurs
         return $this->donneesPourGraphique ;
     }
 
-
-    public function getDonneesIntervalGraph($tag,$date1,$date2):array
+    /**
+     * @param int $tag
+     * @param string $date1
+     * @param string $date2
+     * @return array|mixed[]
+     */
+    public function getDonneesIntervalGraph(int $tag,string $date1, string $date2):array
     {
         //date sous cette forme : 2023-01-08 YYYY-MM-DD
         $types["T"] = "temp";

@@ -441,6 +441,8 @@ class AdminController extends AbstractController
         $moyYearCo2=json_encode($statCo2->PopulateMonthMoy());       // Co2
         $moyMonthCo2=json_encode($statCo2->PopulateDayMoy());
 
+        $annee=date("Y");
+        $month=date("m");
 
         return $this->render('admin/graphique.html.twig', [
             'room' => $room,
@@ -455,7 +457,16 @@ class AdminController extends AbstractController
             'dataDayCo2' =>$dataDayCo2,
             'allRoom' => $allRoom,
             'allFloor' => $repository->findAllFloor(),
-            'year' =>$year=date("Y"),
+            'year' =>$annee,
+            'day' => date("j"),
+            'month'=>$month,
+            'nb_jours'=>date('t', strtotime($annee . '-' . $month . '-01')),
+            'tempMax'=> $room->getType()->getTempMax(),
+            'co2Max'=> $room->getType()->getCo2Max(),
+            'humMax' => $room->getType()->getHumMax(),
+            'tempMin'=> $room->getType()->getTempMin(),
+            'co2Min'=> $room->getType()->getCo2Min(),
+            'humMin' => $room->getType()->getHumMin()
 
 
 
@@ -630,7 +641,7 @@ class AdminController extends AbstractController
 
             $this->get('session')->start();
             $this->get('session')->set('moyYearTemp', $moyYearTemp);
-            $this->get('session')->set('moyYearHum', $moyYearHum);              // Utile pour récupérer la moyenne de l'année dans la route lié aux jours
+            $this->get('session')->set('moyYearHum', $moyYearHum);              // Utile pour récupérer la moyenne de l'année dans la route lié aux jours (variable locale)
             $this->get('session')->set('moyYearCo2', $moyYearCo2);
 
             return $this->render('admin/graphique_year_month.html.twig', [

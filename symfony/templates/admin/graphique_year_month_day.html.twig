@@ -412,7 +412,7 @@
         function showChartData(type){
 
 
-            const anneeLabels=['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Aout','Septembre','Novembre','Octobre','Decembre'];
+            const anneeLabels=labelsYear;
             const moisLabels=labelsMonth;
 
             const jourTemp = dataDayTempy;
@@ -472,7 +472,7 @@
             var seuilHum = [];
             var seuilCo2 = [];
 
-            for(let i=1;i< {{ nb_jours+1 }};i++){
+            for(let i=1;i< dataDayCo2x.length+1;i++){
 
                 seuilTemp.push({{ tempMax }});
                 seuilHum.push({{ humMax }});
@@ -523,7 +523,7 @@
             var seuilHum = [];
             var seuilCo2 = [];
 
-            for(let i=1;i< {{ nb_jours+1 }};i++){
+            for(let i=1;i< dataDayCo2x.length+1;i++){
 
                 seuilTemp.push({{ tempMin }});
                 seuilHum.push({{ humMin }});
