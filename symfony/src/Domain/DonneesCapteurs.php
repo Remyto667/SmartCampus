@@ -158,7 +158,6 @@ class DonneesCapteurs
 
         $client = HttpClient::create();
         foreach ($types as $type => $nom) {
-            var_dump($tag);
             $response = $client->request('GET', 'http://sae34.k8s.iut-larochelle.fr/api/captures?nom=' . $nom . '&tag=' . $tag . '&page=1', [
                 'headers' => [
                     'Accept' => 'application/ld+json',
