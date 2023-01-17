@@ -151,7 +151,7 @@
                                 {% if nbAlert[room.id]["T"]["More"] + nbAlert[room.id]["T"]["Less"] + nbAlert[room.id]["H"]["More"] + nbAlert[room.id]["H"]["Less"] + nbAlert[room.id]["C"]["More"]+ nbAlert[room.id]["C"]["Less"]  > 1000 %}
                                     <a class="btn red btn-danger" href="/admin/alerte_stat/{{ room.id }}">{{ room.name }}</a>
                                 {% else %}
-                                    <a class="btn btn-primary green" href="/admin/alerte_vision/{{ room.id }}">{{ room.name }}</a>
+                                    <a class="btn btn-primary green" href="/admin/alerte_stat/{{ room.id }}">{{ room.name }}</a>
                                 {% endif %}
                                 <p class="text">{{  nbAlert[room.id]["T"]["More"] + nbAlert[room.id]["T"]["Less"] + nbAlert[room.id]["H"]["More"] + nbAlert[room.id]["H"]["Less"] + nbAlert[room.id]["C"]["More"]+ nbAlert[room.id]["C"]["Less"] }} alertes</p>
                             </div>
