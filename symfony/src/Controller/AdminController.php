@@ -540,6 +540,12 @@ class AdminController extends AbstractController
             'annee_choisi' => $annee,
             'allRoom' => $allRoom,
             'allFloor' => $repository->findAllFloor(),
+            'tempMax'=> $room->getType()->getTempMax(),
+            'co2Max'=> $room->getType()->getCo2Max(),
+            'humMax' => $room->getType()->getHumMax(),
+            'tempMin'=> $room->getType()->getTempMin(),
+            'co2Min'=> $room->getType()->getCo2Min(),
+            'humMin' => $room->getType()->getHumMin()
 
         ]);
     }
@@ -748,6 +754,12 @@ class AdminController extends AbstractController
                 'nb_jours' => date('t', strtotime($annee . '-' . $month . '-01')),
                 'nb_jours_valide' => date('t', strtotime($annee . '-' . $month . '-01')) - date("j"),
                 'mois' => date("m"),
+                'tempMax'=> $room->getType()->getTempMax(),
+                'co2Max'=> $room->getType()->getCo2Max(),
+                'humMax' => $room->getType()->getHumMax(),
+                'tempMin'=> $room->getType()->getTempMin(),
+                'co2Min'=> $room->getType()->getCo2Min(),
+                'humMin' => $room->getType()->getHumMin()
             ]);
         }
     }

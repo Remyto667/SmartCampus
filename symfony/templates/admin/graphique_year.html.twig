@@ -54,12 +54,24 @@
 
             <h1>{{ room.getName() }}</h1>
             <h2>Données de l'année {{annee_choisi}}</h2>
+            <div class="d-flex justify-content-evenly">
+                <div>
+                    <a href="/admin/suivi/graphique/{{ room.id }}/{{annee_choisi - 1 }}" class="list-group-item list-group-item-action py-2 ripple">
+                        <img class="rounded mx-auto d-block img" src="{{ asset('img/arrow_left.png') }}">
+                    </a>
+                </div>
 
-            <canvas id="ChartHum" width="3000" height="500"></canvas>
-            <canvas id="ChartCo2" width="3000" height="500"></canvas>
-            <canvas id="ChartTemp" width="3000" height="500"></canvas>
-
-
+                <div>
+                    <canvas id="ChartHum" width="1500" height="250"></canvas>
+                    <canvas id="ChartCo2" width="1500" height="250"></canvas>
+                    <canvas id="ChartTemp" width="1500" height="250"></canvas>
+                </div>
+                <div>
+                    <a href="/admin/suivi/graphique/{{ room.id }}/{{annee_choisi + 1 }}" class="list-group-item list-group-item-action py-2 ripple">
+                        <img class="rounded mx-auto d-block img" src="{{ asset('img/arrow_right.png') }}">
+                    </a>
+                </div>
+            </div>
             <div class="btGraph">
 
                 <div class="btn-group">
@@ -87,8 +99,6 @@
                     </div>
                 </div>
 
-                <a class="btn btn-primary blue" onclick="showChartData('seuil')">Seuil</a>
-
                 <div class="btn-group">
                 <a class="btn btn-primary blue marginbtn" onclick="showChartData('jour')">Jour</a>
                     <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -97,6 +107,11 @@
 
                     </div>
                 </div>
+
+                <a class="btn btn-primary blue" onclick="showSeuilMax()">Seuil Max</a>
+
+                <a class="btn btn-primary blue" onclick="showSeuilMin()">Seuil Min</a>
+
             </div>
         </div>
         <div class="line">
@@ -129,33 +144,50 @@
     <!-- Script pour créer le graphique -->
     <script>
 
+        var labelsYear = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Aout','Septembre','Novembre','Octobre','Decembre'];
+        const dataSeuil = [];
+        const labelSeuil = "Seuil ";
+        let seuilMin = true;
+        let seuilMax = true;
+
         // Récupération du canvas
         var ctxTemp = document.getElementById('ChartTemp').getContext('2d');
 
         // Données du graphique
         var dataTemp = {
-            labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Aout','Septembre','Novembre','Octobre','Decembre'],
+            labels: labelsYear,
             datasets: [{
                 label: 'Temperature de l\'année ' + {{annee_choisi}},
                 data: {{moyYearTemp}},
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
+                    'rgba(229, 13, 236, 0.5)',
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
+
                 ],
                 borderWidth: 1
-            }]
+            },
+                {
+                    label: labelSeuil,
+                    data: dataSeuil,
+                    fill:false,
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                    ],
+                    borderWidth: 1,
+                    pointRadius :0
+                },
+                {
+                    label: labelSeuil,
+                    data: dataSeuil,
+                    fill:true,
+                    borderColor: [
+                        'rgb(75, 192, 192)',
+                    ],
+                    borderWidth: 1,
+                    pointRadius :0
+                }]
         };
 
         // Options du graphique
@@ -191,28 +223,38 @@
 
         // Données du graphique
         var dataHum = {
-            labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Aout','Septembre','Novembre','Octobre','Decembre'],
+            labels: labelsYear,
             datasets: [{
                 label: 'Humidite de l\'année ' + {{ annee_choisi}},
                     data: {{ moyYearHum }},
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
+                    'rgba(229, 13, 236, 0.5)',
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
                 ],
                 borderWidth: 1
-            }]
+            },
+                {
+                    label:labelSeuil,
+                    data: dataSeuil,
+                    fill:false,
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                    ],
+                    borderWidth: 1,
+                    pointRadius :0
+                },
+                {
+                    label: labelSeuil,
+                    data: dataSeuil,
+                    fill:true,
+                    borderColor: [
+                        'rgb(75, 192, 192)',
+                    ],
+                    borderWidth: 1,
+                    pointRadius :0
+                }]
         };
 
         // Options du graphique
@@ -233,28 +275,38 @@
 
         // Données du graphique
         var dataCo2 = {
-            labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Aout','Septembre','Novembre','Octobre','Decembre'],
+            labels: labelsYear,
             datasets: [{
                 label: 'Co2 de l\'année ' + {{ annee_choisi}},
                 data: {{ moyYearCo2 }},
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
+                    'rgba(229, 13, 236, 0.5)',
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
                 ],
-                borderWidth: 1
-            }]
+                borderWidth: 1,
+            },
+                {
+                    label:labelSeuil,
+                    data: dataSeuil,
+                    fill:false,
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                    ],
+                    borderWidth: 1,
+                    pointRadius :0
+                },
+                {
+                    label: labelSeuil,
+                    data: dataSeuil,
+                    fill:true,
+                    borderColor: [
+                        'rgb(75, 192, 192)',
+                    ],
+                    borderWidth: 1,
+                    pointRadius :0
+                }]
         };
 
         // Options du graphique
@@ -290,7 +342,76 @@
         });
 
 
+        function chartUpdate(index,dataTemp,dataHum,dataCo2,labels,stringLabelTemp,stringLabelHum,stringLabelCo2){
 
+            myChartTemp.data.datasets[index].data = dataTemp;
+            myChartTemp.data.labels = labels;
+            myChartTemp.data.datasets[index].label = stringLabelTemp
+            myChartTemp.update();
+
+            myChartHum.data.datasets[index].data = dataHum;
+            myChartHum.data.labels = labels;
+            myChartHum.data.datasets[index].label = stringLabelHum
+            myChartHum.update();
+
+            myChartCo2.data.datasets[index].data = dataCo2;
+            myChartCo2.data.labels = labels;
+            myChartCo2.data.datasets[index].label = stringLabelCo2
+            myChartCo2.update();
+        }
+
+
+        function showSeuilMax(){
+
+            var seuilTemp = [];
+            var seuilHum = [];
+            var seuilCo2 = [];
+
+            for(let i=1;i< 13;i++){
+
+                seuilTemp.push({{ tempMax }});
+                seuilHum.push({{ humMax }});
+                seuilCo2.push({{ co2Max }});
+            }
+
+            if(seuilMax){
+
+                chartUpdate(1,seuilTemp,seuilHum,seuilCo2,labelsYear,'Seuil de Température maximum {{ tempMax }}°C','Seuil d\'Humidité maximum {{ humMax }}%','Seuil de Co2 maximum{{ co2Max }} ppm');
+                seuilMax=false;
+
+            }
+
+            else{
+                chartUpdate(1,dataSeuil,dataSeuil,dataSeuil,labelsYear,labelSeuil,labelSeuil,labelSeuil);
+                seuilMax=true;
+
+            }
+        }
+
+        function showSeuilMin(){
+
+            var seuilTemp = [];
+            var seuilHum = [];
+            var seuilCo2 = [];
+
+            for(let i=1;i< 13;i++){
+
+                seuilTemp.push({{ tempMin }});
+                seuilHum.push({{ humMin }});
+                seuilCo2.push({{ co2Min }});
+            }
+
+            if(seuilMin){
+                chartUpdate(2,seuilTemp,seuilHum,seuilCo2,labelsYear,'Seuil de Température minimum {{ tempMin }}°C','Seuil d\'Humidité minimum {{ humMin }}%','Seuil de Co2 minimum{{ co2Min }} ppm');
+                seuilMin=false;
+            }
+
+            else{
+                chartUpdate(2,dataSeuil,dataSeuil,dataSeuil,labelsYear,labelSeuil,labelSeuil,labelSeuil);
+                seuilMin=true;
+
+            }
+        }
 
 
 
