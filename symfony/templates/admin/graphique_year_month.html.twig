@@ -109,9 +109,9 @@
                     </div>
                 </div>
 
-                <a class="btn btn-primary blue" onclick="showSeuilMax()">Seuil Max</a>
+                <a class="btn btn-primary blue marginbtn" onclick="showSeuilMax()">Seuil Max</a>
 
-                <a class="btn btn-primary blue" onclick="showSeuilMin()">Seuil Min</a>
+                <a class="btn btn-primary blue marginbtn" onclick="showSeuilMin()">Seuil Min</a>
 
             </div>
         </div>
@@ -147,12 +147,15 @@
 
         // Récupération du canvas
         var ctxTemp = document.getElementById('ChartTemp').getContext('2d');
-
+        var labelsYear = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Aout','Septembre','Novembre','Octobre','Decembre'];
         var labelsMonth = [];
         const dataSeuil = [];
         const labelSeuil = "Seuil ";
         let seuilMin = true;
         let seuilMax = true;
+
+        let monthcliked =false;
+        let yearclicked =false;
 
         for(let i=1; i<= {{ nb_jours }};i++){
 
@@ -297,7 +300,7 @@
                     label:labelSeuil,
                     data: dataSeuil,
                     fill:false,
-                    backgroundColor: [
+                    borderColor : [
                         'rgba(255, 99, 132, 1)',
                     ],
                     borderWidth: 1,
@@ -348,10 +351,27 @@
         });
 
 
+        function chartUpdate(index,dataTemp,dataHum,dataCo2,labels,stringLabelTemp,stringLabelHum,stringLabelCo2){
+
+            myChartTemp.data.datasets[index].data = dataTemp;
+            myChartTemp.data.labels = labels;
+            myChartTemp.data.datasets[index].label = stringLabelTemp
+                myChartTemp.update();
+
+            myChartHum.data.datasets[index].data = dataHum;
+            myChartHum.data.labels = labels;
+            myChartHum.data.datasets[index].label = stringLabelHum
+                myChartHum.update();
+
+            myChartCo2.data.datasets[index].data = dataCo2;
+            myChartCo2.data.labels = labels;
+            myChartCo2.data.datasets[index].label = stringLabelCo2
+                myChartCo2.update();
+        }
 
         function showChartData(type){
 
-            const anneeLabels=['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Aout','Septembre','Novembre','Octobre','Decembre'];
+            const anneeLabels=labelsYear;
             const moisLabels=labelsMonth;
 
             const anneeTemp = {{moyYearTemp}};
@@ -362,50 +382,18 @@
             const moisHum = {{ moyMonthHum }};
             const moisCo2 = {{ moyMonthCo2 }};
 
-            var seuilTemp = [];
-
-            for(let i=1;i<= {{ nb_jours }};i++){
-
-                seuilTemp.push(21);
-            }
-
-
-
             if(type === 'annee') {
-                myChartTemp.data.datasets[0].data = anneeTemp;
-                myChartTemp.data.labels = anneeLabels;
-                myChartTemp.data.datasets[0].label = 'Temperature de l\'année ' + {{ annee_choisi}}
-                    myChartTemp.update();
 
-                myChartHum.data.datasets[0].data = anneeHum;
-                myChartHum.data.labels = anneeLabels;
-                myChartHum.data.datasets[0].label = 'Humidite de l\'année ' + {{ annee_choisi}}
-                    myChartHum.update();
-
-                myChartCo2.data.datasets[0].data = anneeCo2;
-                myChartCo2.data.labels = anneeLabels;
-                myChartCo2.data.datasets[0].label = 'Co2 de l\'année ' + {{ annee_choisi}}
-                myChartCo2.update();
-
+                chartUpdate(0,anneeTemp,anneeHum,anneeCo2,anneeLabels,'Temperature de l\'année ' + {{ annee_choisi}},'Humidite de l\'année ' + {{ annee_choisi}},'Co2 de l\'année ' + {{ annee_choisi}});
+                yearclicked=true;
+                monthcliked=false;
             }
 
             if(type === 'mois'){
 
-                myChartTemp.data.datasets[0].data = moisTemp;
-                myChartTemp.data.labels = moisLabels;
-                myChartTemp.data.datasets[0].label = 'Temperature du mois ' + {{mois_choisi}} + ' de l\'année ' + {{annee_choisi}}
-                myChartTemp.update();
-
-                myChartHum.data.datasets[0].data = moisHum;
-                myChartHum.data.labels = moisLabels;
-                myChartHum.data.datasets[0].label = 'Humidite du mois ' + {{mois_choisi}} + ' de l\'année ' + {{annee_choisi}}
-                myChartHum.update();
-
-                myChartCo2.data.datasets[0].data = moisCo2;
-                myChartCo2.data.labels = moisLabels;
-                myChartCo2.data.datasets[0].label = 'Co2 du mois ' + {{mois_choisi}} + ' de l\'année ' + {{annee_choisi}}
-                myChartCo2.update();
-
+                chartUpdate(0,moisTemp,moisHum,moisCo2,moisLabels,'Temperature du mois ' + {{mois_choisi}} + ' de l\'année ' + {{annee_choisi}},'Humidite du mois ' + {{mois_choisi}} + ' de l\'année ' + {{annee_choisi}},'Co2 du mois ' + {{mois_choisi}} + ' de l\'année ' + {{annee_choisi}});
+                monthcliked=true;
+                yearclicked=false;
             }
 
         }
@@ -423,48 +411,34 @@
                 seuilCo2.push({{ co2Max }});
             }
 
-            if(seuilMax){
+            if(seuilMax && monthcliked && yearclicked===false){
 
-                myChartTemp.data.datasets[1].data = seuilTemp;
-                myChartTemp.data.labels = labelsMonth;
-                myChartTemp.data.datasets[1].label = "Seuil de Température maximum 21°C";
-                myChartTemp.update();
-
-                myChartHum.data.datasets[1].data = seuilHum;
-                myChartHum.data.labels = labelsMonth;
-                myChartHum.data.datasets[1].label="Seuil d'Humidité maximum 60%";
-                myChartHum.update();
-
-                myChartCo2.data.datasets[1].data = seuilCo2;
-                myChartCo2.data.labels = labelsMonth;
-                myChartCo2.data.datasets[1].label="Seuil de Co2 maximum 800 ppm";
-                myChartCo2.update();
-
+                chartUpdate(1,seuilTemp,seuilHum,seuilCo2,labelsMonth,'Seuil de Température maximum {{ tempMax }}°C','Seuil d\'Humidité maximum {{ humMax }}%','Seuil de Co2 maximum{{ co2Max }} ppm');
                 seuilMax=false;
 
             }
 
-            else{
+            else if (seuilMax===false && monthcliked){
 
-                myChartTemp.data.datasets[1].data = dataSeuil;
-                myChartTemp.data.labels = labelsMonth;
-                myChartTemp.data.datasets[1].label = labelSeuil;
-                myChartTemp.update();
-
-                myChartHum.data.datasets[1].data = dataSeuil;
-                myChartHum.data.labels = labelsMonth;
-                myChartHum.data.datasets[1].label=labelSeuil;
-                myChartHum.update();
-
-                myChartCo2.data.datasets[1].data = dataSeuil;
-                myChartCo2.data.labels = labelsMonth;
-                myChartCo2.data.datasets[1].label =labelSeuil;
-                myChartCo2.update();
-
+                chartUpdate(1,dataSeuil,dataSeuil,dataSeuil,labelsMonth,labelSeuil,labelSeuil,labelSeuil);
                 seuilMax=true;
+                //monthcliked=false;
 
             }
+
+            if(seuilMax && yearclicked && monthcliked===false) {
+                chartUpdate(1,seuilTemp,seuilHum,seuilCo2,labelsYear,'Seuil de Température maximum {{ tempMax }}°C','Seuil d\'Humidité maximum {{ humMax }}%','Seuil de Co2 maximum{{ co2Max }} ppm');
+                seuilMax=false;
+            }
+
+            else if(seuilMax===false && yearclicked){
+                chartUpdate(1,dataSeuil,dataSeuil,dataSeuil,labelsYear,labelSeuil,labelSeuil,labelSeuil);
+                seuilMax=true;
+                //yearclicked=false;
+            }
+
         }
+
 
         function showSeuilMin(){
 
@@ -479,46 +453,30 @@
                 seuilCo2.push({{ co2Min }});
             }
 
-            if(seuilMin){
+            if(seuilMin && monthcliked && yearclicked===false){
 
-                myChartTemp.data.datasets[2].data = seuilTemp;
-                myChartTemp.data.labels = labelsMonth;
-                myChartTemp.data.datasets[2].label = "Seuil de Température minimum 19°C";
-                myChartTemp.update();
-
-                myChartHum.data.datasets[2].data = seuilHum;
-                myChartHum.data.labels = labelsMonth;
-                myChartHum.data.datasets[2].label="Seuil d'Humidité minimum 40%";
-                myChartHum.update();
-
-                myChartCo2.data.datasets[2].data = seuilCo2;
-                myChartCo2.data.labels = labelsMonth;
-                myChartCo2.data.datasets[2].label ="Seuil de Co2 minimum 400 ppm";
-                myChartCo2.update();
-
+                chartUpdate(2,seuilTemp,seuilHum,seuilCo2,labelsMonth,'Seuil de Température maximum {{ tempMin }}°C','Seuil d\'Humidité maximum {{ humMin }}%','Seuil de Co2 maximum{{ co2Min}} ppm');
                 seuilMin=false;
 
             }
 
-            else{
+            else if (seuilMin===false && monthcliked){
 
-                myChartTemp.data.datasets[2].data = dataSeuil;
-                myChartTemp.data.labels = labelsMonth;
-                myChartTemp.data.datasets[2].label = labelSeuil;
-                myChartTemp.update();
-
-                myChartHum.data.datasets[2].data = dataSeuil;
-                myChartHum.data.labels = labelsMonth;
-                myChartHum.data.datasets[2].label=labelSeuil;
-                myChartHum.update();
-
-                myChartCo2.data.datasets[2].data = dataSeuil;
-                myChartCo2.data.labels = labelsMonth;
-                myChartCo2.data.datasets[2].label =labelSeuil;
-                myChartCo2.update();
-
+                chartUpdate(2,dataSeuil,dataSeuil,dataSeuil,labelsMonth,labelSeuil,labelSeuil,labelSeuil);
                 seuilMin=true;
+                //monthcliked=false;
 
+            }
+
+            if(seuilMin && yearclicked && monthcliked===false) {
+                chartUpdate(2,seuilTemp,seuilHum,seuilCo2,labelsYear,'Seuil de Température maximum {{ tempMin }}°C','Seuil d\'Humidité maximum {{ humMin }}%','Seuil de Co2 maximum{{ co2Min }} ppm');
+                seuilMin=false;
+            }
+
+            else if(seuilMin===false && yearclicked){
+                chartUpdate(2,dataSeuil,dataSeuil,dataSeuil,labelsYear,labelSeuil,labelSeuil,labelSeuil);
+                seuilMin=true;
+                //yearclicked=false;
             }
         }
 

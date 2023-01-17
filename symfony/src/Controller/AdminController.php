@@ -540,6 +540,12 @@ class AdminController extends AbstractController
             'annee_choisi' => $annee,
             'allRoom' => $allRoom,
             'allFloor' => $repository->findAllFloor(),
+            'tempMax'=> $room->getType()->getTempMax(),
+            'co2Max'=> $room->getType()->getCo2Max(),
+            'humMax' => $room->getType()->getHumMax(),
+            'tempMin'=> $room->getType()->getTempMin(),
+            'co2Min'=> $room->getType()->getCo2Min(),
+            'humMin' => $room->getType()->getHumMin()
 
         ]);
     }
