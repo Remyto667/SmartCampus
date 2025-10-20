@@ -2,10 +2,10 @@ Projet Smart Campus - SAE 2022
 ===================================
 ##########################################################################################
 ## Description
-Un site web reliée à ades capteurs de C02, de température et d'humidité. Sur laquelle les utilisateurs pourront consulter les données
+Un site web relié à des capteurs de C02, de température et d'humidité. Sur laquelle les utilisateurs pourront consulter les données
 et recevoir les indications de ce qu'il faut faire selon ces données.
-Les superviseurs eux pourront gérer les salles et les capteurs et suivre l'évolution et les comportements depuis l'application
-Le but étant de réduire la consommation de l'université pour réduire l'impacte carbone et améliorer le confort
+Les superviseurs eux pourront gérer les salles, les capteurs et suivre l'évolution et les comportements depuis l'application
+Le but étant de réduire la consommation de l'université pour réduire l'impact carbone et améliorer le confort
 
 ##########################################################################################
 
@@ -24,13 +24,6 @@ Le but étant de réduire la consommation de l'université pour réduire l'impac
  7) http://localhost:9979 🎉
  9) bin/console doctrine:migrations:migrate
  10) bin/console doctrine:fixtures:load
-
-Enlever son mot de passe de la salle D204 : git config --global --unset core.excludesfile
-Push dans sa branche : git push -u origin nom_branche
-
-Enlever son cable à partir du docker compose update D204
-
-créer branche : git checkout -b 
 
 
 
@@ -57,22 +50,23 @@ avec le mot de passe `sae`
 les dossiers sont en anglais
 
 les variables sont en anglais
+
 ### Le gitlab
 
-les branches sont en anglais et décrit la fonction développé dedans
+les branches sont en anglais et décrivent la fonction développée
 
 les commits sont faits dans n'importe quelles langues tant qu'il peut se faire comprendre par tout le monde et tout le temps
 
 ### Le Kanban
 
 
-les us sont en français et décrit en français
+les us sont en français et décris en français
 
 
 ### **Les utilisateurs (superviseurs, techniciens)**
 
 
-Tout ce que vois l'utilisateur sont en français comme les menus, les tableaux ou les routes
+Tout ce que vois l'utilisateur est en français comme les menus, les tableaux ou les routes
 
 ## 4. Définition of READY
 
@@ -81,21 +75,21 @@ Quand je créer une issue :
 
   * je me demande si c'est une tache ou une issue
   * je me demande si c'est une seule issue ou plusieurs
-    * pour ça je peux me demander si a concerne 1 route, si ça peut être diviser, si ça peut être fait par plusieurs personnes, si c'est répétitif...
+  * pour ça je peux me demander si cela concerne 1 route, si ça peut être diviser, si ça peut être fait par plusieurs personnes, si c'est répétitif...
   * je trouve le nom de l'issue : verbe d'action + fonctionnalité + persona concerné
   * je specifie l'us avec "en tant que" + "je veux" + "afin de"
-  * je défini les règles métier (ex : pour les conseils -> écrire pour chaque alertes quels conseils)
+  * je défini les règles métier (ex : pour les conseils -> écrire pour chaque alerte quels conseils)
   * j'ajoute une maquette si c'est nécessaire
   * je défini les taches et je les spécifies pour que ça soit compréhensible par tous
-  * je relis mon issue en me mettant à la place de quelqu'un qui n'est pas dans l'équipe : "est-ce qu'il comprendrais est ce qu'il saurait à quoi ça va ressembler"
+  * je relis mon issue en me mettant à la place de quelqu'un qui n'est pas dans l'équipe : "est-ce qu'il comprendrait est ce qu'il saurait à quoi ça va ressembler"
   * je la met en READY
 
 ## 5. Définition of DONE
 
 Quand je pense avoir fini le dev d'une issue je regarde si elle est DONE
 
-  * je regarde si toutes les taches de l'issu ont été faites
+  * je regarde si toutes les taches de l'issue ont été faites
   * est ce que toutes les règles métier sont respéctées
-  * Est-ce que la fonctionnalité voulu par le client est opérationnel (je vérifie le "en tant que" + "je veux" + "afin de")
+  * Est-ce que la fonctionnalité voulu par le client est opérationnelle (je vérifie le "en tant que" + "je veux" + "afin de")
   * Tests unitaires
   * Validation de la story par le PO et durant la revue de sprint
